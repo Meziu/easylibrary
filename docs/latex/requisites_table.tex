@@ -1,36 +1,44 @@
 % Tabella dei requisiti
-\begin{table}[h]
-    \definecolor{prioritygreen}{RGB}{106, 168, 79}    % Darker green
-    \definecolor{priorityyellow}{RGB}{241, 194, 50}   % Darker yellow/gold
-    \definecolor{priorityred}{RGB}{224, 102, 102}     % Darker red
-    \definecolor{headercolor}{RGB}{79, 98, 120}       % Dark blue-gray
-    % Cella di identificativo della colonna
-    \newcommand{\headingcell}[1]{\multicolumn{1}{|c|}{#1}}
-    % Riga contenente le informazioni di un requisito
-    \newcommand{\requisiteline}[4] {
-        #1 & #2 & #3 &
-        \multicolumn{1}{c|}{\IfStrEqCase{#4}{
-            {Bassa}{\cellcolor{prioritygreen}}
-            {Media}{\cellcolor{priorityyellow}}
-            {Alta}{\cellcolor{priorityred}}
-        }[\cellcolor{white}]#4}\\
-        \hline
+\definecolor{prioritygreen}{RGB}{106, 168, 79}    % Verde scuro
+\definecolor{priorityyellow}{RGB}{241, 194, 50}   % Giallo scuro
+\definecolor{priorityred}{RGB}{224, 102, 102}     % Rosso scuro
+\definecolor{headercolor}{RGB}{79, 98, 120}       % Blu scuro
+% Cella di identificativo della colonna
+\newcommand{\headingcell}[1]{\multicolumn{1}{|c|}{#1}}
+% Riga contenente le informazioni di un requisito
+\newcommand{\requisiteline}[4] {
+    #1 & #2 & #3 &
+    \multicolumn{1}{c|}{\IfStrEqCase{#4}{
+        {Bassa}{\cellcolor{prioritygreen}}
+        {Media}{\cellcolor{priorityyellow}}
+        {Alta}{\cellcolor{priorityred}}
+    }[\cellcolor{white}]#4}\\
+    \hline
+}
+
+% Gestione dell'allineamento e dimensione delle colonne
+\renewcommand\tabularxcolumn[1]{m{#1}}
+
+\centering
+\begin{xltabular}[h]{\textwidth}{
+        | >{\hsize=.2\hsize\centering\arraybackslash}X
+        | >{\raggedright\hsize=.3\hsize}X
+        | >{\raggedright\hsize=.4\hsize}X
+        | >{\hsize=.1\hsize}X |
     }
-    
-	\centering
-	\begin{tabularx}{\textwidth}{
-            | >{\hsize=.2\hsize\centering\arraybackslash}X
-            | >{\hsize=.3\hsize}X
-            | >{\hsize=.4\hsize}X
-            | >{\hsize=.1\hsize}X |
-        }
-		\hline
-		\rowcolor{headercolor}\multicolumn{4}{|c|}{Lista dei Requisiti} \\
-		\hline
-        \rowcolor{lightgray}\headingcell{Identificativo} & \headingcell{Nome} & \headingcell{Descrizione} & \headingcell{Priorità}\\
-        \hline
-		\requisiteline{FR-1}{Input di Studente}{Descrizione di test1}{Media}
-        \requisiteline{FR-2}{Test di Studente}{Descrizione di test2}{Alta}
-        \requisiteline{FR-3}{Dati di Studente}{Descrizione di test3}{Bassa}
-	\end{tabularx}
-\end{table}
+	\hline
+	\rowcolor{headercolor}\multicolumn{4}{|c|}{Lista dei Requisiti} \\
+	\hline
+    \rowcolor{lightgray}\headingcell{Identificativo} & \headingcell{Nome} & \headingcell{Descrizione} & \headingcell{Priorità}\\
+    \hline
+    \requisiteline{DF-1}{Dati degli utenti}{Devono essere raccolte informazioni sul nome, matricola, email e status attuale degli utenti.}{Alta}
+    \requisiteline{DF-2}{Dati dei libri}{Devono essere raccolte informazioni sul nome, autore, data di pubblicazione, identificativo e numero di copie disponibili dei libri.}{Alta}
+    \requisiteline{DF-3}{Dati dei prestiti}{Devono essere registrate le informazioni sull'utente che ottiene un prestito e sul libro preso in prestito.}{Alta}
+	\requisiteline{UI-1}{Inserimento dei dati degli utenti}{Interfaccia grafica per aggiungere, modificare e eliminare dati degli utenti.}{Media}
+    \requisiteline{UI-2}{Inserimento dei dati dei libri}{Interfaccia grafica per aggiungere, modificare e eliminare dati degli utenti.}{Media}
+    \requisiteline{UI-3}{Registrazione di un nuovo prestito}{Interfaccia grafica per registrare un nuovo prestito di un libro a carico di un utente, specificandone la data di restituzione.}{Alta}
+    \requisiteline{UI-4}{Visualizzazione dei libri}{Interfaccia per visualizzare la lista di libri presenti nella biblioteca e le loro informazioni.}{Media}
+    \requisiteline{UI-5}{Ricerca di un libro}{Strumento grafico per poter cercare uno specifico libro a seconda del titolo, autore o codice identificativo.}{Bassa}
+    \requisiteline{UI-6}{Visualizzazione degli utenti}{Interfaccia per visualizzare la lista degli utenti della biblioteca e le loro informazioni, ordinata per nome e cognome.}{Media}
+    \requisiteline{UI-7}{Ricerca di un utente}{Strumento grafico per poter cercare uno specifico utente a seconda del cognome o della matricola.}{Bassa}
+\end{xltabular}
