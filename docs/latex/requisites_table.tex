@@ -1,0 +1,36 @@
+% Tabella dei requisiti
+\begin{table}[h]
+    \definecolor{prioritygreen}{RGB}{106, 168, 79}    % Darker green
+    \definecolor{priorityyellow}{RGB}{241, 194, 50}   % Darker yellow/gold
+    \definecolor{priorityred}{RGB}{224, 102, 102}     % Darker red
+    \definecolor{headercolor}{RGB}{79, 98, 120}       % Dark blue-gray
+    % Cella di identificativo della colonna
+    \newcommand{\headingcell}[1]{\multicolumn{1}{|c|}{#1}}
+    % Riga contenente le informazioni di un requisito
+    \newcommand{\requisiteline}[4] {
+        #1 & #2 & #3 &
+        \multicolumn{1}{c|}{\IfStrEqCase{#4}{
+            {Bassa}{\cellcolor{prioritygreen}}
+            {Media}{\cellcolor{priorityyellow}}
+            {Alta}{\cellcolor{priorityred}}
+        }[\cellcolor{white}]#4}\\
+        \hline
+    }
+    
+	\centering
+	\begin{tabularx}{\textwidth}{
+            | >{\hsize=.2\hsize\centering\arraybackslash}X
+            | >{\hsize=.3\hsize}X
+            | >{\hsize=.4\hsize}X
+            | >{\hsize=.1\hsize}X |
+        }
+		\hline
+		\rowcolor{headercolor}\multicolumn{4}{|c|}{Lista dei Requisiti} \\
+		\hline
+        \rowcolor{lightgray}\headingcell{Identificativo} & \headingcell{Nome} & \headingcell{Descrizione} & \headingcell{Priorità}\\
+        \hline
+		\requisiteline{FR-1}{Input di Studente}{Descrizione di test1}{Media}
+        \requisiteline{FR-2}{Test di Studente}{Descrizione di test2}{Alta}
+        \requisiteline{FR-3}{Dati di Studente}{Descrizione di test3}{Bassa}
+	\end{tabularx}
+\end{table}
