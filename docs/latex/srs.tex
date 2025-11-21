@@ -1,4 +1,4 @@
-\documentclass[a4paper, 12pt]{report}
+\documentclass[a4paper, 12pt]{article}
 \usepackage[italian]{babel}
 \usepackage[table]{xcolor}
 \usepackage{xstring, xltabular, ifthen, hyperref, hyphenat}
@@ -23,14 +23,29 @@
 \begin{document}
 
 \maketitle
+\newpage
 
 \tableofcontents
+\newpage
 
-\chapter{Lista dei Requisiti}
-\section{Overview dei Requisiti}
+\section{Requisiti di Progetto}
+\subsection{Lista dei Requisiti}
 
 \input{requisites_table}
+\newpage
 
-\chapter{Casi d'Uso}
+\subsection{Specifica dei Requisiti}
+\subsubsection{Funzionalità individuali}
+\subsubsection{Business Flow}
+\subsubsection{Esigenze Dati}
+\subsubsection{Interfaccia Utente}
+\subsubsection{Integrazione con Sistemi Esterni}
+\subsubsection{Requisiti Non-Funzionali}
+
+\newpage
+
+\section{Casi d'Uso}
+\subsection{Descrizione dei Casi d'Uso}
+\subsection{Diagramma UML dei Casi d'Uso}
 
 \end{document}
