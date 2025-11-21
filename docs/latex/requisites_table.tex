@@ -6,39 +6,57 @@
 % Cella di identificativo della colonna
 \newcommand{\headingcell}[1]{\multicolumn{1}{|c|}{#1}}
 % Riga contenente le informazioni di un requisito
-\newcommand{\requisiteline}[4] {
-    #1 & #2 & #3 &
-    \multicolumn{1}{c|}{\IfStrEqCase{#4}{
+\newcommand{\requisiteline}[3] {
+    \multicolumn{1}{c|}{\hyperlink{#1}{#1}} & #2 &
+    \multicolumn{1}{c|}{\IfStrEqCase{#3}{
         {Bassa}{\cellcolor{prioritygreen}}
         {Media}{\cellcolor{priorityyellow}}
         {Alta}{\cellcolor{priorityred}}
-    }[\cellcolor{white}]#4}\\
-    \hline
+    }[\cellcolor{white}]#3}\\
+	\cline{2-4}
 }
 
 % Gestione dell'allineamento e dimensione delle colonne
 \renewcommand\tabularxcolumn[1]{m{#1}}
 
-
 \begin{xltabular}[h]{\textwidth}{
-        | >{\hsize=.2\hsize\centering\arraybackslash}X
+        | >{\rule{0pt}{32pt}\hsize=.4\hsize\centering\arraybackslash}X
+        | >{\raggedright\hsize=.2\hsize}X
         | >{\raggedright\hsize=.3\hsize}X
-        | >{\raggedright\hsize=.4\hsize}X
         | >{\hsize=.1\hsize}X |
     }
 	\hline
 	\rowcolor{headercolor}\multicolumn{4}{|c|}{Lista dei Requisiti} \\
 	\hline
-    \rowcolor{lightgray}\headingcell{Identificativo} & \headingcell{Nome} & \headingcell{Breve Descrizione} & \headingcell{Priorità}\\
+    \rowcolor{lightgray}\headingcell{Categoria} & \headingcell{Identificativo} & \headingcell{Nome} & \headingcell{Priorità}\\
     \hline
-    \requisiteline{DF-1}{Dati degli utenti}{Devono essere raccolte informazioni sul nome, matricola, email e status attuale degli utenti.}{Alta}
-    \requisiteline{DF-2}{Dati dei libri}{Devono essere raccolte informazioni sul nome, autore, data di pubblicazione, identificativo e numero di copie disponibili dei libri.}{Alta}
-    \requisiteline{DF-3}{Dati dei prestiti}{Devono essere registrate le informazioni sull'utente che ottiene un prestito e sul libro preso in prestito.}{Alta}
-	\requisiteline{UI-1}{Inserimento dei dati degli utenti}{Interfaccia grafica per aggiungere, modificare e eliminare dati degli utenti.}{Media}
-    \requisiteline{UI-2}{Inserimento dei dati dei libri}{Interfaccia grafica per aggiungere, modificare e eliminare dati degli utenti.}{Media}
-    \requisiteline{UI-3}{Registrazione di un nuovo prestito}{Interfaccia grafica per registrare un nuovo prestito di un libro a carico di un utente, specificandone la data di restituzione.}{Alta}
-    \requisiteline{UI-4}{Visualizzazione dei libri}{Interfaccia per visualizzare la lista di libri presenti nella biblioteca e le loro informazioni.}{Media}
-    \requisiteline{UI-5}{Ricerca di un libro}{Strumento grafico per poter cercare uno specifico libro a seconda del titolo, autore o codice identificativo.}{Bassa}
-    \requisiteline{UI-6}{Visualizzazione degli utenti}{Interfaccia per visualizzare la lista degli utenti della biblioteca e le loro informazioni, ordinata per nome e cognome.}{Media}
-    \requisiteline{UI-7}{Ricerca di un utente}{Strumento grafico per poter cercare uno specifico utente a seconda del cognome o della matricola.}{Bassa}
+    \multirow{3}{*}{\hyperlink{IF}{Funzionalità Individuali}} &
+	    \requisiteline{IF-1}{Dati degli utenti}{Alta} &
+	    \requisiteline{IF-2}{Dati dei libri}{Alta} &
+	    \requisiteline{IF-3}{Dati dei prestiti}{Alta}
+    \hline
+    \multirow{3}{*}{\hyperlink{BF}{Business Flow}} &
+	    \requisiteline{BF-1}{Dati degli utenti}{Alta} &
+	    \requisiteline{BF-2}{Dati dei libri}{Alta} &
+	    \requisiteline{BF-3}{Dati dei prestiti}{Alta}
+    \hline
+    \multirow{3}{*}{\hyperlink{DF}{Esigenze Dati}} &
+	    \requisiteline{DF-1}{Dati degli utenti}{Alta} &
+	    \requisiteline{DF-2}{Dati dei libri}{Alta} &
+	    \requisiteline{DF-3}{Dati dei prestiti}{Alta}
+	\hline
+	\multirow{3}{*}{\hyperlink{UI}{Interfaccia Utente}} &
+		\requisiteline{UI-1}{Inserimento dei dati degli utenti}{Media} &
+	    \requisiteline{UI-2}{Inserimento dei dati dei libri}{Media} &
+	    \requisiteline{UI-3}{Registrazione di un nuovo prestito}{Alta} &
+	    \requisiteline{UI-4}{Visualizzazione dei libri}{Media} &
+	    \requisiteline{UI-5}{Ricerca di un libro}{Bassa} &
+	    \requisiteline{UI-6}{Visualizzazione degli utenti}{Media} &
+	    \requisiteline{UI-7}{Ricerca di un utente}{Bassa}
+	\hline
+	\multirow{3}{*}{\hyperlink{RNF}{Requisiti Non Funzionali}} &
+		\requisiteline{RNF-1}{Dati degli utenti}{Alta} &
+		\requisiteline{RNF-2}{Dati dei libri}{Alta} &
+		\requisiteline{RNF-3}{Dati dei prestiti}{Alta}
+	\hline
 \end{xltabular}

@@ -1,7 +1,14 @@
 \documentclass[a4paper, 12pt]{article}
 \usepackage[italian]{babel}
 \usepackage[table]{xcolor}
-\usepackage{xstring, xltabular, ifthen, hyperref, hyphenat}
+\usepackage{xstring, xltabular, multirow, ifthen, hyphenat, tcolorbox}
+\usepackage[
+	colorlinks = true,
+	linkcolor=black,
+	urlcolor=black,
+	citecolor=black
+]{hyperref}
+
 
 \hypersetup{linkcolor=black}
 
@@ -23,27 +30,31 @@
 \begin{document}
 
 \maketitle
-\newpage
 
+\newpage
 \tableofcontents
-\newpage
 
+\newpage
 \section{Requisiti di Progetto}
 \subsection{Lista dei Requisiti}
 
-\input{requisites_table}
+% Scope della tabella dei requisiti
+{
+	\input{requisites_table}
+}
+
 \newpage
 
+\input{requisites_form}
 \subsection{Specifica dei Requisiti}
-\subsubsection{Funzionalità individuali}
-\subsubsection{Business Flow}
-\subsubsection{Esigenze Dati}
-\subsubsection{Interfaccia Utente}
-\subsubsection{Integrazione con Sistemi Esterni}
-\subsubsection{Requisiti Non-Funzionali}
+\hypertarget{IF}{\subsubsection{Funzionalità individuali}}
+\requisitebox{DF-1}{bingo}{Bango}{Nessuno.}{Nessuno.}{Nessuno.}{Nessuno.}{Alta}
+\hypertarget{BF}{\subsubsection{Business Flow}}
+\hypertarget{DF}{\subsubsection{Esigenze Dati}}
+\hypertarget{UI}{\subsubsection{Interfaccia Utente}}
+\hypertarget{RNF}{\subsubsection{Requisiti Non-Funzionali}}
 
 \newpage
-
 \section{Casi d'Uso}
 \subsection{Descrizione dei Casi d'Uso}
 \subsection{Diagramma UML dei Casi d'Uso}
