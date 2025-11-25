@@ -20,7 +20,7 @@
 \renewcommand\tabularxcolumn[1]{m{#1}}
 
 \begin{xltabular}[h]{\textwidth}{
-        | >{\rule{0pt}{32pt}\hsize=.4\hsize\centering\arraybackslash}X
+        | >{\rule{0pt}{30pt}\hsize=.4\hsize\centering\arraybackslash}X
         | >{\raggedright\hsize=.2\hsize}X
         | >{\raggedright\hsize=.3\hsize}X
         | >{\hsize=.1\hsize}X |
@@ -31,32 +31,41 @@
     \rowcolor{lightgray}\headingcell{Categoria} & \headingcell{Identificativo} & \headingcell{Nome} & \headingcell{Priorità}\\
     \hline
     \multirow{3}{*}{\hyperlink{IF}{Funzionalità Individuali}} &
-	    \requisiteline{IF-1}{Dati degli utenti}{Alta} &
-	    \requisiteline{IF-2}{Dati dei libri}{Alta} &
-	    \requisiteline{IF-3}{Dati dei prestiti}{Alta}
+	    \requisiteline{IF-1.1}{Registrazione di un nuovo utente nel sistema}{Alta} &
+	    \requisiteline{IF-1.2}{Modifica dei dati di un utente nel sistema}{Alta} &
+	    \requisiteline{IF-1.3}{Rimozione di un utente dal sistema}{Alta} &
+	    \requisiteline{IF-1.4}{Ricerca di un utente nel sistema}{Alta} &
+	    \requisiteline{IF-2.1}{Inserimento di un nuovo libro nella biblioteca}{Alta} &
+	    \requisiteline{IF-2.2}{Modifica dei dati relativi ad un libro nella biblioteca}{Alta} &
+	    \requisiteline{IF-2.3}{Rimozione di un libro dalla biblioteca}{Alta} &
+	    \requisiteline{IF-2.4}{Ricerca di un libro nella biblioteca}{Alta}
     \hline
     \multirow{3}{*}{\hyperlink{BF}{Business Flow}} &
-	    \requisiteline{BF-1}{Dati degli utenti}{Alta} &
-	    \requisiteline{BF-2}{Dati dei libri}{Alta} &
-	    \requisiteline{BF-3}{Dati dei prestiti}{Alta}
+	    \requisiteline{BF-1.1}{Registrazione di un nuovo prestito}{Alta} &
+	    \requisiteline{BF-1.2}{Restituzione di un libro}{Alta}
     \hline
     \multirow{3}{*}{\hyperlink{DF}{Esigenze Dati}} &
-	    \requisiteline{DF-1}{Dati degli utenti}{Alta} &
-	    \requisiteline{DF-2}{Dati dei libri}{Alta} &
-	    \requisiteline{DF-3}{Dati dei prestiti}{Alta}
+	    \requisiteline{DF-1.1}{Informazioni sull'utente}{Alta} &
+	    \requisiteline{DF-1.2}{Informazioni sul libro}{Alta} &
+	    \requisiteline{DF-1.3}{Informazioni sul prestito}{Alta} &
+	    \requisiteline{DF-2.1}{Salvataggio dei dati dell’archivio su file}{Alta} &
+	    \requisiteline{DF-2.2}{Caricamento da file dell’archivio}{Alta}
 	\hline
 	\multirow{3}{*}{\hyperlink{UI}{Interfaccia Utente}} &
-		\requisiteline{UI-1}{Inserimento dei dati degli utenti}{Media} &
-	    \requisiteline{UI-2}{Inserimento dei dati dei libri}{Media} &
-	    \requisiteline{UI-3}{Registrazione di un nuovo prestito}{Alta} &
-	    \requisiteline{UI-4}{Visualizzazione dei libri}{Media} &
-	    \requisiteline{UI-5}{Ricerca di un libro}{Bassa} &
-	    \requisiteline{UI-6}{Visualizzazione degli utenti}{Media} &
-	    \requisiteline{UI-7}{Ricerca di un utente}{Bassa}
+		\requisiteline{UI-1.1}{Menù principale dell’applicativo}{Alta} &
+	    \requisiteline{UI-1.2}{Menu-Bar persistente}{Media} &
+	    \requisiteline{UI-2.1}{Visualizzazione dell’elenco degli utenti}{Alta} &
+	    \requisiteline{UI-2.2}{Visualizzazione per la registrazione di un nuovo utente}{Alta} &
+	    \requisiteline{UI-3.1}{Visualizzazione dell’elenco dei libri}{Alta} &
+	    \requisiteline{UI-3.2}{Visualizzazione per la registrazione di un nuovo libro}{Media} &
+	    \requisiteline{UI-4.1}{Visualizzazione dei prestiti attivi}{Alta} &
+	    \requisiteline{UI-4.2}{Visualizzazione per la registrazione di un nuovo prestito}{Alta}
 	\hline
 	\multirow{3}{*}{\hyperlink{RNF}{Requisiti Non Funzionali}} &
-		\requisiteline{RNF-1}{Dati degli utenti}{Alta} &
-		\requisiteline{RNF-2}{Dati dei libri}{Alta} &
-		\requisiteline{RNF-3}{Dati dei prestiti}{Alta}
+		\requisiteline{RNF-1.1}{Interfaccia Utente Grafica via JavaFX}{Alta} &
+		\requisiteline{RNF-1.2}{Usabilità della piattaforma}{Alta} &
+		\requisiteline{RNF-2.1}{Affidabilità della piattaforma}{Alta} &
+		\requisiteline{RNF-2.2}{Sicurezza dei dati}{Media} &
+		\requisiteline{RNF-2.3}{Scalabilità delle informazioni}{Bassa}
 	\hline
 \end{xltabular}
