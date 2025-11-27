@@ -49,12 +49,9 @@
 
 \subsection{Specifica dei Requisiti}
 \hypertarget{IF}{\subsubsection{Funzionalità individuali}}
-\requisitebox{IF-1.1}{Registrazione di un nuovo utente}{Il sistema permette la registrazione di un nuovo utente tramite inserimento dei seguenti dati obbligatori: nome, cognome, matricola ed e-mail istituzionale.}{Nome, cognome, matricola, e-mail istituzionale}{Nessuno.}{-L’archivio del sistema è correttamente caricato in memoria.\\
--Le informazioni sull’utente devono corrispondere alle specifiche del requisito DF-1.1.
-}{Il nuovo utente viene aggiunto all’elenco degli utenti registrati.}{Alta}
+\requisitebox{IF-1.1}{Registrazione di un nuovo utente}{Il sistema permette la registrazione di un nuovo utente tramite inserimento dei seguenti dati obbligatori: nome, cognome, matricola ed e-mail istituzionale.}{Nome, cognome, matricola, e-mail istituzionale}{Nessuno.}{L’archivio del sistema è correttamente caricato in memoria. Le informazioni sull’utente devono corrispondere alle specifiche del requisito DF-1.1.}{Il nuovo utente viene aggiunto all’elenco degli utenti registrati.}{Alta}
 \requisitebox{IF-1.2}{Modifica dei dati di un utente}{Il sistema permette di modificare le generalità fornite dall’utente. Tutte le generalità possono essere modificate (campi DF-1.1 eccetto i prestiti attivi), tuttavia la nuova matricola o il nuovo indirizzo e-mail non possono duplicare valori già associati ad altri utenti nel sistema. Se le nuove generalità non sono valide e univoche il sistema deve impedire il salvataggio delle modifiche e deve fornire un messaggio di errore esplicativo. }{Nuovi valori dei campi dell'utente.}{Nessuno.}{L’archivio del sistema è correttamente caricato in memoria.}{L'utente selezionato viene aggiornato, e le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
-\requisitebox{IF-1.3}{Rimozione di un utente}{Il sistema permette la cancellazione di un utente registrato, purché non abbia prestiti attivi associati al proprio profilo. Se invece l’utente possiede uno o più prestiti attivi, il sistema impedirà la cancellazione.}{Matricola associata all’utente da rimuovere.}{Nessuno.}{-L’archivio del sistema è correttamente caricato in memoria.
-	-Il profilo dell’utente è presente nel sistema.}{L'utente selezionato è rimosso dall'archivio, e le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
+\requisitebox{IF-1.3}{Rimozione di un utente}{Il sistema permette la cancellazione di un utente registrato, purché non abbia prestiti attivi associati al proprio profilo. Se invece l’utente possiede uno o più prestiti attivi, il sistema impedirà la cancellazione.}{Matricola associata all’utente da rimuovere.}{Nessuno.}{L’archivio del sistema è correttamente caricato in memoria.Il profilo dell’utente è presente nel sistema.}{L'utente selezionato è rimosso dall'archivio, e le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
 \requisitebox{IF-1.4}{Ricerca di un utente}{Il sistema permette la ricerca di utenti tramite 2 modalità: per cognome o per matricola. Il sistema restituisce tutti gli utenti che soddisfano il criterio di ricerca. Se non esistono nell’archivio del sistema utenti che corrispondono ai criteri di ricerca, sarà restituita una lista vuota di utenti.}{Criteri di ricerca (cognome, matricola).}{Utenti corrispondenti ai criteri di ricerca.}{L’archivio del sistema è correttamente caricato in memoria. Il criterio di ricerca è valido.}{Nessuna.}{Alta}
 \requisitebox{IF-2.1}{Inserimento di un nuovo libro}{Il sistema permette di aggiungere un nuovo libro all’archivio, inserendo i seguenti campi per la sua rappresentazione (DF-1.2). L’inserimento deve essere possibile solo se l’ISBN non è già presente nel sistema e se il numero di copie disponibili è maggiore o uguale a 0.}{Titolo, autore (nome e cognome), anno di pubblicazione, codice identificativo (ISBN), numero di copie disponibili.}{Nessuno.}{L’archivio del sistema è correttamente caricato in memoria.}{Il libro è aggiunto all’archivio ed è disponibile per la consultazione e il prestito.}{Alta}
 \requisitebox{IF-2.2}{Modifica dei dati relativi ad un libro}{Il sistema permette di modificare i dati relativi ad un libro nel sistema. Si possono modificare le informazioni di: titolo, autore, anno di pubblicazione e ISBN. Le modifiche devono mantenere la coerenza dei dati, per cui l’ISBN non può presentare duplicati nell'archivio del sistema.}{Nuovi dati relativi al libro (DF-1.2).}{Nessuno.}{L’archivio del sistema è correttamente caricato in memoria. Il libro è presente nel sistema.}{I dati del libro risultano aggiornati secondo le modifiche specificate, e le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
@@ -63,36 +60,37 @@
 
 \hypertarget{BF}{\subsubsection{Business Flow}}
 \requisitebox{BF-1.1}{Registrazione di un nuovo prestito}{Il gestore registra il prestito di un libro da parte di un utente. Un prestito può essere registrato solo se:
-	il libro ha almeno una copia disponibile
-	l’utente ha meno di tre prestiti attivi.
+	\begin{itemize}
+		\setlength\itemsep{0.1mm}
+		\item{il libro ha almeno una copia disponibile;}
+		\item{l’utente ha meno di tre prestiti attivi.}
+	\end{itemize}
 	Se una o più delle condizioni sopra indicate non risultano soddisfatte, il gestore sarà notificato di quali condizioni non siano rispettate e non potrà confermare l’operazione.
-	Al termine della registrazione, il sistema deve decrementare il numero di copie disponibili del libro e inserire le informazioni del prestito nell’archivio (DF-1.3). È possibile per un utente prendere in prestito più di una singola copia del medesimo libro.}{Dati relativi all’utente e ai libri di cui si vuole effettuare il prestito.}{Nessuno.}{- L’utente è correttamente registrato nel sistema.
-- Il libro da prestare è correttamente registrato nel sistema.
-- L’utente richiede il prestito di un nuovo libro.}{Se l’operazione è completata con successo:
--Il numero di copie disponibili del libro è decrementato.
--Il prestito viene aggiunto alla lista dei prestiti attivi dell’utente.
--Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
-\requisitebox{BF-1.2}{Restituzione di un libro}{Il gestore registra la restituzione di un libro da parte di un utente. Il gestore ricerca il prestito corrispondente all’interno del sistema e lo segna come saldato per poi segnare come disponibile la copia del libro. Se tale prestito era già contrassegnato come saldato, il sistema non compierà operazioni aggiuntive.}{Dati del libro da restituire e dell’utente che effettua la restituzione.}{Nessuno.}{Il prestito deve essere attivo.}{-Il prestito viene segnalato come saldato.
--La copia del libro viene resa disponibile per nuovi prestiti.
--Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
+	Al termine della registrazione, il sistema deve decrementare il numero di copie disponibili del libro e inserire le informazioni del prestito nell’archivio (DF-1.3). È possibile per un utente prendere in prestito più di una singola copia del medesimo libro.}{Dati relativi all’utente e ai libri di cui si vuole effettuare il prestito.}{Nessuno.}{L’utente è correttamente registrato nel sistema. Il libro da prestare è correttamente registrato nel sistema. L’utente richiede il prestito di un nuovo libro.}{Il numero di copie disponibili del libro è decrementato. Il prestito viene aggiunto alla lista dei prestiti attivi dell’utente. Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
+\requisitebox{BF-1.2}{Restituzione di un libro}{Il gestore registra la restituzione di un libro da parte di un utente. Il gestore ricerca il prestito corrispondente all’interno del sistema e lo segna come saldato per poi segnare come disponibile la copia del libro. Se tale prestito era già contrassegnato come saldato, il sistema non compierà operazioni aggiuntive.}{Dati del libro da restituire e dell’utente che effettua la restituzione.}{Nessuno.}{Il prestito deve essere attivo.}{Il prestito viene segnalato come saldato. La copia del libro viene resa disponibile per nuovi prestiti. Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
 
 \hypertarget{DF}{\subsubsection{Esigenze Dati}}
 \requisiteboxsimple{DF-1.1}{Informazioni sull’Utente}{Un utente deve essere rappresentato tramite i seguenti dati: nome, cognome, matricola univoca (caratteri numerici), e-mail istituzionale univoca (formattata per standard RFC 5322, terminante nel campo di dominio con “.unisa.it”), lista di prestiti (DF-1.3) attualemente attivi a carico dell’utente, che non possono essere più di 3.}{Alta}
 \requisiteboxsimple{DF-1.2}{Informazioni sul Libro}{Un libro è rappresentato tramite le informazioni di titolo, lista di autori (unica stringa testuale con nome e cognome degli autori separati da virgole), data di pubblicazione (precedente o corrispondente alla data attuale, composta dai campi di giorno, mese ed anno), codice identificativo univoco ISBN (per standard ISO 2108) e numero di copie disponibili nell’archivio (maggiore o uguale a 0).}{Alta}
 \requisiteboxsimple{DF-1.3}{Informazioni sul Prestito}{Un prestito è rappresentato tramite le informazioni di utente a carico (DF-1.1), di libro preso in prestito (DF-1.2), di data prevista di restituzione del prestito, e di un valore booleano che ne indica lo stato tra "attivo" o "saldato".}{Alta}
 \requisitebox{DF-2.1}{Salvataggio dei dati dell’archivio su file}{Ogni componente dell’archivio (libri, utenti, prestiti) deve essere salvato su un file locale univocamente associato. Il salvataggio deve avvenire:
-	su richiesta dell’utente;
-	automaticamente alla chiusura dell’applicazione.
-}{Dati di archivio da salvare (quali l’insieme di studenti, libri e prestiti annessi). I nomi dei file su cui devono essere salvati.}{File su sistema contenente i dati relativi all’archivio (archivio di utenti, libri e prestiti). Il modo in cui sono archiviati i file dipende dal requisito RNF-2.2.}{Nessuno.}{Nessuno.}{Alta}
+	\begin{itemize}
+		\setlength\itemsep{0.1mm}
+		\item{Su richiesta dell’utente.}
+		\item{Automaticamente alla chiusura dell’applicazione.}
+	\end{itemize}\leavevmode}{Dati di archivio da salvare (quali l’insieme di studenti, libri e prestiti annessi). I nomi dei file su cui devono essere salvati.}{File su sistema contenente i dati relativi all’archivio (archivio di utenti, libri e prestiti). Il modo in cui sono archiviati i file dipende dal requisito RNF-2.2.}{Nessuno.}{Nessuno.}{Alta}
 \requisitebox{DF-2.2}{Caricamento da file dell’archivio}{Il sistema carica nelle proprie collezioni corrispondenti i libri, utenti e i prestiti presenti nei file di appoggio secondo la serializzazione utilizzata (RNF-2.2).}{Nomi dei file su cui salvare l’archivio.}{Strutture dati dell’archivio.}{File di appoggio presenti e coerenti.}{La memoria del sistema è popolata dalle informazioni presenti nel file di appoggio.}{Alta}
 
 \hypertarget{UI}{\subsubsection{Interfaccia Utente}}
 \requisiteboxsimple{UI-1.1}{Menù principale dell’applicativo}{Landing page con menù di opzioni per accedere alle diverse funzionalità del sistema, aperto di default all’avvio del programma grafico. Il menù contiene informazioni generali sull'applicativo, come il nome del sistema e la sua versione, e diversi collegamenti per visualizzare i vari elenchi di informazioni, quali uno per visualizzare la lista degli utenti (UI-2.1), dei libri (UI-3.1), e dei prestiti attivi (UI-4.1).}{Alta}
-\requisiteboxsimple{UI-1.2}{Menu Bar persistente}{Barra di menù persistente nella vista principale del programma. Contiene pulsanti per:
-	Salvare lo stato dell’archivio (nei file utilizzati correntemente, DF-2.1).
-	Caricare l’archivio da un file specifico (DF-2.1).
-	Esportare l’archivio in un insieme di file specifico (DF-2.2).
-	Uscire dal programma.
+\requisiteboxsimple{UI-1.2}{Menu Bar persistente}{Barra di menù persistente nella vista principale del programma. Contiene interazioni per:
+	\begin{itemize}
+		\setlength\itemsep{0.1mm}
+		\item{Salvare lo stato dell’archivio (nei file utilizzati correntemente, DF-2.1).}
+		\item{Caricare l’archivio da un file specifico (DF-2.1).}
+		\item{Esportare l’archivio in un insieme di file specifico (DF-2.2).}
+		\item{Uscire dal programma.}
+	\end{itemize}
 	All’azionamento dei pulsanti inclusi la vista attuale dell’applicativo sarà aggiornata a seconda dei dati e delle informazioni caricate in memoria.
 }{Alta}
 \requisiteboxsimple{UI-2.1}{Visualizzazione dell’elenco degli utenti}{Elenco grafico degli utenti registrati nell’archivio della biblioteca. La vista mostra le informazioni sugli utenti registrati nell’archivio della biblioteca includendo le loro informazioni (DF-1.1), ordinati alfabeticamente per cognome e, a parità di cognome, per nome, in una tabella, eccetto per la lista di libri attualmente in prestito per ogni utente che sarà mostrata non direttamente ma tramite un collegamento con cui interagire. Il sistema permette di modificare le informazioni relative all’utente direttamente dall'interfaccia utente, interagendo con la visualizzazione dei dati (IF-1.2). Il sistema permette di filtrare la lista degli utenti tramite campi di cognome e matricola su richiesta (IF-1.4). Il sistema permette di aggiungere utenti alla lista (UI-2.2) e di rimuovere l’utente selezionato (IF-1.3) su richiesta. Dopo ogni operazione, la vista dell'elenco dovrà rispecchiare le modifiche apportate.}{Alta}
