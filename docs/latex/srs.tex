@@ -1,15 +1,13 @@
 \documentclass[a4paper, 12pt]{article}
 \usepackage[italian]{babel}
 \usepackage[table]{xcolor}
-\usepackage{xstring, xltabular, multirow, ifthen, hyphenat, svg, tcolorbox}
+\usepackage{xstring, xltabular, multirow, ifthen, hyphenat, svg, tcolorbox, enumitem, adjustbox}
 \usepackage[
 	colorlinks = true,
 	linkcolor=black,
 	urlcolor=black,
 	citecolor=black
 ]{hyperref}
-\usepackage{enumitem}
-
 
 \hypersetup{linkcolor=black}
 
@@ -68,7 +66,7 @@
 	\end{itemize}
 	Se una o più delle condizioni sopra indicate non risultano soddisfatte, il gestore sarà notificato di quali condizioni non siano rispettate e non potrà confermare l’operazione.
 	Al termine della registrazione, il sistema deve decrementare il numero di copie disponibili del libro e inserire le informazioni del prestito nell’archivio (DF-1.3). È possibile per un utente prendere in prestito più di una singola copia del medesimo libro.}{Dati relativi all’utente e ai libri di cui si vuole effettuare il prestito.}{Nessuno.}{L’utente è correttamente registrato nel sistema. Il libro da prestare è correttamente registrato nel sistema. L’utente richiede il prestito di un nuovo libro.}{Il numero di copie disponibili del libro è decrementato. Il prestito viene aggiunto alla lista dei prestiti attivi dell’utente. Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
-\requisitebox{BF-1.2}{Restituzione di un libro}{Il gestore registra la restituzione di un libro da parte di un utente. Il gestore ricerca il prestito corrispondente all’interno del sistema e lo segna come saldato per poi segnare come disponibile la copia del libro. Se tale prestito era già contrassegnato come saldato, il sistema non compierà operazioni aggiuntive.}{Dati del libro da restituire e dell’utente che effettua la restituzione.}{Nessuno.}{Il prestito deve essere attivo.}{Il prestito viene segnalato come saldato. La copia del libro viene resa disponibile per nuovi prestiti. Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
+\requisitebox{BF-1.2}{Restituzione di un libro}{Il gestore registra la restituzione di un libro da parte di un utente. Il gestore ricerca il prestito corrispondente all’interno del sistema e lo segna come saldato per poi segnare come disponibile la copia del libro. Se tale prestito era già contrassegnato come saldato, il sistema non compierà operazioni aggiuntive.}{Dati del libro da restituire e dell’utente che effettua la restituzione.}{Nessuno.}{L'utente deve essere correttame}{Il prestito viene segnalato come saldato. La copia del libro viene resa disponibile per nuovi prestiti. Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
 
 \hypertarget{DF}{\subsubsection{Esigenze Dati}}
 \requisiteboxsimple{DF-1.1}{Informazioni sull’utente}{Un utente deve essere rappresentato tramite i seguenti dati: nome, cognome, matricola univoca (stringa di 10 cifre numeriche), e-mail istituzionale univoca (formattata per standard RFC 5322, terminante nel campo di dominio con “.unisa.it”), lista di prestiti (DF-1.3) attualemente attivi a carico dell’utente, che non possono essere più di 3.}{Alta}
@@ -171,7 +169,7 @@
 
 \newpage
 
-\usecase{UC-\stepcounter{ucid}}{Visualizzazione dello storico completo dei prestiti}{Gestore della biblioteca}{Il gestore sta visualizzando la sezione relativa ai prestiti attivi.}{Le informazioni relative a tutti i prestiti vengono mostrate, evidenziando i prestiti in ritardo, in un elenco ordinato per data prevista di restituzione.}{
+\usecase{UC-\stepcounter{ucid}}{Visualizzazione dello storico dei prestiti}{Gestore della biblioteca}{Il gestore sta visualizzando la sezione relativa ai prestiti attivi.}{Le informazioni relative a tutti i prestiti vengono mostrate, evidenziando i prestiti in ritardo, in un elenco ordinato per data prevista di restituzione.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Il gestore interagisce con l'opzione per visualizzare anche i prestiti saldati.
@@ -305,6 +303,7 @@
 	\end{enumerate}
 }
 
+\newpage
 \usecase{UC-\stepcounter{ucid}}{Registrazione di un prestito}{Gestore della biblioteca}{Il gestore sta visualizzando l'elenco dei prestiti attivi.}{Prestito registrato. Copie disponibili del libro prestato decrementate.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
@@ -456,9 +455,63 @@
 	\end{enumerate}
 }
 
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+
+\usecase{UC-\stepcounter{ucid}}{Salvataggio dell'archivio su file}{Gestore della biblioteca.}{Il gestore ha visualizzato l'home page e l'archivio è stato correttamente popolato.}{I file di appoggio specificati sono riempiti delle informazioni dell'archivio}{
+	\vspace{-0.8\topsep}
+	\begin{enumerate}
+		\item Il gestore interagisce con l'opzione per salvare l'archivio su file.
+		\item Il gestore indica al sistema su quali file salvare l'archivio.
+		\item Il sistema controlla che sia possibile accedere e scrivere sui file specificati.
+		\item Il sistema scrive sui file i dati dell'archivio.
+	\end{enumerate}
+}{
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=3A.\arabic*]
+		\item[] \textbf{3A - Errore di input/output sul filesystem}
+		\item Il sistema rileva l'impossibilità a salvare i dati sui file specificati.
+		\item Il sistema mostra un messaggio di errore e annulla l'operazione.
+	\end{enumerate}
+}
+
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+
+\usecase{UC-\stepcounter{ucid}}{Caricamento dell'archivio da file}{Gestore della biblioteca.}{Il gestore ha visualizzato l'home page.}{L'archivio è popolato dalle informazioni presenti nei file di appoggio.}{
+	\vspace{-0.8\topsep}
+	\begin{enumerate}
+		\item Il gestore interagisce con l'opzione per caricare l'archivio da file.
+		\item Il gestore indica al sistema da quali file caricare l'archivio.
+		\item Il sistema controlla che sia possibile accedere e leggere dai file specificati.
+		\item Il sistema popola l'archivio con i dati letti dai file, sovrascrivendo i dati precedentemente memorizzati.
+	\end{enumerate}
+}{
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=3A.\arabic*]
+		\item[] \textbf{3A - Errore di input/output sul filesystem}
+		\item Il sistema rileva l'impossibilità a leggere i dati dai file specificati.
+		\item Il sistema mostra un messaggio di errore e annulla l'operazione.
+	\end{enumerate}
+	
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=4A.\arabic*]
+		\item[] \textbf{4A - Errore di interpretazione dei dati}
+		\item Il sistema rileva che i dati presenti nei file specificati non corrispondono ad un corretto archivio del sistema da cui poter estrarre informazioni.
+		\item Il sistema mostra un messaggio di errore e annulla l'operazione.
+	\end{enumerate}
+}
+
+
+\newpage
 \subsection{Diagramma UML dei Casi d'Uso}
-\begin{center}
-	\includesvg[width=0.75\textwidth, inkscapelatex=false]{../uml/usecases.svg}
-\end{center}
+\begin{figure}[ht]
+\begin{adjustbox}{center, margin=0cm 0cm 0cm 0cm}
+	\includesvg[width=1.33\textwidth, inkscapelatex=false]{../uml/usecases.svg}
+\end{adjustbox}
+\end{figure}
 
 \end{document}
+

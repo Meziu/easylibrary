@@ -1,0 +1,59 @@
+@startuml
+skinparam actorStyle awesome
+
+left to right direction
+
+actor Gestore as G
+
+package Sistema {
+    usecase "Visualizzazione della home page" as UC1
+    usecase "Visualizzazione del catalogo libri" as UC2
+    usecase "Visualizzazione dei prestiti attivi" as UC3
+    usecase "Visualizzazione dello storico dei prestiti" as UC4
+    usecase "Visualizzazione dell'elenco degli utenti" as UC5
+    usecase "Registrazione di un utente" as UC6
+    usecase "Modifica dei dati di un utente" as UC7
+    usecase "Rimozione di un utente" as UC8
+    usecase "Registrazione di un prestito" as UC9
+    usecase "Restituzione di un libro" as UC10
+    usecase "Ricerca di libri" as UC11
+    usecase "Registrazione di un libro" as UC12
+    usecase "Modifica dei dati di un libro" as UC13
+    usecase "Eliminazione di un libro dal catalogo" as UC14
+    usecase "Salvataggio dell'archivio su file" as UC15
+    usecase "Caricamento dell'archivio da file" as UC16
+}
+
+UC2 ..> UC1 : <<include>>
+UC5 ..> UC1 : <<include>>
+UC4 ..> UC1 : <<include>>
+UC15 ...> UC1 : <<include>>
+UC16 ...> UC1 : <<include>>
+
+UC3 --|> UC4
+
+UC6 ..> UC5 : <<include>>
+UC7 ..> UC5 : <<include>>
+UC8 ..> UC5 : <<include>>
+UC9 ..> UC5 : <<include>>
+
+UC10 ..> UC2 : <<include>>
+UC11 ..> UC2 : <<include>>
+UC12 ..> UC2 : <<include>>
+UC13 ..> UC2 : <<include>>
+UC14 ..> UC2 : <<include>>
+
+G -- UC3
+G -- UC6
+G -- UC7
+G -- UC8
+G -- UC9
+G -- UC10
+G -- UC11
+G -- UC12
+G -- UC13
+G -- UC14
+G -- UC15
+G -- UC16
+
+@enduml
