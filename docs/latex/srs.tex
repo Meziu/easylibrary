@@ -71,9 +71,9 @@
 \requisitebox{BF-1.2}{Restituzione di un libro}{Il gestore registra la restituzione di un libro da parte di un utente. Il gestore ricerca il prestito corrispondente all’interno del sistema e lo segna come saldato per poi segnare come disponibile la copia del libro. Se tale prestito era già contrassegnato come saldato, il sistema non compierà operazioni aggiuntive.}{Dati del libro da restituire e dell’utente che effettua la restituzione.}{Nessuno.}{Il prestito deve essere attivo.}{Il prestito viene segnalato come saldato. La copia del libro viene resa disponibile per nuovi prestiti. Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
 
 \hypertarget{DF}{\subsubsection{Esigenze Dati}}
-\requisiteboxsimple{DF-1.1}{Informazioni sull’Utente}{Un utente deve essere rappresentato tramite i seguenti dati: nome, cognome, matricola univoca (stringa di 10 cifre numeriche), e-mail istituzionale univoca (formattata per standard RFC 5322, terminante nel campo di dominio con “.unisa.it”), lista di prestiti (DF-1.3) attualemente attivi a carico dell’utente, che non possono essere più di 3.}{Alta}
-\requisiteboxsimple{DF-1.2}{Informazioni sul Libro}{Un libro è rappresentato tramite le informazioni di titolo, lista di autori (unica stringa testuale con nome e cognome degli autori separati da virgole), data di pubblicazione (precedente o corrispondente alla data attuale, composta dai campi di giorno, mese ed anno), codice identificativo univoco ISBN (per standard ISO 2108) e numero di copie disponibili nell’archivio (maggiore o uguale a 0).}{Alta}
-\requisiteboxsimple{DF-1.3}{Informazioni sul Prestito}{Un prestito è rappresentato tramite le informazioni di utente a carico (DF-1.1), di libro preso in prestito (DF-1.2), di data prevista di restituzione del prestito, e di un indicatore che ne indica lo stato tra "attivo" o "saldato".}{Alta}
+\requisiteboxsimple{DF-1.1}{Informazioni sull’utente}{Un utente deve essere rappresentato tramite i seguenti dati: nome, cognome, matricola univoca (stringa di 10 cifre numeriche), e-mail istituzionale univoca (formattata per standard RFC 5322, terminante nel campo di dominio con “.unisa.it”), lista di prestiti (DF-1.3) attualemente attivi a carico dell’utente, che non possono essere più di 3.}{Alta}
+\requisiteboxsimple{DF-1.2}{Informazioni sul libro}{Un libro è rappresentato tramite le informazioni di titolo, lista di autori (unica stringa testuale con nome e cognome degli autori separati da virgole), data di pubblicazione (precedente o corrispondente alla data attuale, composta dai campi di giorno, mese ed anno), codice identificativo univoco ISBN (per standard ISO 2108) e numero di copie disponibili nell’archivio (maggiore o uguale a 0).}{Alta}
+\requisiteboxsimple{DF-1.3}{Informazioni sul prestito}{Un prestito è rappresentato tramite le informazioni di utente a carico (DF-1.1), di libro preso in prestito (DF-1.2), di data prevista di restituzione del prestito, e di un indicatore che ne indica lo stato tra "attivo" o "saldato".}{Alta}
 \requisitebox{DF-2.1}{Salvataggio dei dati dell’archivio su file}{Ogni componente dell’archivio (libri, utenti, prestiti) deve essere salvato su un file locale univocamente associato. Il salvataggio deve avvenire:
 	\begin{itemize}
 		\setlength\itemsep{0.1mm}
@@ -118,63 +118,147 @@
 
 \newcounter{ucid}
 \renewcommand{\thesubsubsection}{UC-\arabic{subsubsection}:}
-\usecase{UC-\stepcounter{ucid}}{Visualizzazione del catalogo dei libri}{Gestore della biblioteca.}{Il sistema contiene un catalogo aggiornato dei libri presenti nella biblioteca.}{Il gestore ha consultato il catalogo dei libri.}{
+
+\usecase{UC-\stepcounter{ucid}}{Visualizzazione della home page}{Gestore della biblioteca.}{Il gestore avvia il sistema.}{L’home page viene visualizzata correttamente.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
-		\item Il sistema mostra la homepage con accesso al catalogo.
-		\item Il gestore seleziona l’opzione per visualizzare il catalogo.
-		\item Il sistema mostra il catalogo aggiornato dei libri.
+		\item Il sistema completa l’avvio.
+		\item Il sistema mostra la visualizzazione dell’home page al gestore.
+		\item Il sistema carica correttamente l’archivio delle informazioni salvato in una precedente sessione.
 	\end{enumerate}
-}{}
+}{
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=3A.\arabic*]
+		\item[] \textbf{3A - L’archivio non è caricato correttamente}
+		\item Il sistema mostra un messaggio di errore nella homepage.
+		\item Il sistema genera un nuovo archivio vuoto da utilizzare.
+	\end{enumerate}
+}
+
+\usecase{UC-\stepcounter{ucid}}{Visualizzazione del catalogo dei libri}{Gestore della biblioteca.}{Il gestore sta visualizzando l'home page.}{Il gestore ha consultato il catalogo dei libri.}{
+	\vspace{-0.8\topsep}
+	\begin{enumerate}
+		\item Il gestore interagisce con l'opzione per visualizzare il catalogo.
+		\item Il sistema mostra il catalogo aggiornato dei libri ordinato per titolo.
+	\end{enumerate}
+}{
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=2A.\arabic*]
+		\item[] \textbf{2A - Il gestore decide di ritornare alla home page}
+		\item Il gestore seleziona l’opzione per tornare alla home page.
+		\item Il sistema mostra la visualizzazione della home page come per requisito UC-1.
+	\end{enumerate}
+}
 
 \vspace{0.5cm}
 \hrule
 \vspace{0.5cm}
 
-\usecase{UC-\stepcounter{ucid}}{Visualizzazione dei prestiti attivi}{Gestore della biblioteca}{I prestiti sono stati registrati correttamente. L’archivio è stato correttamente caricato.}{Le informazioni relative ai prestiti vengono mostrate, evidenziando i prestiti in ritardo.}{
+\usecase{UC-\stepcounter{ucid}}{Visualizzazione dei prestiti attivi}{Gestore della biblioteca}{Il gestore sta visualizzando l'home page.}{Le informazioni relative ai prestiti attivi vengono mostrate, evidenziando i prestiti in ritardo, in un elenco ordinato per data prevista di restituzione.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
-		\item Il gestore della biblioteca seleziona il tasto “Prestiti attivi”.
+		\item Il gestore interagisce con l’opzione per visualizzare i prestiti attivi.
+		\item Il sistema mostra la lista dei prestiti attivi ordinata per data prevista di restituzione.
+	\end{enumerate}
+}{
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=2A.\arabic*]
+		\item[] \textbf{2A - Il gestore decide di ritornare alla home page}
+		\item Il gestore seleziona l’opzione per tornare alla home page.
+		\item Il sistema mostra la visualizzazione della home page come per requisito UC-1.
+	\end{enumerate}
+}
+
+\newpage
+
+\usecase{UC-\stepcounter{ucid}}{Visualizzazione dello storico completo dei prestiti}{Gestore della biblioteca}{Il gestore sta visualizzando la sezione relativa ai prestiti attivi.}{Le informazioni relative a tutti i prestiti vengono mostrate, evidenziando i prestiti in ritardo, in un elenco ordinato per data prevista di restituzione.}{
+	\vspace{-0.8\topsep}
+	\begin{enumerate}
+		\item Il gestore interagisce con l'opzione per visualizzare anche i prestiti saldati.
 		\item Il sistema mostra la lista dei prestiti ordinata per data prevista di restituzione.
 	\end{enumerate}
-}{}
-
-\usecase{UC-3}{Visualizzazione dell’elenco degli utenti}{Gestore della biblioteca}{L’archivio è stato correttamente caricato.}{Le informazioni relative agli utenti vengono mostrate, la lista è ordinata alfabeticamente per cognome e, a parità di cognome, per nome.}{
+}{
 	\vspace{-0.8\topsep}
-	\begin{enumerate}
-		\item L’utente preme “visualizza utenti”.
-		\item Il sistema mostra la lista degli utenti.
+	\begin{enumerate}[label=2A.\arabic*]
+		\item[] \textbf{2A - Il gestore decide di ritornare alla home page}
+		\item Il gestore seleziona l’opzione per tornare alla home page.
+		\item Il sistema mostra la visualizzazione della home page come per requisito UC-1.
 	\end{enumerate}
-}{}
+}
 
-\usecase{UC-\stepcounter{ucid}}{Registrazione di un nuovo utente}{Gestore della biblioteca}{L’archivio è stato correttamente caricato.}{Se l’operazione ha successo: un nuovo utente è registrato nell’archivio. Se l’operazione fallisce: nessun dato viene modificato.}{
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+
+\usecase{UC-\stepcounter{ucid}}{Visualizzazione dell’elenco degli utenti}{Gestore della biblioteca}{Il gestore sta visualizzando l'home page.}{Viene mostrato l’elenco degli utenti ordinato alfabeticamente per cognome e, a parità di cognome, per nome.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
-		\item Il gestore segue le procedure per UC-3.
-		\item Il gestore preme il pulsante “+”.
-		\item Il sistema richiede: nome, cognome, matricola, email istituzionale.
-		\item Il gestore inserisce i dati.
+		\item Il gestore seleziona l’opzione per visualizzare l’elenco degli utenti.
+		\item Il sistema mostra la lista degli utenti ordinata.
+	\end{enumerate}
+}{
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=2A.\arabic*]
+		\item[] \textbf{2A - Il gestore decide di ritornare alla home page}
+		\item Il gestore seleziona l’opzione per tornare alla home page.
+		\item Il sistema mostra la visualizzazione della home page come per requisito UC-1.
+	\end{enumerate}
+}
+
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+
+\usecase{UC-\stepcounter{ucid}}{Registrazione di un nuovo utente}{Gestore della biblioteca}{Il gestore sta visualizzando l’elenco degli utenti.}{Il nuovo utente è registrato nell’archivio.}{
+	\vspace{-0.8\topsep}
+	\begin{enumerate}
+		\item Il gestore interagisce con l’opzione per registrare un nuovo utente.
+		\item Il sistema mostra al gestore la visualizzazione del form di registrazione per un nuovo utente.
+		\item Il gestore inserisce i dati di nome, cognome, matricola ed email istituzionale del nuovo utente.
 		\item Il sistema verifica che la matricola non sia già utilizzata.
 		\item Il sistema verifica la validità dell’email.
+		\item Il gestore interagisce con l’opzione di conferma dell’operazione.
 		\item Il sistema registra il nuovo utente.
-		\item Il sistema conferma l’operazione tramite una piccola finestra.
 	\end{enumerate}
 }{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=4A.\arabic*]
-		\item[] \textbf{4A - Nuova matricola già presente nell'archivio}
-		\item Il sistema rileva che la matricola esiste già.
+		\item[] \textbf{4A - Matricola duplicata, con correzione}
+		\item Il sistema rileva che la matricola inserita è già presente nell'archivio.
 		\item Il sistema mostra un messaggio di errore.
-		\item Il gestore corregge la matricola o annulla l’operazione.
+		\item Il gestore corregge la matricola.
+		\item L’esecuzione riprende dal passo 4.
+	\end{enumerate}
+	
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=4A.\arabic*]
+		\item[] \textbf{4A - Matricola duplicata, con annullamento}
+		\item Il sistema rileva che la matricola inserita è già presente nell'archivio.
+		\item Il sistema mostra un messaggio di errore.
+		\item L’operatore interagisce con l’opzione per annullare l’operazione.
 	\end{enumerate}
 	
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=5A.\arabic*]
-		\item[] \textbf{5A - Nuova E-Mail non valida}
-		\item Il sistema segnala email non conforme.
-		\item Il gestore corregge l'e-mail o annulla l’operazione.
+		\item[] \textbf{5A - Email non valida, con correzione}
+		\item Il sistema rileva che la e-mail inserita non è valida.
+		\item Il sistema mostra un messaggio di errore.
+		\item Il gestore corregge la e-mail.
+		\item L’esecuzione riprende dal passo 5.
+	\end{enumerate}
+	
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=5A.\arabic*]
+		\item[] \textbf{5A - Email non valida, con annullamento}
+		\item Il sistema rileva che la e-mail inserita non è valida.
+		\item Il sistema mostra un messaggio di errore.
+		\item L’operatore interagisce con l’opzione per annullare l’operazione.
 	\end{enumerate}
 }
+
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
 
 \usecase{UC-\stepcounter{ucid}}{Modifica dei dati di un utente}{Gestore della biblioteca}{L’archivio è stato correttamente caricato.}{Se valida: l’utente è aggiornato. In caso di errore: nessuna modifica applicata.}{
 	\vspace{-0.8\topsep}
@@ -202,6 +286,10 @@
 		\item Il gestore corregge l'e-mail o annulla l’operazione.
 	\end{enumerate}
 }
+
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
 
 \usecase{UC-\stepcounter{ucid}}{Rimozione di un utente}{Gestore della biblioteca}{L’archivio è stato correttamente caricato.}{L’utente viene rimosso dall'archivio.}{
 	\vspace{-0.8\topsep}
@@ -302,6 +390,10 @@
 	\end{enumerate}
 }
 
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+
 \usecase{UC-\stepcounter{ucid}}{Inserimento di un nuovo libro}{Gestore della biblioteca}{L’archivio è stato correttamente caricato in memoria.}{Il nuovo libro è registrato nell’archivio.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
@@ -330,6 +422,10 @@
 		\item Il sistema non registra la registrazione del nuovo libro.
 	\end{enumerate}
 }
+
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
 
 \usecase{UC-\stepcounter{ucid}}{Modifica dei dati di un libro}{Gestore della biblioteca}{Il libro è registrato nell'archivio.}{I dati sul libro sono correttamente aggiornati.}{
 	\vspace{-0.8\topsep}
