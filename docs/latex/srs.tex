@@ -71,9 +71,9 @@
 \requisitebox{BF-1.2}{Restituzione di un libro}{Il gestore registra la restituzione di un libro da parte di un utente. Il gestore ricerca il prestito corrispondente all’interno del sistema e lo segna come saldato per poi segnare come disponibile la copia del libro. Se tale prestito era già contrassegnato come saldato, il sistema non compierà operazioni aggiuntive.}{Dati del libro da restituire e dell’utente che effettua la restituzione.}{Nessuno.}{Il prestito deve essere attivo.}{Il prestito viene segnalato come saldato. La copia del libro viene resa disponibile per nuovi prestiti. Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
 
 \hypertarget{DF}{\subsubsection{Esigenze Dati}}
-\requisiteboxsimple{DF-1.1}{Informazioni sull’Utente}{Un utente deve essere rappresentato tramite i seguenti dati: nome, cognome, matricola univoca (caratteri numerici), e-mail istituzionale univoca (formattata per standard RFC 5322, terminante nel campo di dominio con “.unisa.it”), lista di prestiti (DF-1.3) attualemente attivi a carico dell’utente, che non possono essere più di 3.}{Alta}
+\requisiteboxsimple{DF-1.1}{Informazioni sull’Utente}{Un utente deve essere rappresentato tramite i seguenti dati: nome, cognome, matricola univoca (stringa di 10 cifre numeriche), e-mail istituzionale univoca (formattata per standard RFC 5322, terminante nel campo di dominio con “.unisa.it”), lista di prestiti (DF-1.3) attualemente attivi a carico dell’utente, che non possono essere più di 3.}{Alta}
 \requisiteboxsimple{DF-1.2}{Informazioni sul Libro}{Un libro è rappresentato tramite le informazioni di titolo, lista di autori (unica stringa testuale con nome e cognome degli autori separati da virgole), data di pubblicazione (precedente o corrispondente alla data attuale, composta dai campi di giorno, mese ed anno), codice identificativo univoco ISBN (per standard ISO 2108) e numero di copie disponibili nell’archivio (maggiore o uguale a 0).}{Alta}
-\requisiteboxsimple{DF-1.3}{Informazioni sul Prestito}{Un prestito è rappresentato tramite le informazioni di utente a carico (DF-1.1), di libro preso in prestito (DF-1.2), di data prevista di restituzione del prestito, e di un valore booleano che ne indica lo stato tra "attivo" o "saldato".}{Alta}
+\requisiteboxsimple{DF-1.3}{Informazioni sul Prestito}{Un prestito è rappresentato tramite le informazioni di utente a carico (DF-1.1), di libro preso in prestito (DF-1.2), di data prevista di restituzione del prestito, e di un indicatore che ne indica lo stato tra "attivo" o "saldato".}{Alta}
 \requisitebox{DF-2.1}{Salvataggio dei dati dell’archivio su file}{Ogni componente dell’archivio (libri, utenti, prestiti) deve essere salvato su un file locale univocamente associato. Il salvataggio deve avvenire:
 	\begin{itemize}
 		\setlength\itemsep{0.1mm}
@@ -111,10 +111,14 @@
 \input{usecase_form}
 \section{Casi d'Uso}
 \subsection{Descrizione dei Casi d'Uso}
-\vspace{1em}
+\vspace{-2em}
 
+% Standardizzatore di formato per il primo caso d'uso (che altrimenti appare sfasato)
+\begin{description}[]\item[] \end{description}
+
+\newcounter{ucid}
 \renewcommand{\thesubsubsection}{UC-\arabic{subsubsection}:}
-\usecase{UC-1}{Visualizzazione del catalogo dei libri}{Gestore della biblioteca.}{Il sistema contiene un catalogo aggiornato dei libri presenti nella biblioteca.}{Il gestore ha consultato il catalogo dei libri.}{
+\usecase{UC-\stepcounter{ucid}}{Visualizzazione del catalogo dei libri}{Gestore della biblioteca.}{Il sistema contiene un catalogo aggiornato dei libri presenti nella biblioteca.}{Il gestore ha consultato il catalogo dei libri.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Il sistema mostra la homepage con accesso al catalogo.
@@ -127,7 +131,7 @@
 \hrule
 \vspace{0.5cm}
 
-\usecase{UC-2}{Visualizzazione dei prestiti attivi}{Gestore della biblioteca}{I prestiti sono stati registrati correttamente. L’archivio è stato correttamente caricato.}{Le informazioni relative ai prestiti vengono mostrate, evidenziando i prestiti in ritardo.}{
+\usecase{UC-\stepcounter{ucid}}{Visualizzazione dei prestiti attivi}{Gestore della biblioteca}{I prestiti sono stati registrati correttamente. L’archivio è stato correttamente caricato.}{Le informazioni relative ai prestiti vengono mostrate, evidenziando i prestiti in ritardo.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Il gestore della biblioteca seleziona il tasto “Prestiti attivi”.
@@ -143,13 +147,13 @@
 	\end{enumerate}
 }{}
 
-\usecase{UC-4}{Registrazione di un nuovo utente}{Gestore della biblioteca}{L’archivio è stato correttamente caricato.}{Se l’operazione ha successo: un nuovo utente è registrato nell’archivio. Se l’operazione fallisce: nessun dato viene modificato.}{
+\usecase{UC-\stepcounter{ucid}}{Registrazione di un nuovo utente}{Gestore della biblioteca}{L’archivio è stato correttamente caricato.}{Se l’operazione ha successo: un nuovo utente è registrato nell’archivio. Se l’operazione fallisce: nessun dato viene modificato.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
-		\item L’operatore segue le procedure per UC-3.
-		\item L’operatore preme il pulsante “+”.
+		\item Il gestore segue le procedure per UC-3.
+		\item Il gestore preme il pulsante “+”.
 		\item Il sistema richiede: nome, cognome, matricola, email istituzionale.
-		\item L’operatore inserisce i dati.
+		\item Il gestore inserisce i dati.
 		\item Il sistema verifica che la matricola non sia già utilizzata.
 		\item Il sistema verifica la validità dell’email.
 		\item Il sistema registra il nuovo utente.
@@ -161,24 +165,24 @@
 		\item[] \textbf{4A - Nuova matricola già presente nell'archivio}
 		\item Il sistema rileva che la matricola esiste già.
 		\item Il sistema mostra un messaggio di errore.
-		\item L’operatore corregge la matricola o annulla l’operazione.
+		\item Il gestore corregge la matricola o annulla l’operazione.
 	\end{enumerate}
 	
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=5A.\arabic*]
 		\item[] \textbf{5A - Nuova E-Mail non valida}
 		\item Il sistema segnala email non conforme.
-		\item L’operatore corregge l'e-mail o annulla l’operazione.
+		\item Il gestore corregge l'e-mail o annulla l’operazione.
 	\end{enumerate}
 }
 
-\usecase{UC-5}{Modifica dei dati di un utente}{Gestore della biblioteca}{L’archivio è stato correttamente caricato.}{Se valida: l’utente è aggiornato. In caso di errore: nessuna modifica applicata.}{
+\usecase{UC-\stepcounter{ucid}}{Modifica dei dati di un utente}{Gestore della biblioteca}{L’archivio è stato correttamente caricato.}{Se valida: l’utente è aggiornato. In caso di errore: nessuna modifica applicata.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Si svolge il flusso del caso d’uso UC-3.
-		\item L’operatore ricerca l’utente.
-		\item L’operatore seleziona il campo dell’utente che vuole modificare.
-		\item L’operatore sovrascrive i nuovi dati nel campo.
+		\item Il gestore ricerca l’utente.
+		\item Il gestore seleziona il campo dell’utente che vuole modificare.
+		\item Il gestore sovrascrive i nuovi dati nel campo.
 		\item Il sistema verifica unicità di matricola ed email.
 		\item Il sistema salva le modifiche.
 	\end{enumerate}
@@ -188,22 +192,22 @@
 		\item[] \textbf{4A - Nuova matricola già presente nell'archivio}
 		\item Il sistema rileva che la matricola esiste già.
 		\item Il sistema mostra un messaggio di errore.
-		\item L’operatore corregge la matricola o annulla l’operazione.
+		\item Il gestore corregge la matricola o annulla l’operazione.
 	\end{enumerate}
 	
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=5A.\arabic*]
 		\item[] \textbf{5A - Nuova E-Mail non valida}
 		\item Il sistema segnala email non conforme.
-		\item L’operatore corregge l'e-mail o annulla l’operazione.
+		\item Il gestore corregge l'e-mail o annulla l’operazione.
 	\end{enumerate}
 }
 
-\usecase{UC-6}{Rimozione di un utente}{Gestore della biblioteca}{L’archivio è stato correttamente caricato.}{L’utente viene rimosso dall'archivio.}{
+\usecase{UC-\stepcounter{ucid}}{Rimozione di un utente}{Gestore della biblioteca}{L’archivio è stato correttamente caricato.}{L’utente viene rimosso dall'archivio.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Si svolge il flusso del caso d’uso UC-3.
-		\item L’operatore seleziona un utente.
+		\item Il gestore seleziona un utente.
 		\item Clicca su “Elimina”.
 		\item Il sistema verifica l’assenza di prestiti attivi.
 		\item Il sistema elimina l’utente.
@@ -217,105 +221,151 @@
 	\end{enumerate}
 }
 
-\usecase{UC-7}{Registrazione di un prestito}{Gestore della biblioteca}{L’utente esiste. Il libro esiste e ha almeno 1 copia disponibile. L’utente ha meno di 3 prestiti attivi.}{Prestito registrato. Copie disponibili decrementate.}{
+\usecase{UC-\stepcounter{ucid}}{Registrazione di un prestito}{Gestore della biblioteca}{L’utente esiste. Il libro esiste e ha almeno 1 copia disponibile. L’utente ha meno di 3 prestiti attivi.}{Prestito registrato. Copie disponibili del libro prestato decrementate.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Si svolge il flusso del caso d’uso UC-2.
-		\item L’operatore seleziona il pulsante “+”.
-		\item L’operatore seleziona l’utente e libro tra quelli suggeriti dall’interfaccia.
-		\item Inserisce la data di restituzione prevista.
-		\item Il sistema verifica disponibilità di copie e il limite di prestiti dell’utente.
-		\item L’operatore preme il pulsante “Aggiungi”.
-		\item Il prestito viene registrato.
-		\item Il sistema conferma l’operazione.
+		\item Il gestore seleziona l'opzione per aggiungere un prestito.
+		\item Il gestore cerca l’utente a carico del prestito e libro da prestare e li seleziona tra quelli suggeriti dall’interfaccia.
+		\item Il gestore inserisce la data di restituzione prevista per il prestito.
+		\item Il sistema verifica disponibilità di copie del libro in prestito e il limite di prestiti dell’utente.
+		\item Il gestore seleziona l'opzione per confermare l'operazione.
+		\item Il prestito viene registrato nell'archivio del sistema.
 	\end{enumerate}
 }{
 	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=5A.\arabic*]
+		\item[] \textbf{5A - Limite di prestiti raggiunto, con correzione}
+		\item Se l'utente ha già 3 prestiti attivi oppure non ci sono copie disponibili, il sistema non permette al gestore di confermare l'operazione.
+		\item Il gestore corregge i dati inseriti.
+		\item Il flusso riprende dal passo 6.
+	\end{enumerate}
+	
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=5A.\arabic*]
+		\item[] \textbf{5B - Limite di prestiti raggiunto, senza correzione}
+		\item Se l'utente ha già 3 prestiti attivi oppure non ci sono copie disponibili, il sistema non permette al gestore di confermare l'operazione.
+		\item Il gestore annulla l'operazione.
+		\item Il prestito non viene registrato nell'archivio del sistema.
+	\end{enumerate}
+	
+	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=6A.\arabic*]
-		\item[] \textbf{6A - Limiti di prestiti raggiunto}
-		\item Se l'utente ha già 3 prestiti attivi oppure non ci sono copie disponibili disabilita il tasto “Aggiungi”.
+		\item[] \textbf{6A - Annullamento dell'operazione}
+		\item Il gestore annulla l'operazione.
+		\item Il prestito non viene registrato nell'archivio del sistema.
 	\end{enumerate}
 }
 
-\usecase{UC-8}{Restituzione di un libro}{Gestore della biblioteca}{Il prestito esiste. L'utente esiste.}{Prestito rimosso. Copie disponibili incrementate.}{
+\usecase{UC-\stepcounter{ucid}}{Restituzione di un libro}{Gestore della biblioteca}{Il prestito è correttamente registrato nel sistema.}{Il restito è segnato come saldato. Il numero di copie disponibili del libro restituito è incrementato.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Si svolge il flusso del caso d’uso UC-2.
-		\item L’operatore seleziona il prestito.
-		\item L’operatore preme il tasto “salda”.
-		\item Il sistema aggiorna il numero di copie.
-		\item Il prestito viene chiuso.
+		\item Il gestore seleziona il prestito da saldare dall'elenco.
+		\item Il gestore interagisce con l'opzione per confermare la restituzione del libro.
+		\item Il prestito viene segnato come saldato.
+		\item Il sistema aggiorna il numero di copie del libro restituito.
 	\end{enumerate}
-}{}
+}{
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=3A.\arabic*]
+		\item[] \textbf{3A - Annullamento dell'operazione}
+		\item Il gestore deseleziona il prestito da saldare.
+		\item Il prestito non viene segnato come saldato.
+	\end{enumerate}
+}
 
 \vspace{0.5cm}
 \hrule
 \vspace{0.5cm}
 
-\usecase{UC-9}{Ricerca di un libro}{Gestore della biblioteca}{L’archivio è stato correttamente caricato.}{Viene mostrato l’elenco filtrato.}{
+\usecase{UC-\stepcounter{ucid}}{Ricerca di un libro}{Gestore della biblioteca}{L’archivio è stato correttamente caricato.}{Viene mostrato l’elenco filtrato.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Si svolge il flusso del caso d’uso UC-1.
-		\item Preme sul tasto “filtra i risultati”.
-		\item Inserisce titolo, autore o ISBN.
-		\item Il sistema mostra i risultati.
-	\end{enumerate}
-}{
-	\vspace{-0.8\topsep}
-	\begin{enumerate}[label=4A.\arabic*]
-		\item[] \textbf{4A - Nessun libro con i filtri specificati viene trovato}
-		\item Il sistema mostra una schermata vuota.
-	\end{enumerate}
-}
-
-\usecase{UC-10}{Inserimento di un nuovo libro}{Gestore della biblioteca}{L’archivio viene correttamente caricato.}{Il nuovo libro è registrato nell’archivio.}{
-	\vspace{-0.8\topsep}
-	\begin{enumerate}
-		\item Si svolge il flusso del caso d’uso UC-1.
-		\item L’operatore preme il tasto “+”.
-		\item Inserisce titolo, autore/i, anno, ISBN e copie disponibili.
-		\item Il sistema verifica l’unicità dell’ISBN.
-		\item Il sistema registra il libro e conferma l’inserimento..
+		\item Il gestore inserisce i campi di titolo, autore o ISBN nel form per la ricerca.
+		\item Il gestore interagisce con l'opzione per filtrare i risultati a seconda dei campi inseriti.
+		\item Il sistema mostra nell'elenco solo i libri che corrispondono ai criteri di ricerca.
 	\end{enumerate}
 }{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=3A.\arabic*]
-		\item[] \textbf{3A - Nuovo ISBN già presente nell'archivio}
-		\item Il sistema riconosce ISBN duplicato e disabilita il tasto “Aggiungi”.
+		\item[] \textbf{3A - Annullamento dell'operazione}
+		\item Il gestore non interagisce con l'opzione per filtrare i risultati.
+		\item L'elenco dei libri non viene aggiornato a seconda dei criteri di filtro.
+	\end{enumerate}
+
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=4A.\arabic*]
+		\item[] \textbf{4A - Nessun libro con i filtri specificati viene trovato}
+		\item Il sistema mostra un'elenco vuoto.
 	\end{enumerate}
 }
 
-\usecase{UC-11}{Modifica dei dati di un libro}{Gestore della biblioteca}{Il libro è presente nel sistema.}{I dati sono stati correttamente aggiornati. In caso di errore le modifiche vengono annullate e il sistema segnala l’errore all’utente mediante un messaggio appropriato.}{
+\usecase{UC-\stepcounter{ucid}}{Inserimento di un nuovo libro}{Gestore della biblioteca}{L’archivio è stato correttamente caricato in memoria.}{Il nuovo libro è registrato nell’archivio.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Si svolge il flusso del caso d’uso UC-1.
-		\item Il gestore cerca il libro.
+		\item Il gestore interagisce con l'opzione di aggiunta di un nuovo libro.
+		\item Il sistema mostra al gestore la visualizzazione del form di registrazione per un nuovo libro.
+		\item Il gestore inserisce nei campi idonei titolo, lista di autori, data di pubblicazione, ISBN e numero copie disponibili nella biblioteca.
+		\item Il sistema verifica l’unicità dell’ISBN nell'archivio.
+		\item Il gestore interagisce con l'opzione per confermare l'operazione.
+		\item Il sistema registra il libro e conferma l’inserimento.
+	\end{enumerate}
+}{
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=5A.\arabic*]
+		\item[] \textbf{5A - Nuovo ISBN già presente nell'archivio}
+		\item Il sistema rileva che l'ISBN inserito è già presente nell'archivio.
+		\item Il sistema disabilita l'opzione di conferma dell'operazione di aggiunta.
+		\item Il gestore corregge l'ISBN.
+		\item Il flusso riprende dal passo 6.
+	\end{enumerate}
+	
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=6A.\arabic*]
+		\item[] \textbf{6A - Annullamento dell'operazione}
+		\item Il gestore decide di non confermare l'operazione e interagisce con l'opzione di annullamento.
+		\item Il sistema non registra la registrazione del nuovo libro.
+	\end{enumerate}
+}
+
+\usecase{UC-\stepcounter{ucid}}{Modifica dei dati di un libro}{Gestore della biblioteca}{Il libro è registrato nell'archivio.}{I dati sul libro sono correttamente aggiornati.}{
+	\vspace{-0.8\topsep}
+	\begin{enumerate}
+		\item Si svolge il flusso del caso d’uso UC-1.
+		\item Il gestore individua il libro da moodificare nell'elenco.
 		\item Il gestore seleziona il campo del libro da modificare.
-		\item Sovrascrivi i nuovi dati nel campo.
-		\item Il sistema verifica la validità dei dati.
+		\item Il gestore sovrascrive il campo con il nuovo dato.
+		\item Il sistema verifica la validità dei dati inseriti.
 		\item Il sistema salva le modifiche.
 	\end{enumerate}
 }{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=4A.\arabic*]
-		\item[] \textbf{4A - Nuovo ISBN già presente nell'archivio}
-		\item L’ISBN non viene modificato e torna al valore precedente
+		\item[] \textbf{4A - Dati inseriti non rispettano la coerenza dell'archivio}
+		\item Il sistema rileva che i dati modificati non rispettano i requisiti di coerenza o formattazione definiti per l'archivio.
+		\item Il sistema rifiuta la modifica e il dato resta invariato.
 	\end{enumerate}
 }
 
-\usecase{UC-12}{Eliminazione di un libro dal catalogo}{Gestore della biblioteca}{Il libro è presente nel sistema}{Il libro viene rimosso.}{
+\usecase{UC-\stepcounter{ucid}}{Eliminazione di un libro dal catalogo}{Gestore della biblioteca}{Il libro è presente nel sistema}{Il libro viene rimosso.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Si svolge il flusso del caso d’uso UC-1.
-		\item L’operatore seleziona il libro.
-		\item L’operatore preme il “-”.
-		\item L’elenco dei libri viene aggiornato a seconda della modifica.
+		\item Il gestore seleziona il libro da rimuovere.
+		\item Il gestore interagisce con l'opzione di rimozione dell'interfaccia.
+		\item Il sistema controlla che il libro non sia associato a prestiti attivi.
+		\item Il libro viene rimosso dall'archivio.
+		\item L’elenco dei libri viene aggiornato.
 	\end{enumerate}
 }{
 	\vspace{-0.8\topsep}
-	\begin{enumerate}[label=3A.\arabic*]
-		\item[] \textbf{3A - Libro attualmente in prestito}
-		\item Il sistema non permette l'operazione di rimozione.
+	\begin{enumerate}[label=4A.\arabic*]
+		\item[] \textbf{4A - Libro attualmente in prestito}
+		\item Il sistema non permette l'operazione di rimozione del libro.
+		\item Il gestore ricomincerà il flusso di rimozione.
 	\end{enumerate}
 }
 

@@ -23,3 +23,4 @@ docs/latex/*
 # Plant UML artifacts
 docs/uml/*
 !docs/uml/*.puml
+!docs/uml/usecases.svg
