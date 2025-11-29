@@ -305,6 +305,28 @@
 	\end{enumerate}
 }
 
+\usecase{UC-\stepcounter{ucid}}{Ricerca di utenti}{Gestore della biblioteca}{Il gestore sta visualizzando l'elenco degli utenti.}{Viene mostrato l’elenco filtrato.}{
+	\vspace{-0.8\topsep}
+	\begin{enumerate}
+		\item Il gestore inserisce i campi di cognome o matricola nel form per la ricerca.
+		\item Il gestore interagisce con l'opzione per filtrare i risultati a seconda dei campi inseriti.
+		\item Il sistema mostra nell'elenco solo gli utenti che corrispondono ai criteri di ricerca.
+	\end{enumerate}
+}{
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=2A.\arabic*]
+		\item[] \textbf{2A - Annullamento dell'operazione}
+		\item Il gestore non interagisce con l'opzione per filtrare i risultati.
+		\item L'elenco dei libri non viene aggiornato a seconda dei criteri di filtro.
+	\end{enumerate}
+	
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=3A.\arabic*]
+		\item[] \textbf{3A - Nessun utente con i filtri specificati viene trovato}
+		\item Il sistema mostra un'elenco vuoto.
+	\end{enumerate}
+}
+
 \newpage
 \usecase{UC-\stepcounter{ucid}}{Registrazione di un prestito}{Gestore della biblioteca}{Il gestore sta visualizzando l'elenco dei prestiti attivi.}{Prestito registrato. Copie disponibili del libro prestato decrementate.}{
 	\vspace{-0.8\topsep}
@@ -320,15 +342,31 @@
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=4A.\arabic*]
 		\item[] \textbf{4A - Limite di prestiti raggiunto, con correzione}
-		\item Se l'utente ha già 3 prestiti attivi oppure non ci sono copie disponibili, il sistema non permette al gestore di confermare l'operazione.
-		\item Il gestore corregge i dati inseriti.
+		\item Se l'utente ha già 3 prestiti attivi, il sistema non permette al gestore di confermare l'operazione.
+		\item Il gestore corregge i dati inseriti cambiando l'utente a carico.
 		\item Il flusso riprende dal passo 6.
 	\end{enumerate}
 	
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=4B.\arabic*]
-		\item[] \textbf{5B - Limite di prestiti raggiunto, senza correzione}
-		\item Se l'utente ha già 3 prestiti attivi oppure non ci sono copie disponibili, il sistema non permette al gestore di confermare l'operazione.
+		\item[] \textbf{4B - Limite di prestiti raggiunto, senza correzione}
+		\item Se l'utente ha già 3 prestiti attivi, il sistema non permette al gestore di confermare l'operazione.
+		\item Il gestore annulla l'operazione.
+		\item Il prestito non viene registrato nell'archivio del sistema.
+	\end{enumerate}
+	
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=4C.\arabic*]
+		\item[] \textbf{4C - Copie del libro terminate, con correzione}
+		\item Se non ci sono copie disponibili del libro da prestare nell'archivio, il sistema non permette al gestore di confermare l'operazione.
+		\item Il gestore corregge i dati inseriti cambiando il libro da prestare.
+		\item Il flusso riprende dal passo 6.
+	\end{enumerate}
+	
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=4D.\arabic*]
+		\item[] \textbf{4D - Copie del libro terminate, senza correzione}
+		\item Se non ci sono copie disponibili del libro da prestare nell'archivio, il sistema non permette al gestore di confermare l'operazione.
 		\item Il gestore annulla l'operazione.
 		\item Il prestito non viene registrato nell'archivio del sistema.
 	\end{enumerate}
@@ -439,7 +477,7 @@
 }
 
 \newpage
-\usecase{UC-\stepcounter{ucid}}{Eliminazione di un libro dal catalogo}{Gestore della biblioteca}{Il gestore sta visualizzando l'elenco degli utenti.}{Il libro viene rimosso.}{
+\usecase{UC-\stepcounter{ucid}}{Eliminazione di un libro dal catalogo}{Gestore della biblioteca}{Il gestore sta visualizzando l'elenco dei libri.}{Il libro viene rimosso.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Il gestore seleziona il libro da rimuovere.

@@ -14,6 +14,7 @@ package Sistema {
     usecase "Registrazione di un utente" as UC6
     usecase "Modifica dei dati di un utente" as UC7
     usecase "Rimozione di un utente" as UC8
+    usecase "Ricerca di utenti" as UC17
     usecase "Registrazione di un prestito" as UC9
     usecase "Restituzione di un libro" as UC10
     usecase "Ricerca di libri" as UC11
@@ -42,6 +43,7 @@ UC6 ..> UC5 : <<include>>
 UC7 ..> UC5 : <<include>>
 UC8 ..> UC5 : <<include>>
 UC9 ..> UC5 : <<include>>
+UC17 ..> UC5 : <<include>>
 
 UC10 ..> UC2 : <<include>>
 UC11 ..> UC2 : <<include>>
@@ -71,5 +73,6 @@ G -- UC13
 G -- UC14
 G -- UC15
 G -- UC16
+G -- UC17
 
 @enduml
