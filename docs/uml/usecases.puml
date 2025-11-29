@@ -19,9 +19,15 @@ package Sistema {
     usecase "Ricerca di libri" as UC11
     usecase "Registrazione di un libro" as UC12
     usecase "Modifica dei dati di un libro" as UC13
-    usecase "Eliminazione di un libro dal catalogo" as UC14
+    usecase "Rimozione di un libro dal catalogo" as UC14
     usecase "Salvataggio dell'archivio su file" as UC15
     usecase "Caricamento dell'archivio da file" as UC16
+
+    usecase "Matricola duplicata" as UCA1
+    usecase "E-Mail non valida" as UCA2
+    usecase "ISBN duplicato" as UCA3
+    usecase "Libro già in prestito" as UCA4
+    usecase "Errore di I/O" as UCA5
 }
 
 UC2 ..> UC1 : <<include>>
@@ -42,6 +48,16 @@ UC11 ..> UC2 : <<include>>
 UC12 ..> UC2 : <<include>>
 UC13 ..> UC2 : <<include>>
 UC14 ..> UC2 : <<include>>
+
+UC6 <.. UCA1 : <<extend>>
+UC7 <.. UCA1 : <<extend>>
+UC6 <.. UCA2 : <<extend>>
+UC7 <.. UCA2 : <<extend>>
+UC12 <.. UCA3 : <<extend>>
+UC13 <.. UCA3 : <<extend>>
+UC14 <.. UCA4  : <<extend>>
+UC15 <.. UCA5 : <<extend>>
+UC16 <.. UCA5 : <<extend>>
 
 G -- UC3
 G -- UC6
