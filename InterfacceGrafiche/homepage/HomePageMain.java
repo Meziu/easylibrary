@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package provainterfaccieproject;
+package homepage;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  *
  * @author ray
  */
-public class ProvaInterfaccieProject extends Application {
+public class HomePageMain extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
