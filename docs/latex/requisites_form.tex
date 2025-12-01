@@ -1,0 +1,23 @@
+\newcommand{\requisitebox}[8]{%
+	\hypertarget{#1}{}
+	\begin{tcolorbox}[colback=white,colframe=black!60,rounded corners]
+		\textbf{ID:} #1 \\[2pt]
+		\textbf{Nome:} #2 \\[2pt]
+		\textbf{Descrizione:} #3 \\[2pt]
+		\textbf{Input:} #4 \\[2pt]
+		\textbf{Output:} #5 \\[2pt]
+		\textbf{Precondizioni:} #6 \\[2pt]
+		\textbf{Postcondizioni:} #7 \\[2pt]
+		\textbf{Priorità:} #8
+	\end{tcolorbox}
+}
+
+\newcommand{\requisiteboxsimple}[4]{%
+	\hypertarget{#1}{}
+	\begin{tcolorbox}[colback=white,colframe=black!60,rounded corners]
+		\textbf{ID:} #1 \\[2pt]
+		\textbf{Nome:} #2 \\[2pt]
+		\textbf{Descrizione:} #3 \\[2pt]
+		\textbf{Priorità:} #4
+	\end{tcolorbox}
+}

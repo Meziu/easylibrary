@@ -15,3 +15,12 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+# Latex compilation files
+docs/latex/*
+!docs/latex/*.tex
+
+# Plant UML artifacts
+docs/uml/*
+!docs/uml/*.puml
+!docs/uml/usecases.svg

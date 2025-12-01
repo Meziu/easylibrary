@@ -1,0 +1,72 @@
+% Tabella dei requisiti
+\definecolor{prioritygreen}{RGB}{106, 168, 79}    % Verde scuro
+\definecolor{priorityyellow}{RGB}{241, 194, 50}   % Giallo scuro
+\definecolor{priorityred}{RGB}{224, 102, 102}     % Rosso scuro
+\definecolor{headercolor}{RGB}{79, 98, 120}       % Blu scuro
+% Cella di identificativo della colonna
+\newcommand{\headingcell}[1]{\multicolumn{1}{|c|}{#1}}
+% Riga contenente le informazioni di un requisito
+\newcommand{\requisiteline}[3] {
+    \multicolumn{1}{c|}{\hyperlink{#1}{#1}} & #2 &
+    \multicolumn{1}{c|}{\IfStrEqCase{#3}{
+        {Bassa}{\cellcolor{prioritygreen}}
+        {Media}{\cellcolor{priorityyellow}}
+        {Alta}{\cellcolor{priorityred}}
+    }[\cellcolor{white}]#3}\\
+	\cline{2-4}
+}
+
+% Gestione dell'allineamento e dimensione delle colonne
+\renewcommand\tabularxcolumn[1]{m{#1}}
+
+\begin{xltabular}[h]{\textwidth}{
+        | >{\rule{0pt}{34pt}\hsize=.4\hsize\centering\arraybackslash}X
+        | >{\raggedright\hsize=.2\hsize}X
+        | >{\raggedright\hsize=.3\hsize}X
+        | >{\hsize=.1\hsize}X |
+    }
+	\hline
+	\rowcolor{headercolor}\multicolumn{4}{|c|}{Lista dei Requisiti} \\
+	\hline
+    \rowcolor{lightgray}\headingcell{Categoria} & \headingcell{Identificativo} & \headingcell{Nome} & \headingcell{Priorità}\\
+    \hline
+    \multirow{3}{*}{\hyperlink{IF}{Funzionalità Individuali}} &
+	    \requisiteline{IF-1.1}{Registrazione di un nuovo utente}{Alta} &
+	    \requisiteline{IF-1.2}{Modifica dei dati di un utente}{Alta} &
+	    \requisiteline{IF-1.3}{Rimozione di un utente}{Alta} &
+	    \requisiteline{IF-1.4}{Ricerca di utenti}{Media} &
+	    \requisiteline{IF-2.1}{Inserimento di un nuovo libro}{Alta} &
+	    \requisiteline{IF-2.2}{Modifica dei dati relativi ad un libro}{Alta} &
+	    \requisiteline{IF-2.3}{Rimozione di un libro}{Alta} &
+	    \requisiteline{IF-2.4}{Ricerca di libri}{Media} &
+	    \requisiteline{IF-3.1}{Raccolta dello storico dei prestiti}{Bassa}
+    \hline
+    \multirow{3}{*}{\hyperlink{BF}{Business Flow}} &
+	    \requisiteline{BF-1.1}{Registrazione di un nuovo prestito}{Alta} &
+	    \requisiteline{BF-1.2}{Restituzione di un libro}{Alta}
+    \hline
+    \multirow{3}{*}{\hyperlink{DF}{Esigenze Dati}} &
+	    \requisiteline{DF-1.1}{Informazioni sull'utente}{Alta} &
+	    \requisiteline{DF-1.2}{Informazioni sul libro}{Alta} &
+	    \requisiteline{DF-1.3}{Informazioni sul prestito}{Alta} &
+	    \requisiteline{DF-2.1}{Salvataggio dei dati dell’archivio su file}{Alta} &
+	    \requisiteline{DF-2.2}{Caricamento da file dell’archivio}{Alta}
+	\hline
+	\multirow{3}{*}{\hyperlink{UI}{Interfaccia Utente}} &
+		\requisiteline{UI-1.1}{Menù principale dell’applicativo}{Alta} &
+	    \requisiteline{UI-1.2}{Menu-Bar persistente}{Media} &
+	    \requisiteline{UI-2.1}{Visualizzazione dell’elenco degli utenti}{Alta} &
+	    \requisiteline{UI-2.2}{Visualizzazione per la registrazione di un nuovo utente}{Alta} &
+	    \requisiteline{UI-3.1}{Visualizzazione dell’elenco dei libri}{Alta} &
+	    \requisiteline{UI-3.2}{Visualizzazione per la registrazione di un nuovo libro}{Alta} &
+	    \requisiteline{UI-4.1}{Visualizzazione dei prestiti attivi}{Alta} &
+	    \requisiteline{UI-4.2}{Visualizzazione per la registrazione di un nuovo prestito}{Alta} &
+	    \requisiteline{UI-4.3}{Visualizzazione dello storico dei prestiti}{Bassa}
+	\hline
+	\multirow{3}{*}{\hyperlink{RNF}{Requisiti Non Funzionali}} &
+		\requisiteline{RNF-1.1}{Usabilità della piattaforma}{Media} &
+		\requisiteline{RNF-1.2}{Affidabilità della piattaforma}{Alta}
+		%& \requisiteline{RNF-1.3}{Sicurezza dei dati}{Media}
+		%& \requisiteline{RNF-1.4}{Scalabilità delle informazioni}{Bassa}
+	\hline
+\end{xltabular}
