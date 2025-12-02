@@ -1,68 +1,97 @@
 @startuml
 skinparam classAttributeIconSize 0
 
-+class Utente{
++interface Archivio<T> {
+    +registra(T t): void
+    +rimuovi(T t): void
+    +collezione(): Collection<T>
+    +filtra(): Collection<T>
+}
+
++interface CollezioneConChiave<K, V> {
+    +ottieni(K key): V
+}
+
++abstract class Persona{
     -nome: String
     -cognome: String
-    -matricola: String
-    -email: String
+
+    +Persona()
+    +getNome(): String
+    +getCognome(): String
+}
+
++class Utente extends Persona{
+    -matricola: Matricola
+    -email: IndirizzoEmail
     -prestitiAttivi: List<Prestito>
 
     +Utente()
-    +getNome(): String
-    +getCognome(): String
-    +getMatricola(): String
-    +getEmail(): String
-    +getPrestitiAttivi(): List<Prestito>
+    +getMatricola(): Matricola
+    +getEmail(): IndirizzoEmail
     +modificaUtente(): Utente
-    +verificaMatricola(): boolean
-    +verificaEmail(): boolean
-    +equals(): boolean
-    +hashCode(): int
+    +compareTo(): int
+}
+
++class Matricola {
+    -matricola: String
+
+    +Matricola()
+    +setMatricola()
+    +verifica(): boolean {static}
+    +toString()
+}
+
++class IndirizzoEmail {
+    -indirizzo: String
+
+    +IndirizzoEmail()
+    +setIndirizzo()
+    +verifica(): boolean {static}
+    +toString()
 }
 
 
 +class Libro{
     -titolo: String
     -autori: List<Autore>
-    -annoPubblicazione: String
-    -ISBN: String
+    -dataPubblicazione: LocalDate
+    -id: ISBN
 
     +Libro()
     +getTitolo(): String
     +getAutori(): List<Autore>
     +getAnnoPubblicazione(): String
-    +getISBN(): String
+    +getId(): ISBN
     +aggiungiAutore(): void
     +modificaLibro(): Libro
-    +verificaISBN(): boolean
-    +equals(): boolean
-    +hashCode(): int
+    +compareTo(): int
 }
 
++class ISBN {
+    -id: ISBN
 
-+class Autore{
-    -nome: String
-    -cognome: String
+    +ISBN()
+    +verifica(): boolean {static}
+    +toString()
+}
 
-    +getNome(): String
-    +getCognome(): String
++class Autore extends Persona{
 }
 
 
 +class Prestito{
-    -libro: Libro
-    -utente: Utente
+    -matricolaUtente: Matricola
+    -idLibro: ISBN
     -statoPrestito: StatoPrestito (enum)
-    -scadenzaPrestito: LocalDate {readOnly}
+    -scadenzaPrestito: LocalDate
 
-    +getLibro(): Libro
-    +getUtente(): Utente
+    +getIdLibro(): Libro
+    +getMatricolaUtente(): Utente
     +getStatoPrestito(): StatoPrestito
     +getScadenzaPrestito(): LocalDate
+    +setStatoPrestito(): void
     +isScaduto(): boolean
-    +aggiornaStatoPrestito(): void
-    +equals(): boolean
 }
 
 +enum StatoPrestito{
@@ -72,82 +101,52 @@ skinparam classAttributeIconSize 0
 
 
 +class Biblioteca {
-    -archivioLibri: ArchivioLibri
-    -archivioUtenti: ArchivioUtenti
-    -archivioPrestiti: ArchivioPrestiti
+    -archivioLibri: Archivio<Libri>
+    -archivioUtenti: Archivio<Utenti>
+    -archivioPrestiti: Archivio<Prestiti>
 
     +Biblioteca()
+    +salvaFile()
+    +caricaFile()
 }
 
 
-+interface ArchivioLibri {
-    +aggiungiLibro(): void
-    +rimuoviLibro(): void
-    +cercaLibro(): Libro
-}
-
-+interface ArchivioUtenti {
-    +registraUtente(): void
-    +rimuoviUtente(): void
-    +cercaMatricola(): Utente
-    +cercaCognome(): List<Utente>
-}
-
-+interface ArchivioPrestiti {
-    registraPrestito(): void
-    saldaPrestito(): void
-    visualizzaStoricoPrestiti(): void
-}
-
-
-+class GestoreLibri implements ArchivioLibri, Comparable {
-    -mapLibri: Map<String, Libro>
++class GestoreLibri implements Archivio, CollezioneConChiave {
+    -mapLibri: Map<ISBN, Libro>
     -listaLibri: List<Libro>
 
     +GestoreLibri()
-    +aggiungiLibro()
-    +rimuoviLibro()
-    +cercaPerTitolo(): Libro
-    +cercaPerAutore(): Libro
-    +cercaPerISBN(): Libro
-    +getElencoLibri(): Map<String, Libro>
-    +compareTo()
 }
 
 
-+class GestoreUtenti implements ArchivioUtenti, Comparable{
-    -mapUtenti: Map<String, Utente>
++class GestoreUtenti implements Archivio, CollezioneConChiave {
+    -mapUtenti: Map<Matricola, Utente>
     -listaUtenti: List<Utente>
 
-    +registraUtente(): void
-    +rimuoviUtente(): void
-    +cercaMatricola(): Utente
-    +cercaCognome(): List<Utente>
-    +getElencoUtenti(): Map<String, Utente>
-    +compareTo()
+    +GestoreUtenti()
 }
 
 
-+class GestorePrestiti implements ArchivioPrestiti, Comparable{
++class GestorePrestiti implements Archivio {
     -storicoPrestiti: List<Prestito>
 
-    +registraPrestito()
-    +restituisciPrestito()
-
-    +getStoricoPrestiti()
-    +getPrestitiAttivi()
-    +compareTo()
+    +GestorePrestiti()
 }
 
 
-Biblioteca "aggregazione" o-- ArchivioUtenti
-Biblioteca "aggregazione" o-- ArchivioLibri
-Biblioteca "aggregazione" o-- ArchivioPrestiti
+Biblioteca --> Archivio
+Biblioteca --> CollezioneConChiave
 
-Utente -- "1..3" Prestito
-Libro -- "1..*" Autore
+Utente --> "1..3" Prestito
+Utente --> Matricola
+Utente ---> IndirizzoEmail
+Libro ---> "1..*" Autore
+Libro --> ISBN
+Prestito --> Matricola
+Prestito --> ISBN
+Prestito --* StatoPrestito
 
-GestoreUtenti "aggregzione" o-- "1..*" Utente
-GestoreLibri "aggregzione" o-- "1..*" Libro
-GestorePrestiti "aggregzione" o-- "1..*" Prestito
+GestoreUtenti --> "1..*" Utente
+GestoreLibri --> "1..*" Libro
+GestorePrestiti --> "1..*" Prestito
 @enduml
