@@ -1,0 +1,192 @@
+@startuml
+skinparam classAttributeIconSize 0
+
++interface Ricercabile<K, V> {
++cerca(key: K): Collection<V>
+}
+
++interface Archivio<T> {
++aggiungi(elemento: T): void
++rimuovi(elemento: T): void
+}
+
++interface Verificabile<T> {
++{static} verifica(elemento: T): boolean
+}
+
+
++abstract class Persona {
+-nome: String;
+-cognome: String;
++abstract getNome(): String
++abstract getCognome(): String
+}
+
+
++class Utente extends Persona {
+-matricola: Matricola
+-email: Email
+-prestitiAttivi: List<Prestito>
+
++Utente()
++getNome(): String 
++getCognome(): String
++getMatricola(): Matricola
++getEmail(): Email
++getPrestitiAttivi(): List<Prestito>
++setNome()
++setCognome()
+#setMatricola()
+#setEmail()
++compareTo()
+}
+
+
++class Libro {
+-titolo: String
+-autori: List<Autore>
+-annoPubblicazione: String
+-ISBN: ISBN
+
++Libro()
++getTitolo(): String
++getAutori(): List<Autore>
++getAnnoPubblicazione(): String
++getISBN(): String
++aggiungiAutore(): void
++modificaLibro(): Libro
++compareTo()
+}
+
+
++class Autore extends Persona{
++getNome(): String
++getCognome(): String
++verificaAutore(): boolean
+}
+
+
+
++class Prestito{
+-libro: Libro
+-utente: Utente
+-statoPrestito: StatoPrestito (enum)
+-scadenzaPrestito: LocalDate {readOnly}
+
++getLibro(): Libro
++getUtente(): Utente
++getStatoPrestito(): StatoPrestito
++getScadenzaPrestito(): LocalDate
++isScaduto(): boolean
++aggiornaStatoPrestito(): void
++compareTo()
+}
+
++enum StatoPrestito{
+ATTIVO,
+RESTITUITO
+}
+
+Prestito --> "1" StatoPrestito
+
+
+
++class Biblioteca {
+-libri: Archivio<Libro>
+-utenti: Archivio<Utente>
+-prestiti: Archivio<Prestito>
+
++Biblioteca()
+}
+
+
+
+
++class ISBN{
+-ISBN: String
++verificaISBN(): boolean
+}
+ISBN .up.|> "Verificabile" : Verificabile<String>
+
++class Matricola{
+-matricola: String
++verificaMatricola(): boolean
+}
+Matricola .up.|> "Verificabile" : Verificabile<String>
+
+
++class Email{
+-email: String
++verificaEmail(): boolean
+}
+Email .up.|> "Verificabile" : Verificabile<String>
+
+
++class GestoreLibri{
+-mapLibri: Map<String, Libro>
+-listaLibri: List<Libro>
+
++GestoreLibri()
++aggiungi()
++rimuovi()
++cerca(String titolo): List<Libro>
++cerca(ISBN id): List<Libro>
++cerca(Autore autore): List<Libro>
++getElencoLibri(): Map<String, Libro>
+}
+
+GestoreLibri .up.|> "Archivio" : Archivio<Libro>
+GestoreLibri .up.|> "Ricercabile" : Ricercabile<String,Libro>
+
+
+
+
+
++class GestoreUtenti{
+-mapUtenti: Map<String, Utente>
+-listaUtenti: List<Utente>
+
++GestoreUtenti()
++aggiungi(): void
++rimuovi(): void
++cerca(String cognome): List<Utente>
++cerca(Matricola m): List<Utente>
++getElencoUtenti(): Map<String, Utente>
+}
+GestoreUtenti .up.|> "Archivio" : Archivio<Utente>
+GestoreUtenti .up.|> "Ricercabile" : Ricercabile<String,Utente>
+
+
+
+
+
++class GestorePrestiti{
+-storicoPrestiti: List<Prestito>
+
++GestorePrestiti()
++registraPrestito()
++restituisciPrestito()
++getStoricoPrestiti()
++getPrestitiAttivi()
+}
+
+GestorePrestiti .up.|> "Archivio" : Archivio<Prestito>
+GestorePrestiti .up.|> "Ricercabile" : Ricercabile<String,Prestito>
+
+
+
+
+
+Biblioteca o-up- Archivio
+
+Utente -- "1..3" Prestito
+Utente *-- Matricola
+Utente *-- Email
+
+Libro -- "1..*" Autore
+Libro *-- ISBN
+
+GestoreUtenti --> "1..*" Utente
+GestoreLibri --> "1..*" Libro
+GestorePrestiti --> "1..*" Prestito
+@enduml
