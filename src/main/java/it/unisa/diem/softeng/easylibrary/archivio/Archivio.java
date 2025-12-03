@@ -4,26 +4,26 @@ import it.unisa.diem.softeng.easylibrary.interfacce.Filtro;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Archivio<T> {
+public abstract class Archivio<E> {
 
-    List<T> collezione;
+    List<E> collezione;
 
-    public abstract void registra(T elemento);
+    public abstract void registra(E elemento);
 
-    public abstract void rimuovi(T elemento);
+    public abstract void rimuovi(E elemento);
 
     public Archivio() {
         collezione = new ArrayList<>();
     }
 
-    public List<T> getCollezione() {
+    public List<E> getCollezione() {
         return collezione;
     }
 
-    public List<T> filtra(Filtro f) {
-        List<T> listaFiltrata = new ArrayList<>();
+    public List<E> filtra(Filtro f) {
+        List<E> listaFiltrata = new ArrayList<>();
 
-        for (T el : collezione) {
+        for (E el : collezione) {
             if (f.controlla(el)) {
                 listaFiltrata.add(el);
             }

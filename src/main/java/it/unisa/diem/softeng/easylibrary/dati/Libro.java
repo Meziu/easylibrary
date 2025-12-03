@@ -7,14 +7,14 @@ public class Libro implements Comparable<Libro> {
 
     private String titolo;
     private List<Autore> autori;
-    private String annoPubblicazione;
+    private String dataPubblicazione;
     private ISBN isbn;
     private int copieDisponibili;
 
-    public Libro(String titolo, List<Autore> autori, String annoPubblicazione, String isbn, int copieDisponibili) {
+    public Libro(String titolo, List<Autore> autori, String dataPubblicazione, String isbn, int copieDisponibili) {
         this.titolo = titolo;
         this.autori = autori;
-        this.annoPubblicazione = annoPubblicazione;
+        this.dataPubblicazione = dataPubblicazione;
         this.isbn = new ISBN(isbn);
         this.copieDisponibili = copieDisponibili;
     }
@@ -27,8 +27,8 @@ public class Libro implements Comparable<Libro> {
         return autori;
     }
 
-    public String getAnnoPubblicazione() {
-        return annoPubblicazione;
+    public String getDataPubblicazione() {
+        return dataPubblicazione;
     }
 
     public ISBN getISBN() {
@@ -51,11 +51,11 @@ public class Libro implements Comparable<Libro> {
         this.autori = autori;
     }
 
-    public void setAnnoPubblicazione(String annoPubblicazione) {
-        this.annoPubblicazione = annoPubblicazione;
+    public void setDataPubblicazione(String dataPubblicazione) {
+        this.dataPubblicazione = dataPubblicazione;
     }
 
-    public void setIsbn(ISBN isbn) {
+    public void setISBN(ISBN isbn) {
         this.isbn = isbn;
     }
     

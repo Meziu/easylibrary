@@ -24,7 +24,7 @@ public class Prestito implements Comparable<Prestito> {
         return idLibro;
     }
 
-    public StatoPrestito getStato() {
+    public StatoPrestito getStatoPrestito() {
         return stato;
     }
 
