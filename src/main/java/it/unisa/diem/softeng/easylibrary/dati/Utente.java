@@ -34,6 +34,14 @@ public class Utente extends Persona {
     public void setEmail(IndirizzoEmail email) {
         this.email = email;
     }
+    
+    public void registra(Prestito p){
+        prestitiAttivi.add(p);
+    }
+    
+    public void rimuovi(Prestito p){
+        prestitiAttivi.add(p);
+    }
 
     @Override
     public int compareTo(Persona p) {

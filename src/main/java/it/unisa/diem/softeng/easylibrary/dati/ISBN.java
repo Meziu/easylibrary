@@ -2,7 +2,7 @@ package it.unisa.diem.softeng.easylibrary.dati;
 
 import it.unisa.diem.softeng.easylibrary.eccezioni.ISBNInvalidoException;
 
-public class ISBN {
+public class ISBN implements Comparable<ISBN>{
 
     private String isbn;
 
@@ -79,5 +79,10 @@ public class ISBN {
         int checkReale = ultimo - '0';
 
         return checkCalcolato == checkReale;
+    }
+    
+    @Override
+    public int compareTo(ISBN id) {
+        return this.isbn.compareTo(id.isbn);
     }
 }

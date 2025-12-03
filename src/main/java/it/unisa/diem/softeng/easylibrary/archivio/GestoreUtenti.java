@@ -1,13 +1,11 @@
 package it.unisa.diem.softeng.easylibrary.archivio;
 
 import it.unisa.diem.softeng.easylibrary.eccezioni.ValoreGiàPresenteException;
-import it.unisa.diem.softeng.easylibrary.dati.IndirizzoEmail;
 import it.unisa.diem.softeng.easylibrary.dati.Matricola;
 import it.unisa.diem.softeng.easylibrary.dati.Utente;
 import it.unisa.diem.softeng.easylibrary.eccezioni.ValoreNonPresenteException;
 import it.unisa.diem.softeng.easylibrary.interfacce.CollezioneConChiave;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -31,9 +29,9 @@ public class GestoreUtenti extends Archivio<Utente> implements CollezioneConChia
             throw new ValoreGiàPresenteException("TODO FARE MESSAGGIO BELLO");
         }
 
-        List<Utente> l = getCollezione();
-        int idx = Collections.binarySearch(l, u);
-        l.add(idx, u);
+        List<Utente> list = getCollezione();
+        int idx = Collections.binarySearch(list, u);
+        list.add(idx, u);
 
     }
 
@@ -43,40 +41,20 @@ public class GestoreUtenti extends Archivio<Utente> implements CollezioneConChia
 
         // Se non era presente l'utente
         if (res == null) {
-            throw new ValoreNonPresenteException(); // TODO
+            throw new ValoreNonPresenteException("TODO FARE MESSAGGIO BELLO");
         }
 
-        List<Utente> l = getCollezione();
-        int idx = Collections.binarySearch(l, u);
+        List<Utente> list = getCollezione();
+        int idx = Collections.binarySearch(list, u);
 
         // Se l'indice è fuori dalla lista o se l'elemento trovato dalla binarySearch non è quello giusto.
-        if (idx == l.size() || l.get(idx).compareTo(u) != 0) {
-            throw new ValoreNonPresenteException();
+        if (idx == list.size() || list.get(idx).compareTo(u) != 0) {
+            throw new ValoreNonPresenteException("TODO FARE MESSAGGIO BELLO");
         }
 
-        l.remove(idx);
+        list.remove(idx);
     }
 
-    //matricola è univoca, ha senso restituire una lista?
-    public Utente cerca(Matricola matricola) {
-        for (Utente u : utenti.values()) {
-            if (u.getMatricola().equals(matricola)) {
-                return u;
-            }
-        }
-        return null; //O una lista vuota?
-    }
-
-    public List<Utente> cerca(String cognome) {
-        List<Utente> risultati = new ArrayList<>();
-
-        for (Utente u : utenti.values()) {
-            if (u.getCognome().equals(cognome)) {
-                risultati.add(u);
-            }
-        }
-        return risultati;
-    }
 
     @Override
     public Utente ottieni(Matricola key) {
