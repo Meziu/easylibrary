@@ -13,21 +13,18 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author ray
+ * @author marco
  */
-public class HomePageMain extends Application {
+public class GenericMain extends Application{
+
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("HomePageView.fxml"));
-        
+        Parent root = FXMLLoader.load(getClass().getResource("GenericView.fxml"));
         
         Scene scene = new Scene(root);
         
-        HomePageController controller = new HomePageController();
-        
         stage.setScene(scene);
-        stage.setTitle("Biblioteca");
         stage.show();
     }
 
