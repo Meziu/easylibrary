@@ -1,0 +1,176 @@
+@startuml
+actor Gestore
+participant "GUI" as UI
+participant "Bibloteca" as S
+activate Gestore
+' ----- Inizio -----
+
+Gestore -> UI : Interazione con "Nuovo utente"
+deactivate Gestore
+activate UI
+UI -> Gestore : Mostra form di registrazione  
+
+activate Gestore
+Gestore -> UI : Inserisce Utente(nome,cognome,matricola,email)
+Gestore -> UI : Conferma registrazione
+deactivate Gestore
+
+' ----- Invio dati a Sistema -----
+UI -> S : newUtente(nome,cognome,email,matricola)
+
+activate S
+UI -> S : Matricola.verifica(matricola)
+
+' ----- Controllo Sintassi Matricola -----
+alt Sintassi Matricola Errata
+S -> UI : throw formatoNonValidoMatricola
+deactivate S
+UI -> Gestore : Visualizza errore sintassi matricola
+activate Gestore
+Gestore -> UI : Corregge la matricola
+deactivate Gestore
+UI -> S : newUtente(matricola)
+activate S
+UI -> S : Matricola.verifica(matricola)
+
+else Sintassi Matricola Valida
+S -> UI : true
+end
+
+' ----- Controllo Matricola -----
+UI -> S : GestioneUtenti.contiene(matricola)
+deactivate UI
+alt Matricola già esistente (correzione)
+
+    S -> UI : throw matricolaDuplicata
+    deactivate S    
+    activate UI
+
+    
+    UI -> Gestore : Visualizzazione errore matricola duplicata
+    
+
+    activate Gestore
+    Gestore -> UI : Corregge la matricola
+    deactivate Gestore
+
+
+    UI -> S : newUtente(matricola)
+
+
+    activate S
+    UI -> S : Matricola.verifica(matricola)
+    UI -> S : GestioneUtenti.contiene(matricola)
+    deactivate UI
+
+
+else Matricola già esistente (annullamento)
+
+    S -> UI : throw matricolaDuplicata
+    deactivate S
+
+    activate UI
+    UI -> Gestore : Visualizzazione errore matricola duplicata
+
+
+    activate Gestore
+    Gestore -> UI : Annulla operazione
+    deactivate Gestore
+
+
+    UI -> Gestore : chiudi form di registrazione
+
+else Matricola Valida
+
+S -> UI : true
+deactivate UI
+activate S
+
+end
+
+UI -> S : newUtente(email)
+activate UI
+
+
+' ----- Controllo Sintassi Email -----
+
+
+UI -> S : Email.verifica(email)
+deactivate UI
+
+alt Sintassi Email Errata
+S -> UI : throw formatoNonValidoEmail
+activate UI
+deactivate S
+
+UI -> Gestore : Visualizza errore sintassi email
+activate Gestore
+Gestore -> UI : Corregge l'email
+deactivate Gestore
+
+UI -> S : newUtente(email)
+activate S
+UI -> S : Email.verifica(email)
+
+
+else Sintassi Email Valida
+S -> UI : true
+
+
+end
+
+
+' ----- Controllo Email -----
+
+UI -> S : GestioneUtenti.contiene(email)
+
+    deactivate UI
+alt Email non valida (correzione)
+    S -> UI : throw emailDuplicata
+    deactivate S    
+    activate UI
+
+    UI -> Gestore : Visualizzazione errore Email duplicata
+
+    activate Gestore
+    Gestore -> UI : Corregge l'Email
+    deactivate Gestore
+
+
+    UI -> S : newUtente(email)
+
+    activate S
+    UI -> S : Email.verifica(email
+    UI -> S :  GestioneUtenti.contiene(email)
+
+    deactivate UI
+else Email non valida (annullamento)
+    S -> UI : throw emailDuplicata
+    deactivate S
+
+    activate UI
+    UI -> Gestore : Visualizzazione errore Email duplicata
+
+
+    activate Gestore
+    Gestore -> UI : Annulla operazione
+    deactivate Gestore
+
+
+    UI -> Gestore : chiudi form di registrazione
+deactivate UI
+
+else Email Valida
+S -> UI : true
+activate UI
+activate S
+
+end
+
+' ----- Conclusione -----
+
+UI -> S : addUtenti(Utente)
+
+UI -> Gestore : chiudi form di registrazione
+deactivate UI
+@enduml
