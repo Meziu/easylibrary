@@ -20,7 +20,7 @@ public abstract class Archivio<E> {
         return collezione;
     }
 
-    public List<E> filtra(Filtro f) {
+    public List<E> filtra(Filtro<E> f) {
         List<E> listaFiltrata = new ArrayList<>();
 
         for (E el : collezione) {
