@@ -1,15 +1,22 @@
 @startuml
 skinparam classAttributeIconSize 0
 
-+interface Archivio<T> {
-    +registra(T t): void
-    +rimuovi(T t): void
-    +collezione(): Collection<T>
-    +filtra(): Collection<T>
+interface Filtro<T> {
+    +controlla(T t): boolean
+}
+
++abstract class Archivio<T> {
+    -collezione: List<T>
+
+    +registra(T t): void {abstract}
+    +rimuovi(T t): void {abstract}
+    +getCollezione(): List<T>
+    +filtra(Filtro f): List<T>
 }
 
 +interface CollezioneConChiave<K, V> {
     +ottieni(K key): V
+    +chiavePresente(K key): boolean
 }
 
 +abstract class Persona{
@@ -111,24 +118,21 @@ skinparam classAttributeIconSize 0
 }
 
 
-+class GestoreLibri implements Archivio, CollezioneConChiave {
++class GestoreLibri extends Archivio implements CollezioneConChiave {
     -mapLibri: Map<ISBN, Libro>
-    -listaLibri: List<Libro>
 
     +GestoreLibri()
 }
 
 
-+class GestoreUtenti implements Archivio, CollezioneConChiave {
++class GestoreUtenti extends Archivio implements CollezioneConChiave {
     -mapUtenti: Map<Matricola, Utente>
-    -listaUtenti: List<Utente>
 
     +GestoreUtenti()
 }
 
 
-+class GestorePrestiti implements Archivio {
-    -storicoPrestiti: List<Prestito>
++class GestorePrestiti extends Archivio {
 
     +GestorePrestiti()
 }
@@ -136,6 +140,8 @@ skinparam classAttributeIconSize 0
 
 Biblioteca --> Archivio
 Biblioteca --> CollezioneConChiave
+
+Archivio .left.> Filtro
 
 Utente --> "1..3" Prestito
 Utente --> Matricola
