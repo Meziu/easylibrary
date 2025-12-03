@@ -2,19 +2,21 @@ package it.unisa.diem.softeng.easylibrary.archivio;
 
 import it.unisa.diem.softeng.easylibrary.dati.ISBN;
 import it.unisa.diem.softeng.easylibrary.dati.Libro;
+import it.unisa.diem.softeng.easylibrary.dati.OrdinatoreLibri;
 import it.unisa.diem.softeng.easylibrary.interfacce.CollezioneConChiave;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class GestoreLibri extends Archivio<Libro> implements CollezioneConChiave<ISBN, Libro> {
 
-    private Map<ISBN, Libro> indiceISBN;
+    private final Map<ISBN, Libro> indiceISBN;
+    private final OrdinatoreLibri ord;
 
     public GestoreLibri() {
         super();
+        
         indiceISBN = new HashMap<>();
+        ord = new OrdinatoreLibri();
     }
 
     @Override

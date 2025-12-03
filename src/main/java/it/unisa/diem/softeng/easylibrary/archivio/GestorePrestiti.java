@@ -1,16 +1,19 @@
 package it.unisa.diem.softeng.easylibrary.archivio;
 
+import it.unisa.diem.softeng.easylibrary.dati.OrdinatorePrestiti;
 import it.unisa.diem.softeng.easylibrary.dati.Prestito;
 import it.unisa.diem.softeng.easylibrary.dati.StatoPrestito;
-import it.unisa.diem.softeng.easylibrary.dati.Utente;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class GestorePrestiti extends Archivio<Prestito> {
+    private final OrdinatorePrestiti ord;
 
     public GestorePrestiti() {
         super();
+        
+        ord = new OrdinatorePrestiti();
     }
 
     /*Funzione che aggiunge un nuovo prestito alla lista dei prestiti*/
@@ -19,7 +22,7 @@ public class GestorePrestiti extends Archivio<Prestito> {
         // TODO CONTROLLA UTENTE??
         
         List<Prestito> l = getCollezione();
-        int idx = Collections.binarySearch(l, p);
+        int idx = Collections.binarySearch(l, p, ord);
         l.add(idx, p);
     }
 
@@ -27,13 +30,9 @@ public class GestorePrestiti extends Archivio<Prestito> {
     @Override
     public void rimuovi(Prestito p) {
         List<Prestito> l = getCollezione();
-        int idx = Collections.binarySearch(l, p);
+        int idx = Collections.binarySearch(l, p, ord);
         
         p.setStatoPrestito(StatoPrestito.RESTITUITO);
-    }
-
-    public List<Prestito> getStoricoPrestiti() {
-        return storicoPrestiti;
     }
 
     public List<Prestito> getPrestitiAttivi() {

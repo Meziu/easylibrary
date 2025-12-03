@@ -1,13 +1,12 @@
 package it.unisa.diem.softeng.easylibrary.archivio;
 
 import it.unisa.diem.softeng.easylibrary.eccezioni.ValoreGiàPresenteException;
-import it.unisa.diem.softeng.easylibrary.dati.IndirizzoEmail;
 import it.unisa.diem.softeng.easylibrary.dati.Matricola;
+import it.unisa.diem.softeng.easylibrary.dati.OrdinatoreUtenti;
 import it.unisa.diem.softeng.easylibrary.dati.Utente;
 import it.unisa.diem.softeng.easylibrary.eccezioni.ValoreNonPresenteException;
 import it.unisa.diem.softeng.easylibrary.interfacce.CollezioneConChiave;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -15,11 +14,14 @@ import java.util.Map;
 
 public class GestoreUtenti extends Archivio<Utente> implements CollezioneConChiave<Matricola, Utente> {
 
-    private Map<Matricola, Utente> indiceMatricole;
+    private final Map<Matricola, Utente> indiceMatricole;
+    private final OrdinatoreUtenti ord;
 
     public GestoreUtenti() {
         super();
+        
         indiceMatricole = new HashMap<>();
+        ord = new OrdinatoreUtenti();
     }
 
     @Override
@@ -32,7 +34,7 @@ public class GestoreUtenti extends Archivio<Utente> implements CollezioneConChia
         }
 
         List<Utente> l = getCollezione();
-        int idx = Collections.binarySearch(l, u);
+        int idx = Collections.binarySearch(l, u, ord);
         l.add(idx, u);
 
     }
@@ -47,7 +49,7 @@ public class GestoreUtenti extends Archivio<Utente> implements CollezioneConChia
         }
 
         List<Utente> l = getCollezione();
-        int idx = Collections.binarySearch(l, u);
+        int idx = Collections.binarySearch(l, u, ord);
 
         // Se l'indice è fuori dalla lista o se l'elemento trovato dalla binarySearch non è quello giusto.
         if (idx == l.size() || l.get(idx).compareTo(u) != 0) {
@@ -55,27 +57,6 @@ public class GestoreUtenti extends Archivio<Utente> implements CollezioneConChia
         }
 
         l.remove(idx);
-    }
-
-    //matricola è univoca, ha senso restituire una lista?
-    public Utente cerca(Matricola matricola) {
-        for (Utente u : utenti.values()) {
-            if (u.getMatricola().equals(matricola)) {
-                return u;
-            }
-        }
-        return null; //O una lista vuota?
-    }
-
-    public List<Utente> cerca(String cognome) {
-        List<Utente> risultati = new ArrayList<>();
-
-        for (Utente u : utenti.values()) {
-            if (u.getCognome().equals(cognome)) {
-                risultati.add(u);
-            }
-        }
-        return risultati;
     }
 
     @Override

@@ -1,10 +1,8 @@
 package it.unisa.diem.softeng.easylibrary.dati;
 
-import it.unisa.diem.softeng.easylibrary.dati.ISBN;
-import java.util.ArrayList;
 import java.util.List;
 
-public class Libro {
+public class Libro implements Comparable<Libro> {
 
     private String titolo;
     private List<Autore> autori;
@@ -59,21 +57,7 @@ public class Libro {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (!(o instanceof Libro)) {
-            return false;
-        }
-        Libro l = (Libro) o;
-        return isbn.equals(l.isbn);
+    public int compareTo(Libro l) {
+        return this.isbn.compareTo(l.isbn);
     }
-
-    @Override
-    public int hashCode() {
-        return isbn.hashCode();
-    }
-
 }
