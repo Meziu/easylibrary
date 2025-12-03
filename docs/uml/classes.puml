@@ -17,7 +17,7 @@ interface Filtro<T> {
 
 +interface CollezioneConChiave<K, V> {
     +ottieni(K key): V
-    +chiavePresente(K key): boolean
+    +contiene(K key): boolean
 }
 
 +abstract class Persona{
