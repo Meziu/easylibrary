@@ -35,12 +35,12 @@ public class Utente extends Persona {
         this.email = email;
     }
     
-    public void registra(Prestito p){
+    public void registraPrestito(Prestito p){
         prestitiAttivi.add(p);
     }
     
-    public void rimuovi(Prestito p){
-        prestitiAttivi.add(p);
+    public void rimuoviPrestito(Prestito p){
+        prestitiAttivi.remove(p);
     }
 
     @Override

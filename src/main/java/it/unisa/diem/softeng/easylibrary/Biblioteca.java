@@ -44,7 +44,11 @@ public class Biblioteca {
         Prestito p = new Prestito(matricola, isbn, StatoPrestito.ATTIVO, scadenzaPrestito);
         
         prestiti.registra(p);
-        utenti.getArchivioUtenti().ottieni(matricola).addPrestito(p);
+        utenti.getArchivioUtenti().ottieni(matricola).registraPrestito(p);
+    }
+    
+    public List<Prestito> getPrestitiAttivi() {
+        return prestiti.filtra((Prestito p) -> p.getStato() == StatoPrestito.ATTIVO);
     }
 
     public void registraRestituzione(Prestito p) {
@@ -57,23 +61,5 @@ public class Biblioteca {
     
     public static void caricaFile(String filename) {
         
-    } 
-    
-    
-    
-    
-    
-    
-    
-    
-    public List<Prestito> getPrestitiAttivi() {
-        return gestorePrestiti.filtra(new Filtro<Prestito>() {
-            
-            @Override
-            public boolean controlla(Prestito p) {
-                return p.getStatoPrestito() == StatoPrestito.ATTIVO;
-            }
-        });
     }
-    
 }

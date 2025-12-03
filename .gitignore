@@ -24,3 +24,6 @@ docs/latex/*
 docs/uml/*
 !docs/uml/*.puml
 !docs/uml/usecases.svg
+
+
+.DS_Store
