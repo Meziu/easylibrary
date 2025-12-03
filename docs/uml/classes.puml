@@ -80,6 +80,7 @@ interface Filtro<T> {
     -id: String
 
     +ISBN()
+    +setId()
     +verifica(): boolean {static}
     +toString()
 }
@@ -91,7 +92,7 @@ interface Filtro<T> {
 +class Prestito{
     -matricolaUtente: Matricola
     -idLibro: ISBN
-    -statoPrestito: StatoPrestito (enum)
+    -statoPrestito: StatoPrestito
     -scadenzaPrestito: LocalDate
 
     +getIdLibro(): Libro
