@@ -43,6 +43,18 @@ public class Prestito implements Comparable<Prestito> {
     
     @Override
     public int compareTo(Prestito p){
-        return this.dataDiScadenza.compareTo(p.dataDiScadenza);
+        int c1 = this.dataDiScadenza.compareTo(p.dataDiScadenza);
+        
+        if (c1 == 0) {
+            int c2 = this.matricolaUtente.compareTo(p.matricolaUtente); 
+            
+            if (c2 == 0) {
+                return this.idLibro.compareTo(p.idLibro);
+            }
+            
+            return c2;
+        }
+        
+        return c1;
     }
 }

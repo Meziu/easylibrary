@@ -33,9 +33,9 @@ public class GestoreUtenti extends Archivio<Utente> implements CollezioneConChia
             throw new ValoreGiàPresenteException("TODO FARE MESSAGGIO BELLO");
         }
 
-        List<Utente> l = getCollezione();
-        int idx = Collections.binarySearch(l, u, ord);
-        l.add(idx, u);
+        List<Utente> list = getCollezione();
+        int idx = Collections.binarySearch(list, u, ord);
+        list.add(idx, u);
 
     }
 

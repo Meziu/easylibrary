@@ -3,6 +3,7 @@ package it.unisa.diem.softeng.easylibrary.archivio;
 import it.unisa.diem.softeng.easylibrary.dati.OrdinatorePrestiti;
 import it.unisa.diem.softeng.easylibrary.dati.Prestito;
 import it.unisa.diem.softeng.easylibrary.dati.StatoPrestito;
+import it.unisa.diem.softeng.easylibrary.eccezioni.ValoreNonPresenteException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,8 +20,6 @@ public class GestorePrestiti extends Archivio<Prestito> {
     /*Funzione che aggiunge un nuovo prestito alla lista dei prestiti*/
     @Override
     public void registra(Prestito p) {
-        // TODO CONTROLLA UTENTE??
-        
         List<Prestito> l = getCollezione();
         int idx = Collections.binarySearch(l, p, ord);
         l.add(idx, p);
@@ -29,38 +28,14 @@ public class GestorePrestiti extends Archivio<Prestito> {
     /*Funzione che segna un prestito come RESTITUITO*/
     @Override
     public void rimuovi(Prestito p) {
-        List<Prestito> l = getCollezione();
-        int idx = Collections.binarySearch(l, p, ord);
-        
-        p.setStatoPrestito(StatoPrestito.RESTITUITO);
-    }
+        List<Prestito> list = getCollezione();
+        int idx = Collections.binarySearch(list, p, ord);
 
-    public List<Prestito> getPrestitiAttivi() {
-        List<Prestito> attivi = getStoricoPrestiti();
-        ///IMPLEMENTARE FILTRO
-        //filtra(StatoPrestito.ATTIVO);
-        return attivi;
-    }
-
-    //Funzione che cerca i prestiti attivi/restituiti
-    public List<Prestito> cerca(StatoPrestito s) {
-        List<Prestito> prestiti = new ArrayList<>();
-
-        for (Prestito p : storicoPrestiti) {
-            if (p.getStatoPrestito() == s) {
-                prestiti.add(p);
-            }
+        // Se l'indice è fuori dalla lista o se l'elemento trovato dalla binarySearch non è quello giusto.
+        if (idx == list.size() || list.get(idx).compareTo(p) != 0) {
+            throw new ValoreNonPresenteException();
         }
-        return prestiti;
-    }
 
-    //Cerca un determinato prestito
-    public Prestito cerca(Prestito p) {
-        for (Prestito pr : storicoPrestiti) {
-            if (pr.equals(p)) {
-                return pr;
-            }
-        }
-        return null;
+        list.get(idx).setStatoPrestito(StatoPrestito.RESTITUITO);
     }
 }
