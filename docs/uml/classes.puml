@@ -64,13 +64,15 @@ interface Filtro<T> {
     -titolo: String
     -autori: List<Autore>
     -dataPubblicazione: LocalDate
+    -numeroCopie: int
     -id: ISBN
 
     +Libro()
     +getTitolo(): String
     +getAutori(): List<Autore>
     +getAnnoPubblicazione(): String
-    +getId(): ISBN
+    +getISBN(): ISBN
+    +getNumeroCopie(): int
     +aggiungiAutore(): void
     +modificaLibro(): Libro
     +compareTo(): int

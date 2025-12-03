@@ -8,7 +8,7 @@ import it.unisa.diem.softeng.easylibrary.dati.Prestito;
 import it.unisa.diem.softeng.easylibrary.dati.StatoPrestito;
 import it.unisa.diem.softeng.easylibrary.dati.Utente;
 import it.unisa.diem.softeng.easylibrary.interfacce.CollezioneConChiave;
-import it.unisa.diem.softeng.easylibrary.interfacce.Filtro;
+
 
 import java.time.LocalDate;
 import java.util.List;
@@ -68,6 +68,7 @@ public class Biblioteca {
     
     public List<Prestito> getPrestitiAttivi() {
         return gestorePrestiti.filtra(new Filtro<Prestito>() {
+            
             @Override
             public boolean controlla(Prestito p) {
                 return p.getStatoPrestito() == StatoPrestito.ATTIVO;

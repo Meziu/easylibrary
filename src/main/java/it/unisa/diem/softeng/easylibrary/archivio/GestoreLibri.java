@@ -2,6 +2,8 @@ package it.unisa.diem.softeng.easylibrary.archivio;
 
 import it.unisa.diem.softeng.easylibrary.dati.ISBN;
 import it.unisa.diem.softeng.easylibrary.dati.Libro;
+
+import it.unisa.diem.softeng.easylibrary.dati.OrdinatoreLibri;
 import it.unisa.diem.softeng.easylibrary.eccezioni.ValoreGiàPresenteException;
 import it.unisa.diem.softeng.easylibrary.eccezioni.ValoreNonPresenteException;
 import it.unisa.diem.softeng.easylibrary.interfacce.CollezioneConChiave;
@@ -13,24 +15,28 @@ import java.util.Map;
 
 public class GestoreLibri extends Archivio<Libro> implements CollezioneConChiave<ISBN, Libro> {
 
-    private Map<ISBN, Libro> indiceISBN;
+    private final Map<ISBN, Libro> indiceISBN;
+    private final OrdinatoreLibri ord;
 
     public GestoreLibri() {
         super();
+        
         indiceISBN = new HashMap<>();
+        ord = new OrdinatoreLibri();
     }
 
     @Override
     public void registra(Libro l) {
+        //Verifica univocità ISBN
         Libro res = indiceISBN.putIfAbsent(l.getISBN(), l);
-        
+
         // Se era già presente quel libro
         if (res != null) {
             throw new ValoreGiàPresenteException("TODO FARE MESSAGGIO BELLO");
         }
 
         List<Libro> list = getCollezione();
-        int idx = Collections.binarySearch(list, l);
+        int idx = Collections.binarySearch(list, l, ord);
         list.add(idx, l);
     }
     
@@ -43,15 +49,16 @@ public class GestoreLibri extends Archivio<Libro> implements CollezioneConChiave
 
         // Se non era presente l'utente
         if (res == null) {
-            throw new ValoreNonPresenteException("TODO FARE MESSAGGIO BELLO");
+
+            throw new ValoreNonPresenteException(); // TODO
         }
 
         List<Libro> list = getCollezione();
-        int idx = Collections.binarySearch(list, l);
+        int idx = Collections.binarySearch(list, l, ord);
 
         // Se l'indice è fuori dalla lista o se l'elemento trovato dalla binarySearch non è quello giusto.
         if (idx == list.size() || list.get(idx).compareTo(l) != 0) {
-            throw new ValoreNonPresenteException("TODO FARE MESSAGGIO BELLO");
+            throw new ValoreNonPresenteException();
         }
 
         list.remove(idx);

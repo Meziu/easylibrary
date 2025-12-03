@@ -2,7 +2,8 @@ package it.unisa.diem.softeng.easylibrary.dati;
 
 import java.util.List;
 
-public class Libro implements Comparable<Libro>{
+
+public class Libro implements Comparable<Libro> {
 
     private String titolo;
     private List<Autore> autori;

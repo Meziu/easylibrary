@@ -1,5 +1,6 @@
 package it.unisa.diem.softeng.easylibrary.archivio;
 
+import it.unisa.diem.softeng.easylibrary.dati.OrdinatorePrestiti;
 import it.unisa.diem.softeng.easylibrary.dati.Prestito;
 import it.unisa.diem.softeng.easylibrary.dati.StatoPrestito;
 import it.unisa.diem.softeng.easylibrary.eccezioni.ValoreGiàPresenteException;
@@ -9,9 +10,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class GestorePrestiti extends Archivio<Prestito> {
+    private final OrdinatorePrestiti ord;
 
     public GestorePrestiti() {
         super();
+        
+        ord = new OrdinatorePrestiti();
     }
     
     public List<Prestito> getStoricoPrestiti() {
@@ -24,10 +28,8 @@ public class GestorePrestiti extends Archivio<Prestito> {
     @Override
     public void registra(Prestito p) {
         List<Prestito> l = getCollezione();
-        if (l.contains(p)){
-            throw new ValoreGiàPresenteException("TODO FARE MESSAGGIO BELLO");
-        }
-        int idx = Collections.binarySearch(l, p);
+
+        int idx = Collections.binarySearch(l, p, ord);
         l.add(idx, p);
     }
 
@@ -36,31 +38,15 @@ public class GestorePrestiti extends Archivio<Prestito> {
     /*Funzione che segna un prestito come RESTITUITO*/
     @Override
     public void rimuovi(Prestito p) {
-        List<Prestito> l = getCollezione();
-        if (!l.contains(p)){
-            throw new ValoreNonPresenteException("TODO FARE MESSAGGIO BELLO");
+
+        List<Prestito> list = getCollezione();
+        int idx = Collections.binarySearch(list, p, ord);
+
+        // Se l'indice è fuori dalla lista o se l'elemento trovato dalla binarySearch non è quello giusto.
+        if (idx == list.size() || list.get(idx).compareTo(p) != 0) {
+            throw new ValoreNonPresenteException();
         }
-        
-        p.setStatoPrestito(StatoPrestito.RESTITUITO);
-    }
 
-    
-    
-    
-
-
-
-
-
-    
-    //Cerca un determinato prestito
-    public Prestito cerca(Prestito p) {
-        List<Prestito> prestiti = new ArrayList<>();
-        for (Prestito pr : prestiti) {
-            if (pr.equals(p)) {
-                return pr;
-            }
-        }
-        return null;
+        list.get(idx).setStatoPrestito(StatoPrestito.RESTITUITO);
     }
 }
