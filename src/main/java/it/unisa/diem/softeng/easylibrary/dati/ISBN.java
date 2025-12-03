@@ -1,43 +1,49 @@
-package ClassiPrincipali;
+package it.unisa.diem.softeng.easylibrary.dati;
 
-import Interfacce.Filtro;
+import it.unisa.diem.softeng.easylibrary.eccezioni.ISBNInvalidoException;
 
-public class ISBN implements Filtro{
+public class ISBN {
+
     private String isbn;
-    
-    public ISBN (String isbn){
-        if (controlla())
+
+    public ISBN(String isbn) {
+        if (verifica(isbn)) {
             this.isbn = isbn.replaceAll("-", ""); // rimuove eventuali trattini
-        
-        ////throw new 
+        } else {
+            throw new ISBNInvalidoException(); // TODO
+        }
     }
-    
+
     public String getISBN() {
         return isbn;
     }
-    
-    @Override
-    public boolean controlla() {
-        if (isbn.length() == 10) {
-            return verificaISBN10();
-        } else if (isbn.length() == 13) {
-            return verificaISBN13();
-        } else {
-            return false;
+
+    public static boolean verifica(String id) {
+        switch (id.length()) {
+            case 10:
+                return verificaISBN10(id);
+            case 13:
+                return verificaISBN13(id);
+            default:
+                return false;
         }
     }
 
     // Verifica ISBN-10
-    private boolean verificaISBN10() {
+    private static boolean verificaISBN10(String id) {
+        if (id.length() != 10) return false;
+        
         int somma = 0;
         for (int i = 0; i < 9; i++) {
-            char c = isbn.charAt(i);
-            if (!Character.isDigit(c)) return false;
+            char c = id.charAt(i);
+            if (!Character.isDigit(c)) {
+                return false;
+            }
             somma += (c - '0') * (10 - i);
         }
 
         // Controllo cifra di controllo
-        char check = isbn.charAt(9);
+        char check = id.charAt(9);
         int valoreCheck;
         if (check == 'X' || check == 'x') {
             valoreCheck = 10;
@@ -51,21 +57,25 @@ public class ISBN implements Filtro{
         return somma % 11 == 0;
     }
 
-    
-    
     // Verifica ISBN-13
-    private boolean verificaISBN13() {
+    private static boolean verificaISBN13(String id) {
+        if (id.length() != 13) return false;
+        
         int somma = 0;
         for (int i = 0; i < 12; i++) {
-            char c = isbn.charAt(i);
-            if (!Character.isDigit(c)) return false;
+            char c = id.charAt(i);
+            if (!Character.isDigit(c)) {
+                return false;
+            }
             int cifra = c - '0';
             somma += (i % 2 == 0) ? cifra : cifra * 3;
         }
 
         int checkCalcolato = (10 - (somma % 10)) % 10;
-        char ultimo = isbn.charAt(12);
-        if (!Character.isDigit(ultimo)) return false;
+        char ultimo = id.charAt(12);
+        if (!Character.isDigit(ultimo)) {
+            return false;
+        }
         int checkReale = ultimo - '0';
 
         return checkCalcolato == checkReale;

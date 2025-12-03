@@ -1,6 +1,7 @@
-package ClassiPrincipali;
+package it.unisa.diem.softeng.easylibrary.dati;
 
 public abstract class Persona implements Comparable<Persona> {
+
     protected String nome;
     protected String cognome;
 
@@ -16,7 +17,7 @@ public abstract class Persona implements Comparable<Persona> {
     public String getCognome() {
         return cognome;
     }
-    
+
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -24,20 +25,16 @@ public abstract class Persona implements Comparable<Persona> {
     public void setCognome(String ncognome) {
         this.cognome = cognome;
     }
-    
-    
-    
-    
-    
+
     @Override
-    public int compareTo(Persona p){
+    public int compareTo(Persona p) {
         int c = cognome.compareTo(p.cognome);
-        
+
         if (c == 0) {
             return nome.compareTo(p.nome);
         }
-        
+
         return c;
     }
-    
+
 }

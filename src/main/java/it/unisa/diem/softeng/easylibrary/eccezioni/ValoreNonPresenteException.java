@@ -3,20 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package archivi;
+package it.unisa.diem.softeng.easylibrary.eccezioni;
 
 /**
  *
  * @author serenagiannitti
  */
-public class ValoreGiàPresenteException extends RuntimeException {
+public class ValoreNonPresenteException extends RuntimeException {
 
-    public ValoreGiàPresenteException() {
+    public ValoreNonPresenteException() {
     }
 
-    public ValoreGiàPresenteException(String string) {
+    public ValoreNonPresenteException(String string) {
         super(string);
     }
 
-    
 }

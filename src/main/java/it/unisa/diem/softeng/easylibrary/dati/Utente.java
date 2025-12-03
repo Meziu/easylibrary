@@ -1,8 +1,9 @@
-package ClassiPrincipali;
+package it.unisa.diem.softeng.easylibrary.dati;
 
 import java.util.List;
 
 public class Utente extends Persona {
+
     private Matricola matricola;
     private IndirizzoEmail email;
     private List<Prestito> prestitiAttivi;
@@ -17,7 +18,7 @@ public class Utente extends Persona {
     public Matricola getMatricola() {
         return matricola;
     }
-    
+
     public IndirizzoEmail getEmail() {
         return email;
     }
@@ -26,8 +27,6 @@ public class Utente extends Persona {
         return prestitiAttivi;
     }
 
-    
-    
     public void setMatricola(Matricola matricola) {
         this.matricola = matricola;
     }
@@ -36,21 +35,15 @@ public class Utente extends Persona {
         this.email = email;
     }
 
-
-
-    
-
-    
-    
     @Override
-    public int compareTo(Persona p){
+    public int compareTo(Persona p) {
         // Comparazione solo per matricola
-        
+
         if (!(p instanceof Utente)) {
             return 1; // Utente sempre dopo Persona
         }
-        
-        Utente u = (Utente)p;
+
+        Utente u = (Utente) p;
         return this.matricola.compareTo(u.matricola);
     }
 }

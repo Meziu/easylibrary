@@ -1,17 +1,15 @@
-package progettosoftware;
+package it.unisa.diem.softeng.easylibrary;
 
-
-import Archivi.Archivio;
-import ClassiPrincipali.Libro;
-import ClassiPrincipali.Prestito;
-import ClassiPrincipali.StatoPrestito;
-import ClassiPrincipali.Utente;
+import it.unisa.diem.softeng.easylibrary.archivio.Archivio;
+import it.unisa.diem.softeng.easylibrary.dati.Libro;
+import it.unisa.diem.softeng.easylibrary.dati.Prestito;
+import it.unisa.diem.softeng.easylibrary.dati.StatoPrestito;
+import it.unisa.diem.softeng.easylibrary.dati.Utente;
 
 import java.time.LocalDate;
 
-
-
 public class Biblioteca {
+
     private Archivio<Libro> gestoreLibri;
     private Archivio<Utente> gestoreUtenti;
     private Archivio<Prestito> gestorePrestiti;
@@ -21,19 +19,19 @@ public class Biblioteca {
         this.gestoreUtenti = gestoreUtenti;
         this.gestorePrestiti = gestorePrestiti;
     }
-    
-    public void registraPrestito(Libro l, Utente u, LocalDate scadenzaPrestito){
+
+    public void registraPrestito(Libro l, Utente u, LocalDate scadenzaPrestito) {
         Prestito p = new Prestito(u.getMatricola(), l.getISBN(), StatoPrestito.ATTIVO, scadenzaPrestito);
         gestorePrestiti.registra(p);
         gestoreUtenti.cerca(u.getMatricola()).addPrestito(p);
     }
-    
-    public void rimuovi(Prestito p){
+
+    public void rimuovi(Prestito p) {
         gestorePrestiti.getStatoPrestito(p);
     }
-    
-    public void registraRestituzione(Libro l, Utente u){
+
+    public void registraRestituzione(Libro l, Utente u) {
         gestorePrestiti.cerca(new Prestito(l, u, StatoPrestito.ATTIVO, scadenzaPrestito)).setStatoPrestito(StatoPrestito.RESTITUITO);
-        
+
     }
 }

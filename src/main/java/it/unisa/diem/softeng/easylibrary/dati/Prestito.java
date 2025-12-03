@@ -1,52 +1,48 @@
-package ClassiPrincipali;
+package it.unisa.diem.softeng.easylibrary.dati;
 
 import java.time.LocalDate;
-import java.time.Month;
 
-public class Prestito {
+public class Prestito implements Comparable<Prestito> {
+
     private Matricola matricolaUtente;
     private ISBN idLibro;
-    private StatoPrestito statoPrestito;
-    private LocalDate scadenzaPrestito;
+    private StatoPrestito stato;
+    private LocalDate dataDiScadenza;
 
-    public Prestito(Matricola matricolaUtente, ISBN idLibro, StatoPrestito statoPrestito, LocalDate scadenzaPrestito){
+    public Prestito(Matricola matricolaUtente, ISBN idLibro, StatoPrestito statoPrestito, LocalDate scadenzaPrestito) {
         this.matricolaUtente = matricolaUtente;
         this.idLibro = idLibro;
-        this.statoPrestito = statoPrestito;
-        this.scadenzaPrestito = scadenzaPrestito;
-    }
-    
-    public Matricola getMatricola(){
-        return matricolaUtente;
-    }
-    
-    public ISBN getISBN(){
-        return idLibro;
-    }
-    
-    public StatoPrestito getStatoPrestito() {
-        return statoPrestito;
+        this.stato = statoPrestito;
+        this.dataDiScadenza = scadenzaPrestito;
     }
 
-    public LocalDate getScadenzaPrestito() {
-        return scadenzaPrestito;
+    public Matricola getMatricola() {
+        return matricolaUtente;
     }
-    
-    
-    public boolean isScaduto(){
-        return scadenzaPrestito.isBefore(LocalDate.now());
+
+    public ISBN getISBN() {
+        return idLibro;
     }
-    
+
+    public StatoPrestito getStatoPrestito() {
+        return stato;
+    }
+
+    public LocalDate getDataDiScadenza() {
+        return dataDiScadenza;
+    }
+
+    public boolean isScaduto() {
+        return dataDiScadenza.isBefore(LocalDate.now());
+    }
+
     /*Permette di ggiornare lo stato del prestito*/
-    public void setStatoPrestito(StatoPrestito newStato){
-        this.statoPrestito = newStato;
+    public void setStatoPrestito(StatoPrestito newStato) {
+        this.stato = newStato;
     }
     
-    
-    /*
     @Override
-    public int compareTo(){
-        return 
+    public int compareTo(Prestito p){
+        return this.dataDiScadenza.compareTo(p.dataDiScadenza);
     }
-    */
 }

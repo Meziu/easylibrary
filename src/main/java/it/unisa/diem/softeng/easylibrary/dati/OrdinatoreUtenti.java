@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ClassiPrincipali;
+package it.unisa.diem.softeng.easylibrary.dati;
 
 import java.util.Comparator;
 
@@ -16,14 +16,14 @@ public class OrdinatoreUtenti implements Comparator<Utente> {
     @Override
     public int compare(Utente o1, Utente o2) {
         // Ordinamento dei nomi
-        int c = ((Persona)o1).compareTo(o2);
-        
+        int c = ((Persona) o1).compareTo(o2);
+
         // Se i nomi sono uguali, ordina per matricola
         if (c == 0) {
             return o1.getMatricola().compareTo(o2.getMatricola());
         }
-        
+
         return c;
     }
-    
+
 }

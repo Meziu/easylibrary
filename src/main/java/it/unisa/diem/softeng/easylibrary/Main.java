@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 public class Main extends Application {
+
     public static void main(String[] args) {
         // Lancia il runtime di JavaFX
         launch(args);

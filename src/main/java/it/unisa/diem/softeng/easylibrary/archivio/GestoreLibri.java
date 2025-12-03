@@ -1,54 +1,43 @@
-package ImplementazioniArchivio;
+package it.unisa.diem.softeng.easylibrary.archivio;
 
-import archivi.Archivio;
-import ClassiPrincipali.ISBN;
-import ClassiPrincipali.Libro;
-import Interfacce.Ricercabile;
+import it.unisa.diem.softeng.easylibrary.dati.ISBN;
+import it.unisa.diem.softeng.easylibrary.dati.Libro;
+import it.unisa.diem.softeng.easylibrary.interfacce.CollezioneConChiave;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+public class GestoreLibri extends Archivio<Libro> implements CollezioneConChiave<ISBN, Libro> {
 
-public class GestoreLibri implements Archivio<Libro>{
-    private Map<ISBN, Libro> libri;
-    private List<Libro> elencoLibri;
-    
-    public GestoreLibri(){
-        libri = new HashMap<>();
-        elencoLibri = new ArrayList<>();
+    private Map<ISBN, Libro> indiceISBN;
+
+    public GestoreLibri() {
+        super();
+        indiceISBN = new HashMap<>();
     }
-    
-    
+
     @Override
-    public void aggiungi(Libro l){
+    public void registra(Libro l) {
         //Verifica univocità ISBN
-                
-        libri.put(l.getISBN(), l);
+
+        indiceISBN.put(l.getISBN(), l);
         elencoLibri.add(l);
     }
-    
+
     @Override
-    public void rimuovi(Libro l){
-        libri.remove(l.getISBN());
+    public void rimuovi(Libro l) {
+        indiceISBN.remove(l.getISBN());
         elencoLibri.remove(l);
     }
     
-    
-    
-    public List<Libro> getElencoLibri(){
-        return elencoLibri;
+    @Override
+    public Libro ottieni(ISBN key) {
+        return indiceISBN.get(key);
     }
 
-    
-    //ISBN è univoco, ha senso restituire una lista?
-    public Libro cerca(ISBN isbn){
-        for (Libro l : libri.values()) {
-            if (l.getISBN().equals(isbn) ) {
-                return l;
-            }
-        }
-        return null; //O una lista vuota?
+    @Override
+    public boolean contiene(ISBN key) {
+        return indiceISBN.containsKey(key);
     }
 }
