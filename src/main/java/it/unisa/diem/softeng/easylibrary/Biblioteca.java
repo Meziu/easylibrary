@@ -12,59 +12,41 @@ import it.unisa.diem.softeng.easylibrary.interfacce.CollezioneConChiave;
 import java.time.LocalDate;
 
 public class Biblioteca {
-    private class HolderArchivioUtenti<T extends Archivio<Utente> & CollezioneConChiave<Matricola, Utente>> {
-        public T archivio;
+    private class Holder<T> {
+        public T t;
         
-        public HolderArchivioUtenti(T archivio) {
-            this.archivio = archivio;
+        public Holder(T t) {
+            this.t = t;
         }
-    }
-    private class HolderArchivioLibri<T extends Archivio<Libro> & CollezioneConChiave<ISBN, Libro>> {
-        public T archivio;
         
-        public HolderArchivioLibri(T archivio) {
-            this.archivio = archivio;
+        public <S extends Archivio<Utente> & CollezioneConChiave<Matricola, Utente>> S getArchivioUtenti() {
+            return (S)t;
         }
-    }
-    private class HolderArchivioPrestiti<T extends Archivio<Prestito>> {
-        public T archivio;
         
-        public HolderArchivioPrestiti(T archivio) {
-            this.archivio = archivio;
+        public <S extends Archivio<Libro> & CollezioneConChiave<ISBN, Libro>> S getArchivioLibri() {
+            return (S)t;
         }
     }
     
-    private final HolderArchivioUtenti utenti;
-    private final HolderArchivioLibri libri;
-    private final HolderArchivioPrestiti prestiti;
+    private final Holder<?> utenti;
+    private final Holder<?> libri;
+    private final Archivio<Prestito> prestiti;
 
     public Biblioteca() {
-        this.utenti = new HolderArchivioUtenti(new GestoreUtenti());
-        this.libri = new HolderArchivioLibri(new GestoreLibri());
-        this.prestiti = new HolderArchivioPrestiti(new GestorePrestiti());
-    }
-    
-    public Archivio<Utente> getArchivioUtenti() {
-        return utenti.archivio;
-    }
-    
-    public Archivio<Utente> getArchivioLibri() {
-        return libri.archivio;
-    }
-    
-    public Archivio<Utente> getArchivioPrestiti() {
-        return prestiti.archivio;
+        this.utenti = new Holder<>(new GestoreUtenti());
+        this.libri = new Holder<>(new GestoreLibri());
+        this.prestiti = new GestorePrestiti();
     }
 
     public void registraPrestito(ISBN isbn, Matricola matricola, LocalDate scadenzaPrestito) {
         Prestito p = new Prestito(matricola, isbn, StatoPrestito.ATTIVO, scadenzaPrestito);
         
-        prestiti.archivio.registra(p);
-        utenti.archivio.ottieni(matricola).addPrestito(p);
+        prestiti.registra(p);
+        utenti.getArchivioUtenti().ottieni(matricola).addPrestito(p);
     }
 
-    public void registraRestituzione(Libro l, Utente u) {
-        archivioPrestiti.cerca(new Prestito(l, u, StatoPrestito.ATTIVO, scadenzaPrestito)).setStatoPrestito(StatoPrestito.RESTITUITO);
+    public void registraRestituzione(Prestito p) {
+        prestiti.rimuovi(p);
     }
     
     public void salvaFile(String filename) {
