@@ -6,13 +6,14 @@
 package it.unisa.diem.softeng.easylibrary.utenti;
 
 import it.unisa.diem.softeng.easylibrary.dati.Persona;
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
  *
  * @author serenagiannitti
  */
-public class OrdinatoreUtenti implements Comparator<Utente> {
+public class OrdinatoreUtenti implements Comparator<Utente>, Serializable {
 
     @Override
     public int compare(Utente o1, Utente o2) {

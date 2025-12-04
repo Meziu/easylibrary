@@ -5,13 +5,14 @@
  */
 package it.unisa.diem.softeng.easylibrary.prestiti;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
  *
  * @author serenagiannitti
  */
-public class OrdinatorePrestiti implements Comparator<Prestito> {
+public class OrdinatorePrestiti implements Comparator<Prestito>, Serializable {
 
     @Override
     public int compare(Prestito p1, Prestito p2) {

@@ -55,7 +55,7 @@ public class Biblioteca implements Serializable {
         this.libri = new ArchivioLibriHolder<>(new GestoreLibri());
         this.prestiti = new GestorePrestiti();
     }
-    
+
     public List<Prestito> getPrestitiAttivi() {
         return prestiti.filtra((Prestito p) -> p.getStato() == StatoPrestito.ATTIVO);
     }
@@ -63,13 +63,13 @@ public class Biblioteca implements Serializable {
     public void registraPrestito(String matricola, String isbn, LocalDate scadenzaPrestito) {
         Utente u = utenti.getArchivio().ottieni(new Matricola(matricola));
         Libro l = libri.getArchivio().ottieni(new ISBN(isbn));
-        
+
         Prestito p = new Prestito(u.getMatricola(), l.getISBN(), StatoPrestito.ATTIVO, scadenzaPrestito);
-        
+
         prestiti.registra(p);
         u.registraPrestito(p);
     }
-    
+
     public void registraRestituzione(Prestito p) {
         prestiti.rimuovi(p);
         utenti.getArchivio().ottieni(p.getMatricola()).rimuoviPrestito(p);
@@ -77,7 +77,7 @@ public class Biblioteca implements Serializable {
 
     public void salvaFile(String filename) {
         try (ObjectOutputStream out = new ObjectOutputStream(
-            new FileOutputStream(filename))) {
+                new FileOutputStream(filename))) {
             out.writeObject(this);
         } catch (IOException e) {
             // TODO: gestire questa eccezione correttamente
@@ -87,7 +87,7 @@ public class Biblioteca implements Serializable {
 
     public static Biblioteca caricaFile(String filename) {
         try (ObjectInputStream in = new ObjectInputStream(
-            new FileInputStream(filename))) {
+                new FileInputStream(filename))) {
             return (Biblioteca) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
             // TODO: gestire questa eccezione correttamente
