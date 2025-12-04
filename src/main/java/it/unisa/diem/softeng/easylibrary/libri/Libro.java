@@ -1,8 +1,9 @@
 package it.unisa.diem.softeng.easylibrary.libri;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Libro implements Comparable<Libro> {
+public class Libro implements Comparable<Libro>, Serializable {
 
     private String titolo;
     private List<Autore> autori;

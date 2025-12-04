@@ -1,9 +1,10 @@
 package it.unisa.diem.softeng.easylibrary.archivio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Archivio<E> {
+public abstract class Archivio<E> implements Serializable {
 
     private final List<E> collezione;
 

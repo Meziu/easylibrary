@@ -14,12 +14,13 @@ import it.unisa.diem.softeng.easylibrary.utenti.Utente;
 import java.time.LocalDate;
 import java.util.List;
 import it.unisa.diem.softeng.easylibrary.archivio.ArchivioConChiave;
+import java.io.*;
 
-public class Biblioteca {
+public class Biblioteca implements Serializable {
 
     // In Java non è possibile mantenere un riferimento ad un oggetto solo attraverso le classi astratte che eredita e le interfacce che implementa.
     // Per far fronte a ciò, senza perdere di flessibilità, imponiamo questi vincoli tramite 2 classi private con la parametrizzazione specifica.
-    private class ArchivioUtentiHolder<A extends Archivio<Utente> & ArchivioConChiave<Matricola, Utente>> {
+    private class ArchivioUtentiHolder<A extends Archivio<Utente> & ArchivioConChiave<Matricola, Utente>> implements Serializable {
 
         public Object o;
 
@@ -32,7 +33,7 @@ public class Biblioteca {
         }
     }
 
-    private class ArchivioLibriHolder<A extends Archivio<Libro> & ArchivioConChiave<ISBN, Libro>> {
+    private class ArchivioLibriHolder<A extends Archivio<Libro> & ArchivioConChiave<ISBN, Libro>> implements Serializable {
 
         public Object o;
 
@@ -75,10 +76,23 @@ public class Biblioteca {
     }
 
     public void salvaFile(String filename) {
-
+        try (ObjectOutputStream out = new ObjectOutputStream(
+            new FileOutputStream(filename))) {
+            out.writeObject(this);
+        } catch (IOException e) {
+            // TODO: gestire questa eccezione correttamente
+            e.printStackTrace();
+        }
     }
 
-    public static void caricaFile(String filename) {
-
+    public static Biblioteca caricaFile(String filename) {
+        try (ObjectInputStream in = new ObjectInputStream(
+            new FileInputStream(filename))) {
+            return (Biblioteca) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            // TODO: gestire questa eccezione correttamente
+            e.printStackTrace();
+            return null;
+        }
     }
 }

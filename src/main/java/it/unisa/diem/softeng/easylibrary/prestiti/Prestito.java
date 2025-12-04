@@ -2,9 +2,10 @@ package it.unisa.diem.softeng.easylibrary.prestiti;
 
 import it.unisa.diem.softeng.easylibrary.utenti.Matricola;
 import it.unisa.diem.softeng.easylibrary.libri.ISBN;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Prestito implements Comparable<Prestito> {
+public class Prestito implements Comparable<Prestito>, Serializable {
 
     private final Matricola matricolaUtente;
     private final ISBN idLibro;

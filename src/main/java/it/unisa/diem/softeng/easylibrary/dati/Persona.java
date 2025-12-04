@@ -1,6 +1,8 @@
 package it.unisa.diem.softeng.easylibrary.dati;
 
-public abstract class Persona implements Comparable<Persona> {
+import java.io.Serializable;
+
+public abstract class Persona implements Comparable<Persona>, Serializable {
 
     protected String nome;
     protected String cognome;

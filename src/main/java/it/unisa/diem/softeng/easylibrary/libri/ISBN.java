@@ -1,6 +1,8 @@
 package it.unisa.diem.softeng.easylibrary.libri;
 
-public final class ISBN implements Comparable<ISBN> {
+import java.io.Serializable;
+
+public final class ISBN implements Comparable<ISBN>, Serializable {
 
     private String isbn;
 

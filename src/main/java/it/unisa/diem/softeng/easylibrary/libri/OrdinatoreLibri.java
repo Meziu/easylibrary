@@ -5,13 +5,14 @@
  */
 package it.unisa.diem.softeng.easylibrary.libri;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
  *
  * @author serenagiannitti
  */
-public class OrdinatoreLibri implements Comparator<Libro> {
+public class OrdinatoreLibri implements Comparator<Libro>, Serializable {
 
     @Override
     public int compare(Libro l1, Libro l2) {

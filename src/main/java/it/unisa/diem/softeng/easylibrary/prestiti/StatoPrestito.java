@@ -1,6 +1,8 @@
 package it.unisa.diem.softeng.easylibrary.prestiti;
 
-public enum StatoPrestito {
+import java.io.Serializable;
+
+public enum StatoPrestito implements Serializable {
     ATTIVO,
     RESTITUITO
 }

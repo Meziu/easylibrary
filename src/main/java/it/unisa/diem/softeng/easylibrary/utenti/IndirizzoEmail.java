@@ -1,6 +1,8 @@
 package it.unisa.diem.softeng.easylibrary.utenti;
 
-public class IndirizzoEmail {
+import java.io.Serializable;
+
+public class IndirizzoEmail implements Serializable {
 
     private String email;
 

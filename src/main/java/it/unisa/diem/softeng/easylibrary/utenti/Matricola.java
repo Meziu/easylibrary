@@ -1,6 +1,8 @@
 package it.unisa.diem.softeng.easylibrary.utenti;
 
-public final class Matricola implements Comparable<Matricola> {
+import java.io.Serializable;
+
+public final class Matricola implements Comparable<Matricola>, Serializable {
 
     private String matricola;
 
