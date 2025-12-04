@@ -1,9 +1,6 @@
 package it.unisa.diem.softeng.easylibrary.libri;
 
 import it.unisa.diem.softeng.easylibrary.archivio.Archivio;
-import it.unisa.diem.softeng.easylibrary.libri.ISBN;
-import it.unisa.diem.softeng.easylibrary.libri.Libro;
-import it.unisa.diem.softeng.easylibrary.libri.OrdinatoreLibri;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreGiàPresenteException;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
 
