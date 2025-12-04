@@ -25,7 +25,11 @@ public class GestorePrestiti extends Archivio<Prestito> {
         List<Prestito> l = getCollezione();
 
         int idx = Collections.binarySearch(l, p, ord);
-        l.add(idx, p);
+        
+        // BinarySearch ritorna valori positivi se trova il valore, o (- posizione di inserimento - 1)
+        // se non lo trova. In ogni caso, noi vogliamo inserire immediatamente dopo un prestito trovato
+        // o nel punto di inserimento restituito.
+        l.add(Math.abs(idx + 1), p);
     }
 
     /*Funzione che segna un prestito come RESTITUITO*/
@@ -35,8 +39,8 @@ public class GestorePrestiti extends Archivio<Prestito> {
         List<Prestito> list = getCollezione();
         int idx = Collections.binarySearch(list, p, ord);
 
-        // Se l'indice è fuori dalla lista o se l'elemento trovato dalla binarySearch non è quello giusto.
-        if (idx == list.size() || list.get(idx).compareTo(p) != 0) {
+        // Se l'indice è fuori dalla lista (cioè non è presente l'elemento):
+        if (idx < 0 || idx >= list.size()) {
             throw new ValoreNonPresenteException();
         }
 

@@ -34,7 +34,7 @@ public class GestoreLibri extends Archivio<Libro> implements ArchivioConChiave<I
 
         List<Libro> list = getCollezione();
         int idx = Collections.binarySearch(list, l, ord);
-        list.add(idx, l);
+        list.add(Math.abs(idx + 1), l);
     }
 
     @Override
@@ -50,8 +50,8 @@ public class GestoreLibri extends Archivio<Libro> implements ArchivioConChiave<I
         List<Libro> list = getCollezione();
         int idx = Collections.binarySearch(list, l, ord);
 
-        // Se l'indice è fuori dalla lista o se l'elemento trovato dalla binarySearch non è quello giusto.
-        if (idx == list.size() || list.get(idx).compareTo(l) != 0) {
+        // Se l'indice è fuori dalla lista (l'elemento non è presente):
+        if (idx < 0 || idx >= list.size()) {
             throw new ValoreNonPresenteException();
         }
 

@@ -1,155 +1,156 @@
 @startuml
-actor Gestore
+actor G as G
 participant "GUI" as UI
-participant "Bibloteca" as S
-activate Gestore
+participant "Biblioteca" as B
+participant "Utente" as U
+participant "Matricola" as M
+participant "Email" as E
+activate G
 ' ----- Inizio -----
 
-Gestore -> UI : Interazione con "Utenti"
-deactivate Gestore
+G -> UI : Interazione con "Utenti"
+deactivate G
 activate UI
-UI -> S : getCollezione
-activate S
-S --> UI : restituzione elenco Utenti
-deactivate S
-UI -> Gestore : Mostra lista Utenti
-activate Gestore
+UI -> B : getCollezione
+activate B
+B --> UI : restituzione elenco Utenti
+deactivate B
+UI -> G : Mostra lista Utenti
+activate G
 
-Gestore -> UI : Interazione con "Aggiungi Utente"
-deactivate Gestore
+G -> UI : Interazione con "Aggiungi Utente"
+deactivate G
 
-UI -> Gestore : Mostra form di registrazione  
+UI -> G : Mostra form di registrazione
 
-activate Gestore
-Gestore -> UI : Inserisce Utente(nome,cognome,matricola,email)
-Gestore -> UI : Conferma registrazione
-deactivate Gestore
+activate G
+G -> UI : Inserisce i dati utente
+G -> UI : Conferma registrazione
+deactivate G
 
 ' ----- Invio dati a Sistema -----
-UI -> S : newUtente(nome,cognome,email,matricola)
+UI -> U : new Utente(nome,cognome,email,matricola)
 
-activate S
-UI -> S : Matricola.verifica(matricola)
-deactivate UI
+activate U
+U -> M : new Matricola(matricola)
+activate M
+M -> M : Matricola.verifica(matricola)
+'deactivate UI
 
 ' ----- Controllo Sintassi Matricola -----
 alt Sintassi Matricola Errata
-S -> UI : throw formatoNonValidoMatricola
-deactivate S
-activate UI
-UI -> Gestore : Visualizza errore sintassi matricola
-activate Gestore
-Gestore -> UI : Corregge la matricola
-deactivate Gestore
-UI -> S : newUtente(matricola)
-activate S
-UI -> S : Matricola.verifica(matricola)
+    M -> UI : throw MatricolaInvalidaException
+    deactivate M
+    deactivate U
+    'activate UI
+    UI -> G : Mostra messaggio di errore riguardo la sintassi della matricola
 
-else Sintassi Matricola Valida
-S -> UI : true
-deactivate S
+    else Sintassi Matricola Valida
+    M --> U : Restituzione Matricola
+    deactivate M
+end
+
+' ----- Controllo Email -----
+
+U -> E : new IndirizzoEmail(email)
+E -> E : Email.verifica(email)
+
+alt Email non valida (correzione)
+    B -> UI : throw formatoNonValidoEmail
+    deactivate B
+    activate UI
+
+    UI -> G : Visualizzazione errore Email duplicata
+
+    activate G
+    G -> UI : Corregge l'Email
+    deactivate G
+
+
+    UI -> B : newUtente(email)
+
+    activate B
+    UI -> B : Email.verifica(email
+
+    deactivate UI
+else Email non valida (annullamento)
+    B -> UI : throw formatoNonValidoEmail
+    deactivate B
+
+    activate UI
+    UI -> G : Visualizzazione errore Email duplicata
+
+
+    activate G
+    G -> UI : Annulla operazione
+    deactivate G
+
+
+    UI -> G : chiudi form di registrazione
+deactivate UI
+
+else Email Valida
+B -> UI : true
+activate UI
+activate B
+
 end
 
 ' ----- Controllo Matricola -----
-UI -> S : GestioneUtenti.contiene(matricola)
+UI -> B : GestioneUtenti.contiene(matricola)
 deactivate UI
-activate S
+activate B
 alt Matricola già esistente (correzione)
 
-    S -> UI : throw matricolaDuplicata
-    deactivate S    
+    B -> UI : throw matricolaDuplicata
+    deactivate B
     activate UI
 
-    
-    UI -> Gestore : Visualizzazione errore matricola duplicata
-    
 
-    activate Gestore
-    Gestore -> UI : Corregge la matricola
-    deactivate Gestore
+    UI -> G : Visualizzazione errore matricola duplicata
 
 
-    UI -> S : newUtente(matricola)
+    activate G
+    G -> UI : Corregge la matricola
+    deactivate G
 
 
-    activate S
-    UI -> S : GestioneUtenti.contiene(matricola)
+    UI -> B : newUtente(matricola)
+
+
+    activate B
+    UI -> B : GestioneUtenti.contiene(matricola)
     deactivate UI
 
 
 else Matricola già esistente (annullamento)
 
-    S -> UI : throw matricolaDuplicata
-    deactivate S
+    B -> UI : throw matricolaDuplicata
+    deactivate B
 
     activate UI
-    UI -> Gestore : Visualizzazione errore matricola duplicata
+    UI -> G : Visualizzazione errore matricola duplicata
 
 
-    activate Gestore
-    Gestore -> UI : Annulla operazione
-    deactivate Gestore
+    activate G
+    G -> UI : Annulla operazione
+    deactivate G
 
 
-    UI -> Gestore : chiudi form di registrazione
+    UI -> G : chiudi form di registrazione
 deactivate UI
 else Matricola Unica
 
-S -> UI : true
+B -> UI : true
 activate UI
-activate S
-
-end
-' ----- Controllo Email -----
-
-UI -> S : Email.verifica(email)
-
-    deactivate UI
-alt Email non valida (correzione)
-    S -> UI : throw formatoNonValidoEmail
-    deactivate S    
-    activate UI
-
-    UI -> Gestore : Visualizzazione errore Email duplicata
-
-    activate Gestore
-    Gestore -> UI : Corregge l'Email
-    deactivate Gestore
-
-
-    UI -> S : newUtente(email)
-
-    activate S
-    UI -> S : Email.verifica(email
-
-    deactivate UI
-else Email non valida (annullamento)
-    S -> UI : throw formatoNonValidoEmail
-    deactivate S
-
-    activate UI
-    UI -> Gestore : Visualizzazione errore Email duplicata
-
-
-    activate Gestore
-    Gestore -> UI : Annulla operazione
-    deactivate Gestore
-
-
-    UI -> Gestore : chiudi form di registrazione
-deactivate UI
-
-else Email Valida
-S -> UI : true
-activate UI
-activate S
+activate B
 
 end
 
 ' ----- Conclusione -----
 
-UI -> S : addUtenti(Utente)
+UI -> B : addUtenti(Utente)
 
-UI -> Gestore : chiudi form di registrazione
+UI -> G : chiudi form di registrazione
 deactivate UI
 @enduml

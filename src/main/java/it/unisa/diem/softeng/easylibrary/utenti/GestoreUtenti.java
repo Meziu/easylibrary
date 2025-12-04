@@ -35,7 +35,8 @@ public class GestoreUtenti extends Archivio<Utente> implements ArchivioConChiave
         List<Utente> list = getCollezione();
 
         int idx = Collections.binarySearch(list, u, ord);
-        list.add(idx, u);
+        
+        list.add(Math.abs(idx + 1), u);
 
     }
 
@@ -51,8 +52,8 @@ public class GestoreUtenti extends Archivio<Utente> implements ArchivioConChiave
         List<Utente> list = getCollezione();
         int idx = Collections.binarySearch(list, u, ord);
 
-        // Se l'indice è fuori dalla lista o se l'elemento trovato dalla binarySearch non è quello giusto.
-        if (idx == list.size() || list.get(idx).compareTo(u) != 0) {
+        // Se l'indice è fuori dalla lista (elemento non presente):
+        if (idx < 0 || idx >= list.size()) {
             throw new ValoreNonPresenteException("TODO FARE MESSAGGIO BELLO");
         }
 
