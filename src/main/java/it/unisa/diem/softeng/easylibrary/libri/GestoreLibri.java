@@ -1,13 +1,11 @@
 package it.unisa.diem.softeng.easylibrary.libri;
 
-import static com.sun.org.apache.xml.internal.utils.StringComparable.getComparator;
 import it.unisa.diem.softeng.easylibrary.archivio.Archivio;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreGiàPresenteException;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import it.unisa.diem.softeng.easylibrary.archivio.ArchivioConChiave;
 import java.util.function.Consumer;
@@ -34,9 +32,8 @@ public class GestoreLibri extends Archivio<Libro> implements ArchivioConChiave<I
             throw new ValoreGiàPresenteException("TODO FARE MESSAGGIO BELLO");
         }
 
-        List<Libro> list = getCollezione();
-        int idx = Collections.binarySearch(list, l, ord);
-        list.add(Math.abs(idx + 1), l);
+        int idx = Collections.binarySearch(lista, l, ord);
+        lista.add(Math.abs(idx + 1), l);
     }
 
     @Override
@@ -49,15 +46,14 @@ public class GestoreLibri extends Archivio<Libro> implements ArchivioConChiave<I
             throw new ValoreNonPresenteException(); // TODO
         }
 
-        List<Libro> list = getCollezione();
-        int idx = Collections.binarySearch(list, l, ord);
+        int idx = Collections.binarySearch(lista, l, ord);
 
         // Se l'indice è fuori dalla lista (l'elemento non è presente):
-        if (idx < 0 || idx >= list.size()) {
+        if (idx < 0 || idx >= lista.size()) {
             throw new ValoreNonPresenteException();
         }
 
-        list.remove(idx);
+        lista.remove(idx);
     }
 
     @Override
@@ -77,16 +73,15 @@ public class GestoreLibri extends Archivio<Libro> implements ArchivioConChiave<I
             throw new ValoreNonPresenteException();
         }
         
-        List<Libro> list = getCollezione();
-        int idx_remove = Collections.binarySearch(list, l, ord);
-        if (idx_remove < 0 || idx_remove >= list.size()) {
+        int idx_remove = Collections.binarySearch(lista, l, ord);
+        if (idx_remove < 0 || idx_remove >= lista.size()) {
             throw new ValoreNonPresenteException();
         }
         
         // Applica modifiche.dal consumer.
         c.accept(l);
         
-        int idx_insert = Collections.binarySearch(list, l, ord);
-        list.add(Math.abs(idx_insert + 1), l);
+        int idx_insert = Collections.binarySearch(lista, l, ord);
+        lista.add(Math.abs(idx_insert + 1), l);
     }
 }

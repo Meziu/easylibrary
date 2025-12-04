@@ -7,25 +7,25 @@ import java.util.List;
 
 public abstract class Archivio<E> implements Serializable {
 
-    private final List<E> collezione;
+    protected final List<E> lista;
     
     public Archivio() {
-        collezione = new ArrayList<>();
+        lista = new ArrayList<>();
     }
 
     public abstract void registra(E elemento);
     
     public abstract void rimuovi(E elemento);
     
-    public List<E> getCollezione() {
+    public List<E> getLista() {
         // Lista read-only.
-        return Collections.unmodifiableList(collezione);
+        return Collections.unmodifiableList(lista);
     }
 
     public List<E> filtra(Filtro<E> f) {
         List<E> listaFiltrata = new ArrayList<>();
 
-        for (E el : collezione) {
+        for (E el : lista) {
             if (f.controlla(el)) {
                 listaFiltrata.add(el);
             }
