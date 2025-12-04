@@ -8,7 +8,7 @@ activate Gestore
 Gestore -> UI : Interazione con "Nuovo utente"
 deactivate Gestore
 activate UI
-UI -> Gestore : Mostra form di registrazione  
+UI -> Gestore : Mostra form di registrazione
 
 activate Gestore
 Gestore -> UI : Inserisce Utente(nome,cognome,matricola,email)
@@ -43,12 +43,12 @@ deactivate UI
 alt Matricola già esistente (correzione)
 
     S -> UI : throw matricolaDuplicata
-    deactivate S    
+    deactivate S
     activate UI
 
-    
+
     UI -> Gestore : Visualizzazione errore matricola duplicata
-    
+
 
     activate Gestore
     Gestore -> UI : Corregge la matricola
@@ -59,7 +59,6 @@ alt Matricola già esistente (correzione)
 
 
     activate S
-    UI -> S : Matricola.verifica(matricola)
     UI -> S : GestioneUtenti.contiene(matricola)
     deactivate UI
 
@@ -79,55 +78,33 @@ else Matricola già esistente (annullamento)
 
 
     UI -> Gestore : chiudi form di registrazione
-
+deactivate UI
 else Matricola Valida
 
 S -> UI : true
-deactivate UI
+activate UI
 activate S
 
 end
 
-UI -> S : newUtente(email)
-activate UI
 
 
-' ----- Controllo Sintassi Email -----
 
 
-UI -> S : Email.verifica(email)
-deactivate UI
-
-alt Sintassi Email Errata
-S -> UI : throw formatoNonValidoEmail
-activate UI
-deactivate S
-
-UI -> Gestore : Visualizza errore sintassi email
-activate Gestore
-Gestore -> UI : Corregge l'email
-deactivate Gestore
-
-UI -> S : newUtente(email)
-activate S
-UI -> S : Email.verifica(email)
 
 
-else Sintassi Email Valida
-S -> UI : true
 
 
-end
 
 
 ' ----- Controllo Email -----
 
-UI -> S : GestioneUtenti.contiene(email)
+UI -> S : Email.verifica(email)
 
     deactivate UI
 alt Email non valida (correzione)
-    S -> UI : throw emailDuplicata
-    deactivate S    
+    S -> UI : throw formatoNonValidoEmail
+    deactivate S
     activate UI
 
     UI -> Gestore : Visualizzazione errore Email duplicata
@@ -141,11 +118,10 @@ alt Email non valida (correzione)
 
     activate S
     UI -> S : Email.verifica(email
-    UI -> S :  GestioneUtenti.contiene(email)
 
     deactivate UI
 else Email non valida (annullamento)
-    S -> UI : throw emailDuplicata
+    S -> UI : throw formatoNonValidoEmail
     deactivate S
 
     activate UI

@@ -233,50 +233,66 @@
 		\item Il gestore interagisce con l’opzione per registrare un nuovo utente.
 		\item Il sistema mostra al gestore la visualizzazione del form di\\registrazione per un nuovo utente.
 		\item Il gestore inserisce i dati di nome, cognome, matricola ed email istituzionale del nuovo utente.
+		\item Il sistema verifica la validità della matricola
 		\item Il sistema verifica che la matricola non sia già utilizzata.
 		\item Il sistema verifica la validità dell’email.
 		\item Il gestore interagisce con l’opzione di conferma dell’operazione.
 		\item Il sistema registra il nuovo utente.
 	\end{enumerate}
-}{
+}{	\vspace{-0.8\topsep}
+\begin{enumerate}[label=4A.\arabic*]
+	\item[] \textbf{4A - Matricola non valida, con correzioni}
+	\item Il sistema rileva che la matricola non è valida
+	\item Il sistema mostra un messaggcio di errore.
+	\item Il gestore corregge la matricola inserendone una valida.
+	\item L’esecuzione riprende dal passo 4.
+
+\end{enumerate}
+\phantom\\
+\vspace{-0.8\topsep}
+\begin{enumerate}[label=4B.\arabic*]
+	\item[] \textbf{4B - Matricola non valida, con annullamento}
+	\item Il sistema rileva che la matricola non è valida
+	\item Il sistema mostra un messaggcio di errore.
+	\item Il gestore interagisce con l’opzione per annullare l’operazione.
+\end{enumerate}
+
 	\vspace{-0.8\topsep}
-	\begin{enumerate}[label=4A.\arabic*]
-		\item[] \textbf{4A - Matricola duplicata, con correzione}
+	\begin{enumerate}[label=5A.\arabic*]
+		\item[] \textbf{5A - Matricola duplicata, con correzione}
 		\item Il sistema rileva che la matricola inserita è già presente \\nell'archivio.
 		\item Il sistema mostra un messaggio di errore.
 		\item Il gestore corregge la matricola.
-		\item L’esecuzione riprende dal passo 4.
-	\end{enumerate}
-	
-	\vspace{-0.8\topsep}
-	\begin{enumerate}[label=4A.\arabic*]
-		\item[] \textbf{4A - Matricola duplicata, con annullamento}
-		\item Il sistema rileva che la matricola inserita è già presente nell'archivio.
-		\item Il sistema mostra un messaggio di errore.
-		\item L’operatore interagisce con l’opzione per annullare l’operazione.
-	\end{enumerate}
-	
-	\vspace{-0.8\topsep}
-	\begin{enumerate}[label=5A.\arabic*]
-		\item[] \textbf{5A - Email non valida, con correzione}
-		\item Il sistema rileva che la e-mail inserita non è valida.
-		\item Il sistema mostra un messaggio di errore.
-		\item Il gestore corregge la e-mail.
 		\item L’esecuzione riprende dal passo 5.
 	\end{enumerate}
 	
 	\vspace{-0.8\topsep}
-	\begin{enumerate}[label=5A.\arabic*]
-		\item[] \textbf{5A - Email non valida, con annullamento}
+	\begin{enumerate}[label=5B.\arabic*]
+		\item[] \textbf{5B - Matricola duplicata, con annullamento}
+		\item Il sistema rileva che la matricola inserita è già presente nell'archivio.
+		\item Il sistema mostra un messaggio di errore.
+		\item Il gestore interagisce con l’opzione per annullare l’operazione.
+	\end{enumerate}
+	
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=7A.\arabic*]
+		\item[] \textbf{7A - Email non valida, con correzione}
 		\item Il sistema rileva che la e-mail inserita non è valida.
 		\item Il sistema mostra un messaggio di errore.
-		\item L’operatore interagisce con l’opzione per annullare l’operazione.
+		\item Il gestore corregge la e-mail.
+		\item L’esecuzione riprende dal passo 7.
+	\end{enumerate}
+	
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=7B.\arabic*]
+		\item[] \textbf{7B - Email non valida, con annullamento}
+		\item Il sistema rileva che la e-mail inserita non è valida.
+		\item Il sistema mostra un messaggio di errore.
+		\item Il gestore interagisce con l’opzione per annullare l’operazione.
 	\end{enumerate}
 }
 
-\vspace{0.5cm}
-\hrule
-\vspace{0.5cm}
+
 
 \usecase{UC-\stepcounter{ucid}}{Modifica dei dati di un utente}{Gestore della biblioteca}{Il gestore sta visualizzando l'elenco degli utenti.}{Se valida: l’utente è aggiornato.\\In caso di errore: nessuna modifica applicata.}{
 	\vspace{-0.8\topsep}
