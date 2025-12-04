@@ -1,141 +1,51 @@
 @startuml
 actor Gestore
 participant "GUI" as UI
-participant "Bibloteca" as S
-activate Gestore
-' ----- Inizio -----
+participant "Biblioteca" as B
 
-Gestore -> UI : Interazione con "Nuovo utente"
+'  ---- Flusso principale -----
+activate Gestore
+Gestore -> UI : Interazione con "Libri"
 deactivate Gestore
 activate UI
-UI -> Gestore : Mostra form di registrazione  
 
+UI -> B : getCollezione
+activate B
+B --> UI : restituisce elenco libri
+deactivate B
+UI -> Gestore : Mostra elenco dei libri
 activate Gestore
-Gestore -> UI : Inserisce Utente(nome,cognome,matricola,email)
-Gestore -> UI : Conferma registrazione
+
+Gestore -> UI : Seleziona campo da modificare
+Gestore -> UI : Inserisce nuovo valore
 deactivate Gestore
+UI -> B : setTitolo
+activate B
+UI -> B : controlla(Titolo)
+deactivate B
 
-' ----- Invio dati a Sistema -----
-UI -> S : newUtente(nome,cognome,email,matricola)
-
-activate S
-UI -> S : Matricola.verifica(matricola)
-
-' ----- Controllo Sintassi Matricola -----
-alt Sintassi Matricola Errata
-S -> UI : throw formatoNonValidoMatricola
-deactivate S
-UI -> Gestore : Visualizza errore sintassi matricola
-activate Gestore
-Gestore -> UI : Corregge la matricola
-deactivate Gestore
-UI -> S : newUtente(matricola)
-activate S
-UI -> S : Matricola.verifica(matricola)
-
-else Sintassi Matricola Valida
-S -> UI : true
-end
-
-' ----- Controllo Matricola -----
-UI -> S : GestioneUtenti.contiene(matricola)
-deactivate UI
-alt Matricola già esistente (correzione)
-
-    S -> UI : throw matricolaDuplicata
-    deactivate S    
-    activate UI
-
-    
-    UI -> Gestore : Visualizzazione errore matricola duplicata
-    
-
+' ----- Verifica Dati -----
+alt Dato non valido (annullamento)
+    UI -> Gestore : Titolo ritorna al valore precedente
     activate Gestore
-    Gestore -> UI : Corregge la matricola
+    Gestore -> UI : interazione per uscire dalla schermata
     deactivate Gestore
+    UI -> Gestore : chiusura visualizzazione libro 
 
 
-    UI -> S : newUtente(matricola)
-
-
-    activate S
-    UI -> S : GestioneUtenti.contiene(matricola)
-    deactivate UI
-
-
-else Matricola già esistente (annullamento)
-
-    S -> UI : throw matricolaDuplicata
-    deactivate S
-
-    activate UI
-    UI -> Gestore : Visualizzazione errore matricola duplicata
-
-
+else Dato non valido (correzione)
+    UI -> Gestore : Titolo ritorna al valore precedente
     activate Gestore
-    Gestore -> UI : Annulla operazione
+    Gestore -> UI : Inserisce un nuovo valore corretto
     deactivate Gestore
+    UI -> B : setTitolo
 
-
-    UI -> Gestore : chiudi form di registrazione
-deactivate UI
-else Matricola Valida
-
-S -> UI : true
-activate UI
-activate S
-
-end
-' ----- Controllo Email -----
-
-UI -> S : Email.verifica(email)
-
-    deactivate UI
-alt Email non valida (correzione)
-    S -> UI : throw formatoNonValidoEmail
-    deactivate S    
-    activate UI
-
-    UI -> Gestore : Visualizzazione errore Email duplicata
-
-    activate Gestore
-    Gestore -> UI : Corregge l'Email
-    deactivate Gestore
-
-
-    UI -> S : newUtente(email)
-
-    activate S
-    UI -> S : Email.verifica(email
-
-    deactivate UI
-else Email non valida (annullamento)
-    S -> UI : throw formatoNonValidoEmail
-    deactivate S
-
-    activate UI
-    UI -> Gestore : Visualizzazione errore Email duplicata
-
-
-    activate Gestore
-    Gestore -> UI : Annulla operazione
-    deactivate Gestore
-
-
-    UI -> Gestore : chiudi form di registrazione
-deactivate UI
-
-else Email Valida
-S -> UI : true
-activate UI
-activate S
+else Dato valido
+    UI -> Gestore : Titolo aggiornato correttamente
 
 end
 
-' ----- Conclusione -----
-
-UI -> S : addUtenti(Utente)
-
-UI -> Gestore : chiudi form di registrazione
+UI -> Gestore : Chiusura visualizzazione libri
 deactivate UI
+
 @enduml

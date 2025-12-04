@@ -5,9 +5,19 @@ participant "Bibloteca" as S
 activate Gestore
 ' ----- Inizio -----
 
-Gestore -> UI : Interazione con "Nuovo utente"
+Gestore -> UI : Interazione con "Utenti"
 deactivate Gestore
 activate UI
+UI -> S : getCollezione
+activate S
+S --> UI : restituzione elenco Utenti
+deactivate S
+UI -> Gestore : Mostra lista Utenti
+activate Gestore
+
+Gestore -> UI : Interazione con "Aggiungi Utente"
+deactivate Gestore
+
 UI -> Gestore : Mostra form di registrazione  
 
 activate Gestore
@@ -20,11 +30,13 @@ UI -> S : newUtente(nome,cognome,email,matricola)
 
 activate S
 UI -> S : Matricola.verifica(matricola)
+deactivate UI
 
 ' ----- Controllo Sintassi Matricola -----
 alt Sintassi Matricola Errata
 S -> UI : throw formatoNonValidoMatricola
 deactivate S
+activate UI
 UI -> Gestore : Visualizza errore sintassi matricola
 activate Gestore
 Gestore -> UI : Corregge la matricola
@@ -35,11 +47,13 @@ UI -> S : Matricola.verifica(matricola)
 
 else Sintassi Matricola Valida
 S -> UI : true
+deactivate S
 end
 
 ' ----- Controllo Matricola -----
 UI -> S : GestioneUtenti.contiene(matricola)
 deactivate UI
+activate S
 alt Matricola già esistente (correzione)
 
     S -> UI : throw matricolaDuplicata
@@ -79,7 +93,7 @@ else Matricola già esistente (annullamento)
 
     UI -> Gestore : chiudi form di registrazione
 deactivate UI
-else Matricola Valida
+else Matricola Unica
 
 S -> UI : true
 activate UI
