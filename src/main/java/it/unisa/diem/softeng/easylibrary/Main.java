@@ -8,6 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 public class Main extends Application {
+
+    Biblioteca b;
+
     public static void main(String[] args) {
         // Lancia il runtime di JavaFX
         launch(args);
@@ -15,6 +18,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        b = new Biblioteca();
         Label lbl = new Label("Ciao Mondo!");
         VBox root = new VBox();
 

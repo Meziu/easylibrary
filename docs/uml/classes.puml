@@ -3,30 +3,34 @@
 skinparam nodesep 100
 
 interface Filtro<T> {
-    +controlla(T t): boolean
+    +controlla(): boolean
 }
 
 +abstract class Archivio<E> {
     -collezione: List<E>
 
-    +registra(T t): void {abstract}
-    +rimuovi(T t): void {abstract}
+    +registra(): void {abstract}
+    +rimuovi(): void {abstract}
     +getCollezione(): List<E>
-    +filtra(Filtro f): List<E>
+    +filtra(): List<E>
 }
 
 +interface CollezioneConChiave<K, V> {
-    +ottieni(K key): V
-    +chiavePresente(K key): boolean
++ottieni(): V
++contiene(): boolean
 }
 
 +abstract class Persona{
     -nome: String
     -cognome: String
 
-    +Persona()
-    +getNome(): String
-    +getCognome(): String
++Persona()
++getNome(): String
++getCognome(): String
++setNome(): void
++setCognome(): void
++compareTo(): int
+
 }
 
 +class Utente extends Persona{
@@ -34,29 +38,36 @@ interface Filtro<T> {
     -email: IndirizzoEmail
     -prestitiAttivi: List<Prestito>
 
-    +Utente()
-    +getMatricola(): Matricola
-    +getEmail(): IndirizzoEmail
-    +modificaUtente(): Utente
-    +compareTo(): int
++Utente()
++getMatricola(): Matricola
++getEmail(): IndirizzoEmail
++getPrestitiAttivi(): List<Prestito>
+    
++setMatricola(): void
++setEmail(): void
++registraPrestito(): void
++rimuoviPrestito(): void
++compareTo(): int
 }
 
 +class Matricola {
     -matricola: String
 
-    +Matricola()
-    +setMatricola()
-    +verifica(): boolean {static}
-    +toString()
++Matricola()
++getMatricola(): String
++setMatricola()
++verifica(): boolean {static}
++compareTo(): int
 }
+
 
 +class IndirizzoEmail {
     -indirizzo: String
 
-    +IndirizzoEmail()
-    +setIndirizzo()
-    +verifica(): boolean {static}
-    +toString()
++IndirizzoEmail()
++getIndirizzoEmail(): String
++setIndirizzo()
++verifica(): boolean {static}
 }
 
 
@@ -65,25 +76,39 @@ interface Filtro<T> {
     -autori: List<Autore>
     -dataPubblicazione: LocalDate
     -id: ISBN
+    -copieDisponibili: int
 
-    +Libro()
-    +getTitolo(): String
-    +getAutori(): List<Autore>
-    +getAnnoPubblicazione(): String
-    +getId(): ISBN
-    +aggiungiAutore(): void
-    +modificaLibro(): Libro
-    +compareTo(): int
++Libro()
++getTitolo(): String
++getAutori(): List<Autore>
++getDataPubblicazione(): String
++getISBN(): ISBN
++getCopieDisponibili(): int
+
++setTitolo(): void
++setAutori(): void
++setDataPubblicazione(): void
++setISBN(): void
++setCopieDisponibili((): void
++aggiungiAutore(): void
++rimuoviAutore(): void
++compareTo(): int
 }
+
 
 +class ISBN {
-    -id: String
+    -isbn: String
 
-    +ISBN()
-    +setId()
++ISBN()
++getISBN(): String
++setId()
     +verifica(): boolean {static}
-    +toString()
++verificaISBN10(): boolean {static}
++verificaISBN13(): boolean {static}
++compareTo(): int
 }
+
+
 
 +class Autore extends Persona{
 }
@@ -93,12 +118,12 @@ interface Filtro<T> {
     -matricolaUtente: Matricola
     -idLibro: ISBN
     -statoPrestito: StatoPrestito
-    -scadenzaPrestito: LocalDate
+    -dataDiScadenza: LocalDate
 
-    +getIdLibro(): Libro
-    +getMatricolaUtente(): Utente
+    +getISBN(): ISBN
+    +getMatricola(): Matricola
     +getStatoPrestito(): StatoPrestito
-    +getScadenzaPrestito(): LocalDate
+    +getDataDiScadenza(): LocalDate
     +setStatoPrestito(): void
     +isScaduto(): boolean
     +compareTo(): int
@@ -106,7 +131,7 @@ interface Filtro<T> {
 
 +enum StatoPrestito{
     ATTIVO,
-    SALDATO
+    RESTITUITO
 }
 
 
@@ -122,23 +147,30 @@ interface Filtro<T> {
 
 
 +class GestoreLibri extends Archivio implements CollezioneConChiave {
-    -indice: Map<ISBN, Libro>
+    -indiceISBN: Map<ISBN, Libro> {readOnly}
+-ord: OrdinatoreLibri {readOnly}
 
     +GestoreLibri()
 }
 
 
 +class GestoreUtenti extends Archivio implements CollezioneConChiave {
-    -indice: Map<Matricola, Utente>
+    -indice: Map<Matricola, Utente> {readOnly}
+-ord: OrdinatoreUtenti {readOnly}
 
     +GestoreUtenti()
 }
 
 
 +class GestorePrestiti extends Archivio {
+-ord: OrdinatorePrestiti {readOnly}
 
-    +GestorePrestiti()
++GestorePrestiti()
++getStoricoPrestiti(): List<Prestito>
 }
+
+
+
 
 
 Biblioteca --> Archivio

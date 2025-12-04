@@ -1,0 +1,87 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[italian]{babel}
+\usepackage[table]{xcolor}
+\usepackage{xstring, xltabular, multirow, ifthen, hyphenat, svg, tcolorbox, enumitem, adjustbox}
+\usepackage[
+colorlinks = true,
+linkcolor=black,
+urlcolor=black,
+citecolor=black
+]{hyperref}
+
+\hypersetup{linkcolor=black}
+
+% Titolo del documento e informazioni sul lavoro
+\title{
+	\Large EasyLibrary\\
+	\vspace{1mm}
+	\Huge Design di Dettaglio del Software
+}
+% Metodo per centrare correttamente con wrapping i nomi.
+\author{
+	\textbf{Gruppo 18}\\
+	Francesco Cangianiello\\
+	Andrea Ciliberti\\
+	Serena Giannitti\\
+	Marco Giraulo
+}
+
+\begin{document}
+	
+\maketitle
+
+\newpage
+\tableofcontents
+
+\newpage
+%\section{Architettura del Software}
+%\subsectio{Diagramma delle Classi}
+
+\section{Descrizione generale del sistema}
+\begin{itemize}
+	\item Architettura generale
+	\item Principi di progettazione adottati (SOLID, DRY, KISS, ecc.)
+	\item Tecnologie e strumenti scelti
+\end{itemize}
+
+\section{Progettazione di dettaglio}
+
+\subsection{Diagrammi delle classi}
+\begin{itemize}
+	\item Descrizione delle classi principali
+	\item Inserimento del diagramma UML (SVG):
+	\begin{figure}[h!]
+		\centering
+		%\includesvg[width=0.8\textwidth]{diagrammi/classi.svg}
+		\caption{Diagramma delle classi principali}
+	\end{figure}
+	\item Spiegazione testuale:
+	\begin{itemize}
+		\item Responsabilità di ciascuna classe
+		\item Relazioni (associazioni, aggregazioni, composizioni, ereditarietà)
+		\item Motivazione delle scelte progettuali
+		\item Riferimento ai principi di progettazione (Single Responsibility, Open/Closed, ecc.)
+	\end{itemize}
+\end{itemize}
+
+\subsection{Diagrammi di sequenza}
+\begin{itemize}
+	\item Selezionare casi d'uso complessi
+	\item Per ogni caso d'uso:
+	\begin{itemize}
+		\item Nome del caso d'uso
+		\item Attori coinvolti
+		\item Diagramma di sequenza (SVG):
+		\begin{figure}[h!]
+			\centering
+			%\includesvg[width=0.8\textwidth]{diagrammi/sequenza_caso1.svg}
+			\caption{Diagramma di sequenza per il caso d'uso XYZ}
+		\end{figure}
+		\item Descrizione testuale passo-passo
+		\item Motivazioni progettuali
+	\end{itemize}
+\end{itemize}
+
+
+\end{document}
+
