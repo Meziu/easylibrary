@@ -1,6 +1,5 @@
 package it.unisa.diem.softeng.easylibrary.libri;
 
-
 public final class ISBN implements Comparable<ISBN> {
 
     private String isbn;
@@ -12,7 +11,7 @@ public final class ISBN implements Comparable<ISBN> {
     public String getISBN() {
         return isbn;
     }
-    
+
     protected void setISBN(String nuovoISBN) {
         if (verifica(nuovoISBN)) {
             this.isbn = nuovoISBN.replaceAll("-", ""); // rimuove eventuali trattini
@@ -34,8 +33,10 @@ public final class ISBN implements Comparable<ISBN> {
 
     // Verifica ISBN-10
     private static boolean verificaISBN10(String id) {
-        if (id.length() != 10) return false;
-        
+        if (id.length() != 10) {
+            return false;
+        }
+
         int somma = 0;
         for (int i = 0; i < 9; i++) {
             char c = id.charAt(i);
@@ -62,8 +63,10 @@ public final class ISBN implements Comparable<ISBN> {
 
     // Verifica ISBN-13
     private static boolean verificaISBN13(String id) {
-        if (id.length() != 13) return false;
-        
+        if (id.length() != 13) {
+            return false;
+        }
+
         int somma = 0;
         for (int i = 0; i < 12; i++) {
             char c = id.charAt(i);
@@ -111,6 +114,5 @@ public final class ISBN implements Comparable<ISBN> {
         }
         return true;
     }
-    
-    
+
 }

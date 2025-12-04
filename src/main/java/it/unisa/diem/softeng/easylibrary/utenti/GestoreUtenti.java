@@ -18,7 +18,7 @@ public class GestoreUtenti extends Archivio<Utente> implements ArchivioConChiave
 
     public GestoreUtenti() {
         super();
-        
+
         indiceMatricole = new HashMap<>();
         ord = new OrdinatoreUtenti();
     }
@@ -48,7 +48,6 @@ public class GestoreUtenti extends Archivio<Utente> implements ArchivioConChiave
             throw new ValoreNonPresenteException("TODO FARE MESSAGGIO BELLO");
         }
 
-
         List<Utente> list = getCollezione();
         int idx = Collections.binarySearch(list, u, ord);
 
@@ -59,7 +58,6 @@ public class GestoreUtenti extends Archivio<Utente> implements ArchivioConChiave
 
         list.remove(idx);
     }
-
 
     @Override
     public Utente ottieni(Matricola key) {
@@ -74,16 +72,16 @@ public class GestoreUtenti extends Archivio<Utente> implements ArchivioConChiave
     @Override
     public void riassegna(Matricola oldKey, Matricola newKey) {
         Utente u = this.indiceMatricole.remove(oldKey);
-        
+
         if (u == null) {
             throw new ValoreNonPresenteException();
         }
-        
+
         // Impostiamo solo la stringa della matricola (e non l'oggetto in se) per non modificare il riferimento nella lista dei prestiti.
         u.getMatricola().setMatricola(newKey.getMatricola());
-        
+
         if (this.indiceMatricole.putIfAbsent(u.getMatricola(), u) != null) {
             throw new ValoreGiàPresenteException("TODO FARE MESSAGGIO BELLO");
-        } 
+        }
     }
 }

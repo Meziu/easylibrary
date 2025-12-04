@@ -13,9 +13,9 @@ public class MatricolaInvalidaException extends RuntimeException {
 
     public MatricolaInvalidaException() {
     }
-    
+
     public MatricolaInvalidaException(String string) {
         super(string);
     }
-    
+
 }

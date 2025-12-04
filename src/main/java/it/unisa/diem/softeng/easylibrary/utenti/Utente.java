@@ -28,12 +28,12 @@ public class Utente extends Persona {
     public List<Prestito> getPrestitiAttivi() {
         return prestitiAttivi;
     }
-    
-    public void registraPrestito(Prestito p){
+
+    public void registraPrestito(Prestito p) {
         prestitiAttivi.add(p);
     }
-    
-    public void rimuoviPrestito(Prestito p){
+
+    public void rimuoviPrestito(Prestito p) {
         prestitiAttivi.remove(p);
     }
 

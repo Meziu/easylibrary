@@ -2,7 +2,6 @@ package it.unisa.diem.softeng.easylibrary.libri;
 
 import java.util.List;
 
-
 public class Libro implements Comparable<Libro> {
 
     private String titolo;
@@ -34,11 +33,11 @@ public class Libro implements Comparable<Libro> {
     public ISBN getISBN() {
         return isbn;
     }
-    
-    public int getCopieDisponibili(){
+
+    public int getCopieDisponibili() {
         return copieDisponibili;
     }
-    
+
     public void setTitolo(String titolo) {
         this.titolo = titolo;
     }
@@ -50,11 +49,11 @@ public class Libro implements Comparable<Libro> {
     public void setAnnoPubblicazione(int annoPubblicazione) {
         this.annoPubblicazione = annoPubblicazione;
     }
-    
-    public void setCopieDisponibili(int copieDisponibili){
+
+    public void setCopieDisponibili(int copieDisponibili) {
         this.copieDisponibili = copieDisponibili;
     }
-    
+
     public void aggiungiAutore(Autore a) {
         autori.add(a);
     }
@@ -62,7 +61,7 @@ public class Libro implements Comparable<Libro> {
     public void rimuoviAutore(Autore a) {
         autori.remove(a);
     }
-    
+
     @Override
     public int compareTo(Libro l) {
         return this.isbn.compareTo(l.isbn);

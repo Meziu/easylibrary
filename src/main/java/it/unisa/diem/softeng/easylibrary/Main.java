@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 public class Main extends Application {
-    
+
     Biblioteca b;
 
     public static void main(String[] args) {

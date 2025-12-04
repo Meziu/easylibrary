@@ -8,5 +8,5 @@ public class IndirizzoEmailInvalidoException extends RuntimeException {
 
     public IndirizzoEmailInvalidoException() {
     }
-    
+
 }

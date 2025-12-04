@@ -42,21 +42,21 @@ public class Prestito implements Comparable<Prestito> {
     public void setStatoPrestito(StatoPrestito newStato) {
         this.stato = newStato;
     }
-    
+
     @Override
-    public int compareTo(Prestito p){
+    public int compareTo(Prestito p) {
         int c1 = this.dataDiScadenza.compareTo(p.dataDiScadenza);
-        
+
         if (c1 == 0) {
-            int c2 = this.matricolaUtente.compareTo(p.matricolaUtente); 
-            
+            int c2 = this.matricolaUtente.compareTo(p.matricolaUtente);
+
             if (c2 == 0) {
                 return this.idLibro.compareTo(p.idLibro);
             }
-            
+
             return c2;
         }
-        
+
         return c1;
     }
 }

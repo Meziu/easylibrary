@@ -17,7 +17,7 @@ public class GestoreLibri extends Archivio<Libro> implements ArchivioConChiave<I
 
     public GestoreLibri() {
         super();
-        
+
         indiceISBN = new HashMap<>();
         ord = new OrdinatoreLibri();
     }
@@ -36,9 +36,6 @@ public class GestoreLibri extends Archivio<Libro> implements ArchivioConChiave<I
         int idx = Collections.binarySearch(list, l, ord);
         list.add(idx, l);
     }
-    
-    
-    
 
     @Override
     public void rimuovi(Libro l) {
@@ -60,9 +57,7 @@ public class GestoreLibri extends Archivio<Libro> implements ArchivioConChiave<I
 
         list.remove(idx);
     }
-    
-    
-    
+
     @Override
     public Libro ottieni(ISBN key) {
         return indiceISBN.get(key);
@@ -76,14 +71,14 @@ public class GestoreLibri extends Archivio<Libro> implements ArchivioConChiave<I
     @Override
     public void riassegna(ISBN oldKey, ISBN newKey) {
         Libro l = this.indiceISBN.remove(oldKey);
-        
+
         if (l == null) {
             throw new ValoreNonPresenteException();
         }
-        
+
         // Impostiamo solo la stringa dell'ISBN (e non l'oggetto in se) per non modificare il riferimento nella lista dei Prestiti.
         l.getISBN().setISBN(newKey.getISBN());
-        
+
         if (this.indiceISBN.putIfAbsent(l.getISBN(), l) != null) {
             throw new ValoreGiàPresenteException("TODO FARE MESSAGGIO BELLO");
         }

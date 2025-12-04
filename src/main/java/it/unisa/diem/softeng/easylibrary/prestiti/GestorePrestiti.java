@@ -6,14 +6,15 @@ import java.util.Collections;
 import java.util.List;
 
 public class GestorePrestiti extends Archivio<Prestito> {
+
     private final OrdinatorePrestiti ord;
 
     public GestorePrestiti() {
         super();
-        
+
         ord = new OrdinatorePrestiti();
     }
-    
+
     public List<Prestito> getStoricoPrestiti() {
         return getCollezione();
     }

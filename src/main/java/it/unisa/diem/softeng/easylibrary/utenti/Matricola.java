@@ -11,7 +11,7 @@ public final class Matricola implements Comparable<Matricola> {
     public String getMatricola() {
         return matricola;
     }
-    
+
     protected void setMatricola(String nuovaMatricola) {
         if (verifica(nuovaMatricola)) {
             this.matricola = nuovaMatricola;
