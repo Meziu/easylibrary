@@ -2,6 +2,10 @@
 actor Gestore as G
 participant "GUI" as UI
 participant "Biblioteca" as B
+participant "ArchivioLibri" as AL
+participant "ArchivioPrestiti" as AP
+
+' CAMBIARE IN RIMUOVI PRESTITO ????
 
 ' ----- Inizio -----
 activate G
@@ -29,8 +33,10 @@ alt Presenza di un prestito attivo
 
 else Nessun prestito attivo
     G -> UI : Interazione di rimozione del libro
-    UI -> B : getArchivioLibri().rimuovi(Libro)
+    UI -> AL : archivioLibri.rimuovi(Libro)
 
 end
+
+deactivate UI
 
 @enduml

@@ -2,6 +2,8 @@
 actor Gestore
 participant "GUI" as UI
 participant "Biblioteca" as B
+participant "ArchivioLibri" as A
+participant "Libro" as L
 
 '  ---- Flusso principale -----
 activate Gestore
@@ -9,39 +11,43 @@ Gestore -> UI : Interazione con "Libri"
 deactivate Gestore
 activate UI
 
-UI -> B : getCollezione
+UI -> B : getArchivioLibri()
 activate B
-B --> UI : restituisce elenco libri
+B --> UI : Restituzione elenco dei libri
 deactivate B
-UI -> Gestore : Mostra elenco dei libri
+UI -> Gestore : Mostra l'elenco dei libri
 activate Gestore
 
 Gestore -> UI : Seleziona campo da modificare
 Gestore -> UI : Inserisce nuovo valore
 deactivate Gestore
-UI -> B : setTitolo
-activate B
-UI -> B : controlla(Titolo)
-deactivate B
+UI -> A : modifica(isbn, consumer)
+activate A
 
 ' ----- Verifica Dati -----
-alt Dato non valido (annullamento)
-    UI -> Gestore : Titolo ritorna al valore precedente
-    activate Gestore
-    Gestore -> UI : interazione per uscire dalla schermata
-    deactivate Gestore
-    UI -> Gestore : chiusura visualizzazione libro 
+alt Libro non presente
+    A -> UI : throw ValoreNonPresenteException
+    UI -> Gestore : La modifica al valore viene annullata
+    UI -> Gestore : Mostra messaggio di errore
+    UI -> Gestore : L'elenco dei libri viene aggiornato
 
+end
 
-else Dato non valido (correzione)
-    UI -> Gestore : Titolo ritorna al valore precedente
-    activate Gestore
-    Gestore -> UI : Inserisce un nuovo valore corretto
-    deactivate Gestore
-    UI -> B : setTitolo
+A -> L : consumer.accept(libro)
+activate L
 
-else Dato valido
-    UI -> Gestore : Titolo aggiornato correttamente
+alt Nuova email non valida
+    L -> UI : throw IndirizzoEmailInvalidoException
+    deactivate L
+    UI -> Gestore : La modifica al valore viene annullata
+    UI -> Gestore : Mostra messaggio di errore
+
+else Campo valido
+    activate L
+    L --> UI : Modifica effettuata con successo
+    deactivate L
+    deactivate A
+    UI -> Gestore : Mostra il nuovo valore del campo
 
 end
 
