@@ -6,9 +6,9 @@ import java.util.List;
 
 public class Utente extends Persona {
 
-    private Matricola matricola;
-    private IndirizzoEmail email;
-    private List<Prestito> prestitiAttivi;
+    private final Matricola matricola;
+    private final IndirizzoEmail email;
+    private final List<Prestito> prestitiAttivi;
 
     public Utente(String nome, String cognome, Matricola matricola, IndirizzoEmail email, List<Prestito> prestitiAttivi) {
         super(nome, cognome);
@@ -27,14 +27,6 @@ public class Utente extends Persona {
 
     public List<Prestito> getPrestitiAttivi() {
         return prestitiAttivi;
-    }
-
-    public void setMatricola(Matricola matricola) {
-        this.matricola = matricola;
-    }
-
-    public void setEmail(IndirizzoEmail email) {
-        this.email = email;
     }
     
     public void registraPrestito(Prestito p){

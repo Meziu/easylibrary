@@ -72,4 +72,20 @@ public class GestoreLibri extends Archivio<Libro> implements ArchivioConChiave<I
     public boolean contiene(ISBN key) {
         return indiceISBN.containsKey(key);
     }
+
+    @Override
+    public void riassegna(ISBN oldKey, ISBN newKey) {
+        Libro l = this.indiceISBN.remove(oldKey);
+        
+        if (l == null) {
+            throw new ValoreNonPresenteException();
+        }
+        
+        // Impostiamo solo la stringa dell'ISBN (e non l'oggetto in se) per non modificare il riferimento nella lista dei Prestiti.
+        l.getISBN().setISBN(newKey.getISBN());
+        
+        if (this.indiceISBN.putIfAbsent(l.getISBN(), l) != null) {
+            throw new ValoreGiàPresenteException("TODO FARE MESSAGGIO BELLO");
+        }
+    }
 }

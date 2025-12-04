@@ -5,7 +5,7 @@ import java.util.List;
 
 public abstract class Archivio<E> {
 
-    List<E> collezione;
+    private final List<E> collezione;
 
     public abstract void registra(E elemento);
 

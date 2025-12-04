@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import it.unisa.diem.softeng.easylibrary.archivio.ArchivioConChiave;
+import it.unisa.diem.softeng.easylibrary.archivio.Filtro;
 
 public class GestoreUtenti extends Archivio<Utente> implements ArchivioConChiave<Matricola, Utente> {
 
@@ -70,4 +71,19 @@ public class GestoreUtenti extends Archivio<Utente> implements ArchivioConChiave
         return this.indiceMatricole.containsKey(key);
     }
 
+    @Override
+    public void riassegna(Matricola oldKey, Matricola newKey) {
+        Utente u = this.indiceMatricole.remove(oldKey);
+        
+        if (u == null) {
+            throw new ValoreNonPresenteException();
+        }
+        
+        // Impostiamo solo la stringa della matricola (e non l'oggetto in se) per non modificare il riferimento nella lista dei prestiti.
+        u.getMatricola().setMatricola(newKey.getMatricola());
+        
+        if (this.indiceMatricole.putIfAbsent(u.getMatricola(), u) != null) {
+            throw new ValoreGiàPresenteException("TODO FARE MESSAGGIO BELLO");
+        } 
+    }
 }

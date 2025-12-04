@@ -12,7 +12,7 @@ public final class Matricola implements Comparable<Matricola> {
         return matricola;
     }
     
-    public void setMatricola(String nuovaMatricola) {
+    protected void setMatricola(String nuovaMatricola) {
         if (verifica(nuovaMatricola)) {
             this.matricola = nuovaMatricola;
         } else {

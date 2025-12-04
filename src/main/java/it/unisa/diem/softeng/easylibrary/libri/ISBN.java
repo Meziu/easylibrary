@@ -13,7 +13,7 @@ public final class ISBN implements Comparable<ISBN> {
         return isbn;
     }
     
-    public void setISBN(String nuovoISBN) {
+    protected void setISBN(String nuovoISBN) {
         if (verifica(nuovoISBN)) {
             this.isbn = nuovoISBN.replaceAll("-", ""); // rimuove eventuali trattini
         } else {

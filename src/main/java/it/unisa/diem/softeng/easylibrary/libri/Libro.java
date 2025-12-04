@@ -7,14 +7,14 @@ public class Libro implements Comparable<Libro> {
 
     private String titolo;
     private List<Autore> autori;
-    private String dataPubblicazione;
-    private ISBN isbn;
+    private int annoPubblicazione;
+    private final ISBN isbn;
     private int copieDisponibili;
 
-    public Libro(String titolo, List<Autore> autori, String dataPubblicazione, String isbn, int copieDisponibili) {
+    public Libro(String titolo, List<Autore> autori, int annoPubblicazione, String isbn, int copieDisponibili) {
         this.titolo = titolo;
         this.autori = autori;
-        this.dataPubblicazione = dataPubblicazione;
+        this.annoPubblicazione = annoPubblicazione;
         this.isbn = new ISBN(isbn);
         this.copieDisponibili = copieDisponibili;
     }
@@ -27,8 +27,8 @@ public class Libro implements Comparable<Libro> {
         return autori;
     }
 
-    public String getDataPubblicazione() {
-        return dataPubblicazione;
+    public int getAnnoPubblicazione() {
+        return annoPubblicazione;
     }
 
     public ISBN getISBN() {
@@ -39,10 +39,6 @@ public class Libro implements Comparable<Libro> {
         return copieDisponibili;
     }
     
-    
-    
-    
-
     public void setTitolo(String titolo) {
         this.titolo = titolo;
     }
@@ -51,19 +47,13 @@ public class Libro implements Comparable<Libro> {
         this.autori = autori;
     }
 
-    public void setDataPubblicazione(String dataPubblicazione) {
-        this.dataPubblicazione = dataPubblicazione;
-    }
-
-    public void setISBN(ISBN isbn) {
-        this.isbn = isbn;
+    public void setAnnoPubblicazione(int annoPubblicazione) {
+        this.annoPubblicazione = annoPubblicazione;
     }
     
     public void setCopieDisponibili(int copieDisponibili){
         this.copieDisponibili = copieDisponibili;
     }
-
-    
     
     public void aggiungiAutore(Autore a) {
         autori.add(a);
@@ -72,8 +62,6 @@ public class Libro implements Comparable<Libro> {
     public void rimuoviAutore(Autore a) {
         autori.remove(a);
     }
-    
-    
     
     @Override
     public int compareTo(Libro l) {

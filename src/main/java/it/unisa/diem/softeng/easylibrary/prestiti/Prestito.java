@@ -6,10 +6,10 @@ import java.time.LocalDate;
 
 public class Prestito implements Comparable<Prestito> {
 
-    private Matricola matricolaUtente;
-    private ISBN idLibro;
+    private final Matricola matricolaUtente;
+    private final ISBN idLibro;
     private StatoPrestito stato;
-    private LocalDate dataDiScadenza;
+    private final LocalDate dataDiScadenza;
 
     public Prestito(Matricola matricolaUtente, ISBN idLibro, StatoPrestito statoPrestito, LocalDate scadenzaPrestito) {
         this.matricolaUtente = matricolaUtente;
@@ -38,7 +38,7 @@ public class Prestito implements Comparable<Prestito> {
         return dataDiScadenza.isBefore(LocalDate.now());
     }
 
-    /*Permette di ggiornare lo stato del prestito*/
+    /*Permette di aggiornare lo stato del prestito*/
     public void setStatoPrestito(StatoPrestito newStato) {
         this.stato = newStato;
     }
