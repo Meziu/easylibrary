@@ -23,8 +23,6 @@ public class GestorePrestiti extends Archivio<Prestito> {
         return getCollezione();
     }
 
-    
-    
     /*Funzione che aggiunge un nuovo prestito alla lista dei prestiti*/
     @Override
     public void registra(Prestito p) {
@@ -34,8 +32,6 @@ public class GestorePrestiti extends Archivio<Prestito> {
         l.add(idx, p);
     }
 
-    
-    
     /*Funzione che segna un prestito come RESTITUITO*/
     @Override
     public void rimuovi(Prestito p) {

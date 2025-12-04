@@ -17,29 +17,39 @@ import java.util.List;
 import it.unisa.diem.softeng.easylibrary.archivio.ArchivioConChiave;
 
 public class Biblioteca {
-    private class Holder<T> {
-        public T t;
+    // In Java non è possibile mantenere un riferimento ad un oggetto solo attraverso le classi astratte che eredita e le interfacce che implementa.
+    // Per far fronte a ciò, senza perdere di flessibilità, imponiamo questi vincoli tramite 2 classi privati con la parametrizzazione specifica.
+    private class ArchivioUtentiHolder<A extends Archivio<Utente> & ArchivioConChiave<Matricola, Utente>> {
+        public Object o;
         
-        public Holder(T t) {
-            this.t = t;
+        public ArchivioUtentiHolder(A t) {
+            this.o = t;
         }
         
-        public <S extends Archivio<Utente> & ArchivioConChiave<Matricola, Utente>> S getArchivioUtenti() {
-            return (S)t;
-        }
-        
-        public <S extends Archivio<Libro> & ArchivioConChiave<ISBN, Libro>> S getArchivioLibri() {
-            return (S)t;
+        public <A extends Archivio<Utente> & ArchivioConChiave<Matricola, Utente>> A getArchivio() {
+            return (A)o;
         }
     }
     
-    private final Holder<?> utenti;
-    private final Holder<?> libri;
+    private class ArchivioLibriHolder<A extends Archivio<Libro> & ArchivioConChiave<ISBN, Libro>> {
+        public Object o;
+        
+        public ArchivioLibriHolder(A t) {
+            this.o = t;
+        }
+        
+        public <A extends Archivio<Utente> & ArchivioConChiave<Matricola, Utente>> A getArchivio() {
+            return (A)o;
+        }
+    }
+    
+    private final ArchivioUtentiHolder<?> utenti;
+    private final ArchivioLibriHolder<?> libri;
     private final Archivio<Prestito> prestiti;
 
     public Biblioteca() {
-        this.utenti = new Holder<>(new GestoreUtenti());
-        this.libri = new Holder<>(new GestoreLibri());
+        this.utenti = new ArchivioUtentiHolder<>(new GestoreUtenti());
+        this.libri = new ArchivioLibriHolder<>(new GestoreLibri());
         this.prestiti = new GestorePrestiti();
     }
 
@@ -47,7 +57,7 @@ public class Biblioteca {
         Prestito p = new Prestito(matricola, isbn, StatoPrestito.ATTIVO, scadenzaPrestito);
         
         prestiti.registra(p);
-        utenti.getArchivioUtenti().ottieni(matricola).registraPrestito(p);
+        utenti.getArchivio().ottieni(matricola).registraPrestito(p);
     }
     
     public List<Prestito> getPrestitiAttivi() {
