@@ -1,17 +1,20 @@
 package it.unisa.diem.softeng.easylibrary;
 
+import it.unisa.diem.softeng.easylibrary.prestiti.GestorePrestiti;
+import it.unisa.diem.softeng.easylibrary.utenti.GestoreUtenti;
+import it.unisa.diem.softeng.easylibrary.libri.GestoreLibri;
 import it.unisa.diem.softeng.easylibrary.archivio.*;
-import it.unisa.diem.softeng.easylibrary.dati.ISBN;
-import it.unisa.diem.softeng.easylibrary.dati.Libro;
-import it.unisa.diem.softeng.easylibrary.dati.Matricola;
-import it.unisa.diem.softeng.easylibrary.dati.Prestito;
-import it.unisa.diem.softeng.easylibrary.dati.StatoPrestito;
-import it.unisa.diem.softeng.easylibrary.dati.Utente;
-import it.unisa.diem.softeng.easylibrary.interfacce.CollezioneConChiave;
+import it.unisa.diem.softeng.easylibrary.libri.ISBN;
+import it.unisa.diem.softeng.easylibrary.libri.Libro;
+import it.unisa.diem.softeng.easylibrary.utenti.Matricola;
+import it.unisa.diem.softeng.easylibrary.prestiti.Prestito;
+import it.unisa.diem.softeng.easylibrary.prestiti.StatoPrestito;
+import it.unisa.diem.softeng.easylibrary.utenti.Utente;
 
 
 import java.time.LocalDate;
 import java.util.List;
+import it.unisa.diem.softeng.easylibrary.archivio.ArchivioConChiave;
 
 public class Biblioteca {
     private class Holder<T> {
@@ -21,11 +24,11 @@ public class Biblioteca {
             this.t = t;
         }
         
-        public <S extends Archivio<Utente> & CollezioneConChiave<Matricola, Utente>> S getArchivioUtenti() {
+        public <S extends Archivio<Utente> & ArchivioConChiave<Matricola, Utente>> S getArchivioUtenti() {
             return (S)t;
         }
         
-        public <S extends Archivio<Libro> & CollezioneConChiave<ISBN, Libro>> S getArchivioLibri() {
+        public <S extends Archivio<Libro> & ArchivioConChiave<ISBN, Libro>> S getArchivioLibri() {
             return (S)t;
         }
     }

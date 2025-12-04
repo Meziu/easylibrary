@@ -1,4 +1,4 @@
-package it.unisa.diem.softeng.easylibrary.eccezioni;
+package it.unisa.diem.softeng.easylibrary.libri;
 
 public class ISBNInvalidoException extends RuntimeException {
 

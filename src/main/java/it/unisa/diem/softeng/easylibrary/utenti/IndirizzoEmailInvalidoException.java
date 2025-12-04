@@ -1,4 +1,4 @@
-package it.unisa.diem.softeng.easylibrary.eccezioni;
+package it.unisa.diem.softeng.easylibrary.utenti;
 
 public class IndirizzoEmailInvalidoException extends RuntimeException {
 

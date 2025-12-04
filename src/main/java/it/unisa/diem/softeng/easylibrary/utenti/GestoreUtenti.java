@@ -1,18 +1,19 @@
-package it.unisa.diem.softeng.easylibrary.archivio;
+package it.unisa.diem.softeng.easylibrary.utenti;
 
-import it.unisa.diem.softeng.easylibrary.eccezioni.ValoreGiàPresenteException;
-import it.unisa.diem.softeng.easylibrary.dati.Matricola;
-import it.unisa.diem.softeng.easylibrary.dati.OrdinatoreUtenti;
-import it.unisa.diem.softeng.easylibrary.dati.Utente;
-import it.unisa.diem.softeng.easylibrary.eccezioni.ValoreNonPresenteException;
-import it.unisa.diem.softeng.easylibrary.interfacce.CollezioneConChiave;
+import it.unisa.diem.softeng.easylibrary.archivio.Archivio;
+import it.unisa.diem.softeng.easylibrary.archivio.ValoreGiàPresenteException;
+import it.unisa.diem.softeng.easylibrary.utenti.Matricola;
+import it.unisa.diem.softeng.easylibrary.utenti.OrdinatoreUtenti;
+import it.unisa.diem.softeng.easylibrary.utenti.Utente;
+import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import it.unisa.diem.softeng.easylibrary.archivio.ArchivioConChiave;
 
-public class GestoreUtenti extends Archivio<Utente> implements CollezioneConChiave<Matricola, Utente> {
+public class GestoreUtenti extends Archivio<Utente> implements ArchivioConChiave<Matricola, Utente> {
 
     private final Map<Matricola, Utente> indiceMatricole;
     private final OrdinatoreUtenti ord;

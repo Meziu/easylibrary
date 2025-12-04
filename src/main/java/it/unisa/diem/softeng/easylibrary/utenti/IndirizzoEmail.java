@@ -1,6 +1,4 @@
-package it.unisa.diem.softeng.easylibrary.dati;
-
-import it.unisa.diem.softeng.easylibrary.eccezioni.IndirizzoEmailInvalidoException;
+package it.unisa.diem.softeng.easylibrary.utenti;
 
 public class IndirizzoEmail {
 

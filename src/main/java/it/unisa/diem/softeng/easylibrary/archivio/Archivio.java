@@ -1,6 +1,5 @@
 package it.unisa.diem.softeng.easylibrary.archivio;
 
-import it.unisa.diem.softeng.easylibrary.interfacce.Filtro;
 import java.util.ArrayList;
 import java.util.List;
 

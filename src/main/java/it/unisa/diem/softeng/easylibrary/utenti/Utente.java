@@ -1,5 +1,7 @@
-package it.unisa.diem.softeng.easylibrary.dati;
+package it.unisa.diem.softeng.easylibrary.utenti;
 
+import it.unisa.diem.softeng.easylibrary.dati.Persona;
+import it.unisa.diem.softeng.easylibrary.prestiti.Prestito;
 import java.util.List;
 
 public class Utente extends Persona {

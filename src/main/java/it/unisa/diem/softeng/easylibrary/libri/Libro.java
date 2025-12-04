@@ -1,4 +1,4 @@
-package it.unisa.diem.softeng.easylibrary.dati;
+package it.unisa.diem.softeng.easylibrary.libri;
 
 import java.util.List;
 

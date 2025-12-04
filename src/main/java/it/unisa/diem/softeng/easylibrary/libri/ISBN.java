@@ -1,6 +1,4 @@
-package it.unisa.diem.softeng.easylibrary.dati;
-
-import it.unisa.diem.softeng.easylibrary.eccezioni.ISBNInvalidoException;
+package it.unisa.diem.softeng.easylibrary.libri;
 
 
 public class ISBN implements Comparable<ISBN> {

@@ -1,4 +1,4 @@
-package it.unisa.diem.softeng.easylibrary.interfacce;
+package it.unisa.diem.softeng.easylibrary.archivio;
 
 public interface Filtro<T> {
 

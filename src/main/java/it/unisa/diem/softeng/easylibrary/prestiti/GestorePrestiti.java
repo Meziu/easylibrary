@@ -1,10 +1,11 @@
-package it.unisa.diem.softeng.easylibrary.archivio;
+package it.unisa.diem.softeng.easylibrary.prestiti;
 
-import it.unisa.diem.softeng.easylibrary.dati.OrdinatorePrestiti;
-import it.unisa.diem.softeng.easylibrary.dati.Prestito;
-import it.unisa.diem.softeng.easylibrary.dati.StatoPrestito;
-import it.unisa.diem.softeng.easylibrary.eccezioni.ValoreGiàPresenteException;
-import it.unisa.diem.softeng.easylibrary.eccezioni.ValoreNonPresenteException;
+import it.unisa.diem.softeng.easylibrary.archivio.Archivio;
+import it.unisa.diem.softeng.easylibrary.prestiti.OrdinatorePrestiti;
+import it.unisa.diem.softeng.easylibrary.prestiti.Prestito;
+import it.unisa.diem.softeng.easylibrary.prestiti.StatoPrestito;
+import it.unisa.diem.softeng.easylibrary.archivio.ValoreGiàPresenteException;
+import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
