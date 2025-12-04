@@ -18,7 +18,7 @@ import it.unisa.diem.softeng.easylibrary.archivio.ArchivioConChiave;
 public class Biblioteca {
 
     // In Java non è possibile mantenere un riferimento ad un oggetto solo attraverso le classi astratte che eredita e le interfacce che implementa.
-    // Per far fronte a ciò, senza perdere di flessibilità, imponiamo questi vincoli tramite 2 classi privati con la parametrizzazione specifica.
+    // Per far fronte a ciò, senza perdere di flessibilità, imponiamo questi vincoli tramite 2 classi private con la parametrizzazione specifica.
     private class ArchivioUtentiHolder<A extends Archivio<Utente> & ArchivioConChiave<Matricola, Utente>> {
 
         public Object o;
@@ -40,7 +40,7 @@ public class Biblioteca {
             this.o = t;
         }
 
-        public <A extends Archivio<Utente> & ArchivioConChiave<Matricola, Utente>> A getArchivio() {
+        public <A extends Archivio<Libro> & ArchivioConChiave<ISBN, Libro>> A getArchivio() {
             return (A) o;
         }
     }
@@ -54,20 +54,24 @@ public class Biblioteca {
         this.libri = new ArchivioLibriHolder<>(new GestoreLibri());
         this.prestiti = new GestorePrestiti();
     }
-
-    public void registraPrestito(ISBN isbn, Matricola matricola, LocalDate scadenzaPrestito) {
-        Prestito p = new Prestito(matricola, isbn, StatoPrestito.ATTIVO, scadenzaPrestito);
-
-        prestiti.registra(p);
-        utenti.getArchivio().ottieni(matricola).registraPrestito(p);
-    }
-
+    
     public List<Prestito> getPrestitiAttivi() {
         return prestiti.filtra((Prestito p) -> p.getStato() == StatoPrestito.ATTIVO);
     }
 
+    public void registraPrestito(String matricola, String isbn, LocalDate scadenzaPrestito) {
+        Utente u = utenti.getArchivio().ottieni(new Matricola(matricola));
+        Libro l = libri.getArchivio().ottieni(new ISBN(isbn));
+        
+        Prestito p = new Prestito(u.getMatricola(), l.getISBN(), StatoPrestito.ATTIVO, scadenzaPrestito);
+        
+        prestiti.registra(p);
+        u.registraPrestito(p);
+    }
+    
     public void registraRestituzione(Prestito p) {
         prestiti.rimuovi(p);
+        utenti.getArchivio().ottieni(p.getMatricola()).rimuoviPrestito(p);
     }
 
     public void salvaFile(String filename) {
