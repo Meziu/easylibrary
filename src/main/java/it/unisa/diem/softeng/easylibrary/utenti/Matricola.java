@@ -4,22 +4,18 @@ import java.io.Serializable;
 
 public final class Matricola implements Comparable<Matricola>, Serializable {
 
-    private String matricola;
+    private final String matricola;
 
     public Matricola(String matricola) {
-        setMatricola(matricola);
+        if (verifica(matricola)) {
+            this.matricola = matricola;
+        } else {
+            throw new MatricolaInvalidaException(); // TODO
+        }
     }
 
     public String getMatricola() {
         return matricola;
-    }
-
-    protected void setMatricola(String nuovaMatricola) {
-        if (verifica(nuovaMatricola)) {
-            this.matricola = nuovaMatricola;
-        } else {
-            throw new MatricolaInvalidaException(); // TODO
-        }
     }
 
     /*Funzione che verifica la validità della matricola.

@@ -4,22 +4,18 @@ import java.io.Serializable;
 
 public final class ISBN implements Comparable<ISBN>, Serializable {
 
-    private String isbn;
+    private final String isbn;
 
     public ISBN(String isbn) {
-        setISBN(isbn);
+        if (verifica(isbn)) {
+            this.isbn = isbn.replaceAll("-", ""); // rimuove eventuali trattini
+        } else {
+            throw new ISBNInvalidoException(); // TODO
+        }
     }
 
     public String getISBN() {
         return isbn;
-    }
-
-    protected void setISBN(String nuovoISBN) {
-        if (verifica(nuovoISBN)) {
-            this.isbn = nuovoISBN.replaceAll("-", ""); // rimuove eventuali trattini
-        } else {
-            throw new ISBNInvalidoException(); // TODO
-        }
     }
 
     public static boolean verifica(String id) {

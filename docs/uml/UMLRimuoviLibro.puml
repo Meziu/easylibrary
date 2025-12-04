@@ -1,18 +1,19 @@
 @startuml
 actor Gestore as G
 participant "GUI" as UI
-participant "Bibloteca" as B
+participant "Biblioteca" as B
+
 ' ----- Inizio -----
 activate G
-G -> UI : Interazione con "Libri"
+G -> UI : Interazione con l'interazione per visualizzare i libri
 deactivate G
 activate UI
-UI -> B : getCollezione
+UI -> B : getArchivioLibri()
 activate B
 
-B --> UI : restituisce elenco libri
+B --> UI : Restituzione dell'elenco dei libri
 deactivate B
-UI -> G : Mostra elenco dei libri
+UI -> G : Mostra l'elenco dei libri
 activate G
 G -> UI : Seleziona l'utente da rimuovere
 deactivate G
@@ -22,17 +23,14 @@ activate B
 B --> UI : StatoPrestito
 deactivate B
 
-' ---- Flusso alternativo ----- 
+' ---- Flusso alternativo -----
 alt Presenza di un prestito attivo
-
-UI -> G : disattiva l'interazione elimina utente
+    UI -> G : Disabilita l'interazione di rimozione del libro
 
 else Nessun prestito attivo
-G -> UI : Interazione con "elimina utente"
-UI -> B : rimuovi(Utente)
-
+    G -> UI : Interazione di rimozione del libro
+    UI -> B : getArchivioLibri().rimuovi(Libro)
 
 end
-
 
 @enduml

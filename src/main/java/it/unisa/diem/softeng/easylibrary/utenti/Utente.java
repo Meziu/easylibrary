@@ -2,19 +2,20 @@ package it.unisa.diem.softeng.easylibrary.utenti;
 
 import it.unisa.diem.softeng.easylibrary.dati.Persona;
 import it.unisa.diem.softeng.easylibrary.prestiti.Prestito;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Utente extends Persona {
 
     private final Matricola matricola;
-    private final IndirizzoEmail email;
+    private IndirizzoEmail email;
     private final List<Prestito> prestitiAttivi;
 
-    public Utente(String nome, String cognome, Matricola matricola, IndirizzoEmail email, List<Prestito> prestitiAttivi) {
+    public Utente(String nome, String cognome, Matricola matricola, IndirizzoEmail email) {
         super(nome, cognome);
         this.matricola = matricola;
         this.email = email;
-        this.prestitiAttivi = prestitiAttivi;
+        this.prestitiAttivi = new ArrayList<>();
     }
 
     public Matricola getMatricola() {
@@ -23,6 +24,10 @@ public class Utente extends Persona {
 
     public IndirizzoEmail getEmail() {
         return email;
+    }
+    
+    public void setEmail(IndirizzoEmail email) {
+        this.email = email;
     }
 
     public List<Prestito> getPrestitiAttivi() {

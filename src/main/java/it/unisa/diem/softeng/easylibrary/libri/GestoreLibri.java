@@ -1,5 +1,6 @@
 package it.unisa.diem.softeng.easylibrary.libri;
 
+import static com.sun.org.apache.xml.internal.utils.StringComparable.getComparator;
 import it.unisa.diem.softeng.easylibrary.archivio.Archivio;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreGiàPresenteException;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
@@ -9,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import it.unisa.diem.softeng.easylibrary.archivio.ArchivioConChiave;
+import java.util.function.Consumer;
 
 public class GestoreLibri extends Archivio<Libro> implements ArchivioConChiave<ISBN, Libro> {
 
@@ -67,20 +69,24 @@ public class GestoreLibri extends Archivio<Libro> implements ArchivioConChiave<I
     public boolean contiene(ISBN key) {
         return indiceISBN.containsKey(key);
     }
-
+    
     @Override
-    public void riassegna(ISBN oldKey, ISBN newKey) {
-        Libro l = this.indiceISBN.remove(oldKey);
-
+    public void modifica(ISBN key, Consumer<Libro> c) {
+        Libro l = ottieni(key);
         if (l == null) {
             throw new ValoreNonPresenteException();
         }
-
-        // Impostiamo solo la stringa dell'ISBN (e non l'oggetto in se) per non modificare il riferimento nella lista dei Prestiti.
-        l.getISBN().setISBN(newKey.getISBN());
-
-        if (this.indiceISBN.putIfAbsent(l.getISBN(), l) != null) {
-            throw new ValoreGiàPresenteException("TODO FARE MESSAGGIO BELLO");
+        
+        List<Libro> list = getCollezione();
+        int idx_remove = Collections.binarySearch(list, l, ord);
+        if (idx_remove < 0 || idx_remove >= list.size()) {
+            throw new ValoreNonPresenteException();
         }
+        
+        // Applica modifiche.dal consumer.
+        c.accept(l);
+        
+        int idx_insert = Collections.binarySearch(list, l, ord);
+        list.add(Math.abs(idx_insert + 1), l);
     }
 }

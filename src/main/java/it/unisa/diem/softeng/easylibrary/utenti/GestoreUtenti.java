@@ -9,7 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import it.unisa.diem.softeng.easylibrary.archivio.ArchivioConChiave;
-import it.unisa.diem.softeng.easylibrary.archivio.Filtro;
+import it.unisa.diem.softeng.easylibrary.libri.Libro;
+import java.util.function.Consumer;
 
 public class GestoreUtenti extends Archivio<Utente> implements ArchivioConChiave<Matricola, Utente> {
 
@@ -69,20 +70,24 @@ public class GestoreUtenti extends Archivio<Utente> implements ArchivioConChiave
     public boolean contiene(Matricola key) {
         return this.indiceMatricole.containsKey(key);
     }
-
+    
     @Override
-    public void riassegna(Matricola oldKey, Matricola newKey) {
-        Utente u = this.indiceMatricole.remove(oldKey);
-
+    public void modifica(Matricola key, Consumer<Utente> c) {
+        Utente u = ottieni(key);
         if (u == null) {
             throw new ValoreNonPresenteException();
         }
-
-        // Impostiamo solo la stringa della matricola (e non l'oggetto in se) per non modificare il riferimento nella lista dei prestiti.
-        u.getMatricola().setMatricola(newKey.getMatricola());
-
-        if (this.indiceMatricole.putIfAbsent(u.getMatricola(), u) != null) {
-            throw new ValoreGiàPresenteException("TODO FARE MESSAGGIO BELLO");
+        
+        List<Utente> list = getCollezione();
+        int idx_remove = Collections.binarySearch(list, u, ord);
+        if (idx_remove < 0 || idx_remove >= list.size()) {
+            throw new ValoreNonPresenteException();
         }
+        
+        // Applica modifiche.dal consumer.
+        c.accept(u);
+        
+        int idx_insert = Collections.binarySearch(list, u, ord);
+        list.add(Math.abs(idx_insert + 1), u);
     }
 }
