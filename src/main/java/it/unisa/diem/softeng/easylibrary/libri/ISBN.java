@@ -1,20 +1,24 @@
 package it.unisa.diem.softeng.easylibrary.libri;
 
 
-public class ISBN implements Comparable<ISBN> {
+public final class ISBN implements Comparable<ISBN> {
 
     private String isbn;
 
     public ISBN(String isbn) {
-        if (verifica(isbn)) {
-            this.isbn = isbn.replaceAll("-", ""); // rimuove eventuali trattini
-        } else {
-            throw new ISBNInvalidoException(); // TODO
-        }
+        setISBN(isbn);
     }
 
     public String getISBN() {
         return isbn;
+    }
+    
+    public void setISBN(String nuovoISBN) {
+        if (verifica(nuovoISBN)) {
+            this.isbn = nuovoISBN.replaceAll("-", ""); // rimuove eventuali trattini
+        } else {
+            throw new ISBNInvalidoException(); // TODO
+        }
     }
 
     public static boolean verifica(String id) {
@@ -84,4 +88,29 @@ public class ISBN implements Comparable<ISBN> {
     public int compareTo(ISBN i) {
         return this.isbn.compareTo(i.isbn);
     }
+
+    @Override
+    public int hashCode() {
+        return this.isbn.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ISBN other = (ISBN) obj;
+        if (!this.isbn.equals(other.isbn)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

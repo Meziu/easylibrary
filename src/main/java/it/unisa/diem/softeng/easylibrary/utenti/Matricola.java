@@ -1,19 +1,23 @@
 package it.unisa.diem.softeng.easylibrary.utenti;
 
-public class Matricola implements Comparable<Matricola> {
+public final class Matricola implements Comparable<Matricola> {
 
     private String matricola;
 
     public Matricola(String matricola) {
-        if (verifica(matricola)) {
-            this.matricola = matricola;
-        } else {
-            throw new MatricolaInvalidaException(); // TODO
-        }
+        setMatricola(matricola);
     }
 
     public String getMatricola() {
         return matricola;
+    }
+    
+    public void setMatricola(String nuovaMatricola) {
+        if (verifica(nuovaMatricola)) {
+            this.matricola = nuovaMatricola;
+        } else {
+            throw new MatricolaInvalidaException(); // TODO
+        }
     }
 
     /*Funzione che verifica la validità della matricola.
@@ -49,5 +53,28 @@ public class Matricola implements Comparable<Matricola> {
     @Override
     public int compareTo(Matricola m) {
         return this.matricola.compareTo(m.matricola);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.matricola.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Matricola other = (Matricola) obj;
+        if (!this.matricola.equals(other.matricola)) {
+            return false;
+        }
+        return true;
     }
 }
