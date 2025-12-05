@@ -1,0 +1,57 @@
+@startuml
+actor Gestore
+participant "GUI" as UI
+participant "Biblioteca" as B
+participant "ArchivioLibri" as A
+participant "Libro" as L
+
+'  ---- Flusso principale -----
+activate Gestore
+Gestore -> UI : Interazione con "Libri"
+deactivate Gestore
+activate UI
+
+UI -> B : getArchivioLibri()
+activate B
+B --> UI : Restituzione elenco dei libri
+deactivate B
+UI -> Gestore : Mostra l'elenco dei libri
+activate Gestore
+
+Gestore -> UI : Seleziona campo da modificare
+Gestore -> UI : Inserisce nuovo valore
+deactivate Gestore
+UI -> A : modifica(isbn, consumer)
+activate A
+
+' ----- Verifica Dati -----
+alt Libro non presente
+    A -> UI : throw ValoreNonPresenteException
+    UI -> Gestore : La modifica al valore viene annullata
+    UI -> Gestore : Mostra messaggio di errore
+    UI -> Gestore : L'elenco dei libri viene aggiornato
+
+end
+
+A -> L : consumer.accept(libro)
+activate L
+
+alt Nuova email non valida
+    L -> UI : throw IndirizzoEmailInvalidoException
+    deactivate L
+    UI -> Gestore : La modifica al valore viene annullata
+    UI -> Gestore : Mostra messaggio di errore
+
+else Campo valido
+    activate L
+    L --> UI : Modifica effettuata con successo
+    deactivate L
+    deactivate A
+    UI -> Gestore : Mostra il nuovo valore del campo
+
+end
+
+UI -> Gestore : Chiusura visualizzazione libri
+deactivate UI
+
+@enduml
