@@ -7,6 +7,7 @@ package homepage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -35,51 +37,67 @@ public class HomePageController implements Initializable {
     private Button libriButton;
     @FXML
     private Button prestitiButton;
-    @FXML
-    private MenuItem saveButton;
-    @FXML
-    private MenuItem openButton;
-    @FXML
-    private HBox buttonHBox;
+    //@FXML
+    //private HBox buttonHBox;
     @FXML
     private BorderPane rootPane;
     @FXML
     private ImageView imageView;
+    @FXML
+    private Label titleLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        bindFontSizeToHBoxHeight(utentiButton, buttonHBox, 0.23); // Aumentato a 0.35 (35%) per visibilità
-        bindFontSizeToHBoxHeight(libriButton, buttonHBox, 0.23);
-        bindFontSizeToHBoxHeight(prestitiButton, buttonHBox, 0.23);
-
-        // 2. RIDIMENSIONAMENTO IMMAGINE
-        if (rootPane != null && imageView != null) {
-            // Aggiungo un ascoltatore per eseguire il binding solo quando l'ImageView è in una Scene.
-            // Questo è spesso necessario per i nodi centrali del BorderPane.
-            imageView.sceneProperty().addListener((obs, oldScene, newScene) -> {
-                if (newScene != null) {
-                    // Vincola l'altezza/larghezza dell'immagine all'altezza/larghezza 
-                    // del BorderPane radice, scalato per lasciare spazio a top/bottom.
-                    
-                    // L'altezza del BorderPane meno l'altezza di top (MenuBar) e bottom (HBox)
-                    // (Devi sottrarre un valore stimato se non puoi accedere all'altezza effettiva)
-                    
-                    // SOLUZIONE ALTERNATIVA E PIÙ SICURA: Vincola alla dimensione della Scene/Stage
-                    
-                    // Vincola alla dimensione del rootPane (metodo più semplice)
-                    // Usiamo un fattore di scala più aggressivo (es. 0.70)
-                    imageView.fitHeightProperty().bind(rootPane.heightProperty().multiply(0.70));
-                    imageView.fitWidthProperty().bind(rootPane.widthProperty().multiply(0.70));
-                }
-            });
-            
-            // Fai il binding immediato se è già nella scene (dipende da come carichi il FXML)
-            if (imageView.getScene() != null) {
-                imageView.fitHeightProperty().bind(rootPane.heightProperty().multiply(0.70));
-                imageView.fitWidthProperty().bind(rootPane.widthProperty().multiply(0.70));
-            }
+        // --- 1. Rendere i pulsanti ridimensionabili ---
+        
+        // I pulsanti sono all'interno di una VBox. Vogliamo che la loro larghezza
+        // si adatti alla larghezza del contenitore (la VBox contenuta nel BorderPane).
+        
+        // Colleghiamo (bindiamo) la larghezza preferita dei pulsanti alla larghezza del rootPane
+        // (o idealmente al contenitore VBox, ma usare il rootPane è un buon punto di partenza).
+        // Sottraiamo un po' per il padding (50.0 a sinistra e 50.0 a destra = 100.0)
+        
+        // Nota: se la VBox centrale avesse un fx:id, potresti bindare alla sua larghezza.
+        
+        // Esempio di binding alla larghezza del rootPane, per garantire che si espandano:
+        double padding = 100.0; // 50.0 left + 50.0 right
+        
+        utentiButton.prefWidthProperty().bind(rootPane.widthProperty().subtract(padding));
+        libriButton.prefWidthProperty().bind(rootPane.widthProperty().subtract(padding));
+        prestitiButton.prefWidthProperty().bind(rootPane.widthProperty().subtract(padding));
+        
+        // --- 2. Ridimensionamento dinamico del font (Opzionale ma molto utile) ---
+        
+        // Se vuoi anche che la dimensione del font si adatti (in un certo range), 
+        // puoi bindarla alla larghezza o all'altezza del rootPane.
+        // Questo è più complesso e richiede una logica personalizzata,
+        // ma si può fare, ad esempio, per il titolo:
+        
+        //Label titleLabel = (Label) rootPane.getCenter().lookup(".title-text");
+        if (titleLabel != null) {
+            titleLabel.fontProperty().bind(
+                Bindings.createObjectBinding(() -> {
+                    double newSize = rootPane.getWidth() / 20.0; // Adatta il fattore
+                    if (newSize < 20.0) newSize = 20.0; // Min size
+                    if (newSize > 40.0) newSize = 40.0; // Max size
+                    return Font.font("System Bold", newSize);
+                }, rootPane.widthProperty())
+            );
         }
+        
+
+        // --- 3. Ridimensionamento dell'ImageView (Placeholder Logo) ---
+        // Se l'ImageView è definita con un fx:id, potresti bindare le sue 
+        // proprietà fitWidth e fitHeight per mantenere la proporzione
+        // e farla scalare con la finestra.
+        
+        imageView.fitWidthProperty().bind(rootPane.widthProperty().divide(5));
+        imageView.fitHeightProperty().bind(rootPane.heightProperty().divide(5));
+        
+        
+        // Per il VBox al centro, il BorderPane e l'allineamento 'CENTER' 
+        // gestiscono già molto bene il suo posizionamento e il ridimensionamento.
     }
     
     private void bindFontSizeToHBoxHeight(Button button, HBox hBox, double scaleFactor) {
@@ -108,13 +126,6 @@ public class HomePageController implements Initializable {
         loadGenericPage("C", event);
     }
 
-    @FXML
-    private void saveFile(ActionEvent event) {
-    }
-
-    @FXML
-    private void openFile(ActionEvent event) {
-    }
 
     private void loadGenericPage(String type, ActionEvent event) throws Exception {
 

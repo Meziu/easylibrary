@@ -2,3 +2,7 @@
     -fx-padding: 0;
     -fx-background-color: transparent;
 }
+
+#rootPane {
+    -fx-background-color: #faebd7; 
+}

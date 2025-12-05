@@ -1,13 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="vbox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homepage.PrestitiController">
    <children>
-      <Label alignment="CENTER" prefHeight="232.0" prefWidth="468.0" text="CIAO" textAlignment="CENTER" />
+      <Label fx:id="labelRicerca" alignment="TOP_LEFT" text="Ricerca" textAlignment="CENTER">
+         <VBox.margin>
+            <Insets left="10.0" />
+         </VBox.margin></Label>
+      <VBox fx:id="vboxUtente">
+         <children>
+            <Label fx:id="labelUtente" text="Utente">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="textFieldNome" maxHeight="500.0" maxWidth="500.0">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+      <VBox fx:id="vboxLibro">
+         <children>
+            <Label fx:id="labelLibro" text="Libro">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="textFieldMatricola" maxWidth="500.0">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+      <HBox fx:id="hboxPrestiti" fillHeight="false">
+         <children>
+            <Label fx:id="chkboxLabel" text="Prestiti Attivi">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <CheckBox fx:id="chkBox" alignment="TOP_LEFT" mnemonicParsing="false">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </CheckBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </HBox>
    </children>
 </VBox>

@@ -43,12 +43,12 @@ public class UtentiController extends GenericController {
     public void initialize(URL url, ResourceBundle rb) {
         if (vbox != null) {
 
-            double hBoxHeightPercentage = 0.05;
+            double vBoxHeightPercentage = 0.05;
             double fontSizePercentage = 0.03;
 
             // 1) RIDIMENSIONAMENTO VERTICALE DELLE HBOX (Altezza)
-            vboxNome.prefHeightProperty().bind(vbox.heightProperty().multiply(hBoxHeightPercentage));
-            vboxMatricola.prefHeightProperty().bind(vbox.heightProperty().multiply(hBoxHeightPercentage));
+            vboxNome.prefHeightProperty().bind(vbox.heightProperty().multiply(vBoxHeightPercentage));
+            vboxMatricola.prefHeightProperty().bind(vbox.heightProperty().multiply(vBoxHeightPercentage));
 
             // 2) RIDIMENSIONAMENTO DEL FONT con il nuovo metodo
             // Ridimensiona il font della Label principale
@@ -65,11 +65,5 @@ public class UtentiController extends GenericController {
         }
     }
 
-    private void bindFontSize(Node node, ReadOnlyDoubleProperty containerHeightProperty, double percentage) {
-        StringBinding fontSizeBinding = containerHeightProperty
-                .multiply(percentage)
-                .asString("-fx-font-size: %.0fpx;");
-
-        node.styleProperty().bind(fontSizeBinding);
-    }
+    
 }
