@@ -68,6 +68,7 @@ together {
         +isScaduto(): boolean
 
         +setStatoPrestito(): void
+        +setDataDiScadenza(): void
     }
 }
 
