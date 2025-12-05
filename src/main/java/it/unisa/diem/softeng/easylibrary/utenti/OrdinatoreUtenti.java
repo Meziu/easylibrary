@@ -11,7 +11,7 @@ import java.util.Comparator;
 
 /**
  *
- * @author serenagiannitti
+ * @brief
  */
 public class OrdinatoreUtenti implements Comparator<Utente>, Serializable {
 

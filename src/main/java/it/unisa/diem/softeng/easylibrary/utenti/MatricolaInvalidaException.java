@@ -7,7 +7,7 @@ package it.unisa.diem.softeng.easylibrary.utenti;
 
 /**
  *
- * @author andreaciliberti
+ * @brief
  */
 public class MatricolaInvalidaException extends RuntimeException {
 

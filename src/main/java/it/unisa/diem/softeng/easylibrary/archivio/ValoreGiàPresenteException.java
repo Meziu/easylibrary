@@ -2,7 +2,7 @@ package it.unisa.diem.softeng.easylibrary.archivio;
 
 /**
  *
- * @author serenagiannitti
+ * @brief
  */
 public class ValoreGiàPresenteException extends RuntimeException {
 

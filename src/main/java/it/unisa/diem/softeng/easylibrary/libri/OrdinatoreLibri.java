@@ -10,7 +10,7 @@ import java.util.Comparator;
 
 /**
  *
- * @author serenagiannitti
+ * @brief
  */
 public class OrdinatoreLibri implements Comparator<Libro>, Serializable {
 

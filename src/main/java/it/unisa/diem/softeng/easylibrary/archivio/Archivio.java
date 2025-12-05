@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 
 /**
  *
- * @author andreaciliberti
+ * @brief
  */
 public interface Archivio<E> extends Serializable {
 
