@@ -94,7 +94,7 @@ else Matricola unica
 end
 
 ' ----- Conclusione -----
-A --> UI
+A --> UI : Corretta registrazione  
 deactivate A
 UI -> G : chiudi form di registrazione
 deactivate UI
