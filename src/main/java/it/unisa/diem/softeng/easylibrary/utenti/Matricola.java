@@ -23,6 +23,9 @@ public final class Matricola implements Comparable<Matricola>, Serializable {
      * 
      * @throws MatricolaInvalidaException Se la matricola non aderisce
      * allo standard di validità.
+     * 
+     * \see verifica()
+     * 
      */
     public Matricola(String matricola) {
         if (verifica(matricola)) {

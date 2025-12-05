@@ -24,6 +24,9 @@ public final class ISBN implements Comparable<ISBN>, Serializable {
      * 
      * @throws ISBNInvalidoException Se il codice inserito non aderisce
      * allo standard di validità.
+     * 
+     * \see verifica()
+     * 
      */
     public ISBN(String isbn) {
         if (verifica(isbn)) {
