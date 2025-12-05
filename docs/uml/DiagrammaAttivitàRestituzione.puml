@@ -1,0 +1,16 @@
+@startuml
+start
+:Cerca libro;
+if (Libro presente?) then (si)
+    :Seleziona libro;
+    :Registra reso;
+    fork
+        :Aggiorna disponibilità;
+    fork again
+        :Aggiorna stato prestito;
+    end fork
+else (no)
+    :Mostra messaggio di errore (libro non presente nel sistema);
+endif
+stop
+@enduml
