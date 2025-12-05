@@ -2,7 +2,7 @@ package it.unisa.diem.softeng.easylibrary.utenti;
 
 /**
  *
- * @brief Eccezione che segnala l'utilizzo di un IndirizzoEmail invalido.
+ * @brief Eccezione che segnala l'utilizzo o la creazione di un IndirizzoEmail invalido.
  */
 public class IndirizzoEmailInvalidoException extends RuntimeException {
 
