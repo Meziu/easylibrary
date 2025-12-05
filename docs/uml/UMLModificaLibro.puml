@@ -18,10 +18,10 @@ deactivate B
 UI -> Gestore : Mostra l'elenco dei libri
 activate Gestore
 
-Gestore -> UI : Seleziona campo da modificare
+Gestore -> UI : Seleziona campo Titolo da modificare
 Gestore -> UI : Inserisce nuovo valore
 deactivate Gestore
-UI -> A : modifica(isbn, consumer)
+UI -> A : modifica(Utente da modificare, consumer)
 activate A
 
 ' ----- Verifica Dati -----
@@ -36,8 +36,8 @@ end
 A -> L : consumer.accept(libro)
 activate L
 
-alt Nuova email non valida
-    L -> UI : throw IndirizzoEmailInvalidoException
+alt Nuovo titolo non valido
+    L -> UI : throw IndirizzoTitoloInvalidoException
     deactivate L
     UI -> Gestore : La modifica al valore viene annullata
     UI -> Gestore : Mostra messaggio di errore
@@ -50,8 +50,6 @@ else Campo valido
     UI -> Gestore : Mostra il nuovo valore del campo
 
 end
-
-UI -> Gestore : Chiusura visualizzazione libri
 deactivate UI
 
 @enduml

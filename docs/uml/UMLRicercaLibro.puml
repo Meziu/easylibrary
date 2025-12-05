@@ -1,57 +1,37 @@
 @startuml
-actor Gestore
+actor Gestore as G
 participant "GUI" as UI
 participant "Biblioteca" as B
-participant "ArchivioLibri" as A
-participant "Libro" as L
+participant  "ArchivioLibro" as AL
+
 
 '  ---- Flusso principale -----
-activate Gestore
-Gestore -> UI : Interazione con "Libri"
-deactivate Gestore
+activate G
+G -> UI : Interazione con "Libri"
+deactivate G
 activate UI
 
 UI -> B : getArchivioLibri()
 activate B
 B --> UI : Restituzione elenco dei libri
 deactivate B
-UI -> Gestore : Mostra l'elenco dei libri
-activate Gestore
-
-Gestore -> UI : Seleziona campo da modificare
-Gestore -> UI : Inserisce nuovo valore
-deactivate Gestore
-UI -> A : modifica(isbn, consumer)
-activate A
-
-' ----- Verifica Dati -----
-alt Libro non presente
-    A -> UI : throw ValoreNonPresenteException
-    UI -> Gestore : La modifica al valore viene annullata
-    UI -> Gestore : Mostra messaggio di errore
-    UI -> Gestore : L'elenco dei libri viene aggiornato
-
+UI -> G : Visualizza lista dei libri
+activate G
+'-- Ricerca del libro --
+G -> UI : Interazione con il campo ricerca libro
+G -> UI : Inserimento del ISBN del libro
+deactivate G
+UI -> AL : filtra (ISBN)
+activate AL
+'-- Errore ISBN --
+alt Errore ISBN non valido
+    AL -> UI : throw ISBNInvalido
+    UI -> G : L'errore viene visualizzato
+    UI -> G : Non viene visualizzato nessun libro
+else ISBN valido
+    AL --> UI : Restituisce il libro
+    deactivate AL
+    UI -> G : Visualizza libro
 end
-
-A -> L : consumer.accept(libro)
-activate L
-
-alt Nuova email non valida
-    L -> UI : throw IndirizzoEmailInvalidoException
-    deactivate L
-    UI -> Gestore : La modifica al valore viene annullata
-    UI -> Gestore : Mostra messaggio di errore
-
-else Campo valido
-    activate L
-    L --> UI : Modifica effettuata con successo
-    deactivate L
-    deactivate A
-    UI -> Gestore : Mostra il nuovo valore del campo
-
-end
-
-UI -> Gestore : Chiusura visualizzazione libri
-deactivate UI
 
 @enduml

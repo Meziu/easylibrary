@@ -4,8 +4,7 @@ participant "GUI" as UI
 participant "Biblioteca" as B
 participant "ArchivioLibri" as AL
 participant "ArchivioPrestiti" as AP
-
-' CAMBIARE IN RIMUOVI PRESTITO ????
+participant "Prestito" as P
 
 ' ----- Inizio -----
 activate G
@@ -22,18 +21,23 @@ activate G
 G -> UI : Seleziona l'utente da rimuovere
 deactivate G
 
-UI -> B : getStatoPrestito
-activate B
-B --> UI : StatoPrestito
-deactivate B
+'-- ottieni prestito --
+UI -> AP : filtra(Libro)
+AP -> P : getStatoPrestito()
+P --> UI : Ritorno dello stato del prestito
+
 
 ' ---- Flusso alternativo -----
 alt Presenza di un prestito attivo
     UI -> G : Disabilita l'interazione di rimozione del libro
 
 else Nessun prestito attivo
+    activate G
     G -> UI : Interazione di rimozione del libro
-    UI -> AL : archivioLibri.rimuovi(Libro)
+    deactivate G
+    UI -> AL : rimuovi(libro)
+    AL --> UI : Rimozione fatta con successo 
+    UI -> G : Nuova visualizzazione dei libri
 
 end
 
