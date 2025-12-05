@@ -15,12 +15,10 @@ public class GestoreUtenti implements ArchivioConChiave<Matricola, Utente> {
 
     private final List<Utente> utenti;
     private final Map<Matricola, Utente> indiceMatricole;
-    private final OrdinatoreUtenti ord;
 
     public GestoreUtenti() {
         utenti = new ArrayList<>();
         indiceMatricole = new HashMap<>();
-        ord = new OrdinatoreUtenti();
     }
     
     @Override
@@ -37,7 +35,7 @@ public class GestoreUtenti implements ArchivioConChiave<Matricola, Utente> {
             throw new ValoreGiàPresenteException("TODO FARE MESSAGGIO BELLO");
         }
 
-        int idx = Collections.binarySearch(utenti, u, ord);
+        int idx = Collections.binarySearch(utenti, u);
         
         utenti.add(Math.abs(idx + 1), u);
 
@@ -52,7 +50,7 @@ public class GestoreUtenti implements ArchivioConChiave<Matricola, Utente> {
             throw new ValoreNonPresenteException("TODO FARE MESSAGGIO BELLO");
         }
 
-        int idx = Collections.binarySearch(utenti, u, ord);
+        int idx = Collections.binarySearch(utenti, u);
 
         // Se l'indice è fuori dalla lista (elemento non presente):
         if (idx < 0 || idx >= utenti.size()) {
@@ -69,7 +67,7 @@ public class GestoreUtenti implements ArchivioConChiave<Matricola, Utente> {
             throw new ValoreNonPresenteException();
         }
         
-        int idx_remove = Collections.binarySearch(utenti, u, ord);
+        int idx_remove = Collections.binarySearch(utenti, u);
         if (idx_remove < 0 || idx_remove >= utenti.size()) {
             throw new ValoreNonPresenteException();
         }
@@ -79,7 +77,7 @@ public class GestoreUtenti implements ArchivioConChiave<Matricola, Utente> {
         // Applica modifiche.dal consumer.
         c.accept(u);
         
-        int idx_insert = Collections.binarySearch(utenti, u, ord);
+        int idx_insert = Collections.binarySearch(utenti, u);
         utenti.add(Math.abs(idx_insert + 1), u);
     }
 

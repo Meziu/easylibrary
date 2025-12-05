@@ -10,11 +10,9 @@ import java.util.function.Consumer;
 public class GestorePrestiti implements Archivio<Prestito> {
 
     private final List<Prestito> prestiti;
-    private final OrdinatorePrestiti ord;
 
     public GestorePrestiti() {
         prestiti = new ArrayList<>();
-        ord = new OrdinatorePrestiti();
     }
     
     @Override
@@ -25,7 +23,7 @@ public class GestorePrestiti implements Archivio<Prestito> {
     /*Funzione che aggiunge un nuovo prestito alla lista dei prestiti*/
     @Override
     public void registra(Prestito p) {
-        int idx = Collections.binarySearch(prestiti, p, ord);
+        int idx = Collections.binarySearch(prestiti, p);
         
         // BinarySearch ritorna valori positivi se trova il valore, o (- posizione di inserimento - 1)
         // se non lo trova. In ogni caso, noi vogliamo inserire immediatamente dopo un prestito trovato
@@ -36,7 +34,7 @@ public class GestorePrestiti implements Archivio<Prestito> {
     /*Funzione che segna un prestito come RESTITUITO*/
     @Override
     public void rimuovi(Prestito p) {
-        int idx = Collections.binarySearch(prestiti, p, ord);
+        int idx = Collections.binarySearch(prestiti, p);
 
         // Se l'indice è fuori dalla lista (cioè non è presente l'elemento):
         if (idx < 0 || idx >= prestiti.size()) {
@@ -48,7 +46,7 @@ public class GestorePrestiti implements Archivio<Prestito> {
     
     @Override
     public void modifica(Prestito prestito, Consumer<Prestito> c) {
-        int idx_remove = Collections.binarySearch(prestiti, prestito, ord);
+        int idx_remove = Collections.binarySearch(prestiti, prestito);
         if (idx_remove < 0 || idx_remove >= prestiti.size()) {
             throw new ValoreNonPresenteException();
         }
@@ -60,7 +58,7 @@ public class GestorePrestiti implements Archivio<Prestito> {
         // Applica modifiche.dal consumer.
         c.accept(p);
         
-        int idx_insert = Collections.binarySearch(prestiti, p, ord);
+        int idx_insert = Collections.binarySearch(prestiti, p);
         prestiti.add(Math.abs(idx_insert + 1), p);
     }
 }
