@@ -95,7 +95,7 @@ public final class Matricola implements Comparable<Matricola>, Serializable {
      * 
      * @brief Criterio di uguaglianza.
      * Il criterio aderisce al contratto di Object.equals(),
-     * dove una Matricola è considerata uguale ad un altra solo se
+     * dove una Matricola è considerata uguale ad un'altra solo se
      * la stringa di caratteri associata è uguale.
      */
     @Override
