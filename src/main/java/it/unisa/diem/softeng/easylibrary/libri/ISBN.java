@@ -34,7 +34,7 @@ public final class ISBN implements Comparable<ISBN>, Serializable {
     }
 
     /**
-     * @brief Getter della stringa.
+     * @brief Getter della stringa del codice.
      * 
      * @return La stringa di caratteri che compongono il codice ISBN.
      */
@@ -120,7 +120,7 @@ public final class ISBN implements Comparable<ISBN>, Serializable {
     /**
      * 
      * @brief Comparazione con un altro ISBN.
-     * La comparazione è svolta aderendo al contratto di Comparable.compareTo(),
+     * La comparazione è svolta aderendo al contratto di Comparable,
      * dove un ISBN è ordinato rispetto ad un altro in ordine
      * lessicografico della stringa di caratteri associata.
      */

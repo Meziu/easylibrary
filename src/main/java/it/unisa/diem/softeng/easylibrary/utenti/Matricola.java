@@ -33,7 +33,7 @@ public final class Matricola implements Comparable<Matricola>, Serializable {
     }
 
     /**
-     * @brief Getter della stringa.
+     * @brief Getter della stringa della matricola.
      * 
      * @return La stringa di caratteri che compongono la Matricola.
      */
@@ -72,8 +72,8 @@ public final class Matricola implements Comparable<Matricola>, Serializable {
     /**
      * 
      * @brief Comparazione con un'altra Matricola.
-     * La comparazione è svolta aderendo al contratto di Comparable.compareTo(),
-     * dove una Matricola è ordinata rispetto ad un altra in ordine
+     * La comparazione è svolta aderendo al contratto di Comparable,
+     * dove una Matricola è ordinata rispetto ad un'altra in ordine
      * lessicografico della stringa di caratteri associata.
      */
     @Override
