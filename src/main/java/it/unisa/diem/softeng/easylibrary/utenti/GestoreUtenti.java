@@ -7,23 +7,17 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import it.unisa.diem.softeng.easylibrary.archivio.ArchivioConChiave;
-import java.util.ArrayList;
-import java.util.List;
+import it.unisa.diem.softeng.easylibrary.libri.Gestore;
 import java.util.function.Consumer;
 
-public class GestoreUtenti implements ArchivioConChiave<Matricola, Utente> {
+public class GestoreUtenti extends Gestore<Utente> implements ArchivioConChiave<Matricola, Utente> {
 
-    private final List<Utente> utenti;
     private final Map<Matricola, Utente> indiceMatricole;
 
     public GestoreUtenti() {
-        utenti = new ArrayList<>();
+        super();
+        
         indiceMatricole = new HashMap<>();
-    }
-    
-    @Override
-    public List<Utente> getLista() {
-        return Collections.unmodifiableList(utenti);
     }
 
     @Override
@@ -35,9 +29,7 @@ public class GestoreUtenti implements ArchivioConChiave<Matricola, Utente> {
             throw new ValoreGiàPresenteException("TODO FARE MESSAGGIO BELLO");
         }
 
-        int idx = Collections.binarySearch(utenti, u);
-        
-        utenti.add(Math.abs(idx + 1), u);
+        super.registra(u);
 
     }
 
@@ -50,14 +42,7 @@ public class GestoreUtenti implements ArchivioConChiave<Matricola, Utente> {
             throw new ValoreNonPresenteException("TODO FARE MESSAGGIO BELLO");
         }
 
-        int idx = Collections.binarySearch(utenti, u);
-
-        // Se l'indice è fuori dalla lista (elemento non presente):
-        if (idx < 0 || idx >= utenti.size()) {
-            throw new ValoreNonPresenteException("TODO FARE MESSAGGIO BELLO");
-        }
-
-        utenti.remove(idx);
+        super.rimuovi(u);
     }
     
     @Override
@@ -67,18 +52,7 @@ public class GestoreUtenti implements ArchivioConChiave<Matricola, Utente> {
             throw new ValoreNonPresenteException();
         }
         
-        int idx_remove = Collections.binarySearch(utenti, u);
-        if (idx_remove < 0 || idx_remove >= utenti.size()) {
-            throw new ValoreNonPresenteException();
-        }
-        
-        utenti.remove(idx_remove);
-        
-        // Applica modifiche.dal consumer.
-        c.accept(u);
-        
-        int idx_insert = Collections.binarySearch(utenti, u);
-        utenti.add(Math.abs(idx_insert + 1), u);
+        super.modifica(utente, c);
     }
 
     @Override

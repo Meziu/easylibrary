@@ -1,0 +1,85 @@
+@startuml
+'skinparam classAttributeIconSize 0
+skinparam nodesep 100
+
+interface Filtro<T> {
+    +controlla(): boolean
+}
+
+together {
+    +interface Archivio<E> {
+        +getCollezione(): List<E>
+        +registra(): void
+        +rimuovi(): void
+        +modifica(): void
+        +filtra(): List<E>
+    }
+
+    +interface ArchivioConChiave<K, V> {
+        +ottieni(): V
+        +contiene(): boolean
+    }
+}
+
++class Utente {
+}
+
++class Libro{
+}
+
++class Prestito{
+}
+
+
++class Biblioteca {
+    -archivioLibri: ArchivioConChiave<ISBN, Libri>
+    -archivioUtenti: ArchivioConChiave<Matricola, Utenti>
+    -archivioPrestiti: Archivio<Prestiti>
+
+    +Biblioteca()
+    +salvaFile()
+    +caricaFile()
+}
+
++abstract class Gestore<E> {
+    #lista: List<E>
+}
+
+together {
+    +class GestoreLibri extends Gestore {
+
+        -indiceISBN: Map<ISBN, Libro> {readOnly}
+
+        +GestoreLibri()
+    }
+
+
+    +class GestoreUtenti extends Gestore {
+        -indiceMatricola: Map<Matricola, Utente> {readOnly}
+
+        +GestoreUtenti()
+    }
+
+
+    +class GestorePrestiti extends Gestore {
+
+        +GestorePrestiti()
+        +getStoricoPrestiti(): List<Prestito>
+    }
+}
+
+Gestore -up-|> Archivio
+
+Biblioteca --> Archivio
+Biblioteca --> ArchivioConChiave
+
+ArchivioConChiave -right-|> Archivio
+Archivio .right.> Filtro
+
+GestoreLibri .up.|> ArchivioConChiave
+GestoreUtenti .up.|> ArchivioConChiave
+
+GestoreUtenti --> "1..*" Utente
+GestoreLibri --> "1..*" Libro
+GestorePrestiti --> "1..*" Prestito
+@enduml

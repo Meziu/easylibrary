@@ -1,0 +1,126 @@
+@startuml
+'skinparam classAttributeIconSize 0
+skinparam nodesep 100
+
++abstract class Persona{
+    -nome: String
+    -cognome: String
+
+    +Persona()
+    +getNome(): String
+    +getCognome(): String
+    +setNome(): void
+    +setCognome(): void
+    +compareTo(): int
+}
+
+together {
+    +class Utente {
+        -matricola: Matricola
+        -email: IndirizzoEmail
+        -prestitiAttivi: List<Prestito>
+
+        +Utente()
+        +getMatricola(): Matricola
+        +getEmail(): IndirizzoEmail
+        +getPrestitiAttivi(): List<Prestito>
+
+        +setMatricola(): void
+        +setEmail(): void
+        +registraPrestito(): void
+        +rimuoviPrestito(): void
+    }
+
+    +class Libro{
+        -titolo: String
+        -autori: List<Autore>
+        -dataPubblicazione: LocalDate
+        -id: ISBN
+        -copieDisponibili: int
+
+        +Libro()
+        +getTitolo(): String
+        +getAutori(): List<Autore>
+        +getDataPubblicazione(): String
+        +getISBN(): ISBN
+        +getCopieDisponibili(): int
+
+        +setTitolo(): void
+        +setAutori(): void
+        +setDataPubblicazione(): void
+        +setISBN(): void
+        +setCopieDisponibili((): void
+        +aggiungiAutore(): void
+        +rimuoviAutore(): void
+    }
+
+    +class Prestito{
+        -matricolaUtente: Matricola
+        -idLibro: ISBN
+        -statoPrestito: StatoPrestito
+        -dataDiScadenza: LocalDate
+
+        +Prestito()
+        +getISBN(): ISBN
+        +getMatricola(): Matricola
+        +getStatoPrestito(): StatoPrestito
+        +getDataDiScadenza(): LocalDate
+        +isScaduto(): boolean
+
+        +setStatoPrestito(): void
+    }
+}
+
+together {
+    +class Matricola {
+        -matricola: String
+
+        +Matricola()
+        +getMatricola(): String
+        +verifica(): boolean {static}
+
+        +setMatricola()
+    }
+
+
+    +class IndirizzoEmail {
+        -indirizzo: String
+
+        +IndirizzoEmail()
+        +getIndirizzoEmail(): String
+        +verifica(): boolean {static}
+
+        +setIndirizzo()
+    }
+
+    +class ISBN {
+        -isbn: String
+
+        +ISBN()
+        +getISBN(): String
+        +verifica(): boolean {static}
+
+        +setId()
+    }
+
+    +enum StatoPrestito{
+        ATTIVO,
+        RESTITUITO
+    }
+
+    +class Autore {
+    }
+}
+
+Utente -right-> "1..3" Prestito
+Utente --> Matricola
+Utente ---> IndirizzoEmail
+Libro ---> "1..*" Autore
+Libro --> ISBN
+Prestito --> Matricola
+Prestito --> ISBN
+Prestito --* StatoPrestito
+
+Autore -down-|> Persona
+Utente -down-|> Persona
+@enduml
