@@ -1,6 +1,5 @@
 package it.unisa.diem.softeng.easylibrary.utenti;
 
-import it.unisa.diem.softeng.easylibrary.archivio.Archivio;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreGiàPresenteException;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
 
@@ -8,18 +7,25 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import it.unisa.diem.softeng.easylibrary.archivio.ArchivioConChiave;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
-public class GestoreUtenti extends Archivio<Utente> implements ArchivioConChiave<Matricola, Utente> {
+public class GestoreUtenti implements ArchivioConChiave<Matricola, Utente> {
 
+    private final List<Utente> utenti;
     private final Map<Matricola, Utente> indiceMatricole;
     private final OrdinatoreUtenti ord;
 
     public GestoreUtenti() {
-        super();
-
+        utenti = new ArrayList<>();
         indiceMatricole = new HashMap<>();
         ord = new OrdinatoreUtenti();
+    }
+    
+    @Override
+    public List<Utente> getLista() {
+        return Collections.unmodifiableList(utenti);
     }
 
     @Override
@@ -31,9 +37,9 @@ public class GestoreUtenti extends Archivio<Utente> implements ArchivioConChiave
             throw new ValoreGiàPresenteException("TODO FARE MESSAGGIO BELLO");
         }
 
-        int idx = Collections.binarySearch(lista, u, ord);
+        int idx = Collections.binarySearch(utenti, u, ord);
         
-        lista.add(Math.abs(idx + 1), u);
+        utenti.add(Math.abs(idx + 1), u);
 
     }
 
@@ -46,14 +52,35 @@ public class GestoreUtenti extends Archivio<Utente> implements ArchivioConChiave
             throw new ValoreNonPresenteException("TODO FARE MESSAGGIO BELLO");
         }
 
-        int idx = Collections.binarySearch(lista, u, ord);
+        int idx = Collections.binarySearch(utenti, u, ord);
 
         // Se l'indice è fuori dalla lista (elemento non presente):
-        if (idx < 0 || idx >= lista.size()) {
+        if (idx < 0 || idx >= utenti.size()) {
             throw new ValoreNonPresenteException("TODO FARE MESSAGGIO BELLO");
         }
 
-        lista.remove(idx);
+        utenti.remove(idx);
+    }
+    
+    @Override
+    public void modifica(Utente utente, Consumer<Utente> c) {
+        Utente u = ottieni(utente.getMatricola());
+        if (u == null) {
+            throw new ValoreNonPresenteException();
+        }
+        
+        int idx_remove = Collections.binarySearch(utenti, u, ord);
+        if (idx_remove < 0 || idx_remove >= utenti.size()) {
+            throw new ValoreNonPresenteException();
+        }
+        
+        utenti.remove(idx_remove);
+        
+        // Applica modifiche.dal consumer.
+        c.accept(u);
+        
+        int idx_insert = Collections.binarySearch(utenti, u, ord);
+        utenti.add(Math.abs(idx_insert + 1), u);
     }
 
     @Override
@@ -64,24 +91,5 @@ public class GestoreUtenti extends Archivio<Utente> implements ArchivioConChiave
     @Override
     public boolean contiene(Matricola key) {
         return this.indiceMatricole.containsKey(key);
-    }
-    
-    @Override
-    public void modifica(Matricola key, Consumer<Utente> c) {
-        Utente u = ottieni(key);
-        if (u == null) {
-            throw new ValoreNonPresenteException();
-        }
-        
-        int idx_remove = Collections.binarySearch(lista, u, ord);
-        if (idx_remove < 0 || idx_remove >= lista.size()) {
-            throw new ValoreNonPresenteException();
-        }
-        
-        // Applica modifiche.dal consumer.
-        c.accept(u);
-        
-        int idx_insert = Collections.binarySearch(lista, u, ord);
-        lista.add(Math.abs(idx_insert + 1), u);
     }
 }

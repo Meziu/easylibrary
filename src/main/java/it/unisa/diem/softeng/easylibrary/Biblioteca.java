@@ -18,61 +18,33 @@ import java.io.*;
 
 public class Biblioteca implements Serializable {
 
-    // In Java non è possibile mantenere un riferimento ad un oggetto solo attraverso le classi astratte che eredita e le interfacce che implementa.
-    // Per far fronte a ciò, senza perdere di flessibilità, imponiamo questi vincoli tramite 2 classi private con la parametrizzazione specifica.
-    private class ArchivioUtentiHolder<A extends Archivio<Utente> & ArchivioConChiave<Matricola, Utente>> implements Serializable {
-
-        public Object o;
-
-        public ArchivioUtentiHolder(A t) {
-            this.o = t;
-        }
-
-        public <A extends Archivio<Utente> & ArchivioConChiave<Matricola, Utente>> A getArchivio() {
-            return (A) o;
-        }
-    }
-
-    private class ArchivioLibriHolder<A extends Archivio<Libro> & ArchivioConChiave<ISBN, Libro>> implements Serializable {
-
-        public Object o;
-
-        public ArchivioLibriHolder(A t) {
-            this.o = t;
-        }
-
-        public <A extends Archivio<Libro> & ArchivioConChiave<ISBN, Libro>> A getArchivio() {
-            return (A) o;
-        }
-    }
-
-    private final ArchivioUtentiHolder<?> utenti;
-    private final ArchivioLibriHolder<?> libri;
-    private final Archivio<Prestito> prestiti;
+    private final ArchivioConChiave<Matricola, Utente> archivioUtenti;
+    private final ArchivioConChiave<ISBN, Libro> archivioLibri;
+    private final Archivio<Prestito> archivioPrestiti;
 
     public Biblioteca() {
-        this.utenti = new ArchivioUtentiHolder<>(new GestoreUtenti());
-        this.libri = new ArchivioLibriHolder<>(new GestoreLibri());
-        this.prestiti = new GestorePrestiti();
+        this.archivioUtenti = new GestoreUtenti();
+        this.archivioLibri = new GestoreLibri();
+        this.archivioPrestiti = new GestorePrestiti();
     }
 
     public List<Prestito> getPrestitiAttivi() {
-        return prestiti.filtra((Prestito p) -> p.getStato() == StatoPrestito.ATTIVO);
+        return archivioPrestiti.filtra((Prestito p) -> p.getStato() == StatoPrestito.ATTIVO);
     }
 
     public void registraPrestito(String matricola, String isbn, LocalDate scadenzaPrestito) {
-        Utente u = utenti.getArchivio().ottieni(new Matricola(matricola));
-        Libro l = libri.getArchivio().ottieni(new ISBN(isbn));
+        Utente u = archivioUtenti.ottieni(new Matricola(matricola));
+        Libro l = archivioLibri.ottieni(new ISBN(isbn));
 
         Prestito p = new Prestito(u.getMatricola(), l.getISBN(), StatoPrestito.ATTIVO, scadenzaPrestito);
 
-        prestiti.registra(p);
+        archivioPrestiti.registra(p);
         u.registraPrestito(p);
     }
 
     public void registraRestituzione(Prestito p) {
-        prestiti.rimuovi(p);
-        utenti.getArchivio().ottieni(p.getMatricola()).rimuoviPrestito(p);
+        archivioPrestiti.rimuovi(p);
+        archivioUtenti.ottieni(p.getMatricola()).rimuoviPrestito(p);
     }
 
     public void salvaFile(String filename) {

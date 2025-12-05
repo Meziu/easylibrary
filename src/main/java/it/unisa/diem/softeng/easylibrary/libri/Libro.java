@@ -38,29 +38,35 @@ public class Libro implements Comparable<Libro>, Serializable {
     public int getCopieDisponibili() {
         return copieDisponibili;
     }
+    
+    class Modificabile {
+        public void setTitolo(String titolo) {
+            Libro.this.titolo = titolo;
+        }
 
-    public void setTitolo(String titolo) {
-        this.titolo = titolo;
+        public void setAutori(List<Autore> autori) {
+            Libro.this.autori = autori;
+        }
+
+        public void setAnnoPubblicazione(int annoPubblicazione) {
+            Libro.this.annoPubblicazione = annoPubblicazione;
+        }
+
+        public void setCopieDisponibili(int copieDisponibili) {
+            Libro.this.copieDisponibili = copieDisponibili;
+        }
+
+        public void aggiungiAutore(Autore a) {
+            Libro.this.autori.add(a);
+        }
+
+        public void rimuoviAutore(Autore a) {
+            Libro.this.autori.remove(a);
+        }
     }
-
-    public void setAutori(List<Autore> autori) {
-        this.autori = autori;
-    }
-
-    public void setAnnoPubblicazione(int annoPubblicazione) {
-        this.annoPubblicazione = annoPubblicazione;
-    }
-
-    public void setCopieDisponibili(int copieDisponibili) {
-        this.copieDisponibili = copieDisponibili;
-    }
-
-    public void aggiungiAutore(Autore a) {
-        autori.add(a);
-    }
-
-    public void rimuoviAutore(Autore a) {
-        autori.remove(a);
+    
+    Modificabile getModificabile() {
+        return new Modificabile();
     }
 
     @Override

@@ -10,7 +10,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     private final Matricola matricolaUtente;
     private final ISBN idLibro;
     private StatoPrestito stato;
-    private final LocalDate dataDiScadenza;
+    private LocalDate dataDiScadenza;
 
     public Prestito(Matricola matricolaUtente, ISBN idLibro, StatoPrestito statoPrestito, LocalDate scadenzaPrestito) {
         this.matricolaUtente = matricolaUtente;
@@ -42,6 +42,10 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     /*Permette di aggiornare lo stato del prestito*/
     public void setStatoPrestito(StatoPrestito newStato) {
         this.stato = newStato;
+    }
+    
+    public void setDataDiScadenza(LocalDate newDataDiScadenza) {
+        this.dataDiScadenza = newDataDiScadenza;
     }
 
     @Override
