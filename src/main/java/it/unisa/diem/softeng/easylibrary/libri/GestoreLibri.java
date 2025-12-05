@@ -15,12 +15,10 @@ public class GestoreLibri implements ArchivioConChiave<ISBN, Libro> {
 
     private final List<Libro> libri;
     private final Map<ISBN, Libro> indiceISBN;
-    private final OrdinatoreLibri ord;
 
     public GestoreLibri() {
         libri = new ArrayList<>();
         indiceISBN = new HashMap<>();
-        ord = new OrdinatoreLibri();
     }
     
     @Override
@@ -38,7 +36,7 @@ public class GestoreLibri implements ArchivioConChiave<ISBN, Libro> {
             throw new ValoreGiàPresenteException("TODO FARE MESSAGGIO BELLO");
         }
 
-        int idx = Collections.binarySearch(libri, l, ord);
+        int idx = Collections.binarySearch(libri, l);
         libri.add(Math.abs(idx + 1), l);
     }
 
@@ -52,7 +50,7 @@ public class GestoreLibri implements ArchivioConChiave<ISBN, Libro> {
             throw new ValoreNonPresenteException(); // TODO
         }
 
-        int idx = Collections.binarySearch(libri, l, ord);
+        int idx = Collections.binarySearch(libri, l);
 
         // Se l'indice è fuori dalla lista (l'elemento non è presente):
         if (idx < 0 || idx >= libri.size()) {
@@ -79,7 +77,7 @@ public class GestoreLibri implements ArchivioConChiave<ISBN, Libro> {
             throw new ValoreNonPresenteException();
         }
         
-        int idx_remove = Collections.binarySearch(libri, l, ord);
+        int idx_remove = Collections.binarySearch(libri, l);
         if (idx_remove < 0 || idx_remove >= libri.size()) {
             throw new ValoreNonPresenteException();
         }
@@ -89,7 +87,7 @@ public class GestoreLibri implements ArchivioConChiave<ISBN, Libro> {
         // Applica modifiche.dal consumer.
         c.accept(l);
         
-        int idx_insert = Collections.binarySearch(libri, l, ord);
+        int idx_insert = Collections.binarySearch(libri, l);
         libri.add(Math.abs(idx_insert + 1), l);
     }
 }

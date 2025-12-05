@@ -46,10 +46,10 @@ public class Utente extends Persona {
 
     @Override
     public int compareTo(Persona p) {
-        // Comparazione solo per matricola
+        int c = super.compareTo(p);
 
-        if (!(p instanceof Utente)) {
-            return 1; // Utente sempre dopo Persona
+        if (c != 0 || !(p instanceof Utente)) {
+            return c;
         }
 
         Utente u = (Utente) p;

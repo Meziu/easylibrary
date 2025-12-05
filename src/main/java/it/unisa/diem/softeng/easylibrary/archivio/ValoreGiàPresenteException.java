@@ -2,7 +2,8 @@ package it.unisa.diem.softeng.easylibrary.archivio;
 
 /**
  *
- * @author serenagiannitti
+ * @brief Eccezione che segnala l'inserimento in un Archivio di un valore già
+ * presente e non sovrascrivibile.
  */
 public class ValoreGiàPresenteException extends RuntimeException {
 

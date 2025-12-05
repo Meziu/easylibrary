@@ -2,10 +2,28 @@ package it.unisa.diem.softeng.easylibrary.utenti;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @brief Matricola di un utente della biblioteca.
+ * Ogni \ref Utente è associato univocamente ad una matricola.
+ * Le matricole sono composte da esattamente 10 cifre numeriche.
+ * 
+ */
 public final class Matricola implements Comparable<Matricola>, Serializable {
 
     private final String matricola;
 
+    /**
+     * 
+     * @brief Costruttore.
+     * Costruisce un nuovo oggetto Matricola a partire dalla
+     * stringa di caratteri che la compongono, verificandone la validità.
+     * 
+     * @param\[in] matricola Stringa di caratteri della matricola.
+     * 
+     * @throws MatricolaInvalidaException Se la matricola non aderisce
+     * allo standard di validità.
+     */
     public Matricola(String matricola) {
         if (verifica(matricola)) {
             this.matricola = matricola;
@@ -14,33 +32,36 @@ public final class Matricola implements Comparable<Matricola>, Serializable {
         }
     }
 
+    /**
+     * @brief Getter della stringa.
+     * 
+     * @return La stringa di caratteri che compongono la Matricola.
+     */
     public String getMatricola() {
         return matricola;
     }
-
-    /*Funzione che verifica la validità della matricola.
-    La funzione che ne verifica l'unicità deve essere implementata in Gestore Utenti*/
- /*
-     * Verifica che la matricola sia valida:
-     * - lunga esattamente 8 caratteri
-     * - solo numeri o lettere
+    
+    /**
+     * @brief Verifica della matricola.
+     * Verifica se la stringa passata come argomento sia o meno una matricola valida.
+     * Una matricola è valida se è composta esattamente da 10 cifre numeriche
+     * 
+     * @param\[in] matricola Stringa di caratteri da verificare.
+     * @return true se la stringa è una matricola valida, false altrimenti.
      */
-    public static boolean verifica(String mat) {
-        if (mat == null) {
+    public static boolean verifica(String matricola) {
+        if (matricola == null) {
             return false;
         }
 
-        // rimuovi spazi eventuali
-        String m = mat.trim();
-
         // lunghezza standard
-        if (m.length() != 8) {
+        if (matricola.length() != 10) {
             return false;
         }
 
         //deve essere alfanumerica
-        for (char c : m.toCharArray()) {
-            if (!Character.isLetterOrDigit(c)) {
+        for (char c : matricola.toCharArray()) {
+            if (!Character.isDigit(c)) {
                 return false;
             }
         }
@@ -48,16 +69,35 @@ public final class Matricola implements Comparable<Matricola>, Serializable {
         return true;
     }
 
+    /**
+     * 
+     * @brief Comparazione con un'altra Matricola.
+     * La comparazione è svolta aderendo al contratto di Comparable.compareTo(),
+     * dove una Matricola è ordinata rispetto ad un altra in ordine
+     * lessicografico della stringa di caratteri associata.
+     */
     @Override
-    public int compareTo(Matricola m) {
-        return this.matricola.compareTo(m.matricola);
+    public int compareTo(Matricola matricola) {
+        return this.matricola.compareTo(matricola.matricola);
     }
 
+    /**
+     * 
+     * @brief HashCode associato alla Matricola.
+     * Il calcolo è svolto aderendo al contratto di Object.hashCode().
+     */
     @Override
     public int hashCode() {
         return this.matricola.hashCode();
     }
 
+    /**
+     * 
+     * @brief Criterio di uguaglianza.
+     * Il criterio aderisce al contratto di Object.equals(),
+     * dove una Matricola è considerata uguale ad un altra solo se
+     * la stringa di caratteri associata è uguale.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
