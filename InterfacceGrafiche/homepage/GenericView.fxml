@@ -36,7 +36,7 @@
                <SplitPane dividerPositions="0.14967462039045554" prefHeight="44.0" prefWidth="463.0" styleClass="no-divider" stylesheets="@style.css" BorderPane.alignment="CENTER">
                   <items>
                      <Button mnemonicParsing="false" onAction="#returnHome" text="Home" />
-                     <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                     <HBox alignment="CENTER_RIGHT" spacing="5.0">
                         <children>
                            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="-">
                               <HBox.margin>

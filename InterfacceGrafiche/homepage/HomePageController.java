@@ -57,24 +57,14 @@ public class HomePageController implements Initializable {
         // Colleghiamo (bindiamo) la larghezza preferita dei pulsanti alla larghezza del rootPane
         // (o idealmente al contenitore VBox, ma usare il rootPane è un buon punto di partenza).
         // Sottraiamo un po' per il padding (50.0 a sinistra e 50.0 a destra = 100.0)
-        
-        // Nota: se la VBox centrale avesse un fx:id, potresti bindare alla sua larghezza.
-        
-        // Esempio di binding alla larghezza del rootPane, per garantire che si espandano:
-        double padding = 100.0; // 50.0 left + 50.0 right
+        double padding = 100.0; 
         
         utentiButton.prefWidthProperty().bind(rootPane.widthProperty().subtract(padding));
         libriButton.prefWidthProperty().bind(rootPane.widthProperty().subtract(padding));
         prestitiButton.prefWidthProperty().bind(rootPane.widthProperty().subtract(padding));
         
-        // --- 2. Ridimensionamento dinamico del font (Opzionale ma molto utile) ---
+        // --- 2. Ridimensionamento dinamico del font ì ---
         
-        // Se vuoi anche che la dimensione del font si adatti (in un certo range), 
-        // puoi bindarla alla larghezza o all'altezza del rootPane.
-        // Questo è più complesso e richiede una logica personalizzata,
-        // ma si può fare, ad esempio, per il titolo:
-        
-        //Label titleLabel = (Label) rootPane.getCenter().lookup(".title-text");
         if (titleLabel != null) {
             titleLabel.fontProperty().bind(
                 Bindings.createObjectBinding(() -> {
@@ -87,17 +77,11 @@ public class HomePageController implements Initializable {
         }
         
 
-        // --- 3. Ridimensionamento dell'ImageView (Placeholder Logo) ---
-        // Se l'ImageView è definita con un fx:id, potresti bindare le sue 
-        // proprietà fitWidth e fitHeight per mantenere la proporzione
-        // e farla scalare con la finestra.
+        // --- 3. Ridimensionamento dell'ImageView ---
         
         imageView.fitWidthProperty().bind(rootPane.widthProperty().divide(5));
         imageView.fitHeightProperty().bind(rootPane.heightProperty().divide(5));
         
-        
-        // Per il VBox al centro, il BorderPane e l'allineamento 'CENTER' 
-        // gestiscono già molto bene il suo posizionamento e il ridimensionamento.
     }
     
     private void bindFontSizeToHBoxHeight(Button button, HBox hBox, double scaleFactor) {
@@ -171,7 +155,11 @@ public class HomePageController implements Initializable {
 
         // 5) Mostra la scena
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        double currentWidth = stage.getWidth();
+        double currentHeight = stage.getHeight();
         stage.setScene(new Scene(root));
+        stage.setWidth(currentWidth);
+        stage.setHeight(currentHeight);
         stage.show();
     }
 

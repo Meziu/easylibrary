@@ -76,8 +76,14 @@ public class GenericController implements Initializable {
         HomePageController controller = new HomePageController();
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        
+        double currentWidth = stage.getWidth();
+        double currentHeight = stage.getHeight();
+        
         stage.setScene(scene);
         stage.setTitle("Biblioteca");
+        stage.setWidth(currentWidth);
+        stage.setHeight(currentHeight);
         stage.show();
     }
 
@@ -98,7 +104,6 @@ public class GenericController implements Initializable {
         node.styleProperty().bind(fontSizeBinding);
     }
 
-    //DA USARE NEL CASO IN CUI DECIDIAMO DI AGGIUNGERE LE COLONNE DA CODICE
     public <T, S> TableColumn<T, S> createNewColumn(TableView<T> tableView, String columnTitle, String propertyName) throws RuntimeException { 
 
         if (columnTitle == null || propertyName == null) {
@@ -110,7 +115,6 @@ public class GenericController implements Initializable {
 
         // 3. Associazione della colonna alla proprietà del modello
         // Se PropertyValueFactory non riesce a trovare la proprietà, lancia una RuntimeException
-        // (che propaghiamo fuori dal metodo).
         try {
             newColumn.setCellValueFactory(new PropertyValueFactory<>(propertyName));
         } catch (Exception e) {
@@ -145,7 +149,6 @@ public class GenericController implements Initializable {
             return;
         }
 
-        // 2. Definizione dei parametri del popup (FXML e Titolo)
         String fileView;
         String title;
 
