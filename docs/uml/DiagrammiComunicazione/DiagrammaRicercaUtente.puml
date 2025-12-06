@@ -1,0 +1,10 @@
+@startuml
+start
+:Cerca utente;
+:Inserisci dati utente;
+
+if (Utente presente?) then (si)
+    :Visualizza dati utente;
+endif
+stop
+@enduml
