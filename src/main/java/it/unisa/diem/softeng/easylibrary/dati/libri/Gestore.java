@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.unisa.diem.softeng.easylibrary.libri;
+package it.unisa.diem.softeng.easylibrary.dati.libri;
 
 import it.unisa.diem.softeng.easylibrary.archivio.Archivio;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;

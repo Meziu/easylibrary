@@ -1,4 +1,4 @@
-package it.unisa.diem.softeng.easylibrary.prestiti;
+package it.unisa.diem.softeng.easylibrary.dati.prestiti;
 
 import java.io.Serializable;
 
