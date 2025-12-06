@@ -1,4 +1,4 @@
-package it.unisa.diem.softeng.easylibrary.libri;
+package it.unisa.diem.softeng.easylibrary.dati.libri;
 
 import java.io.Serializable;
 

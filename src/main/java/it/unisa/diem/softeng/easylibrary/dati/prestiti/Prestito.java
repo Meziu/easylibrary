@@ -1,7 +1,7 @@
-package it.unisa.diem.softeng.easylibrary.prestiti;
+package it.unisa.diem.softeng.easylibrary.dati.prestiti;
 
-import it.unisa.diem.softeng.easylibrary.utenti.Matricola;
-import it.unisa.diem.softeng.easylibrary.libri.ISBN;
+import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
+import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
 import java.io.Serializable;
 import java.time.LocalDate;
 

@@ -1,15 +1,15 @@
 package it.unisa.diem.softeng.easylibrary;
 
-import it.unisa.diem.softeng.easylibrary.prestiti.GestorePrestiti;
-import it.unisa.diem.softeng.easylibrary.utenti.GestoreUtenti;
-import it.unisa.diem.softeng.easylibrary.libri.GestoreLibri;
+import it.unisa.diem.softeng.easylibrary.dati.prestiti.GestorePrestiti;
+import it.unisa.diem.softeng.easylibrary.dati.utenti.GestoreUtenti;
+import it.unisa.diem.softeng.easylibrary.dati.libri.GestoreLibri;
 import it.unisa.diem.softeng.easylibrary.archivio.*;
-import it.unisa.diem.softeng.easylibrary.libri.ISBN;
-import it.unisa.diem.softeng.easylibrary.libri.Libro;
-import it.unisa.diem.softeng.easylibrary.utenti.Matricola;
-import it.unisa.diem.softeng.easylibrary.prestiti.Prestito;
-import it.unisa.diem.softeng.easylibrary.prestiti.StatoPrestito;
-import it.unisa.diem.softeng.easylibrary.utenti.Utente;
+import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
+import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
+import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
+import it.unisa.diem.softeng.easylibrary.dati.prestiti.Prestito;
+import it.unisa.diem.softeng.easylibrary.dati.prestiti.StatoPrestito;
+import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
 
 import java.time.LocalDate;
 import java.util.List;

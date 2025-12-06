@@ -1,7 +1,7 @@
-package it.unisa.diem.softeng.easylibrary.utenti;
+package it.unisa.diem.softeng.easylibrary.dati.utenti;
 
 import it.unisa.diem.softeng.easylibrary.dati.Persona;
-import it.unisa.diem.softeng.easylibrary.prestiti.Prestito;
+import it.unisa.diem.softeng.easylibrary.dati.prestiti.Prestito;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

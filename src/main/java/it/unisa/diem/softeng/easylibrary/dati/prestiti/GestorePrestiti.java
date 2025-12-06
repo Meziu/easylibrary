@@ -1,7 +1,7 @@
-package it.unisa.diem.softeng.easylibrary.prestiti;
+package it.unisa.diem.softeng.easylibrary.dati.prestiti;
 
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
-import it.unisa.diem.softeng.easylibrary.libri.Gestore;
+import it.unisa.diem.softeng.easylibrary.dati.libri.Gestore;
 import java.util.Collections;
 
 /**
