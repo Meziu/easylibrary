@@ -15,7 +15,7 @@ citecolor=black
 \title{
 	\Large EasyLibrary\\
 	\vspace{1mm}
-	\Huge Design di Dettaglio del Software
+	\Huge Progettazione di Dettaglio del Software
 }
 % Metodo per centrare correttamente con wrapping i nomi.
 \author{
@@ -26,6 +26,14 @@ citecolor=black
 	Marco Giraulo
 }
 
+\newcommand{\umlbox}[1]{
+	\begin{figure}[ht]
+		\begin{adjustbox}{center, margin=0cm 0cm 0cm 0cm}
+			#1
+		\end{adjustbox}
+	\end{figure}
+}
+
 \begin{document}
 	
 \maketitle
@@ -33,38 +41,55 @@ citecolor=black
 \newpage
 \tableofcontents
 
+\raggedright
+
 \newpage
-%\section{Architettura del Software}
-%\subsectio{Diagramma delle Classi}
 
-\section{Descrizione generale del sistema}
+\section{Introduzione}
+\subsection{Scopo del documento}
+Lo scopo di questo di questo documento è di descrivere la progettazione del livello di dettaglio
+del il sistema software EasyLibrary. Il documento rappresenta la mappa per
+l'implementazione del sistema utilizzata dagli sviluppatori durante il processo di implementazione.
+Nel documento sono presenti descrizioni per i principali componenti del sistema EasyLibrary
+e esposizioni delle scelte di progettazione che hanno portato alla loro formalizzazione.
+I diagrammi di sequenza sono utilizzati per dimostrare il funzionamento dinamico del sistema e per
+descriverne con precisione i meccanismi di implementazione agli sviluppatori.
+
+\subsection{Processo di Progettazione}
+Completata la fase di analisi, è stato innanzitutto disegnato un diagramma UML generale delle classi
+con cui astrarre le caratteristiche del sistema per requisiti. Successivamente, al fine di migliorare
+la struttura del sistema secondo gli attributi di qualità studiati, sono state compiute scelte di design
+che facendo riferimento alle capacità delle tecnologie di sviluppo (linguaggio Java).
+Sfruttando appieno la flessibilità dell'incapsulamento, dell'ereditarietà e dei tipi generici,
+si è arrivati ad una struttura del sistema maggiormente stabile e più facilmente manutenibile e testabile.
+A tal punto si è potuto passare all finalizzazione dei contratti delle diverse classi e dei loro metodi associati. Infine, i casi d'uso del sistema sono stati passati in rassegna e per ognuno è stato
+individuato un flusso di sequenza delle operazioni, da cui sono stati dedotti i diagrammi di
+sequenza e di attività. Durante il processo di disegno di questi diagrammi sono stati riconosciuti
+e risolti alcuni problemi di design, cosa che ha portato a migliorare in modo iterativo la
+progettazione del sistema.
+
+
+\newpage
+\section{Progettazione di Dettaglio delle Classi}
+Il sistema software è stato scomposto in 2 pacchetti funzionali:
 \begin{itemize}
-	\item Architettura generale
-	\item Principi di progettazione adottati (SOLID, DRY, KISS, ecc.)
-	\item Tecnologie e strumenti scelti
+	\item Un pacchetto responsabile della gestione delle strutture dati che compongono l'archivio della biblioteca.
+	\item Un pacchetto responsabile della rappresentazione dei dati elementari dell'archivio della biblioteca.
 \end{itemize}
 
-\section{Progettazione di dettaglio}
+\subsection{Gestori di Archivio}
+\umlbox{
+	\includesvg[width=1.2\textwidth, inkscapelatex=false]{../uml/classesGestori.svg}
+}
 
-\subsection{Diagrammi delle classi}
-\begin{itemize}
-	\item Descrizione delle classi principali
-	\item Inserimento del diagramma UML (SVG):
-	\begin{figure}[h!]
-		\centering
-		%\includesvg[width=0.8\textwidth]{diagrammi/classi.svg}
-		\caption{Diagramma delle classi principali}
-	\end{figure}
-	\item Spiegazione testuale:
-	\begin{itemize}
-		\item Responsabilità di ciascuna classe
-		\item Relazioni (associazioni, aggregazioni, composizioni, ereditarietà)
-		\item Motivazione delle scelte progettuali
-		\item Riferimento ai principi di progettazione (Single Responsibility, Open/Closed, ecc.)
-	\end{itemize}
-\end{itemize}
+\subsection{Rappresentazione Dati}
+\umlbox{
+	\includesvg[width=1.2\textwidth, inkscapelatex=false]{../uml/classesDati.svg}
+}
 
-\subsection{Diagrammi di sequenza}
+
+\newpage
+\section{Diagrammi di Sequenza}
 \begin{itemize}
 	\item Selezionare casi d'uso complessi
 	\item Per ogni caso d'uso:
