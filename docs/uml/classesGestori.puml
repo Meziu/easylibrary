@@ -37,6 +37,8 @@ together {
     -archivioPrestiti: Archivio<Prestiti>
 
     +Biblioteca()
+    +registraPrestito()
+    +registraRestituzione()
     +salvaFile()
     +caricaFile()
 }
