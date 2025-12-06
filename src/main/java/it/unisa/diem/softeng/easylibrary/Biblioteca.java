@@ -72,16 +72,28 @@ public class Biblioteca implements Serializable {
      * 
      * @pre L'utente con la matricola fornita deve essere presente nell'archivio
      * @pre Il libro con l'ISBN fornito deve essere presente nell'archivio
-     * @post Il prestito viene aggiunto all'archivio dei prestiti e alla lista dei prestiti attivi dell'utente
+     * 
+     * @post Il prestito viene aggiunto all'archivio dei prestiti.
+     * @post Il prestito viene aggiunto alla lista dei prestiti attivi dell'utente.
+     * @post Il numero di copie disponibili del libro viene decrementato di 1.
      */
     public void registraPrestito(String matricola, String isbn, LocalDate scadenzaPrestito) {
         Utente u = archivioUtenti.ottieni(new Matricola(matricola));
         Libro l = archivioLibri.ottieni(new ISBN(isbn));
 
+        //LIMITE PRESTITI
+        if (u.getPrestitiAttivi().size() >= 3)
+            throw new LimitePrestitiSuperatoException();
+        
+        //NESSUNA COPIA DISPONIBILE
+        if (l.getCopieDisponibili() <= 0)
+            throw new NessunaCopiaDisponibileException();
+        
         Prestito p = new Prestito(u.getMatricola(), l.getISBN(), StatoPrestito.ATTIVO, scadenzaPrestito);
 
         archivioPrestiti.registra(p);
         u.registraPrestito(p);
+        l.setCopieDisponibili(l.getCopieDisponibili() - 1);
     }
 
     /**
@@ -90,14 +102,20 @@ public class Biblioteca implements Serializable {
      * Aggiorna lo stato del prestito nell'archivio e lo rimuove dalla lista
      * dei prestiti attivi dell'utente.
      * 
-     * @pre Il prestito deve esistere nell'archivio dei prestiti
-     * @pre L'utente associato al prestito deve essere presente nell'archivio utenti
-     * @post Il prestito viene rimosso dall'archivio dei prestiti e dalla lista dei prestiti attivi dell'utente
+     * @pre Il prestito deve esistere nell'archivio dei prestiti.
+     * @pre L'utente associato al prestito deve essere presente nell'archivio utenti.
+     * @pre Il libro associato al prestito deve esistere nell'archivio libri.
+     * 
+     * @post Il prestito viene rimosso dall'archivio dei prestiti.
+     * @post Il prestito viene rimosso dalla lista dei prestiti attivi dell'utente.
+     * @post Il numero di copie disponibili del libro viene incrementato di 1.
      * @param p Prestito da restituire
      */
     public void registraRestituzione(Prestito p) {
         archivioPrestiti.rimuovi(p);
         archivioUtenti.ottieni(p.getMatricola()).rimuoviPrestito(p);
+        Libro l = archivioLibri.ottieni(p.getISBN());
+        l.setCopieDisponibili(l.getCopieDisponibili() + 1);
     }
 
     /**
