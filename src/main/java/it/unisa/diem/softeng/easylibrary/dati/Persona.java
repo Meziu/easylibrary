@@ -5,6 +5,9 @@ import java.io.Serializable;
 /**
  * 
  * @brief Rappresentazione dell'anagrafica di una persona.
+ * 
+ * La classe è serializzabile e implementa l'interfaccia Comparable per consentire il confronto tra persone
+ * basato sul cognome e, a parità di cognome, sul nome.
  */
 public abstract class Persona implements Comparable<Persona>, Serializable {
 
@@ -15,7 +18,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
      * 
      * @brief Costruttore.
      * Costruisce un nuovo oggetto Persona a partire dalle
-     * stringhe di caratteri che ne compongono il nome e il cognome.
+     * stringhe che ne compongono il nome e il cognome.
      * 
      * @param\[in] nome Stringa di caratteri del nome.
      * @param\[in] cognome Stringa di caratteri del cognome.
@@ -68,6 +71,9 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
      * dove una Persona è ordinata rispetto ad un'altra in ordine
      * lessicografico prima del cognome e poi, a parità di
      * cognome, del nome.
+     * 
+     * @return Valore negativo, zero o positivo se la persona corrente è rispettivamente
+     * minore, uguale o maggiore del libro passato come parametro.
      */
     @Override
     public int compareTo(Persona p) {

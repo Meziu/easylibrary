@@ -76,7 +76,7 @@ public class IndirizzoEmail implements Serializable {
             return false;
         }
 
-        // Parte locale (prima della @)
+        // Recupero solo la parte locale (prima della @)
         String parteLocale = indirizzo.substring(0, indirizzo.length() - dominioRichiesto.length());
 
         // Non può essere vuota

@@ -5,23 +5,19 @@ import it.unisa.diem.softeng.easylibrary.libri.Gestore;
 import java.util.Collections;
 
 /**
- * @class GestorePrestiti.java
- * @brief Classe responsabile della gestione dei prestiti.
- * La classe GestorePrestiti estende Archivio e si occupa della gestione,
- * registrazione e restituzione dei prestiti. I prestiti vengono mantenuti
- * ordinati secondo il criterio definito da OrdinatorePrestiti.
+ * @brief Gestisce i prestiti dei libri.
  * 
- * @see Archivio
+ * La classe GestorePrestiti estende Gestore e si occupa di registrare le restituzioni dei prestiti.
+ * 
+ * @see Gestore
  * @see Prestito
- * @see OrdinatorePrestiti
 */
 public class GestorePrestiti extends Gestore<Prestito> {
 
     /**
      * @brief Costruttore della classe GestorePrestiti.
      * 
-     * Inizializza la struttura dati tramite il costruttore della superclasse
-     * e crea l'ordinatore dei prestiti.
+     * Inizializza la struttura dati tramite il costruttore della superclasse.
      */
     public GestorePrestiti() {
         super();
@@ -30,10 +26,9 @@ public class GestorePrestiti extends Gestore<Prestito> {
     /**
      * @brief Segna un prestito come restituito.
      * 
-     * Cerca il prestito nella lista e ne aggiorna lo stato in
-     * {@link StatoPrestito#RESTITUITO}.
+     * Cerca il prestito nella lista e ne aggiorna lo stato in "RESTITUITO".
      * 
-     * @param p Il prestito da rimuovere (restituire).
+     * @param\[in] p Il prestito da rimuovere (restituire).
      * 
      * @throws ValoreNonPresenteException Se il prestito non è presente
      * nell'archivio.

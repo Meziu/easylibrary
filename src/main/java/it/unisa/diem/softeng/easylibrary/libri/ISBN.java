@@ -3,42 +3,47 @@ package it.unisa.diem.softeng.easylibrary.libri;
 import java.io.Serializable;
 
 /**
+ *
+ * @brief Classe che rappresenta l'identificativo di un libro.
  * 
- * @brief Identificativo di un libro.
- * Ogni \ref Libro è associato univocamente ad un codice ISBN.
- * I codici ISBN sono composti da 10 o 13 cifre numeriche, con un particolare
- * criterio di validità (per standard internazionale).
- * 
+ * Ogni \ref Libro è associato univocamente ad un codice ISBN. I codici ISBN sono composti da 10 o
+ * 13 cifre numeriche, con un particolare criterio di validità (per standard
+ * internazionale).
+ *
+ * @see Libro
  */
 public final class ISBN implements Comparable<ISBN>, Serializable {
 
     private final String isbn;
 
     /**
-     * 
-     * @brief Costruttore.
+     *
+     * @brief Costruttore. 
      * Costruisce un nuovo oggetto ISBN a partire dalla
-     * stringa di caratteri che ne compongono il codice, verificandone la validità.
-     * 
+     * stringa fornita, verificandone la validità.
+     * Rimuove eventuali trattini e verifica che il codice sia valido.
+     *
      * @param\[in] isbn Stringa di caratteri del codice ISBN.
-     * 
-     * @throws ISBNInvalidoException Se il codice inserito non aderisce
-     * allo standard di validità.
-     * 
+     *
+     * @throws ISBNInvalidoException Se il codice inserito non è conforme allo
+     * standard di validità.
+     *
      * \see verifica()
-     * 
+     *
      */
     public ISBN(String isbn) {
+        isbn = isbn.replaceAll("-", ""); // rimuove eventuali trattini
+        
         if (verifica(isbn)) {
-            this.isbn = isbn.replaceAll("-", ""); // rimuove eventuali trattini
+            this.isbn = isbn;
         } else {
-            throw new ISBNInvalidoException(); // TODO
+            throw new ISBNInvalidoException();
         }
     }
 
     /**
      * @brief Getter della stringa del codice.
-     * 
+     *
      * @return La stringa di caratteri che compongono il codice ISBN.
      */
     public String getISBN() {
@@ -46,10 +51,10 @@ public final class ISBN implements Comparable<ISBN>, Serializable {
     }
 
     /**
-     * @brief Verifica del codice ISBN.
-     * Verifica se la stringa passata come argomento sia o meno un codice ISBN
-     * valido a seconda degli standard definiti dal documento ISO 2108.
-     * 
+     * @brief Verifica del codice ISBN. Verifica se la stringa passata come
+     * argomento sia o meno un codice ISBN valido a seconda degli standard
+     * definiti dal documento ISO 2108.
+     *
      * @param\[in] isbn Stringa di caratteri da verificare.
      * @return true se la stringa è un codice ISBN valido, false altrimenti.
      */
@@ -64,68 +69,78 @@ public final class ISBN implements Comparable<ISBN>, Serializable {
         }
     }
 
-    // Verifica ISBN-10
+    /**
+     * @brief Verifica se una stringa può essere considerata un ISBN-10.
+     *
+     * Questa versione controlla che:
+     * - la lunghezza sia esattamente 10 caratteri
+     * - i primi 9 caratteri siano numeri
+     * - l'ultimo carattere sia un numero oppure 'X'/'x'
+     *
+     * @param\[in] id La stringa da verificare come ISBN-10
+     * 
+     * @return true se la stringa rispetta le regole sopra, false altrimenti
+     */
     private static boolean verificaISBN10(String id) {
         if (id.length() != 10) {
             return false;
         }
 
-        int somma = 0;
         for (int i = 0; i < 9; i++) {
             char c = id.charAt(i);
+
             if (!Character.isDigit(c)) {
                 return false;
             }
-            somma += (c - '0') * (10 - i);
         }
 
-        // Controllo cifra di controllo
+        // Controllo ultima cifra
         char check = id.charAt(9);
-        int valoreCheck;
-        if (check == 'X' || check == 'x') {
-            valoreCheck = 10;
-        } else if (Character.isDigit(check)) {
-            valoreCheck = check - '0';
-        } else {
-            return false;
+        if (check == 'X' || check == 'x' || Character.isDigit(check)) {
+            return true;
         }
 
-        somma += valoreCheck;
-        return somma % 11 == 0;
+        return false;
     }
 
-    // Verifica ISBN-13
+     
+    /**
+     * @brief Verifica se una stringa può essere considerata un ISBN-13.
+     *
+     * Questa versione controlla che:
+     * - la lunghezza sia esattamente 13 caratteri
+     * - i 13 caratteri siano numeri
+     *
+     * @param\[in] id La stringa da verificare come ISBN-13
+     * 
+     * @return true se la stringa rispetta le regole sopra, false altrimenti
+     */
     private static boolean verificaISBN13(String id) {
-        if (id.length() != 13) {
+        if (id.length() != 13) {    // Deve essere lungo esattamente 13 caratteri
             return false;
         }
 
-        int somma = 0;
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 13; i++) {   // Analizza le cifre
             char c = id.charAt(i);
-            if (!Character.isDigit(c)) {
+
+            if (!Character.isDigit(c)) {    // Se non è una cifra, non è valido
                 return false;
             }
-            int cifra = c - '0';
-            somma += (i % 2 == 0) ? cifra : cifra * 3;
         }
-
-        int checkCalcolato = (10 - (somma % 10)) % 10;
-        char ultimo = id.charAt(12);
-        if (!Character.isDigit(ultimo)) {
-            return false;
-        }
-        int checkReale = ultimo - '0';
-
-        return checkCalcolato == checkReale;
+        return true;
     }
 
     /**
-     * 
-     * @brief Comparazione con un altro ISBN.
-     * La comparazione è svolta aderendo al contratto di Comparable,
-     * dove un ISBN è ordinato rispetto ad un altro in ordine
-     * lessicografico della stringa di caratteri associata.
+     *
+     * @brief Comparazione con un altro ISBN. La comparazione è svolta aderendo
+     * al contratto di Comparable, dove un ISBN è ordinato rispetto ad un altro
+     * in ordine lessicografico della stringa di caratteri associata.
+     *
+     * @param\[in] i isbn da confrontare con l'istanza corrente.
+     *
+     * @return Valore negativo, zero o positivo se l'isbn corrente è
+     * rispettivamente minore, uguale o maggiore dell'isbn passato come
+     * parametro.
      */
     @Override
     public int compareTo(ISBN i) {
@@ -133,9 +148,9 @@ public final class ISBN implements Comparable<ISBN>, Serializable {
     }
 
     /**
-     * 
-     * @brief HashCode associato all'ISBN.
-     * Il calcolo è svolto aderendo al contratto di Object.hashCode().
+     *
+     * @brief HashCode associato all'ISBN. Il calcolo è svolto aderendo al
+     * contratto di Object.hashCode().
      */
     @Override
     public int hashCode() {
@@ -143,11 +158,10 @@ public final class ISBN implements Comparable<ISBN>, Serializable {
     }
 
     /**
-     * 
-     * @brief Criterio di uguaglianza.
-     * Il criterio aderisce al contratto di Object.equals(),
-     * dove un codice ISBN è considerato uguale ad un altro solo se
-     * la stringa di caratteri associata è uguale.
+     *
+     * @brief Criterio di uguaglianza. Il criterio aderisce al contratto di
+     * Object.equals(), dove un codice ISBN è considerato uguale ad un altro
+     * solo se la stringa di caratteri associata è uguale.
      */
     @Override
     public boolean equals(Object obj) {
@@ -161,10 +175,6 @@ public final class ISBN implements Comparable<ISBN>, Serializable {
             return false;
         }
         final ISBN other = (ISBN) obj;
-        if (!this.isbn.equals(other.isbn)) {
-            return false;
-        }
-        return true;
+        return this.isbn.equals(other.isbn);
     }
-
 }

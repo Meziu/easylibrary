@@ -4,12 +4,13 @@ import java.io.Serializable;
 import java.util.List;
 
 
-/**@class Libro.java
+/**
  * @brief Classe che rappresenta un libro presente nel sistema della biblioteca.
- * La classe Libro contiene tutte le informazioni fondamentali di un libro:
- * titolo, autori, anno di pubblicazione, ISBN e numero di copie disponibili.
- * Implementa l'interfaccia Comparable per consentire il confronto tra libri
- * basato sull'ISBN ed è serializzabile.
+ * La classe Libro contiene le seguenti informazioni relative ad un libro:
+ * titolo, autori, data di pubblicazione, ISBN e numero di copie disponibili.
+ * 
+ * La classe è serializzabile e implementa l'interfaccia Comparable per consentire il confronto tra libri
+ * basato sul titolo e, a parità di titolo, sull'ISBN.
  * 
  * @see Autore
  * @see ISBN
@@ -26,11 +27,11 @@ public class Libro implements Comparable<Libro>, Serializable {
     /**
      * @brief Costruttore della classe Libro.
      * 
-     * @param titolo Titolo del libro.
-     * @param autori Lista degli autori del libro.
-     * @param dataPubblicazione Data di pubblicazione del libro.
-     * @param isbn Codice ISBN del libro in formato stringa.
-     * @param copieDisponibili Numero di copie disponibili.
+     * @param\[in] titolo Stringa di caratteri del titolo del libro.
+     * @param\[in] autori Lista degli autori del libro.
+     * @param\[in] dataPubblicazione  Data di pubblicazione del libro.
+     * @param\[in] isbn Stringa di caratteri del codice ISBN.
+     * @param\[in] copieDisponibili Interi che indica il numero di copie disponibili.
      */
     public Libro(String titolo, List<Autore> autori, int dataPubblicazione, String isbn, int copieDisponibili) {
         this.titolo = titolo;
@@ -62,9 +63,9 @@ public class Libro implements Comparable<Libro>, Serializable {
 
     
     /**
-     * @brief Restituisce l'anno di pubblicazione del libro.
+     * @brief Restituisce la data di pubblicazione del libro.
      * 
-     * @return Anno di pubblicazione.
+     * @return Data di pubblicazione.
      */
     public int getDataPubblicazione() {
         return dataPubblicazione;
@@ -93,7 +94,7 @@ public class Libro implements Comparable<Libro>, Serializable {
     /**
      * @brief Imposta il titolo del libro.
      * 
-     * @param titolo Nuovo titolo del libro.
+     * @param\[in] titolo Nuovo titolo del libro.
      */
     public void setTitolo(String titolo) {
         this.titolo = titolo;
@@ -103,7 +104,7 @@ public class Libro implements Comparable<Libro>, Serializable {
     /**
      * @brief Imposta la lista degli autori del libro.
      * 
-     * @param autori Nuova lista di autori.
+     * @param\[in] autori Nuova lista di autori.
      */
     public void setAutori(List<Autore> autori) {
         this.autori = autori;
@@ -112,7 +113,7 @@ public class Libro implements Comparable<Libro>, Serializable {
     /**
      * @brief Imposta la data di pubblicazione del libro.
      * 
-     * @param dataPubblicazione Nuova data di pubblicazione.
+     * @param\[in] dataPubblicazione Nuova data di pubblicazione.
      */
     public void setDataPubblicazione(int dataPubblicazione) {
         this.dataPubblicazione = dataPubblicazione;
@@ -121,7 +122,7 @@ public class Libro implements Comparable<Libro>, Serializable {
     /**
      * @brief Imposta il numero di copie disponibili del libro.
      * 
-     * @param copieDisponibili Nuovo numero di copie disponibili.
+     * @param\[in] copieDisponibili Nuovo numero di copie disponibili.
      */
     public void setCopieDisponibili(int copieDisponibili) {
         this.copieDisponibili = copieDisponibili;
@@ -129,9 +130,10 @@ public class Libro implements Comparable<Libro>, Serializable {
 
     /**
      * @brief Aggiunge un autore alla lista degli autori del libro.
+     * 
      * @post L'oggetto di tipo Autore viene aggiunto alla lista.
      * 
-     * @param a Autore da aggiungere alla lista.
+     * @param\[in] a Autore da aggiungere alla lista.
      * 
      */
     public void aggiungiAutore(Autore a) {
@@ -143,7 +145,7 @@ public class Libro implements Comparable<Libro>, Serializable {
      * 
      * @post L'oggetto di tipo Autore viene rimosso dalla lista.
      * 
-     * @param a L'autore da rimuovere.
+     * @param[in] a L'autore da rimuovere.
      */
     public void rimuoviAutore(Autore a) {
         autori.remove(a);
@@ -151,10 +153,16 @@ public class Libro implements Comparable<Libro>, Serializable {
 
     
     /**
-     * @brief Confronta due libri in base al codice ISBN.
+     * @brief Comparazione con un altro libro.
      * 
-     * @param l Libro da confrontare con l'istanza corrente.
-     * @return Valore negativo, zero o positivo se questo libro è rispettivamente
+     * La comparazione è svolta aderendo al contratto di Comparable,
+     * dove un libro è ordinato rispetto ad un altro in ordine
+     * lessicografico prima del titolo e poi, a parità di
+     * titolo, del codice ISBN.
+     * 
+     * @param\[in] l Libro da confrontare con l'istanza corrente.
+     * 
+     * @return Valore negativo, zero o positivo se il libro corrente è rispettivamente
      * minore, uguale o maggiore del libro passato come parametro.
      */
     @Override

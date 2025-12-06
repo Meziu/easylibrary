@@ -7,9 +7,19 @@ package it.unisa.diem.softeng.easylibrary.archivio;
  */
 public class ValoreGiàPresenteException extends RuntimeException {
 
+    /**
+     * @brief Costruttore di default.
+     *
+     * Crea una nuova eccezione senza specificare alcun messaggio di errore.
+     */
     public ValoreGiàPresenteException() {
     }
 
+    /**
+     * @brief Costruttore con messaggio di errore.
+     *
+     * @param string messaggio descrittivo dell'errore relativo ad un valore già presente.
+     */
     public ValoreGiàPresenteException(String string) {
         super(string);
     }

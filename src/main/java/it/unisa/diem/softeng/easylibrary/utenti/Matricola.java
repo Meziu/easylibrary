@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * 
- * @brief Matricola di un utente della biblioteca.
+ * @brief  Rappresenta la matricola di un utente della biblioteca.
  * Ogni \ref Utente è associato univocamente ad una matricola.
  * Le matricole sono composte da esattamente 10 cifre numeriche.
  * 
@@ -36,7 +36,7 @@ public final class Matricola implements Comparable<Matricola>, Serializable {
     }
 
     /**
-     * @brief Getter della stringa della matricola.
+     * @brief Restituisce la stringa della matricola.
      * 
      * @return La stringa di caratteri che compongono la Matricola.
      */
@@ -62,7 +62,7 @@ public final class Matricola implements Comparable<Matricola>, Serializable {
             return false;
         }
 
-        //deve essere alfanumerica
+        //deve essere numerica
         for (char c : matricola.toCharArray()) {
             if (!Character.isDigit(c)) {
                 return false;

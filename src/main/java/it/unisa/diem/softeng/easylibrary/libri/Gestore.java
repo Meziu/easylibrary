@@ -62,7 +62,7 @@ public abstract class Gestore<E extends Comparable<? super E>> implements Archiv
         
         lista.remove(idx_remove);
         
-        // Applica modifiche.dal consumer.
+        // Applica modifiche dal consumer.
         c.accept(el);
         
         int idx_insert = Collections.binarySearch(lista, el);
