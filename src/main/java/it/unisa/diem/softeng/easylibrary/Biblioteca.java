@@ -83,11 +83,11 @@ public class Biblioteca implements Serializable {
 
         //LIMITE PRESTITI
         if (u.getPrestitiAttivi().size() >= 3)
-            throw new LimitePrestitiSuperatoException();
+            throw new LimitePrestitiSuperatoException("TODO");
         
         //NESSUNA COPIA DISPONIBILE
         if (l.getCopieDisponibili() <= 0)
-            throw new NessunaCopiaDisponibileException();
+            throw new NessunaCopiaDisponibileException("TODO");
         
         Prestito p = new Prestito(u.getMatricola(), l.getISBN(), StatoPrestito.ATTIVO, scadenzaPrestito);
 
