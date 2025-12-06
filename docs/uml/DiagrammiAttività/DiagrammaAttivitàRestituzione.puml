@@ -1,16 +1,13 @@
 @startuml
 start
-:Cerca libro;
-if (Libro presente?) then (si)
-    :Seleziona libro;
-    :Registra reso;
-    fork
-        :Aggiorna disponibilità;
-    fork again
-        :Aggiorna stato prestito;
-    end fork
+:Cerca prestito;
+if (Prestito trovato nel sistema?) then (si)
+    :Seleziona prestito;
+    :Aggiorna disponibilità libro;
+    :Aggiorna stato prestito;
+    :Aggiorna prestiti attivi utente;
 else (no)
-    :Mostra messaggio di errore (libro non presente nel sistema);
+    :Mostra messaggio di errore (prestito non presente nel sistema);
 endif
 stop
 @enduml
