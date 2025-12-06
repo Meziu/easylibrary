@@ -9,7 +9,7 @@ if (Utente presente nel sistema?) then (si)
         :Mostra messaggio di errore (utente ha prestiti attivi);
     endif
 else (no)
-->
+:Mostra messaggio di errore (utente non presente nel sistema);
 endif
 
 stop
