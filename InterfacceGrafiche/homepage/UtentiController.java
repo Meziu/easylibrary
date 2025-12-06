@@ -13,9 +13,11 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import utenti.Utente;
 
 /**
  *
@@ -39,6 +41,8 @@ public class UtentiController extends GenericController {
     private VBox vboxNome;
     @FXML
     private VBox vboxMatricola;
+    
+    private TableView<?> tableView;
 
     public void initialize(URL url, ResourceBundle rb) {
         if (vbox != null) {
@@ -63,7 +67,37 @@ public class UtentiController extends GenericController {
             bindFontSize(labelMatricola, vbox.heightProperty(), fontSizePercentage);
             bindFontSize(textFieldMatricola, vbox.heightProperty(), fontSizePercentage);
         }
+        
+        
     }
+
+    @Override
+    public void setTableView(TableView<?> tableView) {
+        this.tableView = tableView;
+    }
+    
+    
+    @Override
+    public void setupSpecificColumns() {
+        if (tableView == null) {
+            throw new IllegalStateException("Impossibile configurare: TableView non iniettata.");
+        }
+        
+        TableView<Utente> userTableView = (TableView<Utente>) tableView;
+
+        // Chiama il metodo pubblico del GenericController (ereditato)
+        try {
+            createNewColumn(userTableView, "Nome", "nome");
+            createNewColumn(userTableView, "Cognome", "cognome");
+            createNewColumn(userTableView, "Matricola", "matricola");
+            createNewColumn(userTableView, "Mail", "mail");
+            createNewColumn(userTableView, "Prestiti", "prestiti");
+        } catch (RuntimeException e) {
+            System.err.println("Errore di configurazione colonne Utenti: " + e.getMessage());
+        }
+    }
+    
+    
 
     
 }

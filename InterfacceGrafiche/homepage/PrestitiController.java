@@ -12,9 +12,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import prestiti.Prestito;
 
 /**
  * FXML Controller class
@@ -43,8 +45,8 @@ public class PrestitiController extends GenericController {
     private VBox vboxUtente;
     @FXML
     private VBox vboxLibro;
-    @FXML
-    private TableColumn<?, ?> utenteColumn;
+    
+    private TableView<?> tableView;
 
     /**
      * Initializes the controller class.
@@ -75,6 +77,30 @@ public class PrestitiController extends GenericController {
             // Ridimensiona il font della Checkbox
             bindFontSize(chkboxLabel, vbox.heightProperty(), fontSizePercentage);
             bindFontSize(chkBox, vbox.heightProperty(), fontSizePercentage);
+        }
+    }
+    
+    @Override
+    public void setTableView(TableView<?> tableView) {
+        this.tableView = tableView;
+    }
+    
+    
+    @Override
+    public void setupSpecificColumns() {
+        if (tableView == null) {
+            throw new IllegalStateException("Impossibile configurare: TableView non iniettata.");
+        }
+        
+        TableView<Prestito> loanTableView = (TableView<Prestito>) tableView;
+
+        // Chiama il metodo pubblico del GenericController (ereditato)
+        try {
+            createNewColumn(loanTableView, "Utente", "utente");
+            createNewColumn(loanTableView, "Libro", "libro");
+            createNewColumn(loanTableView, "Data Scadenza", "dataScadenza");
+        } catch (RuntimeException e) {
+            System.err.println("Errore di configurazione colonne Utenti: " + e.getMessage());
         }
     }
     

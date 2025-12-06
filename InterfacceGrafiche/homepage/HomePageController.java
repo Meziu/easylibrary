@@ -137,30 +137,37 @@ public class HomePageController implements Initializable {
 
         // 2) Determina i file da caricare
         String fileForm = null;
-        String fileTable = null;
+        
+        GenericController specificController;
 
         switch (type) {
             case "A":
                 fileForm = "UtentiViewForm.fxml";
-                fileTable = "UtentiViewTable.fxml";
+                controller.setPageType(type);
                 break;
             case "B":
                 fileForm = "LibriViewForm.fxml";
-                fileTable = "LibriViewTable.fxml";
+                controller.setPageType(type);
                 break;
             case "C":
                 fileForm = "PrestitiViewForm.fxml";
-                fileTable = "PrestitiViewTable.fxml";
+                controller.setPageType(type);
                 break;
         }
 
         // 3) Carica form e tabella
-        Parent rootForm = FXMLLoader.load(getClass().getResource(fileForm));
-        Parent rootTable = FXMLLoader.load(getClass().getResource(fileTable));
-
+        FXMLLoader specificLoader = new FXMLLoader(getClass().getResource(fileForm));
+        Parent rootForm = specificLoader.load();
+        
+        
+        specificController = specificLoader.getController();
+        specificController.setTableView(controller.getTableView());
+        specificController.setupSpecificColumns();
+        
+        
         // 4) Monta dentro la GenericView
         controller.addLeftNode(rootForm);
-        controller.addrightNode(rootTable);
+        
 
         // 5) Mostra la scena
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

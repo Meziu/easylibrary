@@ -20,7 +20,7 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="textFieldNome" maxHeight="500.0" maxWidth="500.0">
+            <TextField fx:id="textFieldNome" maxHeight="500.0" maxWidth="500.0" promptText="Inserisci l'utente">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
@@ -34,7 +34,7 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="textFieldMatricola" maxWidth="500.0">
+            <TextField fx:id="textFieldMatricola" maxWidth="500.0" promptText="Inserisci il titolo">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
