@@ -23,7 +23,7 @@ docs/latex/*
 # Plant UML artifacts
 *.png
 !*.puml
-!*.svg
+*.svg
 
 
 .DS_Store
