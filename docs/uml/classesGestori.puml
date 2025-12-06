@@ -8,7 +8,7 @@ interface Filtro<T> {
 
 together {
     +interface Archivio<E> {
-        +getCollezione(): List<E>
+        +getLista(): List<E>
         +registra(): void
         +rimuovi(): void
         +modifica(): void
@@ -32,11 +32,12 @@ together {
 
 
 +class Biblioteca {
-    -archivioLibri: ArchivioConChiave<ISBN, Libri>
-    -archivioUtenti: ArchivioConChiave<Matricola, Utenti>
-    -archivioPrestiti: Archivio<Prestiti>
+    -archivioLibri: ArchivioConChiave<ISBN, Libro>
+    -archivioUtenti: ArchivioConChiave<Matricola, Utente>
+    -archivioPrestiti: Archivio<Prestito>
 
     +Biblioteca()
+    +getPrestitiAttivi(): List<Prestito>
     +registraPrestito()
     +registraRestituzione()
     +salvaFile()
@@ -66,7 +67,6 @@ together {
     +class GestorePrestiti extends Gestore {
 
         +GestorePrestiti()
-        +getStoricoPrestiti(): List<Prestito>
     }
 }
 
