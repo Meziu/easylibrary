@@ -45,6 +45,14 @@ public class IndirizzoEmail implements Serializable {
     public String getIndirizzoEmail() {
         return email;
     }
+    
+    /**
+     * @brief Imposta un nuovo indirizzo email.
+     * @param\[in] email Nuovo indirizzo email
+     */
+    public void setIndirizzoEmail(String email) {
+        this.email = email;
+    }
 
     /*
      * Verifica che l'email sia valida:

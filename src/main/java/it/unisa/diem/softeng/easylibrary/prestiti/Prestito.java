@@ -19,7 +19,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
 
     private final Matricola matricolaUtente;
     private final ISBN isbn;
-    private StatoPrestito stato;
+    private StatoPrestito statoPrestito;
     private LocalDate dataDiScadenza;
 
     
@@ -34,7 +34,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     public Prestito(Matricola matricolaUtente, ISBN isbn, StatoPrestito statoPrestito, LocalDate scadenzaPrestito) {
         this.matricolaUtente = matricolaUtente;
         this.isbn = isbn;
-        this.stato = statoPrestito;
+        this.statoPrestito = statoPrestito;
         this.dataDiScadenza = scadenzaPrestito;
     }
 
@@ -59,7 +59,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
      * @return Lo stato del prestito
      */
     public StatoPrestito getStato() {
-        return stato;
+        return statoPrestito;
     }
 
     /**
@@ -83,7 +83,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
      * @param\[in] nuovoStato Nuovo stato da assegnare al prestito
      */
     public void setStatoPrestito(StatoPrestito nuovoStato) {
-        this.stato = nuovoStato;
+        this.statoPrestito = nuovoStato;
     }
     
     /**
