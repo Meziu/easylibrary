@@ -11,7 +11,6 @@ skinparam nodesep 100
     +getCognome(): String
     +setNome(): void
     +setCognome(): void
-    +compareTo(): int
 }
 
 together {
@@ -24,8 +23,6 @@ together {
         +getMatricola(): Matricola
         +getEmail(): IndirizzoEmail
         +getPrestitiAttivi(): List<Prestito>
-
-        +setMatricola(): void
         +setEmail(): void
         +registraPrestito(): void
         +rimuoviPrestito(): void
@@ -35,7 +32,7 @@ together {
         -titolo: String
         -autori: List<Autore>
         -dataPubblicazione: LocalDate
-        -id: ISBN
+        -isbn: ISBN
         -copieDisponibili: int
 
         +Libro()
@@ -48,7 +45,6 @@ together {
         +setTitolo(): void
         +setAutori(): void
         +setDataPubblicazione(): void
-        +setISBN(): void
         +setCopieDisponibili((): void
         +aggiungiAutore(): void
         +rimuoviAutore(): void
@@ -56,14 +52,14 @@ together {
 
     +class Prestito{
         -matricolaUtente: Matricola
-        -idLibro: ISBN
+        -isbn: ISBN
         -statoPrestito: StatoPrestito
         -dataDiScadenza: LocalDate
 
         +Prestito()
         +getISBN(): ISBN
         +getMatricola(): Matricola
-        +getStatoPrestito(): StatoPrestito
+        +getStato(): StatoPrestito
         +getDataDiScadenza(): LocalDate
         +isScaduto(): boolean
 
@@ -89,9 +85,9 @@ together {
 
         +IndirizzoEmail()
         +getIndirizzoEmail(): String
+        +setIndirizzoEmail()
         +verifica(): boolean {static}
 
-        +setIndirizzo()
     }
 
     +class ISBN {
@@ -110,6 +106,7 @@ together {
     }
 
     +class Autore {
+        +Autore()
     }
 }
 
