@@ -1,0 +1,18 @@
+@startuml
+start
+
+repeat 
+    :Inserisci dati utente;
+
+    if (Dati validi?) then (si)
+      if (Utente presente?) then (no)
+        :Salva nuovo utente;
+        stop
+      else (si)
+      endif
+    else (no)
+    endif
+backward :Mostra messaggio di errore;
+@enduml
+
+

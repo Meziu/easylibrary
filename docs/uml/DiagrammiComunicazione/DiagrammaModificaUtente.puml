@@ -1,0 +1,20 @@
+@startuml
+start
+:Cerca utente;
+if (Utente presente nel sistema?) then (si)
+:Seleziona utente;
+:Visualizza dati utente;
+:Inserisci nuovi dati utente;
+
+    if (Dati validi?) then (si)
+        :Aggiorna dati utente;
+    else (no)
+        :Mostra messaggio di errore (dati non validi);
+    endif
+
+else (no)
+->
+endif
+
+stop
+@enduml
