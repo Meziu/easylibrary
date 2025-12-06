@@ -3,11 +3,8 @@ start
 :Cerca libro;
 if (Copia disponibile?) then (si)
     if(Limite prestiti raggiunto?) then (no)
-        fork
         :Aggiorna disponibilità;
-        fork again
         :Registra prestito;
-        end fork
     else (si)
         :Mostra messaggio di errore (limite raggiunto);
     endif

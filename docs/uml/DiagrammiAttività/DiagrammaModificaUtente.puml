@@ -13,7 +13,7 @@ if (Utente presente nel sistema?) then (si)
     endif
 
 else (no)
-->
+:Mostra messaggio di errore (utente non presente nel sistema);
 endif
 
 stop
