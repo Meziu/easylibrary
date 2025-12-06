@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Utente extends Persona {
 
-    private final Matricola matricola;
+    private Matricola matricola;
     private IndirizzoEmail email;
     private final List<Prestito> prestitiAttivi;
 
@@ -69,6 +69,16 @@ public class Utente extends Persona {
         return Collections.unmodifiableList(prestitiAttivi);
     }
     
+    
+    /**
+     * @brief Imposta una nuova matricola.
+     * @param\[in] matricola nuova matricola.
+     */
+    public void setMatricola( Matricola matricola) {
+        Utente.this.matricola = matricola;
+    }
+    
+
     /**
      * @brief Imposta un nuovo indirizzo email.
      * @param\[in] email Nuovo indirizzo email
