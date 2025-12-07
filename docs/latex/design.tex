@@ -81,11 +81,29 @@ Il sistema software è stato scomposto in 2 pacchetti funzionali:
 \umlbox{
 	\includesvg[width=1.2\textwidth, inkscapelatex=false]{../uml/classesGestori.svg}
 }
+\newpage
+\subsection{Scelte progettuali} 
+Si è scelto di introdurre varie interfacce per sfruttare i meccanismi di incapsulamento offerti da Java.
+In particolare, è stato applicato il principio DRY (Don’t Repeat Yourself), secondo il quale ogni funzionalità comune deve essere implementata una sola volta. Per questo motivo è stata realizzata un’astrazione della classe Gestore e dell'Archivio, così che i tre gestori specifici possano ereditarne la struttura base e personalizzarla con i propri dati e comportamenti. 
+L'obiettivo è di centralizzare le funzionalità comuni, aumentare la coesione riducendo le dipendenze superflue e ridurre l'accoppiamento, limitando le dipendenze reciproche
 
+Gli attributi delle classi sono privati e accessibili solo tramite metodi, riducendo casi di errori dove metodi accedono a dati che non dovrebbero (?)
+
+\newpage
 \subsection{Rappresentazione Dati}
 \umlbox{
 	\includesvg[width=1.2\textwidth, inkscapelatex=false]{../uml/classesDati.svg}
 }
+
+\newpage
+\subsection{Scelte progettuali}
+Sono state fatte scelte progettazione per aumentare il livello di coesione, ogni classe raggruppa attributi e metodi strettamente correlati al proprio scopo. Le classi come Matricola viene estesa da più classi per evitare codice duplicato e permette una facile manutenibilità del codice e indipendeza con le classi di livello superiore (ossia che se modifico ste classi non ho problema con quelle sopra ma non so spiegarlo bene lol) 
+
+Tutte le associazioni sono unidirezionali evitando dipendenza lunghe o circolati riducendo il livello di accopiamento tra le varie classi.
+
+Gli attributi delle classi sono privati e accessibili tramite metodi, riducendo l’esposizione dei dati e migliorando l’affidabilità del sistema.
+
+Libro ha una forte coesione essendo che implementa molte funzioni tutte collegate fra loro (?)  
 
 
 \newpage
@@ -107,6 +125,31 @@ Il sistema software è stato scomposto in 2 pacchetti funzionali:
 	\end{itemize}
 \end{itemize}
 
+\newpage
+\subsection{Diagrammi di Sequenza}
+\begin{itemize}
+	\item Registrazione di un utente
+	\item Per ogni caso d'uso:
+	\begin{itemize}
+		\item Registrazione di un utente UC-6
+		\item Gestore 
+		\item Diagramma di sequenza (SVG) bro meglip png si vede meglio :
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.8\textwidth]{../uml/DiagrammiSequenza/UMLinserisciUtente}
+			\caption{Diagramma di sequenza per il caso d'uso per l'inserimento di un utente}
+		\end{figure}
+	    \item Prima della registrazione di un utente il Gestore deve visualizzare la lista dei utenti, per cui chiede all'interfaccia grafica (GUI) che quest'ultima poi accedendo alla classe Bibloteca ottiene la lista di tutti gli utenti. \\ Solo ora il gestore può inserire un nuovo utente inserendo tutti i relativi campi. Il sistema controlla (mediante l'accesso a diverse classi) se la sintassi della matricola e email è corretta prima di creare un utente e in caso contrario restituisce un errore annullando l'inserimento di ques'ultimo. \\ La matricola inoltre deve essere univoca quindi il sistema controllerà se quella inserita esiste già e darà un errore nel caso esista. solo se tutti questi casi vengono rispettati che la creazione andrà a buon fine. 
+		\\
+		\item Nei vari controlli si è scelto di non effettuare il controllo in un unica parte ma nelle rispettive classi dedicate. Questo è stato fatto per evitare ridondanze e aumentare coesioni . 
+		Inoltre ogni componente svolge un compito ben definito permettendo una struttura modulare e indipendete (?).
+		Tutti questi controlli vengono fatti per evitare inconsistenza nei dati una volta creato l'utente con la difficile modifica in sistema.
+		
+	\end{itemize}
+\end{itemize}
 
 \end{document}
 
+%Modifiche: pachetto magari in package che suona meglio (?)
+% Creare una classe che Bibloteca la estende per il le funzioni salva e carica?  
+% per i grafici di sequenza usare i png
