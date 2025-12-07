@@ -128,28 +128,93 @@ Libro ha una forte coesione essendo che implementa molte funzioni tutte collegat
 \newpage
 \subsection{Diagrammi di Sequenza}
 \begin{itemize}
-	\item Registrazione di un utente
+	\item Registrazione di un utente  DA VEDERE 
 	\item Per ogni caso d'uso:
 	\begin{itemize}
 		\item Registrazione di un utente UC-6
 		\item Gestore 
-		\item Diagramma di sequenza (SVG) bro meglip png si vede meglio :
+		\item Diagramma di sequenza (SVG):
 		\begin{figure}[h!]
 			\centering
-			\includegraphics[width=0.8\textwidth]{../uml/DiagrammiSequenza/UMLinserisciUtente}
+			\includesvg[width=0.8\textwidth, inkscapelatex=false]{../uml/DiagrammiSequenza/UMLinserisciUtente}
 			\caption{Diagramma di sequenza per il caso d'uso per l'inserimento di un utente}
 		\end{figure}
-	    \item Prima della registrazione di un utente il Gestore deve visualizzare la lista dei utenti, per cui chiede all'interfaccia grafica (GUI) che quest'ultima poi accedendo alla classe Bibloteca ottiene la lista di tutti gli utenti. \\ Solo ora il gestore può inserire un nuovo utente inserendo tutti i relativi campi. Il sistema controlla (mediante l'accesso a diverse classi) se la sintassi della matricola e email è corretta prima di creare un utente e in caso contrario restituisce un errore annullando l'inserimento di ques'ultimo. \\ La matricola inoltre deve essere univoca quindi il sistema controllerà se quella inserita esiste già e darà un errore nel caso esista. solo se tutti questi casi vengono rispettati che la creazione andrà a buon fine. 
+	    \item Prima della registrazione di un utente il Gestore deve visualizzare la lista dei utenti, per cui chiede all'interfaccia grafica (GUI) che quest'ultima poi accedendo alla classe Bibloteca ottiene la lista di tutti gli utenti. \\ Successivamente il gestore può inserire un nuovo utente inserendo tutti i relativi campi. Il sistema controlla (mediante l'accesso a diverse classi) se la sintassi della matricola e email è corretta prima di creare effettivamente l'utente e in caso contrario restituisce un errore annullando l'inserimento di ques'ultimo. \\ La matricola deve essere univoca quindi il sistema controlla se non esistono duplicati e in caso contrario restituisce un errore. solo se tutti questi casi vengono rispettati che la creazione andrà a buon fine. 
 		\\
 		\item Nei vari controlli si è scelto di non effettuare il controllo in un unica parte ma nelle rispettive classi dedicate. Questo è stato fatto per evitare ridondanze e aumentare coesioni . 
 		Inoltre ogni componente svolge un compito ben definito permettendo una struttura modulare e indipendete (?).
-		Tutti questi controlli vengono fatti per evitare inconsistenza nei dati una volta creato l'utente con la difficile modifica in sistema.
+		Tutti i controlli vengono fatti per evitare inconsistenza nei dati una volta creato l'utente e che i dati.
 		
 	\end{itemize}
 \end{itemize}
+
+\newpage
+\subsection{Diagrammi di Sequenza}
+\begin{itemize}
+	\item Modifica dei dati di un libro
+	\item Per ogni caso d'uso:
+	\begin{itemize}
+		\item Modifica dei dati di un libro UC-14
+		\item Gestore 
+		\item Diagramma di sequenza (SVG):
+		\begin{figure}[h!]
+			\centering
+			\includesvg[width=0.8\textwidth, inkscapelatex=false]{../uml/DiagrammiSequenza/UMLModificaLibro}
+			\caption{Diagramma di sequenza per il caso d'uso per la modifica di un libro}
+		\end{figure}
+		\item Per la modifica dei dati di un libro il gestore inserisce a sistema il campo del libro che vuole modificare. Se il libro non è presente viene generato un errore e le modifiche vengono cancellate, Il sistema verifica che il Titolo sia valido , in caso contrario viene generato un errore. Se i controlli vengono passati con successo allora le modifiche saranno salvate e i dati del libro verranno modificate.
+		\item L'obettivo del diagramma è quello di spiegare le azioni che il gestore deve svolgere e come il sistema affronta casi di errori e non validi. ISBN è un dato che non può essere modificato perchè è univoco del libro. Le modifiche vengono fatto all'interno della classe specifica Libro per (?) da finire 
+		
+	\end{itemize}
+\end{itemize}
+
+\newpage
+\subsection{Diagrammi di Sequenza}
+\begin{itemize}
+	\item Restituzione di un prestito
+	\item Per ogni caso d'uso:
+	\begin{itemize}
+		\item Restituzione di un prestito UC-11
+		\item Gestore 
+		\item Diagramma di sequenza (SVG):
+		\begin{figure}[h!]
+			\centering
+			\includesvg[width=0.8\textwidth, inkscapelatex=false]{../uml/DiagrammiSequenza/UMLRimuoviPrestito}
+			\caption{Diagramma di sequenza per il caso d'uso per la restituzione di un libro}
+		\end{figure}
+		\item Il gestore chiede alla GUI la visualizzazione di tutti i prestiti e una volta mostrata seleziona il prestito da rimuovere
+		\item (mi sembra un pò vuoto forse si modifica il diagramma di sequenza ?) 
+		
+	\end{itemize}
+\end{itemize}
+
+\newpage
+\subsection{Diagrammi di Sequenza}
+\begin{itemize}
+	\item Rimozione di un libro
+	\item Per ogni caso d'uso:
+	\begin{itemize}
+		\item Rimozione di un libro UC-15
+		\item Gestore 
+		\item Diagramma di sequenza (SVG):
+		\begin{figure}[h!]
+			\centering
+			\includesvg[width=0.8\textwidth, inkscapelatex=false]{../uml/DiagrammiSequenza/UMLRimuoviLibro}
+			\caption{Diagramma di sequenza per il caso d'uso per la Rimozione di un libro}
+		\end{figure}
+		\item Il gestore chiede alla GUI la visualizzazione di tutti i libri e una volta mostrata seleziona il libro da rimuovere. Il sistema prima di effettuare la rimozione verifica se per quel libro non sono legati dei prestiti attivi, in caso contrario il sistema rende impossibile la rimozione disattivando il tasto della rimozione 
+		\item  l'obettivo del documento è quello di mostrare ... boh
+		
+	\end{itemize}
+\end{itemize}
+
+
+
+\section{Diagramma di attività}
+\subsection{Diagrammi}
 
 \end{document}
 
 %Modifiche: pachetto magari in package che suona meglio (?)
 % Creare una classe che Bibloteca la estende per il le funzioni salva e carica?  
-% per i grafici di sequenza usare i png
+% per i grafici di sequenza ho fatto modificaLibro AggiungiUtente EliminaLibro (eliminaprestito è da togliere)
