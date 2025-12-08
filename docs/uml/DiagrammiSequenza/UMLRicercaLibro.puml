@@ -25,7 +25,7 @@ UI -> AL : ottieni(ISBN)
 activate AL
 '-- Errore ISBN --
 alt Errore ISBN non valido
-    AL -> UI : throw ISBNInvalido
+    AL -> UI : throw ISBNInvalidoException
     UI -> G : L'errore viene visualizzato
     UI -> G : Non viene visualizzato nessun libro
 else ISBN valido

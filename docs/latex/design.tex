@@ -1,15 +1,13 @@
 \documentclass[a4paper, 12pt]{article}
 \usepackage[italian]{babel}
 \usepackage[table]{xcolor}
-\usepackage{xstring, xltabular, multirow, ifthen, hyphenat, svg, tcolorbox, enumitem, adjustbox}
+\usepackage{svg, adjustbox}
 \usepackage[
-colorlinks = true,
-linkcolor=black,
-urlcolor=black,
-citecolor=black
+	colorlinks = true,
+	linkcolor=black,
+	urlcolor=black,
+	citecolor=black
 ]{hyperref}
-
-\hypersetup{linkcolor=black}
 
 % Titolo del documento e informazioni sul lavoro
 \title{
@@ -71,12 +69,17 @@ progettazione del sistema.
 
 \newpage
 \section{Progettazione di Dettaglio delle Classi}
-Il sistema software è stato scomposto in 3 pacchetti funzionali:
+\paragraph{} Il sistema software è stato scomposto in 3 pacchetti funzionali:
 \begin{itemize}
 	\item Un pacchetto responsabile della gestione delle strutture dati che compongono l'archivio della biblioteca.
 	\item Un pacchetto responsabile della rappresentazione dei dati elementari dell'archivio della biblioteca.
 	\item Un pacchetto responsabile della visualizzazione dell'interfaccia grafica del sistema.
 \end{itemize}
+
+\paragraph{} Oltre alle classi descritte di seguente, sono inoltre da implementare i segnalatori di errore (\emph{RuntimeException}) utilizzati per segnalare errori in casistiche in cui le precondizioni dei contratti
+delle funzioni non sono rispettate. Non sono incluse nei diagrammi poichè la loro presenza e funzione non è
+vincolante per la progettazione del sistema, ma la loro presenza è indicata nei diagrammi di sequenza dove
+i flussi di errore sono correttamente gestiti.
 
 \newpage
 \subsection{Gestori di Archivio}
@@ -99,128 +102,87 @@ dati generici. Per gli archivi con indice univoco (utenti e libri), è inoltre d
 \newpage
 \subsection{Rappresentazione Dati}
 \umlbox{
-	\includesvg[width=1.4\textwidth, inkscapelatex=false]{../uml/classesDati.svg}
+	\includesvg[width=1.3\textwidth, inkscapelatex=false]{../uml/classesDati.svg}
 }
 
+\newpage
 \subsubsection{Scelte progettuali}
-Sono state fatte scelte progettazione per aumentare il livello di coesione, ogni classe raggruppa attributi e metodi strettamente correlati al proprio scopo. Le classi come Matricola viene estesa da più classi per evitare codice duplicato e permette una facile manutenibilità del codice e indipendeza con le classi di livello superiore (ossia che se modifico ste classi non ho problema con quelle sopra ma non so spiegarlo bene lol) 
-
-Tutte le associazioni sono unidirezionali evitando dipendenza lunghe o circolati riducendo il livello di accopiamento tra le varie classi.
-
-Gli attributi delle classi sono privati e accessibili tramite metodi, riducendo l’esposizione dei dati e migliorando l’affidabilità del sistema.
-
-Libro ha una forte coesione essendo che implementa molte funzioni tutte collegate fra loro (?)  
-
+\paragraph{} Le scelte di progettazione compiute nell'ambito dati sono state pensate al fine di aumentare il livello di coesione e abbassare il livello di accoppiamento tra le diverse strutture dati. Ogni classe raggruppa attributi e metodi strettamente correlati al proprio scopo, aderendo al principio di \emph{separazione delle preoccupazioni}. 
+\paragraph{} Al fine di evitare \emph{accoppiamento per timbro}, anzichè mantenere riferimenti
+ad altri oggetti dati in modo diretto, si è preferito (ove possibile) mantenere riferimenti a chiavi univoche,
+come nel caso di \emph{Prestito}, che contiene riferimenti a \emph{Matricola} e ad \emph{ISBN}, anzichè ad \emph{Utente} e a \emph{Libro}. L'unico caso in cui ciò non è stato possibile è l'associazione da
+\emph{Utente} a \emph{Prestito}, poichè non è previsto un identificativo univoco per \emph{Prestito}.
+\paragraph{} Si è fatto uso rigoroso di incapsulamento per rendere accessibile il comportamento delle classi
+solo tramite metodi, al fine di evitare \emph{coesione per contenuti}.
+\paragraph{} Ogni classe espone solo funzionalità strettamente associate alla propria funzione, raggiungendo
+un'alta \emph{coesione funzionale}.
 
 \newpage
 \section{Diagrammi di Sequenza}
-\begin{itemize}
-	\item Selezionare casi d'uso complessi
-	\item Per ogni caso d'uso:
-	\begin{itemize}
-		\item Nome del caso d'uso
-		\item Attori coinvolti
-		\item Diagramma di sequenza (SVG):
-		\begin{figure}[h!]
-			\centering
-			%\includesvg[width=0.8\textwidth]{diagrammi/sequenza_caso1.svg}
-			\caption{Diagramma di sequenza per il caso d'uso XYZ}
-		\end{figure}
-		\item Descrizione testuale passo-passo
-		\item Motivazioni progettuali
-	\end{itemize}
-\end{itemize}
+\subsection{UC-6 -- Registrazione di un utente}
+\umlbox{
+	\includesvg[width=1.15\textwidth, inkscapelatex=false]{../uml/DiagrammiSequenza/UMLinserisciUtente}
+}
 
 \newpage
-\subsection{Diagrammi di Sequenza}
-\begin{itemize}
-	\item Registrazione di un utente  DA VEDERE 
-	\item Per ogni caso d'uso:
-	\begin{itemize}
-		\item Registrazione di un utente UC-6
-		\item Gestore 
-		\item Diagramma di sequenza (SVG):
-		\begin{figure}[h!]
-			\centering
-			\includesvg[width=0.8\textwidth, inkscapelatex=false]{../uml/DiagrammiSequenza/UMLinserisciUtente}
-			\caption{Diagramma di sequenza per il caso d'uso per l'inserimento di un utente}
-		\end{figure}
-	    \item Prima della registrazione di un utente il Gestore deve visualizzare la lista dei utenti, per cui chiede all'interfaccia grafica (GUI) che quest'ultima poi accedendo alla classe Bibloteca ottiene la lista di tutti gli utenti. \\ Successivamente il gestore può inserire un nuovo utente inserendo tutti i relativi campi. Il sistema controlla (mediante l'accesso a diverse classi) se la sintassi della matricola e email è corretta prima di creare effettivamente l'utente e in caso contrario restituisce un errore annullando l'inserimento di ques'ultimo. \\ La matricola deve essere univoca quindi il sistema controlla se non esistono duplicati e in caso contrario restituisce un errore. solo se tutti questi casi vengono rispettati che la creazione andrà a buon fine. 
-		\\
-		\item Nei vari controlli si è scelto di non effettuare il controllo in un unica parte ma nelle rispettive classi dedicate. Questo è stato fatto per evitare ridondanze e aumentare coesioni . 
-		Inoltre ogni componente svolge un compito ben definito permettendo una struttura modulare e indipendete (?).
-		Tutti i controlli vengono fatti per evitare inconsistenza nei dati una volta creato l'utente e che i dati.
-		
-	\end{itemize}
-\end{itemize}
+\subsection{UC-11 -- Restituzione di un prestito}
+\umlbox{
+	\includesvg[width=1.15\textwidth, inkscapelatex=false]{../uml/DiagrammiSequenza/UMLRimuoviPrestito}
+}
 
 \newpage
-\subsection{Diagrammi di Sequenza}
-\begin{itemize}
-	\item Modifica dei dati di un libro
-	\item Per ogni caso d'uso:
-	\begin{itemize}
-		\item Modifica dei dati di un libro UC-14
-		\item Gestore 
-		\item Diagramma di sequenza (SVG):
-		\begin{figure}[h!]
-			\centering
-			\includesvg[width=0.8\textwidth, inkscapelatex=false]{../uml/DiagrammiSequenza/UMLModificaLibro}
-			\caption{Diagramma di sequenza per il caso d'uso per la modifica di un libro}
-		\end{figure}
-		\item Per la modifica dei dati di un libro il gestore inserisce a sistema il campo del libro che vuole modificare. Se il libro non è presente viene generato un errore e le modifiche vengono cancellate, Il sistema verifica che il Titolo sia valido , in caso contrario viene generato un errore. Se i controlli vengono passati con successo allora le modifiche saranno salvate e i dati del libro verranno modificate.
-		\item L'obettivo del diagramma è quello di spiegare le azioni che il gestore deve svolgere e come il sistema affronta casi di errori e non validi. ISBN è un dato che non può essere modificato perchè è univoco del libro. Le modifiche vengono fatto all'interno della classe specifica Libro per (?) da finire 
-		
-	\end{itemize}
-\end{itemize}
+\subsection{UC-12 -- Ricerca di libri}
+\umlbox{
+	\includesvg[width=1.15\textwidth, inkscapelatex=false]{../uml/DiagrammiSequenza/UMLRicercaLibro}
+}
 
 \newpage
-\subsection{Diagrammi di Sequenza}
-\begin{itemize}
-	\item Restituzione di un prestito
-	\item Per ogni caso d'uso:
-	\begin{itemize}
-		\item Restituzione di un prestito UC-11
-		\item Gestore 
-		\item Diagramma di sequenza (SVG):
-		\begin{figure}[h!]
-			\centering
-			\includesvg[width=0.8\textwidth, inkscapelatex=false]{../uml/DiagrammiSequenza/UMLRimuoviPrestito}
-			\caption{Diagramma di sequenza per il caso d'uso per la restituzione di un libro}
-		\end{figure}
-		\item Il gestore chiede alla GUI la visualizzazione di tutti i prestiti e una volta mostrata seleziona il prestito da rimuovere
-		\item (mi sembra un pò vuoto forse si modifica il diagramma di sequenza ?) 
-		
-	\end{itemize}
-\end{itemize}
+\subsection{UC-14 -- Modifica di un libro}
+\umlbox{
+	\includesvg[width=1.15\textwidth, inkscapelatex=false]{../uml/DiagrammiSequenza/UMLModificaLibro}
+}
 
 \newpage
-\subsection{Diagrammi di Sequenza}
-\begin{itemize}
-	\item Rimozione di un libro
-	\item Per ogni caso d'uso:
-	\begin{itemize}
-		\item Rimozione di un libro UC-15
-		\item Gestore 
-		\item Diagramma di sequenza (SVG):
-		\begin{figure}[h!]
-			\centering
-			\includesvg[width=0.8\textwidth, inkscapelatex=false]{../uml/DiagrammiSequenza/UMLRimuoviLibro}
-			\caption{Diagramma di sequenza per il caso d'uso per la Rimozione di un libro}
-		\end{figure}
-		\item Il gestore chiede alla GUI la visualizzazione di tutti i libri e una volta mostrata seleziona il libro da rimuovere. Il sistema prima di effettuare la rimozione verifica se per quel libro non sono legati dei prestiti attivi, in caso contrario il sistema rende impossibile la rimozione disattivando il tasto della rimozione 
-		\item  l'obettivo del documento è quello di mostrare ... boh
-		
-	\end{itemize}
-\end{itemize}
+\subsection{UC-15 -- Rimozione di un libro}
+\umlbox{
+	\includesvg[width=1.15\textwidth, inkscapelatex=false]{../uml/DiagrammiSequenza/UMLRimuoviLibro}
+}
 
 
+\newpage
+\section{Diagrammi di Attività}
+\subsection{UC-6 -- Registrazione di un utente}
+\umlbox{
+	\includesvg[width=0.7\textwidth, inkscapelatex=false]{../uml/DiagrammiAttività/DiagrammaInserisciUtente}
+}
 
-\section{Diagramma di attività}
-\subsection{Diagrammi}
+\newpage
+\subsection{UC-7 -- Modifica di un utente}
+\umlbox{
+	\includesvg[width=1.3\textwidth, inkscapelatex=false]{../uml/DiagrammiAttività/DiagrammaModificaUtente}
+}
+
+\newpage
+\subsection{UC-8 -- Rimozione di un utente}
+\umlbox{
+	\includesvg[width=1.3\textwidth, inkscapelatex=false]{../uml/DiagrammiAttività/DiagrammaEliminaUtente}
+}
+
+\newpage
+\subsection{UC-9 -- Ricerca di utenti}
+\umlbox{
+	\includesvg[width=1\textwidth, inkscapelatex=false]{../uml/DiagrammiAttività/DiagrammaRicercaUtente}
+}
+
+\subsection{UC-10 -- Restituzione di un prestito}
+\umlbox{
+	\includesvg[width=1.2\textwidth, inkscapelatex=false]{../uml/DiagrammiAttività/DiagrammaAttivitàPrestito}
+}
+
+\newpage
+\subsection{UC-11 -- Restituzione di un prestito}
+\umlbox{
+	\includesvg[width=1.2\textwidth, inkscapelatex=false]{../uml/DiagrammiAttività/DiagrammaAttivitàRestituzione}
+}
 
 \end{document}
-
-%Modifiche: pachetto magari in package che suona meglio (?)
-% Creare una classe che Bibloteca la estende per il le funzioni salva e carica?  
-% per i grafici di sequenza ho fatto modificaLibro AggiungiUtente EliminaLibro (eliminaprestito è da togliere)

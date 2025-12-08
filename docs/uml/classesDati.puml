@@ -2,7 +2,7 @@
 'skinparam classAttributeIconSize 0
 skinparam nodesep 100
 
-+abstract class Anagrafica {
++class Anagrafica {
     -nome: String
     -cognome: String
 

@@ -10,8 +10,8 @@ done
 
 # Generazione PDF in Latex
 cd "$SCRIPT_DIR/docs/latex"
-pdflatex srs.tex
-pdflatex design.tex
+pdflatex -shell-escape srs.tex
+pdflatex -shell-escape design.tex
 
 cp srs.pdf ../srs.pdf
 cp design.pdf ../design.pdf

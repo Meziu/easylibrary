@@ -21,14 +21,14 @@ P -> P : verifica(DataDiScadenza)
 
 '--- Data di scadenza valida---
 alt dataDiScadenza non valida
-P -> UI : throw DataDiScadenzaInvalida
+P -> UI : throw DataDiScadenzaInvalidaException
 UI -> G : La modifica viene annullata
-UI -> G : L'errore viene visualizzato 
+UI -> G : L'errore viene visualizzato
 UI -> G : Visualizzazione della vecchia data
 
 
-else DataDiScadenza valida   
-P --> UI : Modifica  effettuata con successo 
+else DataDiScadenza valida
+P --> UI : Modifica  effettuata con successo
 UI -> G : Mostra il nuovo valore del campo
 
 end
