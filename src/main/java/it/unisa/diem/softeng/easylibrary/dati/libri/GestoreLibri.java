@@ -5,8 +5,8 @@ import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
 
 import java.util.HashMap;
 import java.util.Map;
-import it.unisa.diem.softeng.easylibrary.archivio.ArchivioConChiave;
 import java.util.function.Consumer;
+import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
 
 /**
  * @brief Gestisce i libri presenti nella biblioteca.
@@ -16,11 +16,11 @@ import java.util.function.Consumer;
  * I libri sono identificati univocamente dal loro \ref ISBN.
  * 
  * @see Gestore
- * @see ArchivioConChiave
+ * @see Indicizzabile
  * @see Libro
  * @see ISBN
 */
-public class GestoreLibri extends Gestore<Libro> implements ArchivioConChiave<ISBN, Libro> {
+public class GestoreLibri extends Gestore<Libro> implements Indicizzabile<ISBN, Libro> {
 
     private final Map<ISBN, Libro> indiceISBN;
 

@@ -13,7 +13,7 @@ import java.util.function.Consumer;
  * 
  * @param <E> Tipo di elemento gestito dall'archivio
  */
-public interface Archivio<E> extends Serializable {
+public interface Archiviabile<E> extends Serializable {
 
     /**
      * @brief Restituisce la lista completa degli elementi nell'archivio.

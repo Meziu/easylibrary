@@ -5,12 +5,12 @@
  */
 package it.unisa.diem.softeng.easylibrary.dati.libri;
 
-import it.unisa.diem.softeng.easylibrary.archivio.Archivio;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
+import it.unisa.diem.softeng.easylibrary.archivio.Archiviabile;
 
 /**
  *
@@ -18,7 +18,7 @@ import java.util.function.Consumer;
  * 
  * @param <E> Classe degli elementi archiviati.
  */
-public abstract class Gestore<E extends Comparable<? super E>> implements Archivio<E> {
+public abstract class Gestore<E extends Comparable<? super E>> implements Archiviabile<E> {
     
     protected final List<E> lista;
 

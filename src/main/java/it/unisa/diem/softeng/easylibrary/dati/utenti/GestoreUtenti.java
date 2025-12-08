@@ -6,9 +6,9 @@ import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import it.unisa.diem.softeng.easylibrary.archivio.ArchivioConChiave;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Gestore;
 import java.util.function.Consumer;
+import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
 
 
 /**
@@ -19,11 +19,11 @@ import java.util.function.Consumer;
  * Gli utenti sono identificati univocamente dalla loro \ref Matricola.
  * 
  * @see Gestore
- * @see ArchivioConChiave
+ * @see Indicizzabile
  * @see Utente
  * @see Matricola
 */
-public class GestoreUtenti extends Gestore<Utente> implements ArchivioConChiave<Matricola, Utente> {
+public class GestoreUtenti extends Gestore<Utente> implements Indicizzabile<Matricola, Utente> {
 
     private final Map<Matricola, Utente> indiceMatricole;
 

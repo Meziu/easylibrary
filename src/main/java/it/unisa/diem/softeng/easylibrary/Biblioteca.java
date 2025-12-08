@@ -13,8 +13,8 @@ import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
 
 import java.time.LocalDate;
 import java.util.List;
-import it.unisa.diem.softeng.easylibrary.archivio.ArchivioConChiave;
 import java.io.*;
+import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
 
 
 /**
@@ -24,16 +24,16 @@ import java.io.*;
  * filtrare i prestiti attivi e salvare/caricare lo stato della biblioteca.
  * Implementa Serializable per consentire la persistenza su file.
  * 
- * @see Archivio
+ * @see Archiviabile
  * @see Utente
  * @see Libro
  * @see Prestito
  */
 public class Biblioteca implements Serializable {
 
-    private final ArchivioConChiave<Matricola, Utente> archivioUtenti;
-    private final ArchivioConChiave<ISBN, Libro> archivioLibri;
-    private final Archivio<Prestito> archivioPrestiti;
+    private final Indicizzabile<Matricola, Utente> archivioUtenti;
+    private final Indicizzabile<ISBN, Libro> archivioLibri;
+    private final Archiviabile<Prestito> archivioPrestiti;
 
     /**
      * @brief Costruttore.
