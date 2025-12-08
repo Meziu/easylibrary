@@ -71,10 +71,11 @@ progettazione del sistema.
 
 \newpage
 \section{Progettazione di Dettaglio delle Classi}
-Il sistema software è stato scomposto in 2 pacchetti funzionali:
+Il sistema software è stato scomposto in 3 pacchetti funzionali:
 \begin{itemize}
 	\item Un pacchetto responsabile della gestione delle strutture dati che compongono l'archivio della biblioteca.
 	\item Un pacchetto responsabile della rappresentazione dei dati elementari dell'archivio della biblioteca.
+	\item Un pacchetto responsabile della visualizzazione dell'interfaccia grafica del sistema.
 \end{itemize}
 
 \subsection{Gestori di Archivio}
@@ -82,12 +83,25 @@ Il sistema software è stato scomposto in 2 pacchetti funzionali:
 	\includesvg[width=1.2\textwidth, inkscapelatex=false]{../uml/classesGestori.svg}
 }
 \newpage
-\subsection{Scelte progettuali} 
-Si è scelto di introdurre varie interfacce per sfruttare i meccanismi di incapsulamento offerti da Java.
-In particolare, è stato applicato il principio DRY (Don’t Repeat Yourself), secondo il quale ogni funzionalità comune deve essere implementata una sola volta. Per questo motivo è stata realizzata un’astrazione della classe Gestore e dell'Archivio, così che i tre gestori specifici possano ereditarne la struttura base e personalizzarla con i propri dati e comportamenti. 
-L'obiettivo è di centralizzare le funzionalità comuni, aumentare la coesione riducendo le dipendenze superflue e ridurre l'accoppiamento, limitando le dipendenze reciproche
-
-Gli attributi delle classi sono privati e accessibili solo tramite metodi, riducendo casi di errori dove metodi accedono a dati che non dovrebbero (?)
+\subsubsection{Scelte progettuali}
+Come si evince dal diagramma delle classi esposto, la suddivisione delle responsabilità funzionali
+dell'applicativo forma una struttura simile a quella di un albero,
+pensata per abbattere le interdipendenze tra le varie sezioni del sistema (in modo da garantire l'\emph{ortogonalità}) secondo il principio della
+\emph{separazione delle preoccupazioni}, in modo da migliorare la coesione dei
+singoli componenti software. La radice dell'albero è la classe \emph{Biblioteca}, composta da diversi archivi
+di dati che può orchestrare per compiere azioni complesse o globali.
+Dai requisiti analizzati si è potuta riconoscere un insieme di funzionalità
+comuni alle 3 principali collezioni di dati (archivio di utenti, libri e prestiti). Le funzionalità comuni
+sono state estratte in un interfaccia, \emph{Archiviabile}, che permette la registrazione, rimozione e modifica di
+dati generici. Per gli archivi con indice univoco (utenti e libri), è inoltre disponibile un ulteriore interfaccia \emph{Indicizzabile}, estensione di \emph{Archiviabile}, che permette l'ottenimento diretto di un valore tramite chiave. In tal modo, si è potuto far uso del principio di \emph{inversione delle dipendenze},
+trattando la \emph{Biblioteca} non come una composizione di classi concrete, ma di riferimenti ad interfacce
+generiche ed implementabili da classi che funzionano in modo diverso e separato.
+Si è deciso di consolidare le funzionalità comuni a i diversi Gestori in una singola implementazione, data
+dalla classe astratta \emph{Gestore}, in modo da applicare il principio \emph{DRY} (\emph{Don’t Repeat Yourself}), che
+viene poi estesa con funzionalità e comportamenti specifici dalle 3 diverse specializzazioni. Ciò ha portato
+anche ad un grande abbattimento delle implementazioni specifiche per classe \emph{Gestore}, semplificando
+le diverse implementazioni specifiche come per principio \emph{KISS} (\emph{Keep It Simple, Stupid}).
+Con uso rigido di incapsulamento, è stato possibile abbattere fortemente l'accoppiamento tra le classi.
 
 \newpage
 \subsection{Rappresentazione Dati}

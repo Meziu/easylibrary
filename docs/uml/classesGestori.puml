@@ -7,7 +7,7 @@ interface Filtro<T> {
 }
 
 together {
-    +interface Archivio<E> {
+    +interface Archiviabile<E> {
         +getLista(): List<E>
         +registra(): void
         +rimuovi(): void
@@ -15,7 +15,7 @@ together {
         +filtra(): List<E>
     }
 
-    +interface ArchivioConChiave<K, V> {
+    +interface Indicizzabile<K, V> {
         +ottieni(): V
         +contiene(): boolean
     }
@@ -32,9 +32,9 @@ together {
 
 
 +class Biblioteca {
-    -archivioLibri: ArchivioConChiave<ISBN, Libro>
-    -archivioUtenti: ArchivioConChiave<Matricola, Utente>
-    -archivioPrestiti: Archivio<Prestito>
+    -archivioLibri: Indicizzabile<ISBN, Libro>
+    -archivioUtenti: Indicizzabile<Matricola, Utente>
+    -archivioPrestiti: Archiviabile<Prestito>
 
     +Biblioteca()
     +getPrestitiAttivi(): List<Prestito>
@@ -70,16 +70,16 @@ together {
     }
 }
 
-Gestore -up-|> Archivio
+Gestore -up-|> Archiviabile
 
-Biblioteca --> Archivio
-Biblioteca --> ArchivioConChiave
+Biblioteca --> Archiviabile
+Biblioteca --> Indicizzabile
 
-ArchivioConChiave -right-|> Archivio
-Archivio .right.> Filtro
+Indicizzabile -right-|> Archiviabile
+Archiviabile .right.> Filtro
 
-GestoreLibri .up.|> ArchivioConChiave
-GestoreUtenti .up.|> ArchivioConChiave
+GestoreLibri .up.|> Indicizzabile
+GestoreUtenti .up.|> Indicizzabile
 
 GestoreUtenti --> "1..*" Utente
 GestoreLibri --> "1..*" Libro
