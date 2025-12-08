@@ -13,7 +13,7 @@ package it.unisa.diem.softeng.easylibrary.dati.libri;
 public class ISBNInvalidoException extends RuntimeException {
 
     /**
-     * @brief Costruttore di default.
+     * @brief Costruttore.
      *
      * Crea una nuova eccezione senza specificare alcun messaggio di errore.
      */

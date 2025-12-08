@@ -12,7 +12,7 @@ package it.unisa.diem.softeng.easylibrary;
 public class LimitePrestitiSuperatoException extends RuntimeException {
 
     /**
-     * @brief Costruttore di default.
+     * @brief Costruttore.
      *
      * Crea una nuova eccezione senza specificare alcun messaggio di errore.
      */
