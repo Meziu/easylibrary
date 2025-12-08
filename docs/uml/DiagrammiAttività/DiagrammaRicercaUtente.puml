@@ -1,0 +1,12 @@
+@startuml
+start
+:Inserisci dati utente;
+:Cerca utente;
+
+if (Utente presente?) then (si)
+    :Visualizza dati utente;
+else (no)
+    :Mostra messaggio di errore (utente non presente nel sistema);
+endif
+stop
+@enduml

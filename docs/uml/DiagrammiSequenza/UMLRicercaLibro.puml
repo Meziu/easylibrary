@@ -1,0 +1,37 @@
+@startuml
+actor Gestore as G
+participant "GUI" as UI
+participant "Biblioteca" as B
+participant  "ArchivioLibro" as AL
+
+
+'  ---- Flusso principale -----
+activate G
+G -> UI : Interazione con "Libri"
+deactivate G
+activate UI
+
+UI -> B : getArchivioLibri()
+activate B
+B --> UI : Restituzione elenco dei libri
+deactivate B
+UI -> G : Visualizza lista dei libri
+activate G
+'-- Ricerca del libro --
+G -> UI : Interazione con il campo ricerca libro
+G -> UI : Inserimento del ISBN del libro
+deactivate G
+UI -> AL : ottieni(ISBN)
+activate AL
+'-- Errore ISBN --
+alt Errore ISBN non valido
+    AL -> UI : throw ISBNInvalidoException
+    UI -> G : L'errore viene visualizzato
+    UI -> G : Non viene visualizzato nessun libro
+else ISBN valido
+    AL --> UI : Restituisce il libro
+    deactivate AL
+    UI -> G : Visualizza libro
+end
+
+@enduml

@@ -1,0 +1,101 @@
+@startuml
+actor Gestore as G
+participant "GUI" as UI
+participant "Biblioteca" as B
+participant "ArchivioUtenti" as A
+participant "Utente" as U
+participant "Matricola" as M
+participant "IndirizzoEmail" as E
+activate G
+' ----- Inizio -----
+
+G -> UI : Interazione con "Utenti"
+deactivate G
+activate UI
+UI -> B : getArchivioUtenti()
+activate UI
+activate B
+B --> UI : restituzione elenco Utenti
+deactivate B
+deactivate UI
+UI -> G : Mostra lista Utenti
+activate G
+
+G -> UI : Interazione con "Aggiungi Utente"
+deactivate G
+
+UI -> G : Mostra form di registrazione
+
+activate G
+G -> UI : Inserisce i dati utente
+G -> UI : Conferma registrazione
+deactivate G
+
+' ----- Invio dati a Sistema -----
+UI -> U : new Utente(nome,cognome,email,matricola)
+
+activate U
+U -> M : new Matricola(matricola)
+activate M
+M -> M : verifica(matricola)
+'deactivate UI
+
+' ----- Controllo Sintassi Matricola -----
+alt Sintassi Matricola Errata
+    M -> UI : throw MatricolaInvalidaException
+    deactivate M
+    deactivate U
+    'activate UI
+    UI -> G : Mostra messaggio di errore
+
+    else Sintassi Matricola Valida
+    activate U
+    activate M
+    M --> U : Restituzione Matricola
+    deactivate M
+end
+
+' ----- Controllo Email -----
+
+U -> E : new IndirizzoEmail(email)
+activate E
+E -> E : verifica(email)
+
+alt IndirizzoEmail non valido
+    E -> UI : throw IndirizzoEmailInvalidoException
+    deactivate E
+    deactivate U
+
+    UI -> G : Mostra messaggio di errore
+
+else IndirizzoEmail valido
+    activate E
+    activate U
+
+    E --> U : Restituzione IndirizzoEmail
+    deactivate E
+end
+
+U -> UI : Restituzione Utente
+deactivate U
+
+' ----- Controllo Matricola -----
+UI -> A : registra(Utente)
+activate A
+alt Matricola già registrata
+
+    A -> UI : throw ValoreGiàPresenteException
+    deactivate A
+
+    UI -> G : Visualizzazione errore matricola duplicata
+else Matricola unica
+    activate A
+
+end
+
+' ----- Conclusione -----
+A --> UI : Corretta registrazione
+deactivate A
+UI -> G : chiudi form di registrazione
+deactivate UI
+@enduml

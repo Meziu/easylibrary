@@ -1,0 +1,91 @@
+@startuml
+'skinparam classAttributeIconSize 0
+skinparam nodesep 100
+
+interface Filtro<T> {
+    +controlla(): boolean
+}
+
+together {
+    +interface Archiviabile<E> {
+        +getLista(): List<E>
+        +registra(): void
+        +rimuovi(): void
+        +modifica(): void
+        +filtra(): List<E>
+    }
+
+    +interface Indicizzabile<K, V> {
+        +ottieni(): V
+        +contiene(): boolean
+    }
+}
+
++class Utente {
+}
+
++class Libro{
+}
+
++class Prestito{
+}
+
+
++class Biblioteca {
+    -archivioUtenti: Indicizzabile<Matricola, Utente>
+    -archivioLibri: Indicizzabile<ISBN, Libro>
+    -archivioPrestiti: Archiviabile<Prestito>
+
+    +Biblioteca()
+    +getArchivioUtenti(): Indicizzabile<Matricola, Utente>
+    +getArchivioLibri(): Indicizzabile<ISBN, Libro>
+    +getArchivioPrestiti(): Archiviabile<Prestito>
+
+    +registraPrestito(): void
+    +registraRestituzione(): void
+
+    +salvaFile(): void
+    +caricaFile(): Biblioteca {static}
+}
+
++abstract class Gestore<E> {
+    #lista: List<E>
+}
+
+together {
+    +class GestoreLibri extends Gestore {
+
+        -indiceISBN: Map<ISBN, Libro> {readOnly}
+
+        +GestoreLibri()
+    }
+
+
+    +class GestoreUtenti extends Gestore {
+        -indiceMatricola: Map<Matricola, Utente> {readOnly}
+
+        +GestoreUtenti()
+    }
+
+
+    +class GestorePrestiti extends Gestore {
+
+        +GestorePrestiti()
+    }
+}
+
+Gestore -up-|> Archiviabile
+
+Biblioteca --> Archiviabile
+Biblioteca --> Indicizzabile
+
+Indicizzabile -right-|> Archiviabile
+Archiviabile .right.> Filtro
+
+GestoreLibri .up.|> Indicizzabile
+GestoreUtenti .up.|> Indicizzabile
+
+GestoreUtenti --> "1..*" Utente
+GestoreLibri --> "1..*" Libro
+GestorePrestiti --> "1..*" Prestito
+@enduml

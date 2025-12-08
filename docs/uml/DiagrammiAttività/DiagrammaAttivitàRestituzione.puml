@@ -1,0 +1,13 @@
+@startuml
+start
+:Cerca prestito;
+if (Prestito trovato nel sistema?) then (si)
+    :Seleziona prestito;
+    :Aggiorna disponibilità libro;
+    :Aggiorna stato prestito;
+    :Aggiorna prestiti attivi utente;
+else (no)
+    :Mostra messaggio di errore (prestito non presente nel sistema);
+endif
+stop
+@enduml

@@ -1,0 +1,187 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[italian]{babel}
+\usepackage[table]{xcolor}
+\usepackage{svg, adjustbox}
+\usepackage[
+	colorlinks = true,
+	linkcolor=black,
+	urlcolor=black,
+	citecolor=black
+]{hyperref}
+
+% Titolo del documento e informazioni sul lavoro
+\title{
+	\Large EasyLibrary\\
+	\vspace{1mm}
+	\Huge Progettazione di Dettaglio del Software
+}
+% Metodo per centrare correttamente con wrapping i nomi.
+\author{
+	\textbf{Gruppo 18}\\
+	Francesco Cangianiello\\
+	Andrea Ciliberti\\
+	Serena Giannitti\\
+	Marco Giraulo
+}
+
+\newcommand{\umlbox}[1]{
+	\begin{figure}[ht]
+		\begin{adjustbox}{center, margin=0cm 0cm 0cm 0cm}
+			#1
+		\end{adjustbox}
+	\end{figure}
+}
+
+\begin{document}
+	
+\maketitle
+
+\newpage
+\tableofcontents
+
+\raggedright
+
+\newpage
+
+\section{Introduzione}
+\subsection{Scopo del documento}
+Lo scopo di questo di questo documento è di descrivere la progettazione del livello di dettaglio
+del il sistema software EasyLibrary. Il documento rappresenta la mappa per
+l'implementazione del sistema utilizzata dagli sviluppatori durante il processo di implementazione.
+Nel documento sono presenti descrizioni per i principali componenti del sistema EasyLibrary
+e esposizioni delle scelte di progettazione che hanno portato alla loro formalizzazione.
+I diagrammi di sequenza sono utilizzati per dimostrare il funzionamento dinamico del sistema e per
+descriverne con precisione i meccanismi di implementazione agli sviluppatori.
+
+\subsection{Processo di Progettazione}
+Completata la fase di analisi, è stato innanzitutto disegnato un diagramma UML generale delle classi
+con cui astrarre le caratteristiche del sistema per requisiti. Successivamente, al fine di migliorare
+la struttura del sistema secondo gli attributi di qualità studiati, sono state compiute scelte di design facendo riferimento alle capacità delle tecnologie di sviluppo (linguaggio Java).
+Sfruttando appieno la flessibilità dell'incapsulamento, dell'ereditarietà e dei tipi generici,
+si è arrivati ad una struttura del sistema maggiormente stabile e più facilmente manutenibile e testabile.
+A tal punto si è potuto passare all finalizzazione dei contratti delle diverse classi e dei loro metodi associati. Infine, i casi d'uso del sistema sono stati passati in rassegna e per ognuno è stato
+individuato un flusso di sequenza delle operazioni, da cui sono stati dedotti i diagrammi di
+sequenza e di attività. Durante il processo di disegno di questi diagrammi sono stati riconosciuti
+e risolti alcuni problemi di design, cosa che ha portato a migliorare in modo iterativo la
+progettazione del sistema.
+
+
+\newpage
+\section{Progettazione di Dettaglio delle Classi}
+\paragraph{} Il sistema software è stato scomposto in 3 pacchetti funzionali:
+\begin{itemize}
+	\item Un pacchetto responsabile della gestione delle strutture dati che compongono l'archivio della biblioteca.
+	\item Un pacchetto responsabile della rappresentazione dei dati elementari dell'archivio della biblioteca.
+	\item Un pacchetto responsabile della visualizzazione dell'interfaccia grafica del sistema.
+\end{itemize}
+
+\paragraph{} Oltre alle classi descritte di seguente, sono inoltre da implementare i segnalatori di errore (\emph{RuntimeException}) utilizzati per segnalare errori in casistiche in cui le precondizioni dei contratti
+delle funzioni non sono rispettate. Non sono incluse nei diagrammi poichè la loro presenza e funzione non è
+vincolante per la progettazione del sistema, ma la loro presenza è indicata nei diagrammi di sequenza dove
+i flussi di errore sono correttamente gestiti.
+
+\newpage
+\subsection{Gestori di Archivio}
+\umlbox{
+	\includesvg[width=1.2\textwidth, inkscapelatex=false]{../uml/classesGestori.svg}
+}
+
+\subsubsection{Scelte progettuali}
+\paragraph{} Come mostrato nel diagramma delle classi, la distribuzione delle responsabilità funzionali dell’applicativo segue una struttura ad albero. Tale organizzazione è stata progettata per ridurre le interdipendenze tra le varie sezioni del sistema, in modo da favorire l'\emph{ortogonalità}, secondo il principio della \emph{separazione delle preoccupazioni}, in modo da migliorare la coesione dei
+singoli componenti software. La radice dell'albero è la classe \emph{Biblioteca}, composta da diversi archivi
+di dati che può orchestrare per compiere azioni complesse o globali.
+\paragraph{} Dai requisiti analizzati si è potuto riconoscere un insieme di funzionalità
+comuni alle 3 principali collezioni di dati (archivio di utenti, libri e prestiti).
+Le funzionalità comuni sono state estratte in un interfaccia,
+\emph{Archiviabile}, che permette la registrazione, rimozione e modifica di
+dati generici. Per gli archivi con indice univoco (utenti e libri), è inoltre disponibile un ulteriore interfaccia \emph{Indicizzabile}, estensione di \emph{Archiviabile}, che permette l'ottenimento diretto di un valore tramite chiave. Questa impostazione consente di applicare il \emph{principio di inversione delle dipendenze}, rendendo \emph{Biblioteca} dipendente da astrazioni piuttosto che da implementazioni concrete. Le classi che realizzano gli archivi possono così essere sostituite o estese senza impattare sul livello superiore.
+\paragraph{} Le funzionalità comuni ai vari gestori sono state consolidate in una singola classe astratta, \emph{Gestore}, al fine di applicare il principio \emph{DRY} (\emph{Don’t Repeat Yourself}). Le tre specializzazioni ereditano tale implementazione e definiscono solo il comportamento specifico, riducendo la complessità del codice secondo il principio \emph{KISS} (\emph{Keep It Simple}).
+\paragraph{} Infine, un rigoroso uso dell’incapsulamento ha permesso di minimizzare l’accoppiamento tra le classi e di nascondere i dettagli implementativi, aumentando la robustezza e l’estensibilità del sistema.
+
+\newpage
+\subsection{Rappresentazione Dati}
+\umlbox{
+	\includesvg[width=1.3\textwidth, inkscapelatex=false]{../uml/classesDati.svg}
+}
+
+\newpage
+\subsubsection{Scelte progettuali}
+\paragraph{} Le scelte di progettazione compiute nell'ambito dati sono state pensate al fine di aumentare il livello di coesione e abbassare il livello di accoppiamento tra le diverse strutture dati. Ogni classe raggruppa attributi e metodi strettamente correlati al proprio scopo, aderendo al principio di \emph{separazione delle preoccupazioni}. 
+\paragraph{} Al fine di evitare \emph{accoppiamento per timbro}, anzichè mantenere riferimenti
+ad altri oggetti dati in modo diretto, si è preferito (ove possibile) mantenere riferimenti a chiavi univoche,
+come nel caso di \emph{Prestito}, che contiene riferimenti a \emph{Matricola} e ad \emph{ISBN}, anzichè ad \emph{Utente} e a \emph{Libro}. L'unico caso in cui ciò non è stato possibile è l'associazione da
+\emph{Utente} a \emph{Prestito}, poichè non è previsto un identificativo univoco per \emph{Prestito}.
+\paragraph{} Si è fatto uso rigoroso di incapsulamento per rendere accessibile il comportamento delle classi
+solo tramite metodi, al fine di evitare \emph{coesione per contenuti}.
+\paragraph{} Ogni classe espone solo funzionalità strettamente associate alla propria funzione, raggiungendo
+un'alta \emph{coesione funzionale}.
+
+\newpage
+\section{Diagrammi di Sequenza}
+\subsection{UC-6 -- Registrazione di un utente}
+\umlbox{
+	\includesvg[width=1.15\textwidth, inkscapelatex=false]{../uml/DiagrammiSequenza/UMLinserisciUtente}
+}
+
+\newpage
+\subsection{UC-11 -- Restituzione di un prestito}
+\umlbox{
+	\includesvg[width=1.15\textwidth, inkscapelatex=false]{../uml/DiagrammiSequenza/UMLRimuoviPrestito}
+}
+
+\newpage
+\subsection{UC-12 -- Ricerca di libri}
+\umlbox{
+	\includesvg[width=1.15\textwidth, inkscapelatex=false]{../uml/DiagrammiSequenza/UMLRicercaLibro}
+}
+
+\newpage
+\subsection{UC-14 -- Modifica di un libro}
+\umlbox{
+	\includesvg[width=1.15\textwidth, inkscapelatex=false]{../uml/DiagrammiSequenza/UMLModificaLibro}
+}
+
+\newpage
+\subsection{UC-15 -- Rimozione di un libro}
+\umlbox{
+	\includesvg[width=1.15\textwidth, inkscapelatex=false]{../uml/DiagrammiSequenza/UMLRimuoviLibro}
+}
+
+
+\newpage
+\section{Diagrammi di Attività}
+\subsection{UC-6 -- Registrazione di un utente}
+\umlbox{
+	\includesvg[width=0.7\textwidth, inkscapelatex=false]{../uml/DiagrammiAttività/DiagrammaInserisciUtente}
+}
+
+\newpage
+\subsection{UC-7 -- Modifica di un utente}
+\umlbox{
+	\includesvg[width=1.3\textwidth, inkscapelatex=false]{../uml/DiagrammiAttività/DiagrammaModificaUtente}
+}
+
+\newpage
+\subsection{UC-8 -- Rimozione di un utente}
+\umlbox{
+	\includesvg[width=1.3\textwidth, inkscapelatex=false]{../uml/DiagrammiAttività/DiagrammaEliminaUtente}
+}
+
+\newpage
+\subsection{UC-9 -- Ricerca di utenti}
+\umlbox{
+	\includesvg[width=1\textwidth, inkscapelatex=false]{../uml/DiagrammiAttività/DiagrammaRicercaUtente}
+}
+
+\subsection{UC-10 -- Restituzione di un prestito}
+\umlbox{
+	\includesvg[width=1.2\textwidth, inkscapelatex=false]{../uml/DiagrammiAttività/DiagrammaAttivitàPrestito}
+}
+
+\newpage
+\subsection{UC-11 -- Restituzione di un prestito}
+\umlbox{
+	\includesvg[width=1.2\textwidth, inkscapelatex=false]{../uml/DiagrammiAttività/DiagrammaAttivitàRestituzione}
+}
+
+\end{document}

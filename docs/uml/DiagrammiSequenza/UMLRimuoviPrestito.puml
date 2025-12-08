@@ -1,0 +1,27 @@
+@startuml
+actor Gestore as G
+participant "GUI" as UI
+participant "Biblioteca" as B
+participant "ArchivioPrestiti" as AP 
+
+activate G
+G -> UI : Interazione "Prestiti"
+deactivate G
+activate UI
+
+UI -> B : getArchivioPrestiti()
+activate B
+B --> UI : Restituzione elenco prestiti
+deactivate B
+UI -> G : Visualizzazione dell'elenco dei prestiti
+activate G
+
+'-- Restituzione prestito --
+G -> UI : Interazione restituzione prestito
+deactivate G
+UI -> AP : rimuovi(Prestito)
+activate AP
+AP --> UI : Rimozione completata con successo 
+deactivate AP 
+UI -> G : Visualizzazione dell'elenco modificato 
+@enduml

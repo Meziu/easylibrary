@@ -1,0 +1,15 @@
+@startuml
+start
+:Cerca libro;
+if (Copia disponibile?) then (si)
+    if(Limite prestiti raggiunto?) then (no)
+        :Aggiorna disponibilità;
+        :Registra prestito;
+    else (si)
+        :Mostra messaggio di errore (limite raggiunto);
+    endif
+else (no)
+    :Mostra messaggio di errore (nessuna copia disponibile);
+endif
+stop
+@enduml
