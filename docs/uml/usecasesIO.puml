@@ -1,0 +1,25 @@
+@startuml
+skinparam actorStyle awesome
+
+left to right direction
+
+actor Gestore as G
+
+package Sistema {
+    usecase "Visualizzazione della home page" as UC1
+    usecase "Salvataggio dell'archivio su file" as UC15
+    usecase "Caricamento dell'archivio da file" as UC16
+
+    usecase "Errore di I/O" as UCA5
+}
+
+UC15 ...> UC1 : <<include>>
+UC16 ...> UC1 : <<include>>
+
+UC15 <.. UCA5 : <<extend>>
+UC16 <.. UCA5 : <<extend>>
+
+G -- UC15
+G -- UC16
+
+@enduml

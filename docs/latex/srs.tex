@@ -598,12 +598,37 @@
 	\end{enumerate}
 }
 
+\renewcommand{\thesubsubsection}{\arabic{subsubsection}}
+
 \newpage
-\subsection{Diagramma UML dei Casi d'Uso}
+\subsection{Diagrammi UML dei Casi d'Uso}
+\subsubsection{Casi d'Uso per la gestione di Utenti}
 \begin{figure}[ht]
 \begin{adjustbox}{center, margin=0cm 0cm 0cm 0cm}
-	\includesvg[width=1.1\textwidth, inkscapelatex=false]{../uml/usecases.svg}
+	\includesvg[width=1.2\textwidth, inkscapelatex=false]{../uml/usecasesUtente.svg}
 \end{adjustbox}
+\end{figure}
+
+\subsubsection{Casi d'Uso per la gestione di Libri}
+\begin{figure}[ht]
+	\begin{adjustbox}{center, margin=0cm 0cm 0cm 0cm}
+		\includesvg[width=1.2\textwidth, inkscapelatex=false]{../uml/usecasesLibro.svg}
+	\end{adjustbox}
+\end{figure}
+
+\newpage
+\subsubsection{Casi d'Uso per la gestione di Prestiti}
+\begin{figure}[ht]
+	\begin{adjustbox}{center, margin=0cm 0cm 0cm 0cm}
+		\includesvg[width=1.2\textwidth, inkscapelatex=false]{../uml/usecasesPrestito.svg}
+	\end{adjustbox}
+\end{figure}
+
+\subsubsection{Casi d'Uso per l'archiviazione}
+\begin{figure}[ht]
+	\begin{adjustbox}{center, margin=0cm 0cm 0cm 0cm}
+		\includesvg[width=1.2\textwidth, inkscapelatex=false]{../uml/usecasesIO.svg}
+	\end{adjustbox}
 \end{figure}
 
 \end{document}
