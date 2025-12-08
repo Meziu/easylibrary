@@ -1,7 +1,8 @@
 package it.unisa.diem.softeng.easylibrary.dati.utenti;
 
-import it.unisa.diem.softeng.easylibrary.dati.Persona;
+import it.unisa.diem.softeng.easylibrary.dati.Anagrafica;
 import it.unisa.diem.softeng.easylibrary.dati.prestiti.Prestito;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,19 +11,20 @@ import java.util.List;
 /**
  * @brief Rappresenta un utente della biblioteca.
  *
- * La classe estende \ref Persona aggiungendo informazioni specifiche
- * degli utenti della biblioteca, quali la \ref Matricola, l'indirizzo email
+ * La classe contiene informazioni specifiche
+ * degli utenti della biblioteca, quali la sua Anagrafica, la Matricola, l'IndirizzoEmail
  * e la lista dei prestiti attivi.
  *
- * Gli utenti sono ordinati prima per cognome/nome (ereditato da Persona)
+ * Gli utenti sono ordinati prima per Anagrafica
  * e poi, a parità, per matricola.
  *
- * @see Persona
+ * @see Anagrafica
  * @see Matricola
  * @see Prestito
  */
-public class Utente extends Persona {
+public class Utente implements Comparable<Utente>, Serializable {
 
+    private Anagrafica anagrafica;
     private final Matricola matricola;
     private IndirizzoEmail email;
     private final List<Prestito> prestitiAttivi;
@@ -37,11 +39,18 @@ public class Utente extends Persona {
      * @param\[in] email Indirizzo email
      */
     public Utente(String nome, String cognome, Matricola matricola, IndirizzoEmail email) {
-        super(nome, cognome);
-        
+        this.anagrafica = new Anagrafica(nome, cognome);
         this.matricola = matricola;
         this.email = email;
         this.prestitiAttivi = new ArrayList<>();
+    }
+    
+    /**
+     * @brief Restituisce l'Anagrafica dell'utente.
+     * @return L'anagrafica
+     */
+    public Matricola getAnagrafica() {
+        return matricola;
     }
 
     /**
@@ -96,24 +105,23 @@ public class Utente extends Persona {
 
     
     /**
-     * @brief Confronta l'utente con un'altra persona.
+     * @brief Confronta l'utente con un'altro Utente.
      * La comparazione è svolta aderendo al contratto di Comparable,
-     * tramite il metodo compareTo(Persona) nella classe \ref Persona e,
+     * tramite il metodo compareTo() nella classe Anagrafica e,
      * a parità di cognome e nome, per matricola.
      *
-     * @param\[in] p Persona da confrontare
+     * @param\[in] u Utente da confrontare
      * @return Negativo, zero o positivo se questo utente è rispettivamente minore,
      *         uguale o maggiore rispetto alla persona passata
      */
     @Override
-    public int compareTo(Persona p) {
-        int c = super.compareTo(p);
+    public int compareTo(Utente u) {
+        int c = this.getAnagrafica().compareTo(u.getAnagrafica());
 
-        if (c != 0 || !(p instanceof Utente)) {
-            return c;
+        if (c == 0) {
+            return this.matricola.compareTo(u.matricola);
         }
-
-        Utente u = (Utente) p;
-        return this.matricola.compareTo(u.matricola);
+        
+        return c;
     }
 }

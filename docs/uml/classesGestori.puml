@@ -32,16 +32,20 @@ together {
 
 
 +class Biblioteca {
-    -archivioLibri: Indicizzabile<ISBN, Libro>
     -archivioUtenti: Indicizzabile<Matricola, Utente>
+    -archivioLibri: Indicizzabile<ISBN, Libro>
     -archivioPrestiti: Archiviabile<Prestito>
 
     +Biblioteca()
-    +getPrestitiAttivi(): List<Prestito>
-    +registraPrestito()
-    +registraRestituzione()
-    +salvaFile()
-    +caricaFile()
+    +getArchivioUtenti(): Indicizzabile<Matricola, Utente>
+    +getArchivioLibri(): Indicizzabile<ISBN, Libro>
+    +getArchivioPrestiti(): Archiviabile<Prestito>
+
+    +registraPrestito(): void
+    +registraRestituzione(): void
+
+    +salvaFile(): void
+    +caricaFile(): Biblioteca {static}
 }
 
 +abstract class Gestore<E> {

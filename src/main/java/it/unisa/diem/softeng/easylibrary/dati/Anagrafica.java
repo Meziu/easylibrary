@@ -9,7 +9,7 @@ import java.io.Serializable;
  * La classe è serializzabile e implementa l'interfaccia Comparable per consentire il confronto tra persone
  * basato sul cognome e, a parità di cognome, sul nome.
  */
-public abstract class Persona implements Comparable<Persona>, Serializable {
+public class Anagrafica implements Comparable<Anagrafica>, Serializable {
 
     private String nome;
     private String cognome;
@@ -17,13 +17,13 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
     /**
      * 
      * @brief Costruttore.
-     * Costruisce un nuovo oggetto Persona a partire dalle
+     * Costruisce un nuovo oggetto Anagrafica a partire dalle
      * stringhe che ne compongono il nome e il cognome.
      * 
      * @param\[in] nome Stringa di caratteri del nome.
      * @param\[in] cognome Stringa di caratteri del cognome.
      */
-    public Persona(String nome, String cognome) {
+    public Anagrafica(String nome, String cognome) {
         this.nome = nome;
         this.cognome = cognome;
     }
@@ -31,7 +31,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
     /**
      * @brief Getter della stringa del nome.
      * 
-     * @return La stringa di caratteri che compongono il nome della Persona.
+     * @return La stringa di caratteri che compongono il nome della Anagrafica.
      */
     public String getNome() {
         return nome;
@@ -40,7 +40,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
     /**
      * @brief Getter della stringa del cognome.
      * 
-     * @return La stringa di caratteri che compongono il cognome della Persona.
+     * @return La stringa di caratteri che compongono il cognome della Anagrafica.
      */
     public String getCognome() {
         return cognome;
@@ -49,7 +49,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
     /**
      * @brief Setter della stringa del nome.
      * 
-     * @param\[in] nome La stringa di caratteri con cui sostituire il nome della Persona.
+     * @param\[in] nome La stringa di caratteri con cui sostituire il nome della Anagrafica.
      */
     public void setNome(String nome) {
         this.nome = nome;
@@ -58,7 +58,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
     /**
      * @brief Setter della stringa del cognome.
      * 
-     * @param\[in] cognome La stringa di caratteri con cui sostituire il cognome della Persona.
+     * @param\[in] cognome La stringa di caratteri con cui sostituire il cognome della Anagrafica.
      */
     public void setCognome(String cognome) {
         this.cognome = cognome;
@@ -66,9 +66,9 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
 
     /**
      * 
-     * @brief Comparazione con un'altra Persona.
+     * @brief Comparazione con un'altra Anagrafica.
      * La comparazione è svolta aderendo al contratto di Comparable,
-     * dove una Persona è ordinata rispetto ad un'altra in ordine
+     * dove una Anagrafica è ordinata rispetto ad un'altra in ordine
      * lessicografico prima del cognome e poi, a parità di
      * cognome, del nome.
      * 
@@ -76,11 +76,11 @@ public abstract class Persona implements Comparable<Persona>, Serializable {
      * minore, uguale o maggiore del libro passato come parametro.
      */
     @Override
-    public int compareTo(Persona p) {
-        int c = this.cognome.compareTo(p.cognome);
+    public int compareTo(Anagrafica a) {
+        int c = this.cognome.compareTo(a.cognome);
 
         if (c == 0) {
-            return this.nome.compareTo(p.nome);
+            return this.nome.compareTo(a.nome);
         }
 
         return c;

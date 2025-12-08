@@ -78,39 +78,31 @@ Il sistema software è stato scomposto in 3 pacchetti funzionali:
 	\item Un pacchetto responsabile della visualizzazione dell'interfaccia grafica del sistema.
 \end{itemize}
 
+\newpage
 \subsection{Gestori di Archivio}
 \umlbox{
 	\includesvg[width=1.2\textwidth, inkscapelatex=false]{../uml/classesGestori.svg}
 }
-\newpage
+
 \subsubsection{Scelte progettuali}
-Come si evince dal diagramma delle classi esposto, la suddivisione delle responsabilità funzionali
-dell'applicativo forma una struttura simile a quella di un albero,
-pensata per abbattere le interdipendenze tra le varie sezioni del sistema (in modo da garantire l'\emph{ortogonalità}) secondo il principio della
-\emph{separazione delle preoccupazioni}, in modo da migliorare la coesione dei
+\paragraph{} Come mostrato nel diagramma delle classi, la distribuzione delle responsabilità funzionali dell’applicativo segue una struttura ad albero. Tale organizzazione è stata progettata per ridurre le interdipendenze tra le varie sezioni del sistema, in modo da favorire l'\emph{ortogonalità}, secondo il principio della \emph{separazione delle preoccupazioni}, in modo da migliorare la coesione dei
 singoli componenti software. La radice dell'albero è la classe \emph{Biblioteca}, composta da diversi archivi
 di dati che può orchestrare per compiere azioni complesse o globali.
-Dai requisiti analizzati si è potuta riconoscere un insieme di funzionalità
-comuni alle 3 principali collezioni di dati (archivio di utenti, libri e prestiti). Le funzionalità comuni
-sono state estratte in un interfaccia, \emph{Archiviabile}, che permette la registrazione, rimozione e modifica di
-dati generici. Per gli archivi con indice univoco (utenti e libri), è inoltre disponibile un ulteriore interfaccia \emph{Indicizzabile}, estensione di \emph{Archiviabile}, che permette l'ottenimento diretto di un valore tramite chiave. In tal modo, si è potuto far uso del principio di \emph{inversione delle dipendenze},
-trattando la \emph{Biblioteca} non come una composizione di classi concrete, ma di riferimenti ad interfacce
-generiche ed implementabili da classi che funzionano in modo diverso e separato.
-Si è deciso di consolidare le funzionalità comuni a i diversi Gestori in una singola implementazione, data
-dalla classe astratta \emph{Gestore}, in modo da applicare il principio \emph{DRY} (\emph{Don’t Repeat Yourself}), che
-viene poi estesa con funzionalità e comportamenti specifici dalle 3 diverse specializzazioni. Ciò ha portato
-anche ad un grande abbattimento delle implementazioni specifiche per classe \emph{Gestore}, semplificando
-le diverse implementazioni specifiche come per principio \emph{KISS} (\emph{Keep It Simple, Stupid}).
-Con uso rigido di incapsulamento, è stato possibile abbattere fortemente l'accoppiamento tra le classi.
+\paragraph{} Dai requisiti analizzati si è potuto riconoscere un insieme di funzionalità
+comuni alle 3 principali collezioni di dati (archivio di utenti, libri e prestiti).
+Le funzionalità comuni sono state estratte in un interfaccia,
+\emph{Archiviabile}, che permette la registrazione, rimozione e modifica di
+dati generici. Per gli archivi con indice univoco (utenti e libri), è inoltre disponibile un ulteriore interfaccia \emph{Indicizzabile}, estensione di \emph{Archiviabile}, che permette l'ottenimento diretto di un valore tramite chiave. Questa impostazione consente di applicare il \emph{principio di inversione delle dipendenze}, rendendo \emph{Biblioteca} dipendente da astrazioni piuttosto che da implementazioni concrete. Le classi che realizzano gli archivi possono così essere sostituite o estese senza impattare sul livello superiore.
+\paragraph{} Le funzionalità comuni ai vari gestori sono state consolidate in una singola classe astratta, \emph{Gestore}, al fine di applicare il principio \emph{DRY} (\emph{Don’t Repeat Yourself}). Le tre specializzazioni ereditano tale implementazione e definiscono solo il comportamento specifico, riducendo la complessità del codice secondo il principio \emph{KISS} (\emph{Keep It Simple}).
+\paragraph{} Infine, un rigoroso uso dell’incapsulamento ha permesso di minimizzare l’accoppiamento tra le classi e di nascondere i dettagli implementativi, aumentando la robustezza e l’estensibilità del sistema.
 
 \newpage
 \subsection{Rappresentazione Dati}
 \umlbox{
-	\includesvg[width=1.2\textwidth, inkscapelatex=false]{../uml/classesDati.svg}
+	\includesvg[width=1.4\textwidth, inkscapelatex=false]{../uml/classesDati.svg}
 }
 
-\newpage
-\subsection{Scelte progettuali}
+\subsubsection{Scelte progettuali}
 Sono state fatte scelte progettazione per aumentare il livello di coesione, ogni classe raggruppa attributi e metodi strettamente correlati al proprio scopo. Le classi come Matricola viene estesa da più classi per evitare codice duplicato e permette una facile manutenibilità del codice e indipendeza con le classi di livello superiore (ossia che se modifico ste classi non ho problema con quelle sopra ma non so spiegarlo bene lol) 
 
 Tutte le associazioni sono unidirezionali evitando dipendenza lunghe o circolati riducendo il livello di accopiamento tra le varie classi.

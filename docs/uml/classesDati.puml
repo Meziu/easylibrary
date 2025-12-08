@@ -2,27 +2,31 @@
 'skinparam classAttributeIconSize 0
 skinparam nodesep 100
 
-+abstract class Persona{
++abstract class Anagrafica {
     -nome: String
     -cognome: String
 
-    +Persona()
+    +Anagrafica()
     +getNome(): String
     +getCognome(): String
+
     +setNome(): void
     +setCognome(): void
 }
 
 together {
     +class Utente {
+        -anagrafica: Anagrafica
         -matricola: Matricola
         -email: IndirizzoEmail
         -prestitiAttivi: List<Prestito>
 
         +Utente()
+        +getAnagrafica(): Anagrafica
         +getMatricola(): Matricola
         +getEmail(): IndirizzoEmail
         +getPrestitiAttivi(): List<Prestito>
+
         +setEmail(): void
         +registraPrestito(): void
         +rimuoviPrestito(): void
@@ -76,7 +80,7 @@ together {
         +getMatricola(): String
         +verifica(): boolean {static}
 
-        +setMatricola()
+        +setMatricola(): void
     }
 
 
@@ -85,9 +89,9 @@ together {
 
         +IndirizzoEmail()
         +getIndirizzoEmail(): String
-        +setIndirizzoEmail()
         +verifica(): boolean {static}
 
+        +setIndirizzoEmail(): void
     }
 
     +class ISBN {
@@ -97,7 +101,7 @@ together {
         +getISBN(): String
         +verifica(): boolean {static}
 
-        +setId()
+        +setId(): void
     }
 
     +enum StatoPrestito{
@@ -106,7 +110,10 @@ together {
     }
 
     +class Autore {
+        -anagrafica: Anagrafica
+
         +Autore()
+        +getAnagrafica(): Anagrafica
     }
 }
 
@@ -119,6 +126,6 @@ Prestito --> Matricola
 Prestito --> ISBN
 Prestito --* StatoPrestito
 
-Autore -down-|> Persona
-Utente -down-|> Persona
+Autore --> Anagrafica
+Utente -down-> Anagrafica
 @enduml
