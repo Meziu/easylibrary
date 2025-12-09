@@ -42,7 +42,7 @@ public class GestorePrestiti extends Gestore<Prestito> {
             throw new ValoreNonPresenteException();
         }
 
-        lista.get(idx).setStatoPrestito(StatoPrestito.RESTITUITO);
+        lista.get(idx).setStato(StatoPrestito.RESTITUITO);
     }
     
 }
