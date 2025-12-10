@@ -4,6 +4,7 @@ import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
 import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 
 /**
@@ -124,4 +125,39 @@ public class Prestito implements Comparable<Prestito>, Serializable {
 
         return c1;
     }
+    
+    /**
+     * 
+     * @brief Uguaglianza con un'altro Prestito.
+     * 
+     * @return true se i due Prestito hanno Matricola, ISBN e data di restituzione uguale, false altrimenti.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        
+        final Prestito other = (Prestito) obj;
+        if (!Objects.equals(this.matricolaUtente, other.matricolaUtente)) {
+            return false;
+        }
+        
+        if (!Objects.equals(this.isbn, other.isbn)) {
+            return false;
+        }
+        
+        if (!Objects.equals(this.dataDiScadenza, other.dataDiScadenza)) {
+            return false;
+        }
+        
+        return true;
+    }
+    
 }

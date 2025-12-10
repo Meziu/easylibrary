@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -129,4 +130,35 @@ public class Utente implements Comparable<Utente>, Serializable {
         
         return c;
     }
+    
+    /**
+     * 
+     * @brief Uguaglianza con un'altro Utente.
+     * 
+     * @return true se i due Utente hanno Anagrafica e Matricola uguale, false altrimenti.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        
+        final Utente other = (Utente) obj;
+        if (!Objects.equals(this.anagrafica, other.anagrafica)) {
+            return false;
+        }
+        
+        if (!Objects.equals(this.matricola, other.matricola)) {
+            return false;
+        }
+        
+        return true;
+    }
+    
 }

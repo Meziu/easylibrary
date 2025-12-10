@@ -14,6 +14,8 @@ public class GestoreUtentiTest {
     @Before
     public void setUp() {
         gestore = new GestoreUtenti();
+        
+        // Inserimento volutamente non in ordine
         gestore.registra(new Utente("Pippo", "Pluto", new Matricola("1938274018"), new IndirizzoEmail("p.pluto@studenti.unisa.it")));
         gestore.registra(new Utente("Franco", "Rossi", new Matricola("4729831451"), new IndirizzoEmail("francorossi@studenti.unisa.it")));
         gestore.registra(new Utente("Mario", "Incredibile", new Matricola("8473261490"), new IndirizzoEmail("marincredibile@studenti.unisa.it")));
@@ -51,14 +53,14 @@ public class GestoreUtentiTest {
         
         assertEquals(gestore.ottieni(m).getAnagrafica().getCognome(), "Zelante");
         
-        // Test per l'ordinamento dopo la modifica.
+        // Test per l'ordinamento dopo la modifica. La lista qui è ordinata correttamente per assicurare anche l'ordine.
         List<Utente> listaOrd = new ArrayList<>();
+        listaOrd.add(new Utente("Spazio", "Ortogonale", new Matricola("8482921412"), new IndirizzoEmail("euclideo@studenti.unisa.it")));
         listaOrd.add(new Utente("Pippo", "Pluto", new Matricola("1938274018"), new IndirizzoEmail("p.pluto@studenti.unisa.it")));
         listaOrd.add(new Utente("Franco", "Rossi", new Matricola("4729831451"), new IndirizzoEmail("francorossi@studenti.unisa.it")));
-        listaOrd.add(new Utente("Spazio", "Ortogonale", new Matricola("8482921412"), new IndirizzoEmail("euclideo@studenti.unisa.it")));
         listaOrd.add(new Utente("Mario", "Zelante", new Matricola("8473261490"), new IndirizzoEmail("marincredibile@studenti.unisa.it")));
         
-        assertEquals(gestore.getLista().get(3).compareTo(listaOrd.get(3)), 0);
+        assertEquals(gestore.getLista(), listaOrd);
     }
 
     @Test

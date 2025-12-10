@@ -159,9 +159,12 @@ public final class ISBN implements Comparable<ISBN>, Serializable {
 
     /**
      *
-     * @brief Criterio di uguaglianza. Il criterio aderisce al contratto di
-     * Object.equals(), dove un codice ISBN è considerato uguale ad un altro
+     * @brief Criterio di uguaglianza.
+     * Il criterio aderisce al contratto di Object.equals(),
+     * dove un codice ISBN è considerato uguale ad un altro
      * solo se la stringa di caratteri associata è uguale.
+     * 
+     * @return true se i due ISBN hanno lo stesso codice, false altrimenti.
      */
     @Override
     public boolean equals(Object obj) {

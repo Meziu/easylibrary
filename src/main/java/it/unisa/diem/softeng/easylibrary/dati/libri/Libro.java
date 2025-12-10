@@ -3,6 +3,7 @@ package it.unisa.diem.softeng.easylibrary.dati.libri;
 import java.io.Serializable;
 import java.time.Year;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -175,6 +176,35 @@ public class Libro implements Comparable<Libro>, Serializable {
         }
         
         return this.isbn.compareTo(l.isbn);
+    }
+    
+    /**
+     * 
+     * @brief Uguaglianza con un'altro Libro.
+     * 
+     * @return true se i due Libro hanno titolo e ISBN uguale, false altrimenti.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Libro other = (Libro) obj;
+        if (!Objects.equals(this.titolo, other.titolo)) {
+            return false;
+        }
+        
+        if (!Objects.equals(this.isbn, other.isbn)) {
+            return false;
+        }
+        
+        return true;
     }
 
 }
