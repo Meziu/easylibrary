@@ -84,15 +84,20 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @param\[in] email Nuovo indirizzo email
      */
     public void setEmail(IndirizzoEmail email) {
-        Utente.this.email = email;
+        this.email = email;
     }
 
     /**
      * @brief Registra un nuovo prestito attivo per l'utente.
      * @param\[in] p Prestito da aggiungere
+     * @throws LimitePrestitiSuperatoException
      */
     public void registraPrestito(Prestito p) {
-        Utente.this.prestitiAttivi.add(p);
+        if (this.prestitiAttivi.size() >= 3) {
+            throw new LimitePrestitiSuperatoException();
+        }
+        
+        this.prestitiAttivi.add(p);
     }
 
     /**
@@ -100,7 +105,7 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @param\[in] p Prestito da rimuovere
      */
     public void rimuoviPrestito(Prestito p) {
-        Utente.this.prestitiAttivi.remove(p);
+        this.prestitiAttivi.remove(p);
     }
 
     

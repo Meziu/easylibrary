@@ -17,16 +17,16 @@ public interface Indicizzabile<K, V> extends Archiviabile<V> {
     /**
      * @brief Restituisce l'elemento associato ad una chiave.
      * 
-     * @param key Chiave dell'elemento da ottenere
-     * @return Elemento associato alla chiave, oppure null se non presente
+     * @param key Chiave dell'elemento da ottenere.
+     * @return Elemento associato alla chiave, oppure null se non presente.
      */
     V ottieni(K key);
 
     /**
      * @brief Controlla se un elemento con la chiave specificata esiste nell'archivio.
      * 
-     * @param key Chiave da verificare
-     * @return true se esiste un elemento con la chiave, false altrimenti
+     * @param key Chiave da verificare.
+     * @return true se esiste un elemento con la chiave, false altrimenti.
      */
     boolean contiene(K key);
 

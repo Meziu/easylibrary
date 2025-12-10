@@ -1,4 +1,4 @@
-package it.unisa.diem.softeng.easylibrary;
+package it.unisa.diem.softeng.easylibrary.dati.prestiti;
 
 /**
  * @brief Eccezione lanciata quando non sono disponibili copie di un libro richiesto in prestito.
