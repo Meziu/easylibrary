@@ -63,10 +63,15 @@ public class GestoreUtentiTest {
 
     @Test
     public void testOttieni() {
-        assertNotEquals(gestore.ottieni(new Matricola("1938274018")), null);
-        assertNotEquals(gestore.ottieni(new Matricola("4729831451")), null);
-        assertNotEquals(gestore.ottieni(new Matricola("8473261490")), null);
-        assertNotEquals(gestore.ottieni(new Matricola("8482921412")), null);
+        Matricola m1 = new Matricola("1938274018");
+        Matricola m2 = new Matricola("4729831451");
+        Matricola m3 = new Matricola("8473261490");
+        Matricola m4 = new Matricola("8482921412");
+        
+        assertEquals(gestore.ottieni(m1).getMatricola(), m1);
+        assertEquals(gestore.ottieni(m2).getMatricola(), m2);
+        assertEquals(gestore.ottieni(m3).getMatricola(), m3);
+        assertEquals(gestore.ottieni(m4).getMatricola(), m4);
         
         assertEquals(gestore.ottieni(new Matricola("8213742101")), null);
         assertEquals(gestore.ottieni(new Matricola("4210801231")), null);
