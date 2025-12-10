@@ -155,6 +155,7 @@ public class HomePageController implements Initializable {
 
         // 5) Mostra la scena
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        controller.setStage(stage);
         double currentWidth = stage.getWidth();
         double currentHeight = stage.getHeight();
         stage.setScene(new Scene(root));
@@ -162,5 +163,5 @@ public class HomePageController implements Initializable {
         stage.setHeight(currentHeight);
         stage.show();
     }
-
+   
 }

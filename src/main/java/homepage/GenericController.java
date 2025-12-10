@@ -50,14 +50,13 @@ public class GenericController implements Initializable {
     @FXML
     private SplitPane splitPane;
     @FXML
-    private MenuItem prova;
-    @FXML
     protected TableView<?> tableView;
     @FXML
     private Button addButton;
     
+    private Stage stage;
     private String pageType;
-    public static Biblioteca BIBLIOTECA = new Biblioteca();
+    public static Biblioteca BIBLIOTECA;
 
 
     /**
@@ -65,12 +64,11 @@ public class GenericController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-    }
-
-    @FXML
-    private void provaaa(ActionEvent event) { //prova tasto nella menubar
-        System.out.println("ciao");
+        BIBLIOTECA = Biblioteca.caricaFile("fileTemporaneo.bin");
+        
+        if(BIBLIOTECA == null){
+            BIBLIOTECA = new Biblioteca();
+        }
     }
 
     @FXML
@@ -206,7 +204,15 @@ public class GenericController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void salvaFile(ActionEvent event) {
+        BIBLIOTECA.salvaFile("fileTemporaneo.bin");
+    }
     
-    
+    public void setStage(Stage stage){
+        this.stage = stage;
+        stage.setOnCloseRequest(e -> {BIBLIOTECA.salvaFile("fileTemporaneo.bin");});
+    }
 
 }

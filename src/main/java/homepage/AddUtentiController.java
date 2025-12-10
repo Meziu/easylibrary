@@ -5,6 +5,7 @@
  */
 package homepage;
 
+import static homepage.UtentiController.UTENTI_MODEL;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreGi‡PresenteException;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.GestoreUtenti;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmail;
@@ -13,6 +14,7 @@ import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.MatricolaInvalidaException;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
 import java.net.URL;
+import java.util.Collections;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,24 +64,22 @@ public class AddUtentiController implements Initializable {
             Matricola matricola = new Matricola(matricolaStr);
             IndirizzoEmail mail = new IndirizzoEmail(mailStr);
             Utente u = new Utente(nome, cognome, matricola, mail);
-            
-            
+
             GenericController.BIBLIOTECA.getArchivioUtenti().registra(u);
 
             // 2. Aggiorna la tabella (live)
-            UtentiController.UTENTI_MODEL.add(u);
+            UTENTI_MODEL.setAll(GenericController.BIBLIOTECA.getArchivioUtenti().getLista());
 
             // 3. Chiudi la finestra (opzionale)
             ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
 
         } catch (ValoreGi‡PresenteException e) {
             new Alert(Alert.AlertType.ERROR, "Matricola gi‡ presente").show();
-        } catch (IndirizzoEmailInvalidoException ie){
+        } catch (IndirizzoEmailInvalidoException ie) {
             new Alert(Alert.AlertType.ERROR, "Indirizzo email non valido").show();
-        } 
-        catch (MatricolaInvalidaException me){
+        } catch (MatricolaInvalidaException me) {
             new Alert(Alert.AlertType.ERROR, "Matricola non valida").show();
-        } 
+        }
     }
 
     @FXML

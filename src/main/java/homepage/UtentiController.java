@@ -5,13 +5,17 @@
  */
 package homepage;
 
+import it.unisa.diem.softeng.easylibrary.archivio.Filtro;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.GestoreUtenti;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmail;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
 import java.net.URL;
+import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -38,9 +42,9 @@ public class UtentiController extends GenericController {
     @FXML
     private Label labelNome;
     @FXML
-    private TextField textFieldNome;
-    @FXML
     private Label labelMatricola;
+    @FXML
+    private TextField textFieldCognome;
     @FXML
     private TextField textFieldMatricola;
     @FXML
@@ -68,7 +72,7 @@ public class UtentiController extends GenericController {
 
             // Ridimensiona il font dei campi Nome
             bindFontSize(labelNome, vbox.heightProperty(), fontSizePercentage);
-            bindFontSize(textFieldNome, vbox.heightProperty(), fontSizePercentage);
+            bindFontSize(textFieldCognome, vbox.heightProperty(), fontSizePercentage);
 
             // Ridimensiona il font dei campi Matricola
             bindFontSize(labelMatricola, vbox.heightProperty(), fontSizePercentage);
@@ -89,16 +93,23 @@ public class UtentiController extends GenericController {
         }
 
         TableView<Utente> userTableView = (TableView<Utente>) tableView;
-        TableColumn<Utente, String> colNome = null;
-        TableColumn<Utente, String> colCognome = null;
+
+        TableColumn<Utente, String> colNome = new TableColumn("Nome");
+        userTableView.getColumns().add(colNome);
+        //TableColumn<Utente, String> colNome = null;
+        TableColumn<Utente, String> colCognome = new TableColumn("Cognome");
+        userTableView.getColumns().add(colCognome);
+        //TableColumn<Utente, String> colCognome = null;
         TableColumn<Utente, ?> colMatricola = null;
         TableColumn<Utente, IndirizzoEmail> colMail = null;
         TableColumn<Utente, ?> colPrestiti = null;
 
         // Chiama il metodo pubblico del GenericController (ereditato)
         try {
-            colNome = createNewColumn(userTableView, "Nome", "nome");
-            colCognome = createNewColumn(userTableView, "Cognome", "cognome");
+            //colNome = createNewColumn(userTableView, "Nome", "nome");
+            colNome.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getAnagrafica().getNome()));
+            //colCognome = createNewColumn(userTableView, "Cognome", "cognome");
+            colCognome.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getAnagrafica().getCognome()));
             colMatricola = createNewColumn(userTableView, "Matricola", "matricola");
             colMail = createNewColumn(userTableView, "Mail", "email");
             colPrestiti = createNewColumn(userTableView, "N. Prestiti", "prestiti");
@@ -150,5 +161,55 @@ public class UtentiController extends GenericController {
 
         UTENTI_MODEL.setAll(GenericController.BIBLIOTECA.getArchivioUtenti().getLista());
 
+        textFieldCognome.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateFiltroUtenti();
+        });
+        textFieldMatricola.textProperty().addListener((observable, oldValue, newValue) -> {
+            updateFiltroUtenti();
+        });
+
+    }
+
+    private void updateFiltroUtenti() {
+        // I filtri devono essere finali per essere usati nella lambda
+        final String cognomeFilter = textFieldCognome.getText().trim().toLowerCase(Locale.ROOT);
+        final String matricolaFilter = textFieldMatricola.getText().trim().toLowerCase(Locale.ROOT);
+
+        // 1. Definiamo la LOGICA del filtro implementando l'interfaccia Filtro<Utente> tramite lambda
+        Filtro<Utente> filtroCombinato = utente -> {
+
+            // --- CASO BASE: MOSTRA TUTTO ---
+            if (cognomeFilter.isEmpty() && matricolaFilter.isEmpty()) {
+                return true;
+            }
+
+            boolean matchesCognome = true;
+            boolean matchesMatricola = true;
+
+            // --- CRITERIO NOME/COGNOME (RICERCA PER PREFISSO) ---
+            if (!cognomeFilter.isEmpty()) {
+                String cognome = utente.getCognome().toLowerCase(Locale.ROOT);
+
+                // Requisito: Il filtro deve essere l'INIZIO del Nome OPPURE l'INIZIO del Cognome
+                matchesCognome = cognome.startsWith(cognomeFilter);
+            }
+
+            // --- CRITERIO MATRICOLA (RICERCA PER PREFISSO) ---
+            if (!matricolaFilter.isEmpty()) {
+                String matricolaStr = utente.getMatricola().toString().toLowerCase(Locale.ROOT);
+
+                // Requisito: Il filtro deve essere l'INIZIO della Matricola
+                matchesMatricola = matricolaStr.startsWith(matricolaFilter);
+            }
+
+            // AND logico: l'utente passa il filtro se soddisfa TUTTI i criteri attivi
+            return matchesCognome && matchesMatricola;
+        };
+
+        // 2. ESEGUI IL FILTRAGGIO SULL'ARCHIVIO COMPLETO
+        List<Utente> listaFiltrata = GenericController.BIBLIOTECA.getArchivioUtenti().filtra(filtroCombinato);
+
+        // 3. AGGIORNA LA TABLEVIEW
+        UTENTI_MODEL.setAll(listaFiltrata);
     }
 }
