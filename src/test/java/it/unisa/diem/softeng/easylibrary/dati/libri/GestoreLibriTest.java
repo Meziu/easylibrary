@@ -1,12 +1,9 @@
 package it.unisa.diem.softeng.easylibrary.dati.libri;
 
-import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmail;
-import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
-import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
+import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -70,9 +67,6 @@ public class GestoreLibriTest {
 
     @Before
     public void setUp() {
-        List<Autore> autori = new ArrayList<Autore>();
-        autori.add(new Autore("George", "Orwell"));
-
         gestore = new GestoreLibri();
 
         GestoreLibriTest.aggiungiLibri(gestore);
@@ -80,27 +74,79 @@ public class GestoreLibriTest {
 
     @Test
     public void testRegistra() {
-        fail();
+        Libro l = new Libro(
+                "To Kill a Mockingbird",
+                new ArrayList<>(Arrays.asList(new Autore("Harper", "Lee"))),
+                Year.of(2002),
+                "0060935464",
+                1
+        );
+        
+        gestore.registra(l);
+        
+        assertTrue(gestore.contiene(l.getISBN()));
+        assertTrue(gestore.getLista().contains(l));
     }
 
     @Test
     public void testRimuovi() {
-        fail();
+        Libro l = gestore.ottieni(new ISBN("0441013597"));
+        
+        gestore.rimuovi(l);
+        
+        assertFalse(gestore.contiene(l.getISBN()));
+        assertFalse(gestore.getLista().contains(l));
+        
+        Libro l2 = new Libro(
+                "To Kill a Mockingbird",
+                new ArrayList<>(Arrays.asList(new Autore("Harper", "Lee"))),
+                Year.of(2002),
+                "0060935464",
+                1
+        );
+        
+        assertThrows(ValoreNonPresenteException.class, () -> {
+            gestore.rimuovi(l2);
+        });
     }
 
     @Test
     public void testModifica() {
-        fail();
+        Libro l = gestore.ottieni(new ISBN("8807900059"));
+        
+        gestore.modifica(l, libro -> {
+            libro.setTitolo("DecisamenteUnTitoloErroneo");
+        });
+        
+        assertEquals(gestore.ottieni(l.getISBN()).getTitolo(), "DecisamenteUnTitoloErroneo");
+        
+        assertThrows(ValoreNonPresenteException.class, () -> {gestore.modifica(new Libro(
+                "To Kill a Mockingbird",
+                new ArrayList<>(Arrays.asList(new Autore("Harper", "Lee"))),
+                Year.of(2002),
+                "0060935464",
+                1
+        ), libro -> {});});
     }
 
     @Test
     public void testOttieni() {
-        fail();
+        ISBN i1 = new ISBN("0743273567"); // esistente
+        ISBN i2 = new ISBN("0060935464"); // inesistente
+        
+        assertEquals(gestore.ottieni(i1).getISBN(), i1);
+        
+        assertEquals(gestore.ottieni(i2), null);
     }
 
     @Test
     public void testContiene() {
-        fail();
+        ISBN i1 = new ISBN("0743273567"); // esistente
+        ISBN i2 = new ISBN("0060935464"); // inesistente
+        
+        assertTrue(gestore.contiene(i1));
+        
+        assertFalse(gestore.contiene(i2));
     }
 
 }

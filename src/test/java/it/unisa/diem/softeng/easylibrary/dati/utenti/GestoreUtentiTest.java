@@ -57,7 +57,7 @@ public class GestoreUtentiTest {
         
         assertEquals(gestore.ottieni(m).getAnagrafica().getCognome(), "Zelante");
         
-        // Test per l'ordinamento dopo la modifica. La lista qui è ordinata correttamente per assicurare anche l'ordine.
+        // Test per l'ordinamento dopo la modifica (Gestore.modifica()). La lista qui è ordinata correttamente per assicurare anche l'ordine.
         List<Utente> listaOrd = new ArrayList<>();
         listaOrd.add(new Utente("Spazio", "Ortogonale", new Matricola("8482921412"), new IndirizzoEmail("euclideo@studenti.unisa.it")));
         listaOrd.add(new Utente("Pippo", "Pluto", new Matricola("1938274018"), new IndirizzoEmail("p.pluto@studenti.unisa.it")));
