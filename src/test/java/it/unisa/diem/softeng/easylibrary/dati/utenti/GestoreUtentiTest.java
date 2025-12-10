@@ -11,15 +11,19 @@ public class GestoreUtentiTest {
     public GestoreUtentiTest() {
     }
     
+    public static void aggiungiUtenti(GestoreUtenti g) {
+        g.registra(new Utente("Pippo", "Pluto", new Matricola("1938274018"), new IndirizzoEmail("p.pluto@studenti.unisa.it")));
+        g.registra(new Utente("Franco", "Rossi", new Matricola("4729831451"), new IndirizzoEmail("francorossi@studenti.unisa.it")));
+        g.registra(new Utente("Mario", "Incredibile", new Matricola("8473261490"), new IndirizzoEmail("marincredibile@studenti.unisa.it")));
+        g.registra(new Utente("Spazio", "Ortogonale", new Matricola("8482921412"), new IndirizzoEmail("euclideo@studenti.unisa.it")));
+    }
+    
     @Before
     public void setUp() {
         gestore = new GestoreUtenti();
         
         // Inserimento volutamente non in ordine
-        gestore.registra(new Utente("Pippo", "Pluto", new Matricola("1938274018"), new IndirizzoEmail("p.pluto@studenti.unisa.it")));
-        gestore.registra(new Utente("Franco", "Rossi", new Matricola("4729831451"), new IndirizzoEmail("francorossi@studenti.unisa.it")));
-        gestore.registra(new Utente("Mario", "Incredibile", new Matricola("8473261490"), new IndirizzoEmail("marincredibile@studenti.unisa.it")));
-        gestore.registra(new Utente("Spazio", "Ortogonale", new Matricola("8482921412"), new IndirizzoEmail("euclideo@studenti.unisa.it")));
+        GestoreUtentiTest.aggiungiUtenti(gestore);
     }
 
     @Test
