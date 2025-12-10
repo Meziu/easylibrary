@@ -72,8 +72,8 @@ public class Anagrafica implements Comparable<Anagrafica>, Serializable {
      * lessicografico prima del cognome e poi, a parità di
      * cognome, del nome.
      * 
-     * @return Valore negativo, zero o positivo se la persona corrente è rispettivamente
-     * minore, uguale o maggiore del libro passato come parametro.
+     * @return Valore negativo, zero o positivo se l'anagrafica corrente è rispettivamente
+     * minore, uguale o maggiore dell'anagrafica passato come parametro.
      */
     @Override
     public int compareTo(Anagrafica a) {

@@ -49,8 +49,8 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @brief Restituisce l'Anagrafica dell'utente.
      * @return L'anagrafica
      */
-    public Matricola getAnagrafica() {
-        return matricola;
+    public Anagrafica getAnagrafica() {
+        return anagrafica;
     }
 
     /**
