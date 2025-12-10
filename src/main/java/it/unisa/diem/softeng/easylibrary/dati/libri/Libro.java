@@ -1,13 +1,14 @@
 package it.unisa.diem.softeng.easylibrary.dati.libri;
 
 import java.io.Serializable;
+import java.time.Year;
 import java.util.List;
 
 
 /**
  * @brief Classe che rappresenta un libro presente nel sistema della biblioteca.
  * La classe Libro contiene le seguenti informazioni relative ad un libro:
- * titolo, autori, data di pubblicazione, ISBN e numero di copie disponibili.
+ * titolo, autori, anno di pubblicazione, ISBN e numero di copie disponibili.
  * 
  * La classe è serializzabile e implementa l'interfaccia Comparable per consentire il confronto tra libri
  * basato sul titolo e, a parità di titolo, sull'ISBN.
@@ -19,7 +20,7 @@ public class Libro implements Comparable<Libro>, Serializable {
 
     private String titolo; ///< Titolo del libro
     private List<Autore> autori; ///<  Lista degli autori del libro.
-    private int dataPubblicazione; ///< Data di pubblicazione del libro.
+    private Year annoPubblicazione; ///< Anno di pubblicazione del libro.
     private final ISBN isbn; ///< Codice ISBN del libro.
     private int copieDisponibili; ///< Numero di copie disponibili del libro.
 
@@ -29,14 +30,14 @@ public class Libro implements Comparable<Libro>, Serializable {
      * 
      * @param\[in] titolo Stringa di caratteri del titolo del libro.
      * @param\[in] autori Lista degli autori del libro.
-     * @param\[in] dataPubblicazione  Data di pubblicazione del libro.
+     * @param\[in] annoPubblicazione  Anno di pubblicazione del libro.
      * @param\[in] isbn Stringa di caratteri del codice ISBN.
      * @param\[in] copieDisponibili Interi che indica il numero di copie disponibili.
      */
-    public Libro(String titolo, List<Autore> autori, int dataPubblicazione, String isbn, int copieDisponibili) {
+    public Libro(String titolo, List<Autore> autori, Year annoPubblicazione, String isbn, int copieDisponibili) {
         this.titolo = titolo;
         this.autori = autori;
-        this.dataPubblicazione = dataPubblicazione;
+        this.annoPubblicazione = annoPubblicazione;
         this.isbn = new ISBN(isbn);
         this.copieDisponibili = copieDisponibili;
     }
@@ -63,12 +64,12 @@ public class Libro implements Comparable<Libro>, Serializable {
 
     
     /**
-     * @brief Restituisce la data di pubblicazione del libro.
+     * @brief Restituisce l'anno di pubblicazione del libro.
      * 
-     * @return Data di pubblicazione.
+     * @return Anno di pubblicazione.
      */
-    public int getDataPubblicazione() {
-        return dataPubblicazione;
+    public Year getAnnoPubblicazione() {
+        return annoPubblicazione;
     }
 
     
@@ -113,10 +114,10 @@ public class Libro implements Comparable<Libro>, Serializable {
     /**
      * @brief Imposta la data di pubblicazione del libro.
      * 
-     * @param\[in] dataPubblicazione Nuova data di pubblicazione.
+     * @param\[in] annoPubblicazione Nuovo anno di pubblicazione.
      */
-    public void setDataPubblicazione(int dataPubblicazione) {
-        this.dataPubblicazione = dataPubblicazione;
+    public void setAnnoPubblicazione(Year annoPubblicazione) {
+        this.annoPubblicazione = annoPubblicazione;
     }
     
     /**
