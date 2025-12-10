@@ -1,6 +1,6 @@
 package it.unisa.diem.softeng.easylibrary.dati.libri;
 
-import it.unisa.diem.softeng.easylibrary.archivio.ValoreGi√†PresenteException;
+import it.unisa.diem.softeng.easylibrary.archivio.ValoreGi‡PresenteException;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
 
 import java.util.HashMap;
@@ -51,7 +51,7 @@ public class GestoreLibri extends Gestore<Libro> implements Indicizzabile<ISBN, 
         Libro res = indiceISBN.putIfAbsent(l.getISBN(), l);
         // Se era gi√† presente quel libro
         if (res != null) {
-            throw new ValoreGi√†PresenteException("TODO MESSAGGIO");
+            throw new ValoreGi‡PresenteException("TODO MESSAGGIO");
         }
         
         super.registra(l);

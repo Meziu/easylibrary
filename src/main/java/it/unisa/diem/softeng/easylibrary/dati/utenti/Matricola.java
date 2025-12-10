@@ -118,4 +118,9 @@ public final class Matricola implements Comparable<Matricola>, Serializable {
         }
         return true;
     }
+    
+    @Override
+    public String toString(){
+        return matricola;
+    }
 }

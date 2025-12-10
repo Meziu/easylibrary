@@ -5,14 +5,14 @@ package it.unisa.diem.softeng.easylibrary.archivio;
  * @brief Eccezione che segnala l'inserimento in un Archiviabile di un valore già
  * presente e non sovrascrivibile.
  */
-public class ValoreGiàPresenteException extends RuntimeException {
+public class ValoreGi�PresenteException extends RuntimeException {
 
     /**
      * @brief Costruttore.
      *
      * Crea una nuova eccezione senza specificare alcun messaggio di errore.
      */
-    public ValoreGiàPresenteException() {
+    public ValoreGi�PresenteException() {
     }
 
     /**
@@ -20,7 +20,7 @@ public class ValoreGiàPresenteException extends RuntimeException {
      *
      * @param string messaggio descrittivo dell'errore relativo ad un valore già presente.
      */
-    public ValoreGiàPresenteException(String string) {
+    public ValoreGi�PresenteException(String string) {
         super(string);
     }
 

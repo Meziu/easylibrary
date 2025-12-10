@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!--
+    Questo è il file FXML per la Home Page dell'applicazione di gestione della biblioteca.
+    Utilizza un BorderPane come contenitore principale per garantire la ridimensionabilità.
+    Ho aggiunto un riferimento a 'style.css' per migliorare l'estetica.
+-->
+
+<BorderPane fx:id="rootPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homepage.HomePageController">
+   <!-- Menu Bar nella parte superiore (TOP) del BorderPane -->
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Esci" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Modifica">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Preferenze" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Aiuto">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Informazioni" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+   </top>
+   
+   <!-- Contenuto principale al CENTRO del BorderPane -->
+   <center>
+      <!-- VBox per centrare verticalmente il logo, il titolo e i pulsanti e gestirne la spaziatura -->
+      <VBox alignment="CENTER" spacing="25.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+         </padding>
+         
+         <!-- Titolo Principale -->
+         <Label fx:id="titleLabel" styleClass="title-text" text="Gestione Biblioteca">
+            <font>
+               <Font name="System Bold" size="36.0" />
+            </font>
+         </Label>
+         
+         <!-- Placeholder per l'immagine del logo -->
+         <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="logo-image">
+            <image>
+               <Image url="@ImmagineUnisa.png" />
+            </image></ImageView>
+         
+         <!-- Contenitore dei pulsanti -->
+         <VBox alignment="CENTER" spacing="15.0">
+            <Button fx:id="utentiButton" mnemonicParsing="false" onAction="#visualizzaUtenti" prefHeight="50.0" prefWidth="300.0" styleClass="main-button" text="Utenti">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="libriButton" mnemonicParsing="false" onAction="#visualizzaLibri" prefHeight="50.0" prefWidth="300.0" styleClass="main-button" text="Libri">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="prestitiButton" mnemonicParsing="false" onAction="#visualizzaPrestiti" prefHeight="50.0" prefWidth="300.0" styleClass="main-button" text="Prestiti">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </VBox>
+      </VBox>
+   </center>
+</BorderPane>

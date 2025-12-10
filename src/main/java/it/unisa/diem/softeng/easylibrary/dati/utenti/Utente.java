@@ -49,8 +49,25 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @brief Restituisce l'Anagrafica dell'utente.
      * @return L'anagrafica
      */
-    public Matricola getAnagrafica() {
-        return matricola;
+    public Anagrafica getAnagrafica() {
+        return anagrafica;
+    }
+    
+    // ------ get necessariiiii ------
+    /**
+     * @brief Restituisce il nome dell'utente.
+     * @return Il nome
+     */
+    public String getNome(){
+        return anagrafica.getNome();
+    }
+    
+    /**
+     * @brief Restituisce il cognome dell'utente.
+     * @return Il cognome
+     */
+    public String getCognome(){
+        return anagrafica.getCognome();
     }
 
     /**
@@ -78,7 +95,7 @@ public class Utente implements Comparable<Utente>, Serializable {
         return Collections.unmodifiableList(prestitiAttivi);
     }
     
-
+    
     /**
      * @brief Imposta un nuovo indirizzo email.
      * @param\[in] email Nuovo indirizzo email

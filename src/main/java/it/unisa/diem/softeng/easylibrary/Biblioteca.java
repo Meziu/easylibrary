@@ -16,14 +16,13 @@ import java.util.List;
 import java.io.*;
 import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
 
-
 /**
  * @brief Rappresenta una biblioteca che gestisce utenti, libri e prestiti.
- * 
- * La classe fornisce metodi per registrare prestiti e restituzioni, 
- * filtrare i prestiti attivi e salvare/caricare lo stato della biblioteca.
- * Implementa Serializable per consentire la persistenza su file.
- * 
+ *
+ * La classe fornisce metodi per registrare prestiti e restituzioni, filtrare i
+ * prestiti attivi e salvare/caricare lo stato della biblioteca. Implementa
+ * Serializable per consentire la persistenza su file.
+ *
  * @see Archiviabile
  * @see Utente
  * @see Libro
@@ -37,9 +36,9 @@ public class Biblioteca implements Serializable {
 
     /**
      * @brief Costruttore.
-     * 
+     *
      * Inizializza gli archivi con le rispettive classi gestore.
-     * 
+     *
      * @post Gli archivi utenti, libri e prestiti sono pronti all'uso
      */
     public Biblioteca() {
@@ -50,13 +49,14 @@ public class Biblioteca implements Serializable {
 
     /**
      * @brief Restituisce la lista dei prestiti attivi.
-     * 
-     * Applica un filtro sugli elementi dell'archivio dei prestiti, selezionando solo
-     * quelli con stato ATTIVO.
-     * 
+     *
+     * Applica un filtro sugli elementi dell'archivio dei prestiti, selezionando
+     * solo quelli con stato ATTIVO.
+     *
      * @see StatoPrestito
-     * 
-     * @post La lista restituita contiene solo prestiti attivi, senza modificare l'archivio
+     *
+     * @post La lista restituita contiene solo prestiti attivi, senza modificare
+     * l'archivio
      * @return Lista dei prestiti attivi
      */
     public List<Prestito> getPrestitiAttivi() {
@@ -65,16 +65,17 @@ public class Biblioteca implements Serializable {
 
     /**
      * @brief Registra un nuovo prestito nella biblioteca.
-     * 
+     *
      * @param matricola Matricola dell'utente che prende in prestito il libro
      * @param isbn Codice ISBN del libro da prestare
      * @param scadenzaPrestito Data di scadenza del prestito
-     * 
+     *
      * @pre L'utente con la matricola fornita deve essere presente nell'archivio
      * @pre Il libro con l'ISBN fornito deve essere presente nell'archivio
-     * 
+     *
      * @post Il prestito viene aggiunto all'archivio dei prestiti.
-     * @post Il prestito viene aggiunto alla lista dei prestiti attivi dell'utente.
+     * @post Il prestito viene aggiunto alla lista dei prestiti attivi
+     * dell'utente.
      * @post Il numero di copie disponibili del libro viene decrementato di 1.
      */
     public void registraPrestito(String matricola, String isbn, LocalDate scadenzaPrestito) {
@@ -82,13 +83,15 @@ public class Biblioteca implements Serializable {
         Libro l = archivioLibri.ottieni(new ISBN(isbn));
 
         //LIMITE PRESTITI
-        if (u.getPrestitiAttivi().size() >= 3)
+        if (u.getPrestitiAttivi().size() >= 3) {
             throw new LimitePrestitiSuperatoException("TODO");
-        
+        }
+
         //NESSUNA COPIA DISPONIBILE
-        if (l.getCopieDisponibili() <= 0)
+        if (l.getCopieDisponibili() <= 0) {
             throw new NessunaCopiaDisponibileException("TODO");
-        
+        }
+
         Prestito p = new Prestito(u.getMatricola(), l.getISBN(), StatoPrestito.ATTIVO, scadenzaPrestito);
 
         archivioPrestiti.registra(p);
@@ -98,16 +101,18 @@ public class Biblioteca implements Serializable {
 
     /**
      * @brief Registra la restituzione di un prestito.
-     * 
-     * Aggiorna lo stato del prestito nell'archivio e lo rimuove dalla lista
-     * dei prestiti attivi dell'utente.
-     * 
+     *
+     * Aggiorna lo stato del prestito nell'archivio e lo rimuove dalla lista dei
+     * prestiti attivi dell'utente.
+     *
      * @pre Il prestito deve esistere nell'archivio dei prestiti.
-     * @pre L'utente associato al prestito deve essere presente nell'archivio utenti.
+     * @pre L'utente associato al prestito deve essere presente nell'archivio
+     * utenti.
      * @pre Il libro associato al prestito deve esistere nell'archivio libri.
-     * 
+     *
      * @post Il prestito viene rimosso dall'archivio dei prestiti.
-     * @post Il prestito viene rimosso dalla lista dei prestiti attivi dell'utente.
+     * @post Il prestito viene rimosso dalla lista dei prestiti attivi
+     * dell'utente.
      * @post Il numero di copie disponibili del libro viene incrementato di 1.
      * @param p Prestito da restituire
      */
@@ -120,9 +125,9 @@ public class Biblioteca implements Serializable {
 
     /**
      * @brief Salva lo stato della biblioteca su file.
-     * 
+     *
      * @param filename Nome del file in cui salvare lo stato
-     * 
+     *
      * @post Lo stato della biblioteca viene scritto nel file specificato
      */
     public void salvaFile(String filename) {
@@ -137,9 +142,9 @@ public class Biblioteca implements Serializable {
 
     /**
      * @brief Carica lo stato della biblioteca da file.
-     * 
+     *
      * @param filename Nome del file da cui leggere lo stato
-     * 
+     *
      * @pre Il file deve esistere e contenere un oggetto Biblioteca serializzato
      * @return Oggetto Biblioteca caricato, o null in caso di errore
      */
@@ -153,4 +158,9 @@ public class Biblioteca implements Serializable {
             return null;
         }
     }
+
+    public Indicizzabile<Matricola, Utente> getArchivioUtenti() {
+        return archivioUtenti;
+    }
+
 }
