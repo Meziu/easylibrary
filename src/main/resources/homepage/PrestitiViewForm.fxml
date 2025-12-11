@@ -2,14 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="vbox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homepage.PrestitiController">
+<VBox fx:id="vbox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homepage.PrestitiController">
    <children>
-      <Label fx:id="labelRicerca" alignment="TOP_LEFT" text="Ricerca" textAlignment="CENTER">
+      <Label fx:id="labelRicerca" alignment="TOP_LEFT" text="Ricerca Prestiti" textAlignment="CENTER">
          <VBox.margin>
             <Insets left="10.0" />
          </VBox.margin></Label>
@@ -20,11 +20,11 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="textFieldNome" maxHeight="500.0" maxWidth="500.0" promptText="Inserisci l'utente">
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
-               </VBox.margin>
-            </TextField>
+            <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="96.0">
+               <children>
+                  <ComboBox fx:id="comboUtente" editable="true" prefWidth="150.0" promptText="Utente" />
+               </children>
+            </HBox>
          </children>
       </VBox>
       <VBox fx:id="vboxLibro">
@@ -34,11 +34,11 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="textFieldMatricola" maxWidth="500.0" promptText="Inserisci il titolo">
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
-               </VBox.margin>
-            </TextField>
+            <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="96.0">
+               <children>
+                  <ComboBox fx:id="comboLibro" editable="true" prefWidth="150.0" promptText="Libro" />
+               </children>
+            </HBox>
          </children>
       </VBox>
       <HBox fx:id="hboxPrestiti" fillHeight="false">

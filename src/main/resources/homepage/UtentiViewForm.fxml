@@ -5,9 +5,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="vbox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homepage.UtentiController">
+<VBox fx:id="vbox" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homepage.UtentiController">
    <children>
-      <Label fx:id="labelRicerca" alignment="TOP_LEFT" text="Ricerca" textAlignment="CENTER">
+      <Label fx:id="labelRicerca" alignment="TOP_LEFT" text="Ricerca Utenti" textAlignment="CENTER">
          <VBox.margin>
             <Insets left="10.0" />
          </VBox.margin></Label>

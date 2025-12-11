@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homepage.GenericController">
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homepage.GenericController">
 
 
     <!-- MENU BAR -->
@@ -33,7 +33,7 @@
             <!-- CONTENUTO CENTRALE -->
             <BorderPane fx:id="rightNode" style="-fx-padding: 10;">
             <top>
-               <SplitPane dividerPositions="0.14967462039045554" prefHeight="44.0" prefWidth="463.0" styleClass="no-divider" stylesheets="@style.css" BorderPane.alignment="CENTER">
+               <SplitPane dividerPositions="0.5" prefHeight="44.0" prefWidth="463.0" styleClass="no-divider" stylesheets="@style.css" BorderPane.alignment="CENTER">
                   <items>
                      <Button mnemonicParsing="false" onAction="#returnHome" text="Home" />
                      <HBox alignment="CENTER_RIGHT" spacing="5.0">

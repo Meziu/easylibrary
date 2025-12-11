@@ -5,16 +5,23 @@
  */
 package homepage;
 
+import it.unisa.diem.softeng.easylibrary.dati.Anagrafica;
+import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
+import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
 import it.unisa.diem.softeng.easylibrary.dati.prestiti.Prestito;
+import it.unisa.diem.softeng.easylibrary.dati.prestiti.StatoPrestito;
+import it.unisa.diem.softeng.easylibrary.dati.utenti.*;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 /**
@@ -31,11 +38,7 @@ public class PrestitiController extends GenericController {
     @FXML
     private Label labelUtente;
     @FXML
-    private TextField textFieldNome;
-    @FXML
     private Label labelLibro;
-    @FXML
-    private TextField textFieldMatricola;
     @FXML
     private Label chkboxLabel;
     @FXML
@@ -46,6 +49,12 @@ public class PrestitiController extends GenericController {
     private VBox vboxLibro;
     
     private TableView<?> tableView;
+    @FXML
+    private ComboBox<?> comboUtente;
+    @FXML
+    private HBox hboxPrestiti;
+    @FXML
+    private ComboBox<?> comboLibro;
 
     /**
      * Initializes the controller class.
@@ -67,11 +76,11 @@ public class PrestitiController extends GenericController {
 
             // Ridimensiona il font dei campi Nome
             bindFontSize(labelUtente, vbox.heightProperty(), fontSizePercentage);
-            bindFontSize(textFieldNome, vbox.heightProperty(), fontSizePercentage);
+            bindFontSize(comboUtente, vbox.heightProperty(), fontSizePercentage);
 
             // Ridimensiona il font dei campi Matricola
             bindFontSize(labelLibro, vbox.heightProperty(), fontSizePercentage);
-            bindFontSize(textFieldMatricola, vbox.heightProperty(), fontSizePercentage);
+            bindFontSize(comboLibro, vbox.heightProperty(), fontSizePercentage);
             
             // Ridimensiona il font della Checkbox
             bindFontSize(chkboxLabel, vbox.heightProperty(), fontSizePercentage);
@@ -93,10 +102,36 @@ public class PrestitiController extends GenericController {
         
         TableView<Prestito> loanTableView = (TableView<Prestito>) tableView;
 
-        // Chiama il metodo pubblico del GenericController (ereditato)
+        TableColumn<Prestito, String> colUtente = new TableColumn("Utente");
+        colUtente.setCellValueFactory(r -> {
+            Matricola m = r.getValue().getMatricola();
+            Utente u = BIBLIOTECA.getArchivioUtenti().ottieni(m);
+            
+            Anagrafica a = u.getAnagrafica();
+            String nome = a.getNome();
+            String cognome = a.getCognome();
+            String matricola = m.getMatricola();
+            
+            return new SimpleStringProperty(nome + " " + cognome + " <" + matricola +">");
+        });
+        
+        TableColumn<Prestito, String> colLibro = new TableColumn("Libro");
+        colLibro.setCellValueFactory(r -> {
+            ISBN i = r.getValue().getISBN();
+            Libro l = BIBLIOTECA.getArchivioLibri().ottieni(i);
+            
+            String titolo = l.getTitolo();
+            String isbn = i.getISBN();
+            
+            return new SimpleStringProperty(titolo + " <" + isbn +">");
+        });
+        
+        loanTableView.getColumns().add(colUtente);
+        loanTableView.getColumns().add(colLibro);
+
+        Prestito nuovoPrestito= new Prestito(new Matricola("0612708887"),new ISBN("1111111111"),StatoPrestito.ATTIVO,LocalDate.of(2005,Month.MAY,30));
+        loanTableView.getItems().add(nuovoPrestito);
         try {
-            createNewColumn(loanTableView, "Utente", "utente");
-            createNewColumn(loanTableView, "Libro", "libro");
             createNewColumn(loanTableView, "Data Scadenza", "dataScadenza");
         } catch (RuntimeException e) {
             System.err.println("Errore di configurazione colonne Utenti: " + e.getMessage());

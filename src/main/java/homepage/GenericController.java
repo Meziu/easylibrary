@@ -248,13 +248,13 @@ public class GenericController implements Initializable {
                     // Usiamo il riferimento statico all'ObservableList degli Utenti
                     UtentiController.UTENTI_MODEL.remove(utenteDaRimuovere);
 
-                    // NOTA: Il filtro non ha bisogno di essere rieseguito perché l'elemento
-                    // rimosso non era più nella lista completa da filtrare. La rimozione diretta
-                    // dalla UTENTI_MODEL è sufficiente.
+                    // NOTA: Il filtro non ha bisogno di essere rieseguito perchï¿½ l'elemento
+                    // rimosso non era piï¿½ nella lista completa da filtrare. La rimozione diretta
+                    // dalla UTENTI_MODEL ï¿½ sufficiente.
                     new Alert(AlertType.INFORMATION, "Utente rimosso con successo.").show();
 
                 } catch (ClassCastException e) {
-                    System.err.println("Errore di casting: L'elemento selezionato non è un Utente.");
+                    System.err.println("Errore di casting: L'elemento selezionato non Ã¨ un Utente.");
                 } catch (Exception e) {
                     new Alert(AlertType.ERROR, "Errore durante la rimozione dell'utente: " + e.getMessage()).show();
                 }
@@ -271,13 +271,13 @@ public class GenericController implements Initializable {
                     // Usiamo il riferimento statico all'ObservableList degli Utenti
                     LibriController.LIBRI_MODEL.remove(libroDaRimuovere);
 
-                    // NOTA: Il filtro non ha bisogno di essere rieseguito perché l'elemento
-                    // rimosso non era più nella lista completa da filtrare. La rimozione diretta
-                    // dalla UTENTI_MODEL è sufficiente.
+                    // NOTA: Il filtro non ha bisogno di essere rieseguito perchï¿½ l'elemento
+                    // rimosso non era piï¿½ nella lista completa da filtrare. La rimozione diretta
+                    // dalla UTENTI_MODEL ï¿½ sufficiente.
                     new Alert(AlertType.INFORMATION, "Libro rimosso con successo.").show();
 
                 } catch (ClassCastException e) {
-                    System.err.println("Errore di casting: L'elemento selezionato non è un Libro.");
+                    System.err.println("Errore di casting: L'elemento selezionato non ï¿½ un Libro.");
                 } catch (Exception e) {
                     new Alert(AlertType.ERROR, "Errore durante la rimozione del libro: " + e.getMessage()).show();
                 }

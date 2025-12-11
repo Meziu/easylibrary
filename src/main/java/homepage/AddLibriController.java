@@ -140,10 +140,10 @@ public class AddLibriController implements Initializable {
             ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
 
         } catch (ValoreGiaPresenteException e) {
-            new Alert(Alert.AlertType.ERROR, "ISBN gi� presente nell'archivio.").show();
+            new Alert(Alert.AlertType.ERROR, "ISBN gia presente nell'archivio.").show();
         } catch (ISBNInvalidoException e) {
             // Sollevata dal costruttore ISBN all'interno del costruttore Libro
-            new Alert(Alert.AlertType.ERROR, "Il codice ISBN non � valido.").show();
+            new Alert(Alert.AlertType.ERROR, "Il codice ISBN non e valido.").show();
         } catch (Exception e) {
              // Catch generico per altri errori non gestiti (es. ArchivioLibri non trovato)
              new Alert(Alert.AlertType.ERROR, "Errore generico durante l'aggiunta: " + e.getMessage()).show();
