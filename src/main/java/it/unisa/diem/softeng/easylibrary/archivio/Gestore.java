@@ -26,7 +26,7 @@ public abstract class Gestore<E extends Comparable<? super E>> implements Archiv
      * @invariant La lista di elementi deve rimanere sempre ordinata per il criterio
      * di ordinamento naturale del tipo elemento <E> (per interfaccia Comparable).
      */
-    protected final List<E> lista;
+    private final List<E> lista;
 
     public Gestore() {
         lista = new ArrayList<>();

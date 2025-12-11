@@ -103,14 +103,14 @@ public class GestorePrestiti extends Gestore<Prestito> {
     */
     @Override
     public void rimuovi(Prestito p) {
-        int idx = Collections.binarySearch(lista, p);
+        int idx = Collections.binarySearch(this.getLista(), p);
 
         // Se l'indice è fuori dalla lista (cioè non è presente l'elemento):
-        if (idx < 0 || idx >= lista.size()) {
+        if (idx < 0 || idx >= this.getLista().size()) {
             throw new ValoreNonPresenteException();
         }
 
-        lista.get(idx).setStato(StatoPrestito.RESTITUITO);
+        this.getLista().get(idx).setStato(StatoPrestito.RESTITUITO);
         
         // Restore strutture di utente e libro per ritornare allo stato prima del prestito.
         archivioUtenti.ottieni(p.getMatricola()).rimuoviPrestito(p);
