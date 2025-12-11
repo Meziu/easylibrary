@@ -5,7 +5,7 @@
  */
 package homepage;
 
-import it.unisa.diem.softeng.easylibrary.archivio.ValoreGiàPresenteException;
+import it.unisa.diem.softeng.easylibrary.archivio.ValoreGiaPresenteException;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Autore;
 import it.unisa.diem.softeng.easylibrary.dati.libri.ISBNInvalidoException;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
@@ -90,13 +90,13 @@ public class AddLibriController implements Initializable {
                 annoPubblicazione = Year.of(annoInt);
                 
             } catch (NumberFormatException | DateTimeException e) {
-                new Alert(Alert.AlertType.ERROR, "L'anno di pubblicazione non è un formato valido (es. 2023).").show();
+                new Alert(Alert.AlertType.ERROR, "L'anno di pubblicazione non ï¿½ un formato valido (es. 2023).").show();
                 return;
             }
             
             // Verifica che l'anno non sia nel futuro
             if (annoPubblicazione.isAfter(Year.now())) {
-                new Alert(Alert.AlertType.ERROR, "L'anno di pubblicazione non può essere nel futuro.").show();
+                new Alert(Alert.AlertType.ERROR, "L'anno di pubblicazione non puï¿½ essere nel futuro.").show();
                 return;
             }
 
@@ -132,18 +132,18 @@ public class AddLibriController implements Initializable {
             // Registra nell'archivio persistente
             GenericController.BIBLIOTECA.getArchivioLibri().registra(nuovoLibro); 
 
-            // 5. Aggiorna la tabella (se LIBRI_MODEL è ObservableList e accessibile)
+            // 5. Aggiorna la tabella (se LIBRI_MODEL ï¿½ ObservableList e accessibile)
             // Sostituisci questo commento con la riga di aggiornamento corretta:
             LibriController.LIBRI_MODEL.setAll(GenericController.BIBLIOTECA.getArchivioLibri().getLista());
 
             // 6. Chiudi la finestra
             ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
 
-        } catch (ValoreGiàPresenteException e) {
-            new Alert(Alert.AlertType.ERROR, "ISBN già presente nell'archivio.").show();
+        } catch (ValoreGiaPresenteException e) {
+            new Alert(Alert.AlertType.ERROR, "ISBN giï¿½ presente nell'archivio.").show();
         } catch (ISBNInvalidoException e) {
             // Sollevata dal costruttore ISBN all'interno del costruttore Libro
-            new Alert(Alert.AlertType.ERROR, "Il codice ISBN non è valido.").show();
+            new Alert(Alert.AlertType.ERROR, "Il codice ISBN non ï¿½ valido.").show();
         } catch (Exception e) {
              // Catch generico per altri errori non gestiti (es. ArchivioLibri non trovato)
              new Alert(Alert.AlertType.ERROR, "Errore generico durante l'aggiunta: " + e.getMessage()).show();

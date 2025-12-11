@@ -1,6 +1,6 @@
 package it.unisa.diem.softeng.easylibrary.dati.utenti;
 
-import it.unisa.diem.softeng.easylibrary.archivio.ValoreGi‡PresenteException;
+import it.unisa.diem.softeng.easylibrary.archivio.ValoreGiaPresenteException;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
 
 import java.util.Collections;
@@ -54,7 +54,7 @@ public class GestoreUtenti extends Gestore<Utente> implements Indicizzabile<Matr
 
         // Se era gi√† presente quell'utente
         if (res != null) {
-            throw new ValoreGi‡PresenteException("TODO FARE MESSAGGIO BELLO");
+            throw new ValoreGiaPresenteException("TODO FARE MESSAGGIO BELLO");
         }
 
         super.registra(u);

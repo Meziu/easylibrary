@@ -6,7 +6,7 @@
 package homepage;
 
 import static homepage.UtentiController.UTENTI_MODEL;
-import it.unisa.diem.softeng.easylibrary.archivio.ValoreGiàPresenteException;
+import it.unisa.diem.softeng.easylibrary.archivio.ValoreGiaPresenteException;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.GestoreUtenti;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmail;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmailInvalidoException;
@@ -73,8 +73,8 @@ public class AddUtentiController implements Initializable {
             // 3. Chiudi la finestra (opzionale)
             ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
 
-        } catch (ValoreGiàPresenteException e) {
-            new Alert(Alert.AlertType.ERROR, "Matricola già presente").show();
+        } catch (ValoreGiaPresenteException e) {
+            new Alert(Alert.AlertType.ERROR, "Matricola giï¿½ presente").show();
         } catch (IndirizzoEmailInvalidoException ie) {
             new Alert(Alert.AlertType.ERROR, "Indirizzo email non valido").show();
         } catch (MatricolaInvalidaException me) {
