@@ -21,17 +21,27 @@ public class LibroTest {
         l = new Libro("1984", aut, 1949, "123456789X", 2);
     }
 
+    
+    /* 
+    *  COSTRUTTORE
+    *
+    */
     @Test
     public void testCostruzioneLibro() {
-        assertNotNull(l);
-        assertEquals("1984", l.getTitolo());
-        assertEquals(aut, l.getAutori());
-        assertEquals(1949, l.getAnnoPubblicazione());
+        Libro l1 = new Libro("1984", aut, 1949, "123456789X", 2);
+        assertNotNull(l1);
+        assertEquals("1984", l1.getTitolo());
+        assertEquals(aut, l1.getAutori());
+        assertEquals(1949, l1.getAnnoPubblicazione());
         assertEquals(new ISBN("123456789X"), l.getISBN());
-        assertEquals(2, l.getCopieDisponibili());
+        assertEquals(2, l1.getCopieDisponibili());
     }
 
  
+    /* 
+    *   GET
+    * 
+    */
     @Test
     public void testGetTitolo() {
         assertEquals(l.getTitolo(), "1984");
@@ -57,9 +67,15 @@ public class LibroTest {
         assertEquals(l.getCopieDisponibili(), 2);
     }
 
+    
+    /* 
+    *   SET
+    * 
+    */
     @Test
     public void testSetTitolo() {
         String titolo = "Animal Farm" ;
+        l.setTitolo(titolo);
         assertEquals("Animal Farm", l.getTitolo());
     }
 
@@ -88,26 +104,67 @@ public class LibroTest {
         assertNotEquals(l.getCopieDisponibili(), old);
     }
 
+    /* 
+    *   LISTA AUTORI
+    * 
+    */
     @Test
     public void testAggiungiAutore() {
-            ///?????????
+        Autore nuovo = new Autore("Luca", "Verdi");
+        l.aggiungiAutore(nuovo);
+
+        assertTrue(l.getAutori().contains(nuovo));
+        assertEquals(2, l.getAutori().size());
     }
 
     @Test
     public void testRimuoviAutore() {
-        //l.rimuoviAutore(new Autore("George", "Orwell"));
-        //assertEquals(l.getAutori(), )
+        Autore rimuovere = new Autore("George", "Orwell");
+        l.rimuoviAutore(rimuovere);
+
+        assertFalse(l.getAutori().contains(rimuovere));
+        assertEquals(0, l.getAutori().size());
     }
     
     
+    /*
+    *   EQUALS
+    *
+    */
+    @Test
+    public void equalsRiconosceDueLibriUguali() {
+        Libro i = new Libro("1984", aut, 1949, "123456789X", 2);
 
-    /* ----------------------------------------------------------------------
+        assertEquals(l, i);
+        assertEquals(i, l); // simmetria
+    }
+
+    @Test
+    public void equalsRiconosceLibriDiversi() {
+        Libro i = new Libro("1950", aut, 1949, "123456799X", 2);
+
+        assertNotEquals(l, i);
+    }
+    
+    @Test
+    public void equalsConNullRitornaFalse() {
+        assertNotEquals(l, null);
+    }
+
+    @Test
+    public void equalsConOggettoDiClasseDiversaRitornaFalse() {
+        assertNotEquals(l, "Mario Rossi");  // tipo diverso
+    }
+    
+    
+    
+    /*
     *  COMPARE TO
-    * ----------------------------------------------------------------------
+    * 
     */
     @Test
     public void testCompareToFunzionaCorrettamenteTitolo() {
-        Libro l2 = new Libro("I promessi sposi", aut, 1827, "987654321X", 2);
+        Libro l2 = new Libro("1880", aut, 1827, "987654321X", 2);
 
         assertTrue(l2.compareTo(l) < 0);
         assertTrue(l.compareTo(l2) > 0);
@@ -125,8 +182,7 @@ public class LibroTest {
     @Test
     public void testCompareToRiconosceLibriUguali() {
         Libro l2 = new Libro("1984", aut, 1949, "123456789X", 2);
-        assertEquals(l, l2);
-        assertEquals(l.hashCode(), l2.hashCode());
+        assertEquals(0, l.compareTo(l2));
     }
 
     @Test
