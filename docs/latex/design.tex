@@ -83,7 +83,7 @@ i flussi di errore sono correttamente gestiti.
 \newpage
 \subsection{Gestori di Archivio}
 \umlbox{
-	\includesvg[width=1.2\textwidth, inkscapelatex=false]{../uml/classesGestori.svg}
+	\includegraphics[width=1.2\textwidth]{../uml/classesGestori.png}
 }
 
 \subsubsection{Scelte progettuali}
@@ -96,15 +96,18 @@ Le funzionalità comuni sono state estratte in un interfaccia,
 \emph{Archiviabile}, che permette la registrazione, rimozione e modifica di
 dati generici. Per gli archivi con indice univoco (utenti e libri), è inoltre disponibile un ulteriore interfaccia \emph{Indicizzabile}, estensione di \emph{Archiviabile}, che permette l'ottenimento diretto di un valore tramite chiave. Questa impostazione consente di applicare il \emph{principio di inversione delle dipendenze}, rendendo \emph{Biblioteca} dipendente da astrazioni piuttosto che da implementazioni concrete. Le classi che realizzano gli archivi possono così essere sostituite o estese senza impattare sul livello superiore.
 \paragraph{} Le funzionalità comuni ai vari gestori sono state consolidate in una singola classe astratta, \emph{Gestore}, al fine di applicare il principio \emph{DRY} (\emph{Don’t Repeat Yourself}). Le tre specializzazioni ereditano tale implementazione e definiscono solo il comportamento specifico, riducendo la complessità del codice secondo il principio \emph{KISS} (\emph{Keep It Simple}).
+\paragraph{} L'unica classe di gestione che richiede più informazioni della semplice lista di dati è \emph{GestorePrestiti}. Per compiere i controlli di validità, è necessario che il gestore dei
+prestiti abbia disponibile le informazioni di contesto sugli utenti e sui libri presenti nel sistema.
+Nonostante ciò, anzichè creare dipendenza tra le varie classi, si è deciso di associare a \emph{GestorePrestiti} riferimenti all'interfaccia \emph{Indicizzabile}, che possiede tutti i servizi
+necessari per ottenere lo stato degli utenti data la \emph{Matricola} (e dei libri, dato l'\emph{ISBN}). Ciò permette di mantenere un ottima \emph{ortogonalità} tra i diversi archivi.
 \paragraph{} Infine, un rigoroso uso dell’incapsulamento ha permesso di minimizzare l’accoppiamento tra le classi e di nascondere i dettagli implementativi, aumentando la robustezza e l’estensibilità del sistema.
 
 \newpage
 \subsection{Rappresentazione Dati}
 \umlbox{
-	\includesvg[width=1.3\textwidth, inkscapelatex=false]{../uml/classesDati.svg}
+	\includegraphics[width=1.4\textwidth]{../uml/classesDati.png}
 }
 
-\newpage
 \subsubsection{Scelte progettuali}
 \paragraph{} Le scelte di progettazione compiute nell'ambito dati sono state pensate al fine di aumentare il livello di coesione e abbassare il livello di accoppiamento tra le diverse strutture dati. Ogni classe raggruppa attributi e metodi strettamente correlati al proprio scopo, aderendo al principio di \emph{separazione delle preoccupazioni}. 
 \paragraph{} Al fine di evitare \emph{accoppiamento per timbro}, anzichè mantenere riferimenti
