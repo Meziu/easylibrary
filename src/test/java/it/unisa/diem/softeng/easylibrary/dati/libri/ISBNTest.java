@@ -10,9 +10,14 @@ public class ISBNTest {
     public ISBNTest() {
     }
 
-    /* ----------------------------------------------------------------------
+    @Before
+    public void setUp() {
+       isbn = new ISBN("123456789X");
+    }
+    
+    /* 
     *  COSTRUTTORE
-    * ----------------------------------------------------------------------
+    *
     */
     @Test
     public void testCostruzioneISBNValidoSenzaTrattini() {
@@ -39,19 +44,19 @@ public class ISBNTest {
     }
     
     
-    /* ----------------------------------------------------------------------
+    /* 
     *   GET ISBN
-    * ----------------------------------------------------------------------
+    * 
     */
     @Test
     public void testGetISBN() {
-        assertEquals(new ISBN("123456789X").getISBN(), "123456789X");
+        assertEquals(isbn.getISBN(), "123456789X");
     }
     
     
-    /* ----------------------------------------------------------------------
+    /*
     *   VERIFICA ISBN-10
-    * ----------------------------------------------------------------------
+    * 
     */
     @Test
     public void testVerificaISBN10Valido() {
@@ -80,9 +85,9 @@ public class ISBNTest {
     
 
     
-    /* ----------------------------------------------------------------------
+    /* 
     *  VERIFICA ISBN-13
-    * ----------------------------------------------------------------------
+    *
     */
     @Test
     public void testVerificaISBN13Valido() {
@@ -96,16 +101,43 @@ public class ISBNTest {
 
     @Test
     public void testVerificaISBN13LunghezzaErrata() {
-        assertFalse(ISBN.verifica("9780306406")); // Troppo corto
+        assertFalse(ISBN.verifica("123456789")); // 9 caratteri = falso
     }
     
+        
+    /*
+    *   EQUALS
+    *
+    */
+    @Test
+    public void equalsRiconosceDueISBNUguali() {
+        ISBN i = new ISBN("123456789X");
 
+        assertEquals(isbn, i);
+        assertEquals(i, isbn); // simmetria
+    }
 
+    @Test
+    public void equalsDistingueISBNDiversi() {
+        ISBN i = new ISBN("883456789X");
+
+        assertNotEquals(isbn, i);
+    }
+    
+    @Test
+    public void equalsConNull() {
+        assertNotEquals(isbn, null);
+    }
+
+    @Test
+    public void equalsConOggettoDiClasseDiversa() {
+        assertNotEquals(isbn, 5);  // tipo diverso
+    }
     
     
-    /* ----------------------------------------------------------------------
+    /* 
     *  COMPARE TO
-    * ----------------------------------------------------------------------
+    * 
     */
     @Test
     public void testCompareToFunzionaCorrettamente() {
@@ -119,27 +151,23 @@ public class ISBNTest {
     @Test
     public void testCompareToISBNUguali() {
         ISBN i1 = new ISBN("123456789X");
-        ISBN i2 = new ISBN("123456789X");
 
-        assertEquals(0, i1.compareTo(i2));
+        assertEquals(0, isbn.compareTo(i1));
     }
-    
     
   
     @Test
     public void testCompareToRiconosceISBNUguali() {
         ISBN i1 = new ISBN("123456789X");
-        ISBN i2 = new ISBN("123456789X");
 
-        assertEquals(i1, i2);
-        assertEquals(i1.hashCode(), i2.hashCode());
+        assertEquals(isbn, i1);
+        assertEquals(isbn.hashCode(), i1.hashCode());
     }
 
     @Test
     public void testCompareToDistingueISBNDiversi() {
-        ISBN i1 = new ISBN("123456789X");
-        ISBN i2 = new ISBN("1234567890");
+        ISBN i1 = new ISBN("1234567890");
 
-        assertNotEquals(i1, i2);
+        assertNotEquals(isbn, i1);
     }
 }
