@@ -13,7 +13,7 @@ import java.util.Objects;
  * @see Anagrafica
  * @see Libro
 */
-public class Autore implements Comparable<Autore>, Serializable {
+public class Autore implements Serializable {
     private Anagrafica anagrafica;
     
     /**
@@ -30,11 +30,6 @@ public class Autore implements Comparable<Autore>, Serializable {
     
     public Anagrafica getAnagrafica() {
         return this.anagrafica;
-    }
-    
-    @Override
-    public int compareTo(Autore a) {
-        return this.anagrafica.compareTo(a.getAnagrafica());
     }
     
     /**

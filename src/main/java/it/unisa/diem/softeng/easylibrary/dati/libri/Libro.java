@@ -2,6 +2,7 @@ package it.unisa.diem.softeng.easylibrary.dati.libri;
 
 import java.io.Serializable;
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,10 +36,11 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @param\[in] isbn Stringa di caratteri del codice ISBN.
      * @param\[in] copieDisponibili Interi che indica il numero di copie disponibili.
      */
-    public Libro(String titolo, List<Autore> autori, Year annoPubblicazione, String isbn, int copieDisponibili) {
+    public Libro(String titolo, List<Autore> autori, int annoPubblicazione, String isbn, int copieDisponibili) {
         this.titolo = titolo;
-        this.autori = autori;
-        this.annoPubblicazione = annoPubblicazione;
+        this.autori = new ArrayList<>();
+        this.autori.addAll(autori);
+        this.annoPubblicazione = Year.of(annoPubblicazione);
         this.isbn = new ISBN(isbn);
         this.copieDisponibili = copieDisponibili;
     }
@@ -69,8 +71,8 @@ public class Libro implements Comparable<Libro>, Serializable {
      * 
      * @return Anno di pubblicazione.
      */
-    public Year getAnnoPubblicazione() {
-        return annoPubblicazione;
+    public int getAnnoPubblicazione() {
+        return annoPubblicazione.getValue();
     }
 
     
@@ -117,8 +119,8 @@ public class Libro implements Comparable<Libro>, Serializable {
      * 
      * @param\[in] annoPubblicazione Nuovo anno di pubblicazione.
      */
-    public void setAnnoPubblicazione(Year annoPubblicazione) {
-        this.annoPubblicazione = annoPubblicazione;
+    public void setAnnoPubblicazione(int annoPubblicazione) {
+        this.annoPubblicazione = Year.of(annoPubblicazione);
     }
     
     /**

@@ -13,6 +13,16 @@ public class PrestitoTest {
     public PrestitoTest() {
     }
     
+    @Test
+    public void testCostruzioneAutoreValida() {
+        Prestito p = new Prestito(new Matricola("0612709671"), new ISBN("0133943038"), StatoPrestito.ATTIVO, LocalDate.of(2005, Month.MAY, 30));
+        assertNotNull(p);                                           // l'oggetto è creato
+        assertEquals("0612709671", p.getMatricola());
+        assertEquals("0133943038", p.getISBN());
+        assertEquals(StatoPrestito.ATTIVO, p.getStato());
+        assertEquals(LocalDate.of(2005, Month.MAY, 30), p.getDataDiScadenza());
+    }
+    
     @Before
     public void setUp() {
         p = new Prestito(new Matricola("0612709671"), new ISBN("0133943038"), StatoPrestito.ATTIVO, LocalDate.of(2005, Month.MAY, 30));
