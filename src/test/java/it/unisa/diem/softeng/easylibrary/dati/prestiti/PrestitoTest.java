@@ -81,16 +81,26 @@ public class PrestitoTest {
         Prestito p_lessISBN = new Prestito(new Matricola("0612709671"), new ISBN("0133940000"), StatoPrestito.ATTIVO, LocalDate.of(2005, Month.MAY, 30));
         
         assertTrue(p.compareTo(p_lessData) > 0);
+        assertTrue(p_lessData.compareTo(p) < 0);
+        
         assertTrue(p.compareTo(p_lessMatricola) > 0);
+        assertTrue(p_lessMatricola.compareTo(p) < 0);
+        
         assertTrue(p.compareTo(p_lessISBN) > 0);
+        assertTrue(p_lessISBN.compareTo(p) < 0);
         
         Prestito p_moreData = new Prestito(new Matricola("0612709671"), new ISBN("0133943038"), StatoPrestito.ATTIVO, LocalDate.of(2025, Month.JUNE, 12));
         Prestito p_moreMatricola = new Prestito(new Matricola("0612709742"), new ISBN("0133943038"), StatoPrestito.ATTIVO, LocalDate.of(2005, Month.MAY, 30));
         Prestito p_moreISBN = new Prestito(new Matricola("0612709671"), new ISBN("0133953422"), StatoPrestito.ATTIVO, LocalDate.of(2005, Month.MAY, 30));
         
         assertTrue(p.compareTo(p_moreData) < 0);
+        assertTrue(p_moreData.compareTo(p) > 0);
+        
         assertTrue(p.compareTo(p_moreMatricola) < 0);
+        assertTrue(p_moreMatricola.compareTo(p) > 0);
+        
         assertTrue(p.compareTo(p_moreISBN) < 0);
+        assertTrue(p_moreISBN.compareTo(p) > 0);
     }
 
 }
