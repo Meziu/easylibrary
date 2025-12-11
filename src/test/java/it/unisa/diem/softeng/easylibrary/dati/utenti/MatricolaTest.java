@@ -2,77 +2,96 @@ package it.unisa.diem.softeng.easylibrary.dati.utenti;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 public class MatricolaTest {
-
+    private Matricola m;
+    
     public MatricolaTest() {
     }
     
-       // ----------------------------------------------------------------------
-    //  COSTRUTTORE
-    // ----------------------------------------------------------------------
+    @Before
+    public void setUp() {
+       m = new Matricola("0123456789");
+    }
 
+    /* 
+    *  COSTRUTTORE
+    *
+    */
     @Test
-    public void costruzioneMatricolaValida() {
+    public void testCostruzioneMatricolaValida() {
         Matricola m = new Matricola("0123456789");
         assertEquals("0123456789", m.getMatricola());
     }
 
     @Test
-    public void costruzioneMatricolaTroppoCortaLanciaEccezione() {
+    public void testCostruzioneMatricolaCortaLanciaEccezione() {
         assertThrows(MatricolaInvalidaException.class,
                 () -> new Matricola("12345"));
     }
 
     @Test
-    public void costruzioneMatricolaTroppoLungaLanciaEccezione() {
+    public void testCostruzioneMatricolaLungaLanciaEccezione() {
         assertThrows(MatricolaInvalidaException.class,
                 () -> new Matricola("1234567890123"));
     }
 
     @Test
-    public void costruzioneMatricolaConCaratteriNonNumericiLanciaEccezione() {
+    public void testCostruzioneMatricolaCaratteriNonNumericiLanciaEccezione() {
         assertThrows(MatricolaInvalidaException.class,
                 () -> new Matricola("12345A7890"));
     }
 
     @Test
-    public void costruzioneMatricolaConStringaNullLanciaEccezione() {
+    public void testCostruzioneMatricolaStringaNullLanciaEccezione() {
         assertThrows(MatricolaInvalidaException.class,
                 () -> new Matricola(null));
     }
 
-    // ----------------------------------------------------------------------
-    //  METODO VERIFICA
-    // ----------------------------------------------------------------------
-
+    
+    /* 
+    *   GET ISBN
+    * 
+    */
     @Test
-    public void verificaRitornaTruePerMatricolaValida() {
+    public void testGetISBN() {
+        assertEquals(m.getMatricola(), "0123456789");
+    }
+    
+    
+    
+    /*
+    *   VERIFICA
+    * 
+    */
+    @Test
+    public void testVerificaMatricolaValida() {
         assertTrue(Matricola.verifica("0123456789"));
     }
 
     @Test
-    public void verificaRitornaFalsePerLunghezzaErrata() {
+    public void testVerificaLunghezzaErrata() {
         assertFalse(Matricola.verifica("1234"));
         assertFalse(Matricola.verifica("1234567890123"));
     }
 
     @Test
-    public void verificaRitornaFalsePerCaratteriNonNumerici() {
+    public void testVerificaCaratteriNonNumerici() {
         assertFalse(Matricola.verifica("1234X67890"));
     }
 
     @Test
-    public void verificaNullRitornaFalse() {
+    public void testVerificaNull() {
         assertFalse(Matricola.verifica(null));
     }
 
-    // ----------------------------------------------------------------------
-    //  EQUALS E HASHCODE
-    // ----------------------------------------------------------------------
+    /*
+    *  EQUALS
+    */
 
     @Test
-    public void equalsRiconosceMatricoleUguali() {
+    public void testEqualsRiconosceMatricoleUguali() {
         Matricola m1 = new Matricola("0123456789");
         Matricola m2 = new Matricola("0123456789");
 
@@ -81,7 +100,7 @@ public class MatricolaTest {
     }
 
     @Test
-    public void equalsDistingueMatricoleDiverse() {
+    public void testEqualsDistingueMatricoleDiverse() {
         Matricola m1 = new Matricola("0123456789");
         Matricola m2 = new Matricola("9876543210");
 
@@ -89,22 +108,22 @@ public class MatricolaTest {
     }
 
     @Test
-    public void equalsConOggettoDiClasseDiversaRitornaFalse() {
+    public void TestEqualsConOggettoDiClasseDiversa() {
         Matricola m = new Matricola("0123456789");
         assertNotEquals(m, "0123456789");
     }
 
     @Test
-    public void equalsConNullRitornaFalse() {
+    public void testEqualsConNull() {
         Matricola m = new Matricola("0123456789");
         assertNotEquals(m, null);
     }
 
-    // ----------------------------------------------------------------------
-    //  COMPARETO
-    // ----------------------------------------------------------------------
+    /*
+    *  COMPARE TO
+    */
     @Test
-    public void compareToFunzionaCorrettamente() {
+    public void testCompareToFunzionaCorrettamente() {
         Matricola m1 = new Matricola("0000000001");
         Matricola m2 = new Matricola("0000000002");
 
@@ -113,39 +132,25 @@ public class MatricolaTest {
     }
 
     @Test
-    public void compareToMatricoleUgualiRitornaZero() {
-        Matricola m1 = new Matricola("1111111111");
-        Matricola m2 = new Matricola("1111111111");
+    public void testCompareToMatricoleUguali() {
+        Matricola m1 = new Matricola("0123456789");
 
-        assertEquals(0, m1.compareTo(m2));
-    }
-
-    
-    
-    
-    
-    
-    
-    
-
-    @Test
-    public void testGetMatricola() {
+        assertEquals(0, m.compareTo(m1));
     }
 
     @Test
-    public void testVerifica() {
+    public void testCompareToRiconosceMatricoleUguali() {
+        Matricola m1 = new Matricola("0123456789");
+
+        assertEquals(m, m1);
+        assertEquals(m.hashCode(), m1.hashCode());
     }
 
     @Test
-    public void testCompareTo() {
-    }
+    public void testCompareToDistingueMatricoleDiverse() {
+        Matricola m1 = new Matricola("0123456888");
 
-    @Test
-    public void testHashCode() {
-    }
-
-    @Test
-    public void testEquals() {
+        assertNotEquals(m, m1);
     }
 
 }
