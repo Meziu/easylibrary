@@ -177,7 +177,7 @@ public class Libro implements Comparable<Libro>, Serializable {
             return this.getISBN().compareTo(l.getISBN());
         }
         
-        return this.isbn.compareTo(l.isbn);
+        return c;
     }
     
     /**
