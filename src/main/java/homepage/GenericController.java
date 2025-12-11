@@ -53,11 +53,10 @@ public class GenericController implements Initializable {
     protected TableView<?> tableView;
     @FXML
     private Button addButton;
-    
+
     private Stage stage;
     private String pageType;
     public static Biblioteca BIBLIOTECA;
-
 
     /**
      * Initializes the controller class.
@@ -65,8 +64,8 @@ public class GenericController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         BIBLIOTECA = Biblioteca.caricaFile("fileTemporaneo.bin");
-        
-        if(BIBLIOTECA == null){
+
+        if (BIBLIOTECA == null) {
             BIBLIOTECA = new Biblioteca();
         }
     }
@@ -78,12 +77,14 @@ public class GenericController implements Initializable {
         Scene scene = new Scene(root);
 
         HomePageController controller = new HomePageController();
+        
+        BIBLIOTECA.salvaFile("fileTemporaneo.bin");
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        
+
         double currentWidth = stage.getWidth();
         double currentHeight = stage.getHeight();
-        
+
         stage.setScene(scene);
         stage.setTitle("Biblioteca");
         stage.setWidth(currentWidth);
@@ -108,7 +109,7 @@ public class GenericController implements Initializable {
         node.styleProperty().bind(fontSizeBinding);
     }
 
-    public <T, S> TableColumn<T, S> createNewColumn(TableView<T> tableView, String columnTitle, String propertyName) throws RuntimeException { 
+    public <T, S> TableColumn<T, S> createNewColumn(TableView<T> tableView, String columnTitle, String propertyName) throws RuntimeException {
 
         if (columnTitle == null || propertyName == null) {
             throw new IllegalArgumentException("Titolo o nome proprietÃ  non possono essere null.");
@@ -126,9 +127,9 @@ public class GenericController implements Initializable {
             throw new RuntimeException("Errore di configurazione della colonna: impossibile trovare la proprietÃ  '"
                     + propertyName + "' nel modello. Dettagli: " + e.getMessage(), e);
         }
-        
+
         tableView.getColumns().add(newColumn);
- 
+
         return newColumn;
     }
 
@@ -139,11 +140,11 @@ public class GenericController implements Initializable {
     public void setPageType(String pageType) {
         this.pageType = pageType;
     }
-    
+
     public void setTableView(TableView<?> userTableView) {
     }
-    
-    public void setupSpecificColumns(){
+
+    public void setupSpecificColumns() {
     }
 
     @FXML
@@ -182,7 +183,7 @@ public class GenericController implements Initializable {
 
             // Ottieni lo Stage (finestra) padre dall'evento
             Stage ownerStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            
+
             // Crea il nuovo Stage (la finestra popup)
             Stage popupStage = new Stage();
             popupStage.setTitle(title);
@@ -191,8 +192,8 @@ public class GenericController implements Initializable {
 
             // Imposta la ModalitÃ  Modale
             popupStage.initOwner(ownerStage);
-            popupStage.initModality(Modality.WINDOW_MODAL); 
-            
+            popupStage.initModality(Modality.WINDOW_MODAL);
+
             // Mostra la finestra e attende che venga chiusa
             popupStage.showAndWait();
 
@@ -209,10 +210,55 @@ public class GenericController implements Initializable {
     private void salvaFile(ActionEvent event) {
         BIBLIOTECA.salvaFile("fileTemporaneo.bin");
     }
-    
-    public void setStage(Stage stage){
+
+    public void setStage(Stage stage) {
         this.stage = stage;
-        stage.setOnCloseRequest(e -> {BIBLIOTECA.salvaFile("fileTemporaneo.bin");});
+        stage.setOnCloseRequest(e -> {
+            BIBLIOTECA.salvaFile("fileTemporaneo.bin");
+        });
+    }
+
+    @FXML
+    private void remove(ActionEvent event) {
+        // 1. Controlla che ci sia una riga selezionata
+        Object selectedItem = tableView.getSelectionModel().getSelectedItem();
+
+        if (selectedItem == null) {
+            new Alert(AlertType.WARNING, "Seleziona una riga da rimuovere.").show();
+            return;
+        }
+
+        // 2. Determina l'azione in base al tipo di pagina
+        if (pageType == null) {
+            System.err.println("Errore: Tipo di pagina non impostato.");
+            return;
+        }
+
+        // Assumiamo che, per la rimozione, sia Utente l'unico caso gestito al momento
+        if (pageType.equals("A")) { // "A" è la pagina Utenti
+            try {
+                Utente utenteDaRimuovere = (Utente) selectedItem;
+
+                // Rimuovi dall'archivio persistente
+                BIBLIOTECA.getArchivioUtenti().rimuovi(utenteDaRimuovere);
+
+                // Rimuovi dalla lista osservabile (aggiornamento UI)
+                // Usiamo il riferimento statico all'ObservableList degli Utenti
+                UtentiController.UTENTI_MODEL.remove(utenteDaRimuovere);
+
+                // NOTA: Il filtro non ha bisogno di essere rieseguito perché l'elemento
+                // rimosso non era più nella lista completa da filtrare. La rimozione diretta
+                // dalla UTENTI_MODEL è sufficiente.
+                new Alert(AlertType.INFORMATION, "Utente rimosso con successo.").show();
+
+            } catch (ClassCastException e) {
+                System.err.println("Errore di casting: L'elemento selezionato non è un Utente.");
+            } catch (Exception e) {
+                new Alert(AlertType.ERROR, "Errore durante la rimozione dell'utente: " + e.getMessage()).show();
+            }
+        } else {
+            new Alert(AlertType.INFORMATION, "Rimozione non implementata per questo tipo di pagina.").show();
+        }
     }
 
 }

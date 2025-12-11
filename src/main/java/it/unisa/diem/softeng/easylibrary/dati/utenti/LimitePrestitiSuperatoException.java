@@ -1,4 +1,4 @@
-package it.unisa.diem.softeng.easylibrary;
+package it.unisa.diem.softeng.easylibrary.dati.utenti;
 
 /**
  *

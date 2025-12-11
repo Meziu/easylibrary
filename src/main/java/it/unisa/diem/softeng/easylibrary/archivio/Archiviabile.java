@@ -12,6 +12,9 @@ import java.util.function.Consumer;
  * come registrazione, rimozione, modifica e filtraggio.
  * 
  * @param <E> Tipo di elemento gestito dall'archivio
+ * 
+ * @invariant La lista di elementi e gli elementi al suo interno devono essere
+ * modificati solo tramite l'uso di modifica().
  */
 public interface Archiviabile<E> extends Serializable {
 
@@ -29,7 +32,12 @@ public interface Archiviabile<E> extends Serializable {
 
     /**
      * @brief Rimuove un elemento dall'archivio.
-     * @param elemento Elemento da rimuovere
+     * 
+     * Segna come rimosso un elemento dall'archivio. Non è necessario
+     * che l'elemento sia logicamente rimosso dalla lista. La rimozione può
+     * trattarsi anche solo di una segnalazione sull'elemento.
+     * 
+     * @param elemento Elemento da rimuovere.
      */
     void rimuovi(E elemento);
     
@@ -37,8 +45,8 @@ public interface Archiviabile<E> extends Serializable {
     /**
      * @brief Modifica un elemento dell'archivio applicando un'operazione.
      * 
-     * @param elemento Elemento da modificare
-     * @param c Consumer che definisce come modificare l'elemento
+     * @param elemento Elemento da modificare.
+     * @param c Consumer che definisce come modificare l'elemento.
      */
     void modifica(E elemento, Consumer<E> c);
     
@@ -49,8 +57,8 @@ public interface Archiviabile<E> extends Serializable {
      * Applica il filtro `f` a tutti gli elementi e restituisce quelli che
      * soddisfano il criterio.
      * 
-     * @param f Filtro da applicare
-     * @return Lista di elementi filtrati
+     * @param f Filtro da applicare.
+     * @return Lista di elementi filtrati.
      */
     default List<E> filtra(Filtro<E> f) {
         List<E> listaFiltrata = new ArrayList<>();

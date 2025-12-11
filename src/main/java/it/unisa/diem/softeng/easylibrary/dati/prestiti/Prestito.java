@@ -4,6 +4,7 @@ import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
 import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 
 /**
@@ -19,7 +20,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
 
     private final Matricola matricolaUtente;
     private final ISBN isbn;
-    private StatoPrestito statoPrestito;
+    private StatoPrestito stato;
     private LocalDate dataDiScadenza;
 
     
@@ -28,13 +29,13 @@ public class Prestito implements Comparable<Prestito>, Serializable {
      *
      * @param\[in] matricolaUtente Matricola dell'utente che prende in prestito il libro
      * @param\[in] isbn ISBN del libro preso in prestito
-     * @param\[in] statoPrestito Stato iniziale del prestito
+     * @param\[in] stato Stato iniziale del prestito
      * @param\[in] scadenzaPrestito Data di scadenza del prestito
      */
-    public Prestito(Matricola matricolaUtente, ISBN isbn, StatoPrestito statoPrestito, LocalDate scadenzaPrestito) {
+    public Prestito(Matricola matricolaUtente, ISBN isbn, StatoPrestito stato, LocalDate scadenzaPrestito) {
         this.matricolaUtente = matricolaUtente;
         this.isbn = isbn;
-        this.statoPrestito = statoPrestito;
+        this.stato = stato;
         this.dataDiScadenza = scadenzaPrestito;
     }
 
@@ -59,7 +60,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
      * @return Lo stato del prestito
      */
     public StatoPrestito getStato() {
-        return statoPrestito;
+        return stato;
     }
 
     /**
@@ -82,8 +83,8 @@ public class Prestito implements Comparable<Prestito>, Serializable {
      * @brief Aggiorna lo stato del prestito.
      * @param\[in] nuovoStato Nuovo stato da assegnare al prestito
      */
-    public void setStatoPrestito(StatoPrestito nuovoStato) {
-        this.statoPrestito = nuovoStato;
+    public void setStato(StatoPrestito nuovoStato) {
+        this.stato = nuovoStato;
     }
     
     /**
@@ -124,4 +125,39 @@ public class Prestito implements Comparable<Prestito>, Serializable {
 
         return c1;
     }
+    
+    /**
+     * 
+     * @brief Uguaglianza con un'altro Prestito.
+     * 
+     * @return true se i due Prestito hanno Matricola, ISBN e data di restituzione uguale, false altrimenti.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        
+        final Prestito other = (Prestito) obj;
+        if (!Objects.equals(this.matricolaUtente, other.matricolaUtente)) {
+            return false;
+        }
+        
+        if (!Objects.equals(this.isbn, other.isbn)) {
+            return false;
+        }
+        
+        if (!Objects.equals(this.dataDiScadenza, other.dataDiScadenza)) {
+            return false;
+        }
+        
+        return true;
+    }
+    
 }

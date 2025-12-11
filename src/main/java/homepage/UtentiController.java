@@ -188,7 +188,7 @@ public class UtentiController extends GenericController {
 
             // --- CRITERIO NOME/COGNOME (RICERCA PER PREFISSO) ---
             if (!cognomeFilter.isEmpty()) {
-                String cognome = utente.getCognome().toLowerCase(Locale.ROOT);
+                String cognome = utente.getAnagrafica().getCognome().toLowerCase(Locale.ROOT);
 
                 // Requisito: Il filtro deve essere l'INIZIO del Nome OPPURE l'INIZIO del Cognome
                 matchesCognome = cognome.startsWith(cognomeFilter);

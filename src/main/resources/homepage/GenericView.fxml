@@ -38,7 +38,7 @@
                      <Button mnemonicParsing="false" onAction="#returnHome" text="Home" />
                      <HBox alignment="CENTER_RIGHT" spacing="5.0">
                         <children>
-                           <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="-">
+                           <Button mnemonicParsing="false" onAction="#remove" prefHeight="30.0" prefWidth="30.0" text="-">
                               <HBox.margin>
                                  <Insets />
                               </HBox.margin></Button>

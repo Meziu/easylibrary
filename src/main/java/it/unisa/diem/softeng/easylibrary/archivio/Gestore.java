@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.unisa.diem.softeng.easylibrary.dati.libri;
+package it.unisa.diem.softeng.easylibrary.archivio;
 
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
 import java.util.ArrayList;
@@ -17,9 +17,15 @@ import it.unisa.diem.softeng.easylibrary.archivio.Archiviabile;
  * @brief Gestore generico di archivio.
  * 
  * @param <E> Classe degli elementi archiviati.
+ * 
  */
 public abstract class Gestore<E extends Comparable<? super E>> implements Archiviabile<E> {
     
+    /**
+     * @brief Lista di elementi del gestore.
+     * @invariant La lista di elementi deve rimanere sempre ordinata per il criterio
+     * di ordinamento naturale del tipo elemento <E> (per interfaccia Comparable).
+     */
     protected final List<E> lista;
 
     public Gestore() {

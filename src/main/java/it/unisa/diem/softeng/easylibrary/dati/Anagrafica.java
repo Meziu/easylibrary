@@ -1,6 +1,7 @@
 package it.unisa.diem.softeng.easylibrary.dati;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * 
@@ -72,8 +73,8 @@ public class Anagrafica implements Comparable<Anagrafica>, Serializable {
      * lessicografico prima del cognome e poi, a parità di
      * cognome, del nome.
      * 
-     * @return Valore negativo, zero o positivo se la persona corrente è rispettivamente
-     * minore, uguale o maggiore del libro passato come parametro.
+     * @return Valore negativo, zero o positivo se l'anagrafica corrente è rispettivamente
+     * minore, uguale o maggiore dell'anagrafica passato come parametro.
      */
     @Override
     public int compareTo(Anagrafica a) {
@@ -84,6 +85,33 @@ public class Anagrafica implements Comparable<Anagrafica>, Serializable {
         }
 
         return c;
+    }
+
+    /**
+     * 
+     * @brief Uguaglianza con un'altra Anagrafica.
+     * 
+     * @return true se le due Anagrafica hanno nome e cognome uguale (per String.equals), false altrimenti.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Anagrafica other = (Anagrafica) obj;
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.cognome, other.cognome)) {
+            return false;
+        }
+        return true;
     }
 
 }

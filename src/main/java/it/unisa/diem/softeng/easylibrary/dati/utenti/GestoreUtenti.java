@@ -6,7 +6,7 @@ import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import it.unisa.diem.softeng.easylibrary.dati.libri.Gestore;
+import it.unisa.diem.softeng.easylibrary.archivio.Gestore;
 import java.util.function.Consumer;
 import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
 

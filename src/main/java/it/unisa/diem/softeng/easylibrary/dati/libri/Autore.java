@@ -2,6 +2,7 @@ package it.unisa.diem.softeng.easylibrary.dati.libri;
 
 import it.unisa.diem.softeng.easylibrary.dati.Anagrafica;
 import java.io.Serializable;
+import java.util.Objects;
 
 
 /**
@@ -34,5 +35,30 @@ public class Autore implements Comparable<Autore>, Serializable {
     @Override
     public int compareTo(Autore a) {
         return this.anagrafica.compareTo(a.getAnagrafica());
+    }
+    
+    /**
+     * 
+     * @brief Uguaglianza con un'altro Autore.
+     * 
+     * @return true se i due Autore hanno nome e cognome uguale (per String.equals), false altrimenti.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Autore other = (Autore) obj;
+        if (!Objects.equals(this.anagrafica, other.anagrafica)) {
+            return false;
+        }
+        
+        return true;
     }
 }

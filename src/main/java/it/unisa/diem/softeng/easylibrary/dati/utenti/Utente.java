@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -52,23 +53,6 @@ public class Utente implements Comparable<Utente>, Serializable {
     public Anagrafica getAnagrafica() {
         return anagrafica;
     }
-    
-    // ------ get necessariiiii ------
-    /**
-     * @brief Restituisce il nome dell'utente.
-     * @return Il nome
-     */
-    public String getNome(){
-        return anagrafica.getNome();
-    }
-    
-    /**
-     * @brief Restituisce il cognome dell'utente.
-     * @return Il cognome
-     */
-    public String getCognome(){
-        return anagrafica.getCognome();
-    }
 
     /**
      * @brief Restituisce la matricola dell'utente.
@@ -95,21 +79,26 @@ public class Utente implements Comparable<Utente>, Serializable {
         return Collections.unmodifiableList(prestitiAttivi);
     }
     
-    
+
     /**
      * @brief Imposta un nuovo indirizzo email.
      * @param\[in] email Nuovo indirizzo email
      */
     public void setEmail(IndirizzoEmail email) {
-        Utente.this.email = email;
+        this.email = email;
     }
 
     /**
      * @brief Registra un nuovo prestito attivo per l'utente.
      * @param\[in] p Prestito da aggiungere
+     * @throws LimitePrestitiSuperatoException
      */
     public void registraPrestito(Prestito p) {
-        Utente.this.prestitiAttivi.add(p);
+        if (this.prestitiAttivi.size() >= 3) {
+            throw new LimitePrestitiSuperatoException();
+        }
+        
+        this.prestitiAttivi.add(p);
     }
 
     /**
@@ -117,7 +106,7 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @param\[in] p Prestito da rimuovere
      */
     public void rimuoviPrestito(Prestito p) {
-        Utente.this.prestitiAttivi.remove(p);
+        this.prestitiAttivi.remove(p);
     }
 
     
@@ -141,4 +130,35 @@ public class Utente implements Comparable<Utente>, Serializable {
         
         return c;
     }
+    
+    /**
+     * 
+     * @brief Uguaglianza con un'altro Utente.
+     * 
+     * @return true se i due Utente hanno Anagrafica e Matricola uguale, false altrimenti.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        
+        final Utente other = (Utente) obj;
+        if (!Objects.equals(this.anagrafica, other.anagrafica)) {
+            return false;
+        }
+        
+        if (!Objects.equals(this.matricola, other.matricola)) {
+            return false;
+        }
+        
+        return true;
+    }
+    
 }
