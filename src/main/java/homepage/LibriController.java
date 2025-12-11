@@ -9,6 +9,7 @@ import it.unisa.diem.softeng.easylibrary.archivio.Filtro;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Autore;
 import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
+import java.io.IOException;
 import java.net.URL;
 import java.time.Year;
 import java.util.List;
@@ -20,14 +21,20 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
 /**
@@ -60,12 +67,9 @@ public class LibriController extends GenericController {
     @FXML
     private TextField textFieldISBN;
 
-    private TableView<?> tableView;
+    private TableView<Libro> bookTableView;
     public static final ObservableList<Libro> LIBRI_MODEL = FXCollections.observableArrayList();
 
-    /**
-     * Initializes the controller class.
-     */
     public void initialize(URL url, ResourceBundle rb) {
         if (vbox != null) {
 
@@ -98,29 +102,51 @@ public class LibriController extends GenericController {
 
     @Override
     public void setTableView(TableView<?> tableView) {
-        this.tableView = tableView;
+        this.bookTableView = (TableView<Libro>) tableView;
+    }
+
+    private void apriEditorAutori(Libro libroDaModificare) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/homepage/EditorAutoriView.fxml"));
+            Parent root = loader.load();
+
+            EditorAutoriController editorController = loader.getController();
+
+            // 1. Passa il Libro al controller EditorAutoriController
+            editorController.setLibro(libroDaModificare);
+
+            Stage ownerStage = (Stage) bookTableView.getScene().getWindow();
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Modifica Autori: " + libroDaModificare.getTitolo());
+            popupStage.setScene(new Scene(root));
+            popupStage.initOwner(ownerStage);
+            popupStage.initModality(Modality.WINDOW_MODAL);
+
+            popupStage.showAndWait();
+
+            // Dopo la chiusura, l'oggetto 'libroDaModificare' è stato aggiornato dall'EditorAutoriController.
+            // Forza l'aggiornamento della riga per mostrare la nuova stringa di autori
+            bookTableView.refresh();
+
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, "Impossibile aprire l'editor degli autori.").show();
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void setupSpecificColumns() {
-        if (tableView == null) {
+        if (bookTableView == null) {
             throw new IllegalStateException("Impossibile configurare: TableView non iniettata.");
         }
-
-        TableView<Libro> bookTableView = (TableView<Libro>) tableView;
 
         TableColumn<Libro, String> colTitolo = null;
         TableColumn<Libro, ISBN> colISBN = null;
         TableColumn<Libro, Year> colAnno = null;
         TableColumn<Libro, Integer> colCopie = null;
         TableColumn<Libro, String> colAutori = new TableColumn("Autori");
-        /*TableColumn<Utente, ?> colMatricola = null;
-        TableColumn<Utente, IndirizzoEmail> colMail = null;
-        TableColumn<Utente, ?> colPrestiti = null;*/
 
-        // Chiama il metodo pubblico del GenericController (ereditato)
         try {
-            //colNome.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getAnagrafica().getNome()));
             colTitolo = createNewColumn(bookTableView, "Titolo", "titolo");
             bookTableView.getColumns().add(colAutori);
             colAutori.setCellValueFactory(data -> {
@@ -173,9 +199,8 @@ public class LibriController extends GenericController {
             if (nuovoAnno != null) {
                 // SUCCESS
                 l.setAnnoPubblicazione(nuovoAnno);
-                // [Azione opzionale: Salva su archivio]
             } else {
-                // FAILURE (Validazione fallita nel Converter)
+                // FAILURE 
                 e.getTableView().edit(-1, null); // Chiude l'editor e ripristina il vecchio valore
                 e.getTableView().refresh(); // Forzatura UI per assicurare il ripristino
                 new Alert(Alert.AlertType.ERROR, "L'anno inserito non è valido (deve essere un numero intero positivo e non nel futuro).").show();
@@ -188,13 +213,9 @@ public class LibriController extends GenericController {
             Integer newValue = e.getNewValue();
             Libro libro = e.getRowValue();
 
-            // Validazione del valore
             if (newValue != null && newValue >= 0) {
-                // Se il valore è valido (numero intero e non negativo)
-                // Devi ASSICURARTI che la tua classe Libro abbia il metodo setCopieDisponibili
                 libro.setCopieDisponibili(newValue);
 
-                // [Opzionale: Aggiungi qui la logica di salvataggio persistente, es. salvataggio su file]
             } else {
                 // Il valore non è valido (es. l'utente ha provato a digitare del testo o un numero negativo)
 
@@ -202,9 +223,21 @@ public class LibriController extends GenericController {
                 e.getTableView().edit(-1, null);
                 e.getTableView().refresh(); // Forzatura UI per assicurare il ripristino
 
-                // 2. Mostra un Alert per informare l'utente
                 new Alert(Alert.AlertType.ERROR, "Il numero di copie deve essere un intero positivo o zero.").show();
             }
+        });
+
+        colAutori.setEditable(false); // Non si modifica direttamente
+
+        bookTableView.setRowFactory(tv -> {
+            TableRow<Libro> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    Libro selectedLibro = row.getItem();
+                    apriEditorAutori(selectedLibro); // Apre il popup
+                }
+            });
+            return row;
         });
 
         // ISBN NON MODIFICABILE
@@ -263,14 +296,14 @@ public class LibriController extends GenericController {
             boolean matchesAutore = true;
             boolean matchesISBN = true;
 
-            // --- CRITERIO TITOLO (Ricerca per Prefisso) ---
+            // CRITERIO TITOLO (Ricerca per Prefisso)
             if (!titoloFilter.isEmpty()) {
                 String titolo = libro.getTitolo().toLowerCase(Locale.ROOT);
                 // Il filtro è soddisfatto se il titolo INIZIA con il testo cercato
                 matchesTitolo = titolo.startsWith(titoloFilter);
             }
 
-            // --- CRITERIO AUTORE (Ricerca nella Lista di Autori) ---
+            // CRITERIO AUTORE (Ricerca nella Lista di Autori)
             if (!autoreFilter.isEmpty()) {
                 // Il filtro è soddisfatto se ALMENO UN autore soddisfa il criterio
                 matchesAutore = libro.getAutori().stream().anyMatch(autore -> {
@@ -282,9 +315,8 @@ public class LibriController extends GenericController {
                 });
             }
 
-            // --- CRITERIO ISBN (Ricerca per Prefisso) ---
+            // CRITERIO ISBN (Ricerca per Prefisso)
             if (!isbnFilter.isEmpty()) {
-                // Assumendo che Libro.getISBN().getISBN() restituisca la stringa ISBN
                 String isbnStr = libro.getISBN().getISBN().toLowerCase(Locale.ROOT);
                 matchesISBN = isbnStr.startsWith(isbnFilter);
             }

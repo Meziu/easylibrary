@@ -96,19 +96,14 @@ public class UtentiController extends GenericController {
 
         TableColumn<Utente, String> colNome = new TableColumn("Nome");
         userTableView.getColumns().add(colNome);
-        //TableColumn<Utente, String> colNome = null;
         TableColumn<Utente, String> colCognome = new TableColumn("Cognome");
         userTableView.getColumns().add(colCognome);
-        //TableColumn<Utente, String> colCognome = null;
         TableColumn<Utente, ?> colMatricola = null;
         TableColumn<Utente, IndirizzoEmail> colMail = null;
         TableColumn<Utente, ?> colPrestiti = null;
 
-        // Chiama il metodo pubblico del GenericController (ereditato)
         try {
-            //colNome = createNewColumn(userTableView, "Nome", "nome");
             colNome.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getAnagrafica().getNome()));
-            //colCognome = createNewColumn(userTableView, "Cognome", "cognome");
             colCognome.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getAnagrafica().getCognome()));
             colMatricola = createNewColumn(userTableView, "Matricola", "matricola");
             colMail = createNewColumn(userTableView, "Mail", "email");
@@ -178,7 +173,7 @@ public class UtentiController extends GenericController {
         // 1. Definiamo la LOGICA del filtro implementando l'interfaccia Filtro<Utente> tramite lambda
         Filtro<Utente> filtroCombinato = utente -> {
 
-            // --- CASO BASE: MOSTRA TUTTO ---
+            // CASO BASE: MOSTRA TUTTO
             if (cognomeFilter.isEmpty() && matricolaFilter.isEmpty()) {
                 return true;
             }
@@ -186,7 +181,7 @@ public class UtentiController extends GenericController {
             boolean matchesCognome = true;
             boolean matchesMatricola = true;
 
-            // --- CRITERIO NOME/COGNOME (RICERCA PER PREFISSO) ---
+            // CRITERIO NOME/COGNOME (RICERCA PER PREFISSO)
             if (!cognomeFilter.isEmpty()) {
                 String cognome = utente.getAnagrafica().getCognome().toLowerCase(Locale.ROOT);
 
@@ -194,7 +189,7 @@ public class UtentiController extends GenericController {
                 matchesCognome = cognome.startsWith(cognomeFilter);
             }
 
-            // --- CRITERIO MATRICOLA (RICERCA PER PREFISSO) ---
+            // CRITERIO MATRICOLA (RICERCA PER PREFISSO)
             if (!matricolaFilter.isEmpty()) {
                 String matricolaStr = utente.getMatricola().toString().toLowerCase(Locale.ROOT);
 
