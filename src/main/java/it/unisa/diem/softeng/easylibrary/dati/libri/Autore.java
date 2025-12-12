@@ -56,29 +56,4 @@ public class Autore implements Serializable {
         
         return true;
     }
-    
-    /**
-     * 
-     * @brief Uguaglianza con un'altro Autore.
-     * 
-     * @return true se i due Autore hanno nome e cognome uguale (per String.equals), false altrimenti.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Autore other = (Autore) obj;
-        if (!Objects.equals(this.anagrafica, other.anagrafica)) {
-            return false;
-        }
-        
-        return true;
-    }
 }

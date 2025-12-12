@@ -81,8 +81,8 @@ public class AddLibriController implements Initializable {
             }
 
             // 2. Validazione Anno di Pubblicazione
+            int annoInt = Integer.parseInt(annoStr);
             try {
-                int annoInt = Integer.parseInt(annoStr);
                 if (annoInt <= 0) {
                      new Alert(Alert.AlertType.ERROR, "L'anno di pubblicazione deve essere un numero intero positivo.").show();
                      return;
@@ -127,13 +127,12 @@ public class AddLibriController implements Initializable {
 
             // 4. Creazione e Registrazione del Libro
             // Il costruttore Libro gestisce la creazione dell'oggetto ISBN da isbnStr
-            Libro nuovoLibro = new Libro(titolo, autoriObjects, annoPubblicazione, isbnStr, copie);
+            Libro nuovoLibro = new Libro(titolo, autoriObjects, annoInt, isbnStr, copie);
 
             // Registra nell'archivio persistente
             GenericController.BIBLIOTECA.getArchivioLibri().registra(nuovoLibro); 
 
             // 5. Aggiorna la tabella (se LIBRI_MODEL � ObservableList e accessibile)
-            // Sostituisci questo commento con la riga di aggiornamento corretta:
             LibriController.LIBRI_MODEL.setAll(GenericController.BIBLIOTECA.getArchivioLibri().getLista());
 
             // 6. Chiudi la finestra

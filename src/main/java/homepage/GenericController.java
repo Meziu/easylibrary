@@ -7,6 +7,7 @@ package homepage;
 
 import it.unisa.diem.softeng.easylibrary.Biblioteca;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
+import it.unisa.diem.softeng.easylibrary.dati.prestiti.Prestito;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
 import java.io.IOException;
 import java.net.URL;
@@ -239,57 +240,77 @@ public class GenericController implements Initializable {
         switch (pageType) {
             case "A":
                 try {
-                    Utente utenteDaRimuovere = (Utente) selectedItem;
+                Utente utenteDaRimuovere = (Utente) selectedItem;
 
-                    // Rimuovi dall'archivio persistente
-                    BIBLIOTECA.getArchivioUtenti().rimuovi(utenteDaRimuovere);
+                // Rimuovi dall'archivio persistente
+                BIBLIOTECA.getArchivioUtenti().rimuovi(utenteDaRimuovere);
 
-                    // Rimuovi dalla lista osservabile (aggiornamento UI)
-                    // Usiamo il riferimento statico all'ObservableList degli Utenti
-                    UtentiController.UTENTI_MODEL.remove(utenteDaRimuovere);
+                // Rimuovi dalla lista osservabile (aggiornamento UI)
+                // Usiamo il riferimento statico all'ObservableList degli Utenti
+                UtentiController.UTENTI_MODEL.remove(utenteDaRimuovere);
 
-                    // NOTA: Il filtro non ha bisogno di essere rieseguito perch� l'elemento
-                    // rimosso non era pi� nella lista completa da filtrare. La rimozione diretta
-                    // dalla UTENTI_MODEL � sufficiente.
-                    new Alert(AlertType.INFORMATION, "Utente rimosso con successo.").show();
+                // NOTA: Il filtro non ha bisogno di essere rieseguito perch� l'elemento
+                // rimosso non era pi� nella lista completa da filtrare. La rimozione diretta
+                // dalla UTENTI_MODEL � sufficiente.
+                new Alert(AlertType.INFORMATION, "Utente rimosso con successo.").show();
 
-                } catch (ClassCastException e) {
-                    System.err.println("Errore di casting: L'elemento selezionato non è un Utente.");
-                } catch (Exception e) {
-                    new Alert(AlertType.ERROR, "Errore durante la rimozione dell'utente: " + e.getMessage()).show();
-                }
-                
-                break;
+            } catch (ClassCastException e) {
+                System.err.println("Errore di casting: L'elemento selezionato non è un Utente.");
+            } catch (Exception e) {
+                new Alert(AlertType.ERROR, "Errore durante la rimozione dell'utente: " + e.getMessage()).show();
+            }
+
+            break;
             case "B":
                 try {
-                    Libro libroDaRimuovere = (Libro) selectedItem;
+                Libro libroDaRimuovere = (Libro) selectedItem;
 
-                    // Rimuovi dall'archivio persistente
-                    BIBLIOTECA.getArchivioLibri().rimuovi(libroDaRimuovere);
+                // Rimuovi dall'archivio persistente
+                BIBLIOTECA.getArchivioLibri().rimuovi(libroDaRimuovere);
 
-                    // Rimuovi dalla lista osservabile (aggiornamento UI)
-                    // Usiamo il riferimento statico all'ObservableList degli Utenti
-                    LibriController.LIBRI_MODEL.remove(libroDaRimuovere);
+                // Rimuovi dalla lista osservabile (aggiornamento UI)
+                // Usiamo il riferimento statico all'ObservableList degli Utenti
+                LibriController.LIBRI_MODEL.remove(libroDaRimuovere);
 
-                    // NOTA: Il filtro non ha bisogno di essere rieseguito perch� l'elemento
-                    // rimosso non era pi� nella lista completa da filtrare. La rimozione diretta
-                    // dalla UTENTI_MODEL � sufficiente.
-                    new Alert(AlertType.INFORMATION, "Libro rimosso con successo.").show();
+                // NOTA: Il filtro non ha bisogno di essere rieseguito perch� l'elemento
+                // rimosso non era pi� nella lista completa da filtrare. La rimozione diretta
+                // dalla UTENTI_MODEL � sufficiente.
+                new Alert(AlertType.INFORMATION, "Libro rimosso con successo.").show();
 
-                } catch (ClassCastException e) {
-                    System.err.println("Errore di casting: L'elemento selezionato non � un Libro.");
-                } catch (Exception e) {
-                    new Alert(AlertType.ERROR, "Errore durante la rimozione del libro: " + e.getMessage()).show();
-                }
-                
-                break;
+            } catch (ClassCastException e) {
+                System.err.println("Errore di casting: L'elemento selezionato non � un Libro.");
+            } catch (Exception e) {
+                new Alert(AlertType.ERROR, "Errore durante la rimozione del libro: " + e.getMessage()).show();
+            }
+
+            break;
             case "C":
-                new Alert(AlertType.INFORMATION, "Rimozione non implementata per questo tipo di pagina.").show();
-                
-                break;
+                try {
+                // 1. Casting dell'oggetto selezionato a Prestito
+                Prestito prestitoDaRestituire = (Prestito) selectedItem;
+
+                // 2. Esecuzione della logica di business (Setta lo Stato a RESTITUITO)
+                BIBLIOTECA.getArchivioPrestiti().rimuovi(prestitoDaRestituire);
+
+                // 3. AGGIORNAMENTO UI: Ricarica l'intero modello per riflettere il cambio di stato
+                // Ricarichiamo l'intero ObservableList con l'elenco aggiornato
+                // Questo mantiene l'oggetto nella lista visibile ma aggiorna la colonna 'Stato'
+                PrestitiController.PRESTITI_MODEL.setAll(GenericController.BIBLIOTECA.getArchivioPrestiti().getLista());
+                PrestitiController.INSTANCE.updateFiltroPrestiti();
+
+                new Alert(AlertType.INFORMATION,
+                        "Prestito segnato come RESTITUITO con successo"
+                ).show();
+
+            } catch (ClassCastException e) {
+                System.err.println("Errore di casting: L'elemento selezionato non � un Prestito.");
+            } catch (Exception e) {
+                new Alert(AlertType.ERROR, "Errore durante la restituzione del prestito: " + e.getMessage()).show();
+            }
+            break;
             default:
                 new Alert(AlertType.INFORMATION, "Rimozione non implementata per questo tipo di pagina.").show();
-                
+
                 return;
         }
     }

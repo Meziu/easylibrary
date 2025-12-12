@@ -104,6 +104,6 @@ public class IndirizzoEmail implements Serializable {
     
     @Override
     public String toString(){
-        return email;
+        return indirizzo;
     }
 }

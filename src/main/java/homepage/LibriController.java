@@ -142,7 +142,7 @@ public class LibriController extends GenericController {
 
         TableColumn<Libro, String> colTitolo = null;
         TableColumn<Libro, ISBN> colISBN = null;
-        TableColumn<Libro, Year> colAnno = null;
+        TableColumn<Libro, Integer> colAnno = null;
         TableColumn<Libro, Integer> colCopie = null;
         TableColumn<Libro, String> colAutori = new TableColumn("Autori");
 
@@ -191,12 +191,12 @@ public class LibriController extends GenericController {
             l.setTitolo(e.getNewValue());
         });
 
-        colAnno.setCellFactory(TextFieldTableCell.forTableColumn(new YearStringConverter()));
-        colAnno.setOnEditCommit((TableColumn.CellEditEvent<Libro, Year> e) -> {
-            Year nuovoAnno = e.getNewValue();
+        colAnno.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        colAnno.setOnEditCommit((TableColumn.CellEditEvent<Libro, Integer> e) -> {
+            int nuovoAnno = e.getNewValue();
             Libro l = e.getRowValue();
 
-            if (nuovoAnno != null) {
+            if (nuovoAnno > 0) {
                 // SUCCESS
                 l.setAnnoPubblicazione(nuovoAnno);
             } else {
