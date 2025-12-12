@@ -1,6 +1,6 @@
 @startuml
-'skinparam classAttributeIconSize 0
 skinparam nodesep 100
+scale 1400*1400
 
 interface Filtro<T> {
     +controlla(): boolean
@@ -41,20 +41,16 @@ together {
     +getArchivioLibri(): Indicizzabile<ISBN, Libro>
     +getArchivioPrestiti(): Archiviabile<Prestito>
 
-    +registraPrestito(): void
-    +registraRestituzione(): void
-
     +salvaFile(): void
     +caricaFile(): Biblioteca {static}
 }
 
 +abstract class Gestore<E> {
-    #lista: List<E>
+    -lista: List<E>
 }
 
 together {
     +class GestoreLibri extends Gestore {
-
         -indiceISBN: Map<ISBN, Libro> {readOnly}
 
         +GestoreLibri()
@@ -69,6 +65,8 @@ together {
 
 
     +class GestorePrestiti extends Gestore {
+        -archivioUtenti: Indicizzabile<Matricola, Utente>
+        -archivioLibri: Indicizzabile<ISBN, Libro>
 
         +GestorePrestiti()
     }
@@ -84,6 +82,8 @@ Archiviabile .right.> Filtro
 
 GestoreLibri .up.|> Indicizzabile
 GestoreUtenti .up.|> Indicizzabile
+
+GestorePrestiti -left-> Indicizzabile
 
 GestoreUtenti --> "1..*" Utente
 GestoreLibri --> "1..*" Libro

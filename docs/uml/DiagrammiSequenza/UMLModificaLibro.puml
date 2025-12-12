@@ -18,37 +18,24 @@ deactivate B
 UI -> Gestore : Mostra l'elenco dei libri
 activate Gestore
 
-Gestore -> UI : Seleziona campo Titolo da modificare
+Gestore -> UI : Seleziona campo Copie Disponibili da modificare
 Gestore -> UI : Inserisce nuovo valore
 deactivate Gestore
-UI -> A : modifica(Utente da modificare, consumer)
+UI -> A : modifica(Libro da modificare, consumer)
 activate A
-
-' ----- Verifica Dati -----
-alt Libro non presente
-    A -> UI : throw ValoreNonPresenteException
-    UI -> Gestore : La modifica al valore viene annullata
-    UI -> Gestore : Mostra messaggio di errore
-    UI -> Gestore : L'elenco dei libri viene aggiornato
-
-end
 
 A -> L : consumer.accept(libro)
 activate L
 
-alt Nuovo titolo non valido
-    L -> UI : throw IndirizzoTitoloInvalidoException
+alt Numero Copie Libro Invalido
+    L -> UI : throw NumeroCopieInvalidoException
     deactivate L
     UI -> Gestore : La modifica al valore viene annullata
     UI -> Gestore : Mostra messaggio di errore
-
 else Campo valido
-    activate L
     L --> UI : Modifica effettuata con successo
-    deactivate L
     deactivate A
     UI -> Gestore : Mostra il nuovo valore del campo
-
 end
 deactivate UI
 

@@ -27,3 +27,4 @@ docs/latex/*
 
 
 .DS_Store
+/nbproject/

@@ -1,6 +1,6 @@
 @startuml
-'skinparam classAttributeIconSize 0
 skinparam nodesep 100
+scale 1400*1400
 
 +class Anagrafica {
     -nome: String
@@ -35,20 +35,20 @@ together {
     +class Libro{
         -titolo: String
         -autori: List<Autore>
-        -dataPubblicazione: LocalDate
+        -annoPubblicazione: Year
         -isbn: ISBN
         -copieDisponibili: int
 
         +Libro()
         +getTitolo(): String
         +getAutori(): List<Autore>
-        +getDataPubblicazione(): String
+        +getAnnoPubblicazione(): int
         +getISBN(): ISBN
         +getCopieDisponibili(): int
 
         +setTitolo(): void
         +setAutori(): void
-        +setDataPubblicazione(): void
+        +setAnnoPubblicazione(): void
         +setCopieDisponibili((): void
         +aggiungiAutore(): void
         +rimuoviAutore(): void

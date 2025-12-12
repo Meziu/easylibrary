@@ -15,18 +15,18 @@ import it.unisa.diem.softeng.easylibrary.archivio.Archiviabile;
 /**
  *
  * @brief Gestore generico di archivio.
- * 
+ *
  * @param <E> Classe degli elementi archiviati.
- * 
+ *
  */
 public abstract class Gestore<E extends Comparable<? super E>> implements Archiviabile<E> {
-    
+
     /**
      * @brief Lista di elementi del gestore.
      * @invariant La lista di elementi deve rimanere sempre ordinata per il criterio
      * di ordinamento naturale del tipo elemento <E> (per interfaccia Comparable).
      */
-    protected final List<E> lista;
+    private final List<E> lista;
 
     public Gestore() {
         lista = new ArrayList<>();
@@ -40,7 +40,7 @@ public abstract class Gestore<E extends Comparable<? super E>> implements Archiv
     @Override
     public void registra(E el) {
         int idx = Collections.binarySearch(lista, el);
-        
+
         // BinarySearch ritorna valori positivi se trova il valore, o (- posizione di inserimento - 1)
         // se non lo trova. In ogni caso, noi vogliamo inserire immediatamente dopo un prestito trovato
         // o nel punto di inserimento restituito.
@@ -63,16 +63,16 @@ public abstract class Gestore<E extends Comparable<? super E>> implements Archiv
         if (idx_remove < 0 || idx_remove >= lista.size()) {
             throw new ValoreNonPresenteException();
         }
-        
+
         E el = lista.get(idx_remove);
-        
+
         lista.remove(idx_remove);
-        
+
         // Applica modifiche dal consumer.
         c.accept(el);
-        
+
         int idx_insert = Collections.binarySearch(lista, el);
         lista.add(Math.abs(idx_insert + 1), el);
     }
-    
+
 }

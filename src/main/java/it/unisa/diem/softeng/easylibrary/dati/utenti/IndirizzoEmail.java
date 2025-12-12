@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 public class IndirizzoEmail implements Serializable {
 
-    private String email;
+    private String indirizzo;
 
     /**
      * 
@@ -31,7 +31,7 @@ public class IndirizzoEmail implements Serializable {
      */
     public IndirizzoEmail(String email) {
         if (verifica(email)) {
-            this.email = email;
+            this.indirizzo = email;
         } else {
             throw new IndirizzoEmailInvalidoException(); // TODO
         }
@@ -43,7 +43,7 @@ public class IndirizzoEmail implements Serializable {
      * @return La stringa di caratteri che compongono l'indirizzo email.
      */
     public String getIndirizzoEmail() {
-        return email;
+        return indirizzo;
     }
     
     /**
@@ -51,7 +51,7 @@ public class IndirizzoEmail implements Serializable {
      * @param\[in] email Nuovo indirizzo email
      */
     public void setIndirizzoEmail(String email) {
-        this.email = email;
+        this.indirizzo = email;
     }
 
     /*

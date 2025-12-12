@@ -13,7 +13,7 @@ import java.util.Objects;
  * @see Anagrafica
  * @see Libro
 */
-public class Autore implements Comparable<Autore>, Serializable {
+public class Autore implements Serializable {
     private Anagrafica anagrafica;
     
     /**
@@ -32,9 +32,29 @@ public class Autore implements Comparable<Autore>, Serializable {
         return this.anagrafica;
     }
     
+    /**
+     * 
+     * @brief Uguaglianza con un'altro Autore.
+     * 
+     * @return true se i due Autore hanno nome e cognome uguale (per String.equals), false altrimenti.
+     */
     @Override
-    public int compareTo(Autore a) {
-        return this.anagrafica.compareTo(a.getAnagrafica());
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Autore other = (Autore) obj;
+        if (!Objects.equals(this.anagrafica, other.anagrafica)) {
+            return false;
+        }
+        
+        return true;
     }
     
     /**
