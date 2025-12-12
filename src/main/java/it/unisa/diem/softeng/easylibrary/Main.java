@@ -1,11 +1,12 @@
 package it.unisa.diem.softeng.easylibrary;
 
+import it.unisa.diem.softeng.easylibrary.ui.AppController;
+import java.io.IOException;
 import javafx.application.Application;
-import javafx.geometry.Pos;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 
 public class Main extends Application {
 
@@ -19,13 +20,20 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         b = new Biblioteca();
-        Label lbl = new Label("Ciao Mondo!");
-        VBox root = new VBox();
+        
+        // Avvio App
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/res/AppView.fxml"));
+        loader.setController(new AppController("biblioteca.bin"));
+        
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
 
-        root.setAlignment(Pos.CENTER);
-        root.getChildren().addAll(lbl);
-
-        Scene scene = new Scene(root, 400, 300);
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("EasyLibrary");
         stage.show();

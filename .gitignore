@@ -25,6 +25,7 @@ docs/latex/*
 !*.puml
 *.svg
 
+biblioteca.bin
 
 .DS_Store
 /nbproject/

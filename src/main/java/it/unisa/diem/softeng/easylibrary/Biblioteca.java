@@ -92,8 +92,6 @@ public class Biblioteca implements Serializable {
                 new FileInputStream(filename))) {
             return (Biblioteca) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            // TODO: gestire questa eccezione correttamente
-            e.printStackTrace();
             return null;
         }
     }
