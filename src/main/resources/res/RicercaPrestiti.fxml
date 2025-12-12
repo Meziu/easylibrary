@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
@@ -13,7 +12,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField promptText="Nome o cognome">
+      <TextField fx:id="ricercaPrestitoUtenteField" promptText="Nome o cognome">
          <font>
             <Font size="15.0" />
          </font>
@@ -23,13 +22,10 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField promptText="Titolo del libro">
+      <TextField fx:id="ricercaPrestitoLibroField" promptText="Titolo del libro">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
    </children>
-   <padding>
-      <Insets left="10.0" />
-   </padding>
 </VBox>
