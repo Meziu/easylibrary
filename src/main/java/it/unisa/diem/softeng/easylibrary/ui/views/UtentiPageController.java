@@ -3,28 +3,40 @@ package it.unisa.diem.softeng.easylibrary.ui.views;
 import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
 import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
-import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmail;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
 import java.util.stream.Collectors;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.control.TextField;
+import javafx.fxml.FXML;
 
 
-public class UtentiPageController extends DataPageController<Utente>{
+public class UtentiPageController extends DataPageController<Utente, RicercaUtenteController> {
     private Indicizzabile<Matricola, Utente> utenti;
     private Indicizzabile<ISBN, Libro> libri;
+    private VisualizzatoreHomePage hp;
     
-    public UtentiPageController(Indicizzabile<Matricola, Utente> utenti, Indicizzabile<ISBN, Libro> libri){
+    public UtentiPageController(VisualizzatoreHomePage hp, Indicizzabile<Matricola, Utente> utenti, Indicizzabile<ISBN, Libro> libri){
+        super(hp, new RicercaUtenteController(), "Utenti", "/res/RicercaUtente.fxml");
+        
         this.utenti = utenti;
         this.libri = libri;
     }
-    
+
+    @Override
+    public void add(ActionEvent event) {
+        
+    }
+
+    @Override
+    public void remove(ActionEvent event) {
+        
+    }
     
     @Override
-    protected void initializeColumns() {
+    protected void initializeColonne() {
 
         TableColumn<Utente, String> nomeCol = new TableColumn<>("Nome");
         nomeCol.setCellValueFactory(c ->
@@ -55,7 +67,6 @@ public class UtentiPageController extends DataPageController<Utente>{
                         .collect(Collectors.joining(", "))
                 )
         );
-        
         
         table.getColumns().addAll(nomeCol, cognomeCol, matrCol, emailCol, prestitiCol);
 

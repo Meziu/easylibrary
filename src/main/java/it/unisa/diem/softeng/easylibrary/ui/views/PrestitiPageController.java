@@ -4,18 +4,20 @@ import it.unisa.diem.softeng.easylibrary.archivio.Archiviabile;
 import it.unisa.diem.softeng.easylibrary.dati.prestiti.Prestito;
 import java.util.stream.Collectors;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
 
 
-public class PrestitiPageController extends DataPageController<Prestito> {
+public class PrestitiPageController extends DataPageController<Prestito, RicercaPrestitoController> {
     private Archiviabile<Prestito> prestiti;
     
-    public PrestitiPageController(Archiviabile<Prestito> prestiti){
+    public PrestitiPageController(VisualizzatoreHomePage hp, Archiviabile<Prestito> prestiti) {
+        super(hp, new RicercaPrestitoController(), "Prestiti", "/res/RicercaPrestiti.fxml");
         this.prestiti = prestiti;
     }
     
     @Override
-    protected void initializeColumns() {
+    protected void initializeColonne() {
 
         TableColumn<Prestito, String> utenteCol = new TableColumn<>("Matricola utente");
         utenteCol.setCellValueFactory(c ->
@@ -50,5 +52,15 @@ public class PrestitiPageController extends DataPageController<Prestito> {
         
         // Carica i libri
         setItems(prestiti.getLista());
+    }
+    
+    @Override
+    public void add(ActionEvent event) {
+        
+    }
+
+    @Override
+    public void remove(ActionEvent event) {
+        
     }
 }

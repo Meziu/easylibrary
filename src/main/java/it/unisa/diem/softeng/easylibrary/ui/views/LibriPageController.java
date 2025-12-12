@@ -9,19 +9,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
 
 
-public class LibriPageController extends DataPageController<Libro>{
+public class LibriPageController extends DataPageController<Libro, RicercaLibroController> {
+
     private Indicizzabile<ISBN, Libro> libri;
     
-    public LibriPageController(Indicizzabile<ISBN, Libro> libri){
+    public LibriPageController(VisualizzatoreHomePage hp, Indicizzabile<ISBN, Libro> libri){
+        super(hp, new RicercaLibroController(), "Libri", "/res/RicercaLibro.fxml");
+        
         this.libri = libri;
     }
     
     
     @Override
-    protected void initializeColumns() {
+    protected void initializeColonne() {
 
         TableColumn<Libro, String> titoloCol = new TableColumn<>("Titolo");
         titoloCol.setCellValueFactory(c ->
@@ -66,5 +70,15 @@ public class LibriPageController extends DataPageController<Libro>{
         
         // Carica i libri
         setItems(libri.getLista());
+    }
+    
+    @Override
+    public void add(ActionEvent event) {
+        
+    }
+
+    @Override
+    public void remove(ActionEvent event) {
+        
     }
 }

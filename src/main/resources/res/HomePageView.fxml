@@ -1,39 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<!--
-    Questo è il file FXML per la Home Page dell'applicazione di gestione della biblioteca.
-    Utilizza un BorderPane come contenitore principale per garantire la ridimensionabilità.
-    Ho aggiunto un riferimento a 'style.css' per migliorare l'estetica.
--->
-
-<VBox alignment="CENTER" spacing="50.0" style="-fx-background-color: lightGrey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" spacing="50.0" style="-fx-background-color: lightGrey;" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label styleClass="title-text" text="EASYLIBRARY">
          <font>
             <Font size="60.0" />
          </font>
       </Label>
-      <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="logo-image">
+      <ImageView fitHeight="240.0" fitWidth="240.0" pickOnBounds="true" preserveRatio="true" styleClass="logo-image">
          <image>
-            <Image url="@ImmagineUnisa.png" />
+            <Image url="@unisaLogo.png" />
          </image>
       </ImageView>
       <VBox alignment="CENTER" spacing="15.0">

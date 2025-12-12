@@ -5,6 +5,7 @@ import it.unisa.diem.softeng.easylibrary.ui.views.HomePageController;
 import it.unisa.diem.softeng.easylibrary.ui.views.LibriPageController;
 import it.unisa.diem.softeng.easylibrary.ui.views.PrestitiPageController;
 import it.unisa.diem.softeng.easylibrary.ui.views.UtentiPageController;
+import it.unisa.diem.softeng.easylibrary.ui.views.VisualizzatoreHomePage;
 import it.unisa.diem.softeng.easylibrary.ui.views.VisualizzatorePagine;
 import java.io.IOException;
 import java.net.URL;
@@ -13,12 +14,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 
 
-public class AppController implements Initializable, VisualizzatorePagine {
+public class AppController implements Initializable, VisualizzatorePagine, VisualizzatoreHomePage {
     private Biblioteca biblioteca;
     
     @FXML
@@ -35,15 +34,7 @@ public class AppController implements Initializable, VisualizzatorePagine {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/res/HomePageView.fxml"));
-        loader.setController(new HomePageController(this));
-        
-        try {
-            appContent.setCenter(loader.load());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
+        visualizzaHome();
     }    
 
     @FXML
@@ -75,8 +66,8 @@ public class AppController implements Initializable, VisualizzatorePagine {
 
     @Override
     public void visualizzaLibri() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/res/GenericView.fxml"));
-        loader.setController(new LibriPageController(biblioteca.getArchivioLibri()));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/res/DataPageView.fxml"));
+        loader.setController(new LibriPageController(this, biblioteca.getArchivioLibri()));
         
         try {
             appContent.setCenter(loader.load());
@@ -88,8 +79,8 @@ public class AppController implements Initializable, VisualizzatorePagine {
 
     @Override
     public void visualizzaUtenti() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/res/GenericView.fxml"));
-        loader.setController(new UtentiPageController(biblioteca.getArchivioUtenti(), biblioteca.getArchivioLibri()));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/res/DataPageView.fxml"));
+        loader.setController(new UtentiPageController(this, biblioteca.getArchivioUtenti(), biblioteca.getArchivioLibri()));
         
         try {
             appContent.setCenter(loader.load());
@@ -101,8 +92,21 @@ public class AppController implements Initializable, VisualizzatorePagine {
 
     @Override
     public void visualizzaPrestiti() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/res/GenericView.fxml"));
-        loader.setController(new PrestitiPageController(biblioteca.getArchivioPrestiti()));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/res/DataPageView.fxml"));
+        loader.setController(new PrestitiPageController(this, biblioteca.getArchivioPrestiti()));
+        
+        try {
+            appContent.setCenter(loader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+    }
+    
+    @Override
+    public void visualizzaHome() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/res/HomePageView.fxml"));
+        loader.setController(new HomePageController(this));
         
         try {
             appContent.setCenter(loader.load());

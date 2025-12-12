@@ -1,31 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.HBox?>
 
-<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="Utente">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <TextField fx:id="ricercaPrestitoUtenteField" promptText="Nome o cognome">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </TextField>
-      <Label text="Libro">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <TextField fx:id="ricercaPrestitoLibroField" promptText="Titolo del libro">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </TextField>
+      <Label text="Prestiti Attivi" />
+      <CheckBox fx:id="mostraPrestitiAttivi" mnemonicParsing="false" selected="true" />
    </children>
-</VBox>
+   <padding>
+      <Insets top="40.0" />
+   </padding>
+</HBox>
