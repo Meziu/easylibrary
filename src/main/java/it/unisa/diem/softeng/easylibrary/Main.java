@@ -1,5 +1,8 @@
 package it.unisa.diem.softeng.easylibrary;
 
+import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmail;
+import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
+import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
 import it.unisa.diem.softeng.easylibrary.ui.AppController;
 import java.io.IOException;
 import javafx.application.Application;
@@ -19,8 +22,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        b = new Biblioteca();
-        
         // Avvio App
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/res/AppView.fxml"));
         loader.setController(new AppController("biblioteca.bin"));
@@ -33,7 +34,7 @@ public class Main extends Application {
             return;
         }
 
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, 900, 700);
         stage.setScene(scene);
         stage.setTitle("EasyLibrary");
         stage.show();

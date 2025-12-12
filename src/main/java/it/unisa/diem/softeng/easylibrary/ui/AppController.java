@@ -1,6 +1,9 @@
 package it.unisa.diem.softeng.easylibrary.ui;
 
 import it.unisa.diem.softeng.easylibrary.Biblioteca;
+import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmail;
+import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
+import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
 import it.unisa.diem.softeng.easylibrary.ui.views.HomePageController;
 import it.unisa.diem.softeng.easylibrary.ui.views.LibriPageController;
 import it.unisa.diem.softeng.easylibrary.ui.views.PrestitiPageController;
@@ -30,6 +33,8 @@ public class AppController implements Initializable, VisualizzatorePagine, Visua
             biblioteca = new Biblioteca();
             biblioteca.salvaFile(biblioFile);
         }
+        
+        biblioteca.getArchivioUtenti().registra(new Utente("Andrea", "Ciliberti", new Matricola("0612709671"), new IndirizzoEmail("bro@studenti.unisa.it")));
     }
     
     @Override

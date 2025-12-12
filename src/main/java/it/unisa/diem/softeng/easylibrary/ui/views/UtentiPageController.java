@@ -68,7 +68,7 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
                 )
         );
         
-        table.getColumns().addAll(nomeCol, cognomeCol, matrCol, emailCol, prestitiCol);
+        table.getColumns().addAll(matrCol, nomeCol, cognomeCol, emailCol, prestitiCol);
 
         
         // RENDIAMO LE COLONNE MODIFICABILI

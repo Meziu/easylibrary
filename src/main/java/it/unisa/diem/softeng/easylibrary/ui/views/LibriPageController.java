@@ -58,7 +58,7 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
 
         
         
-        table.getColumns().addAll(titoloCol, autoriCol, annoCol, isbnCol, copieCol);
+        table.getColumns().addAll(isbnCol, titoloCol, autoriCol, annoCol, copieCol);
 
         
         // RENDIAMO LE COLONNE MODIFICABILI
