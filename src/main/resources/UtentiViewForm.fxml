@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="vbox" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homepage.UtentiController">
+   <children>
+      <Label fx:id="labelRicerca" alignment="TOP_LEFT" text="Ricerca Utenti" textAlignment="CENTER">
+         <VBox.margin>
+            <Insets left="10.0" />
+         </VBox.margin></Label>
+      <VBox fx:id="vboxNome">
+         <children>
+            <Label fx:id="labelNome" text="Cognome">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="textFieldCognome" maxHeight="500.0" maxWidth="500.0" promptText="Inserisci il cognome">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+      <VBox fx:id="vboxMatricola">
+         <children>
+            <Label fx:id="labelMatricola" text="Matricola">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="textFieldMatricola" maxWidth="500.0" promptText="Inserisci la matricola">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+   </children>
+</VBox>

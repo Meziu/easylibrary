@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="vbox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homepage.LibriController">
+   <children>
+      <Label fx:id="labelRicerca" alignment="TOP_LEFT" text="Ricerca Libri" textAlignment="CENTER">
+         <VBox.margin>
+            <Insets left="10.0" />
+         </VBox.margin></Label>
+      <VBox fx:id="vboxTitolo">
+         <children>
+            <Label fx:id="labelTitolo" text="Titolo">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="textFieldTitolo" maxHeight="500.0" maxWidth="500.0" promptText="Inserisci il titolo">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+      <VBox fx:id="vboxAutore">
+         <children>
+            <Label fx:id="labelAutore" text="Autore">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="textFieldAutore" maxWidth="500.0" promptText="Inserisci l'autore">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+      <VBox fx:id="vboxISBN">
+         <children>
+            <Label fx:id="labelISBN" text="ISBN">
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="textFieldISBN" maxWidth="500.0" promptText="Inserisci l'ISBN">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+   </children>
+</VBox>
