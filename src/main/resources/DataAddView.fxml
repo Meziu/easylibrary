@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="registrazioneForm" prefHeight="350.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homepage.AddUtentiController">
+    
+    <top>
+        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Registra Nuovo" BorderPane.alignment="CENTER">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+            <padding>
+                <Insets bottom="10.0" top="10.0" />
+            </padding>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+        </Label>
+    </top>
+
+    <bottom>
+        <HBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+            </padding>
+            
+            <Button fx:id="confermaButton" mnemonicParsing="false" onAction="#confermaInserimento" prefWidth="100.0" styleClass="primary-button" text="Conferma" />
+            <Button fx:id="annullaButton" mnemonicParsing="false" onAction="#annullaInserimento" prefWidth="100.0" text="Annulla" />
+        </HBox>
+    </bottom>
+   <padding>
+      <Insets bottom="20.0" top="20.0" />
+   </padding>
+</BorderPane>

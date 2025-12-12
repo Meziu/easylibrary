@@ -8,12 +8,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homepage.EditorAutoriController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homepage.EditorAutoriController">
     <children>
-        <VBox layoutX="10.0" layoutY="10.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-            <Label text="Autori Correnti" />
-            <TableView fx:id="autoriTableView" editable="true" VBox.vgrow="ALWAYS">
+        <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="14.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <Label text="Autori">
+            <font>
+               <Font size="20.0" />
+            </font></Label>
+            <TableView fx:id="autoriTable" editable="true" VBox.vgrow="ALWAYS">
                 <columns>
                     <TableColumn fx:id="nomeColumn" prefWidth="150.0" text="Nome" />
                     <TableColumn fx:id="cognomeColumn" prefWidth="150.0" text="Cognome" />
@@ -23,7 +27,10 @@
             </columnResizePolicy>
             </TableView>
 
-            <Label text="Aggiungi Nuovo Autore" />
+            <Label text="Aggiungi Nuovo Autore">
+            <font>
+               <Font size="16.0" />
+            </font></Label>
             <HBox spacing="10.0">
                 <TextField fx:id="nomeField" promptText="Nome" />
                 <TextField fx:id="cognomeField" promptText="Cognome" />
@@ -31,9 +38,9 @@
                 <Button fx:id="removeButton" onAction="#handleRimuoviAutore" text="Rimuovi Selezionato" />
             </HBox>
 
-            <HBox alignment="CENTER_RIGHT" spacing="10.0">
-                <Button fx:id="confermaButton" onAction="#handleConferma" text="Conferma e Salva" />
-                <Button fx:id="annullaButton" onAction="#handleAnnulla" text="Annulla Modifiche" />
+            <HBox alignment="CENTER" spacing="30.0">
+                <Button fx:id="confermaButton" minWidth="140.0" onAction="#handleConferma" text="Conferma" />
+                <Button fx:id="annullaButton" minWidth="140.0" onAction="#handleAnnulla" text="Annulla" />
             </HBox>
         </VBox>
     </children>
