@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label text="Utente">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField promptText="Nome o cognome">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label text="Libro">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField promptText="Titolo del libro">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+   </children>
+   <padding>
+      <Insets left="10.0" />
+   </padding>
+</VBox>
