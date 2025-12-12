@@ -25,6 +25,10 @@ docs/latex/*
 !*.puml
 *.svg
 
+!src/main/resources/res/icons8-exterior-24.png
+!src/main/resources/res/icons8-minus-24.png
+!src/main/resources/res/icons8-plus-24.png
+
 biblioteca.bin
 
 .DS_Store
