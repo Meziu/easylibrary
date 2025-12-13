@@ -7,10 +7,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="registrazioneForm" prefHeight="350.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homepage.AddUtentiController">
+<BorderPane fx:id="registrazioneContent" prefHeight="350.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
     
     <top>
-        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Registra Nuovo" BorderPane.alignment="CENTER">
+        <Label fx:id="addTitle" alignment="CENTER" maxWidth="1.7976931348623157E308" text="Registra Nuovo" BorderPane.alignment="CENTER">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>
@@ -30,7 +30,7 @@
             </padding>
             
             <Button fx:id="confermaButton" mnemonicParsing="false" onAction="#confermaInserimento" prefWidth="100.0" styleClass="primary-button" text="Conferma" />
-            <Button fx:id="annullaButton" mnemonicParsing="false" onAction="#annullaInserimento" prefWidth="100.0" text="Annulla" />
+            <Button mnemonicParsing="false" onAction="#annullaInserimento" prefWidth="100.0" text="Annulla" />
         </HBox>
     </bottom>
    <padding>

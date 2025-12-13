@@ -13,7 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
 
 
-public class LibriPageController extends DataPageController<Libro, RicercaLibroController> {
+public class LibriPageController extends DataPageController<Libro, RicercaLibroController, LibroAddController> {
 
     private Indicizzabile<ISBN, Libro> libri;
 
@@ -70,11 +70,6 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
 
         // Carica i libri
         setItems(libri.getLista());
-    }
-
-    @Override
-    public void add(ActionEvent event) {
-
     }
 
     @Override

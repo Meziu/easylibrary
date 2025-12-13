@@ -78,10 +78,10 @@ public class Anagrafica implements Comparable<Anagrafica>, Serializable {
      */
     @Override
     public int compareTo(Anagrafica a) {
-        int c = this.cognome.compareTo(a.cognome);
+        int c = this.cognome.compareToIgnoreCase(a.cognome);
 
         if (c == 0) {
-            return this.nome.compareTo(a.nome);
+            return this.nome.compareToIgnoreCase(a.nome);
         }
 
         return c;

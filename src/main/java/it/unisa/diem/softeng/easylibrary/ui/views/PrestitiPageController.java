@@ -8,7 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
 
 
-public class PrestitiPageController extends DataPageController<Prestito, RicercaPrestitoController> {
+public class PrestitiPageController extends DataPageController<Prestito, RicercaPrestitoController, PrestitoAddController> {
     private Archiviabile<Prestito> prestiti;
 
     public PrestitiPageController(VisualizzatorePagine vp, Archiviabile<Prestito> prestiti) {
@@ -52,11 +52,6 @@ public class PrestitiPageController extends DataPageController<Prestito, Ricerca
 
         // Carica i libri
         setItems(prestiti.getLista());
-    }
-
-    @Override
-    public void add(ActionEvent event) {
-
     }
 
     @Override

@@ -7,28 +7,26 @@ import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmail;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmailInvalidoException;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
+import java.io.IOException;
 import java.util.stream.Collectors;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.Alert;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Stage;
 
 
-public class UtentiPageController extends DataPageController<Utente, RicercaUtenteController> {
+public class UtentiPageController extends DataPageController<Utente, RicercaUtenteController, UtenteAddController> {
     private Indicizzabile<Matricola, Utente> utenti;
     private Indicizzabile<ISBN, Libro> libri;
 
     public UtentiPageController(VisualizzatorePagine vp, Indicizzabile<Matricola, Utente> utenti, Indicizzabile<ISBN, Libro> libri){
-        super(vp, new RicercaUtenteController(), "Utenti", "/res/RicercaUtente.fxml");
+        super(vp, new RicercaUtenteController(), "Utenti", "/res/RicercaUtente.fxml", new UtenteAddController(utenti));
 
         this.utenti = utenti;
         this.libri = libri;
-    }
-
-    @Override
-    public void add(ActionEvent event) {
-
     }
 
     @Override
@@ -112,6 +110,13 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
         });
 
         // Carica gli utenti
+        setItems(utenti.getLista());
+    }
+    
+    @Override
+    protected void add(ActionEvent event) {
+        super.add(event);
+        
         setItems(utenti.getLista());
     }
 }
