@@ -9,6 +9,7 @@ import it.unisa.diem.softeng.easylibrary.ui.views.LibriPageController;
 import it.unisa.diem.softeng.easylibrary.ui.views.PrestitiPageController;
 import it.unisa.diem.softeng.easylibrary.ui.views.UtentiPageController;
 import it.unisa.diem.softeng.easylibrary.ui.views.VisualizzatorePagine;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -56,14 +57,20 @@ public class AppController implements Initializable, VisualizzatorePagine {
         FileChooser fc = new FileChooser();
 
         try {
-            String filePath = fc.showSaveDialog(w).getCanonicalPath();
+            File f = fc.showSaveDialog(w);
+
+            // Annullamento dell'operazione
+            if (f == null) {
+                return;
+            }
+
+            String filePath = f.getCanonicalPath();
 
             salvaConNome(filePath);
         } catch (IOException e) {
             String error = "Errore nella ricerca del file di salvataggio: " + e.toString();
             System.err.println(error);
             new Alert(Alert.AlertType.ERROR, error).showAndWait();
-            return;
         }
     }
 
@@ -75,7 +82,14 @@ public class AppController implements Initializable, VisualizzatorePagine {
         FileChooser fc = new FileChooser();
 
         try {
-            String filePath = fc.showOpenDialog(w).getCanonicalPath();
+            File f = fc.showOpenDialog(w);
+
+            // Annullamento dell'operazione
+            if (f == null) {
+                return;
+            }
+
+            String filePath = f.getCanonicalPath();
 
             caricaDaFile(filePath);
         } catch (IOException e) {
