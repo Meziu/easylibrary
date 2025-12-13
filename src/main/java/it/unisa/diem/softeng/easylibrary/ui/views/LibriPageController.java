@@ -115,7 +115,9 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
 
     @Override
     public void add(ActionEvent event) {
-
+        super.add(event);
+        
+        setItems(libri.getLista());
     }
 
     @Override

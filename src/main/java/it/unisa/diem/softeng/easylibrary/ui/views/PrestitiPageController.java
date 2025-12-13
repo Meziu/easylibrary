@@ -12,7 +12,7 @@ public class PrestitiPageController extends DataPageController<Prestito, Ricerca
     private Archiviabile<Prestito> prestiti;
 
     public PrestitiPageController(VisualizzatorePagine vp, Archiviabile<Prestito> prestiti) {
-        super(vp, new RicercaPrestitoController(), "Prestiti", "/res/RicercaPrestiti.fxml");
+        super(vp, new RicercaPrestitoController(), "Prestiti", "/res/RicercaPrestiti.fxml", new PrestitoAddController(prestiti));
         this.prestiti = prestiti;
     }
 
