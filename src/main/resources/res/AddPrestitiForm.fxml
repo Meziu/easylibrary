@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -9,9 +10,11 @@
 <GridPane alignment="CENTER" hgap="20.0" vgap="10.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label text="Utente (Matricola):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-      <ComboBox fx:id="matricolaField" editable="true" promptText="Inserisci matricola" GridPane.columnIndex="1" />
+      <ComboBox fx:id="matricolaField" prefWidth="160.0" promptText="Inserisci matricola" GridPane.columnIndex="1" />
       <Label text="Libro (ISBN):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-      <ComboBox fx:id="isbnField" editable="true" promptText="Inserisci ISBN" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <ComboBox fx:id="isbnField" prefWidth="160.0" promptText="Inserisci ISBN" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label layoutX="10.0" layoutY="14.0" text="Data di restituzione:" GridPane.rowIndex="2" />
+      <DatePicker fx:id="dataRestituzioneField" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
    </children>
    <columnConstraints>
       <ColumnConstraints />
@@ -20,5 +23,6 @@
    <rowConstraints>
       <RowConstraints />
       <RowConstraints />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
    </rowConstraints>
 </GridPane>

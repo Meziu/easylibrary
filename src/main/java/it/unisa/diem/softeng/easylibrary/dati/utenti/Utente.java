@@ -161,4 +161,9 @@ public class Utente implements Comparable<Utente>, Serializable {
         return true;
     }
     
+    @Override
+    public String toString() {
+        return this.anagrafica.getNome() + " " + this.anagrafica.getCognome() + " <" + this.matricola.getMatricola() + ">";
+    }
+    
 }

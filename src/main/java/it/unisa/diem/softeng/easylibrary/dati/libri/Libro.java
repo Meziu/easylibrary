@@ -208,5 +208,10 @@ public class Libro implements Comparable<Libro>, Serializable {
         
         return true;
     }
+    
+    @Override
+    public String toString() {
+        return this.titolo + " <" + this.isbn.getISBN() + ">";
+    }
 
 }
