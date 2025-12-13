@@ -3,14 +3,16 @@ package it.unisa.diem.softeng.easylibrary.ui.views;
 import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
 import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
+import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmail;
+import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmailInvalidoException;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
 import java.util.stream.Collectors;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
-import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.cell.TextFieldTableCell;
 
 
 public class UtentiPageController extends DataPageController<Utente, RicercaUtenteController> {
@@ -76,6 +78,33 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
         cognomeCol.setEditable(true);
         emailCol.setEditable(true);
         
+        //colonna nome effettivamente modificabile
+        nomeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        nomeCol.setOnEditCommit((TableColumn.CellEditEvent<Utente, String> e) -> {
+            Utente u = e.getRowValue();
+            u.getAnagrafica().setNome(e.getNewValue());
+        });
+        
+        //colonna cognome effettivamente modificabile
+        cognomeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        cognomeCol.setOnEditCommit((TableColumn.CellEditEvent<Utente, String> e) -> {
+            Utente u = e.getRowValue();
+            u.getAnagrafica().setCognome(e.getNewValue());
+        });
+        
+        //modifica l'email
+        emailCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        emailCol.setOnEditCommit((TableColumn.CellEditEvent<Utente, String> e) -> { 
+            Utente u = e.getRowValue();
+            IndirizzoEmail nuovaEmail= new IndirizzoEmail(e.getNewValue());
+            
+            try{
+                u.setEmail(nuovaEmail);
+            }
+            catch(IndirizzoEmailInvalidoException ex){
+                new Alert(Alert.AlertType.ERROR, "Email non valida"+ ex.getMessage()).show();
+            }
+        });
         
         // Carica gli utenti
         setItems(utenti.getLista());
