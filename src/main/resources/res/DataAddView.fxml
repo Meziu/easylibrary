@@ -29,8 +29,8 @@
                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
             </padding>
             
-            <Button fx:id="confermaButton" mnemonicParsing="false" onAction="#confermaInserimento" prefWidth="100.0" styleClass="primary-button" text="Conferma" />
-            <Button mnemonicParsing="false" onAction="#annullaInserimento" prefWidth="100.0" text="Annulla" />
+            <Button fx:id="confermaButton" mnemonicParsing="false" onAction="#confermaInserimento" prefWidth="100.0" text="Conferma" textAlignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#annullaInserimento" prefWidth="100.0" text="Annulla" textAlignment="CENTER" />
         </HBox>
     </bottom>
    <padding>
