@@ -37,7 +37,7 @@ class LibroAddForm implements Initializable {
 
         int currentYear = Year.now().getValue();
         annoField.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, currentYear, 0)
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, currentYear, currentYear)
         );
     }
 
