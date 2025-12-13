@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="registrazioneForm" prefHeight="350.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homepage.AddUtentiController">
+<BorderPane fx:id="registrazioneForm" prefHeight="350.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homepage.AddUtentiController">
     
     <top>
         <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Registra Nuovo" BorderPane.alignment="CENTER">
