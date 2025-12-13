@@ -37,11 +37,14 @@ public class LibroAddController extends DataAddController<LibroAddForm>{
             () -> {
                 return !this.formController.titoloField.getText().isEmpty() &&
                         ISBN.verifica(this.formController.isbnField.getText()) &&
+                        !this.formController.listaAutori.isEmpty() &&
                         this.formController.annoField.getValue() != null &&
-                        this.formController.copieField.getValue() != null && this.formController.copieField.getValue() > 0;
+                        this.formController.copieField.getValue() != null &&
+                        this.formController.copieField.getValue() >= 0;
             },
             this.formController.titoloField.textProperty(),
             this.formController.isbnField.textProperty(),
+            this.formController.listaAutori,
             this.formController.annoField.valueProperty(),
             this.formController.copieField.valueProperty()
         ));
@@ -50,7 +53,7 @@ public class LibroAddController extends DataAddController<LibroAddForm>{
     @Override
     protected void confermaInserimento() {
         Libro newLibro = new Libro(this.formController.titoloField.getText(),
-                                        new ArrayList<Autore>(),//cambiare con la vera lista
+                                        this.formController.listaAutori,
                                         this.formController.annoField.getValue(),
                                         new ISBN(this.formController.isbnField.getText()),
                                         this.formController.copieField.getValue()
@@ -59,10 +62,12 @@ public class LibroAddController extends DataAddController<LibroAddForm>{
         try {
             libri.registra(newLibro);
         } catch (ValoreGiàPresenteException e) {
-            String error = "Libro con ISBN \"" + newLibro.getISBN().getISBN() + "\" già  presente nell'archivio";
+            String error = "Libro con ISBN \"" + newLibro.getISBN().getISBN() + "\" già presente nell'archivio";
             System.err.println(error);
             new Alert(Alert.AlertType.ERROR, error).showAndWait();
         }
+        
+        this.formController.listaAutori.clear();
         
         chiudiFinestra();
     }

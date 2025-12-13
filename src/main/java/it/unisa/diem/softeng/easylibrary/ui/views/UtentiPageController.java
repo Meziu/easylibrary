@@ -58,7 +58,7 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
                         .stream()
                         .map(a -> libri.ottieni(a.getISBN()))
                         .map(l -> l.getTitolo())
-                        .collect(Collectors.joining("\n "))
+                        .collect(Collectors.joining("\n"))
                 )
         );
 

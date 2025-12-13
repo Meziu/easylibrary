@@ -6,17 +6,22 @@
 package it.unisa.diem.softeng.easylibrary.ui.views;
 
 import it.unisa.diem.softeng.easylibrary.dati.libri.Autore;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 
 /**
@@ -41,10 +46,25 @@ public class AutoriPageController implements Initializable {
     private Button rimuoviButton;
     
     // Lista in input ed output
-    private List<Autore> list;
+    private ObservableList<Autore> list;
     
-    public AutoriPageController(List<Autore> list) {
+    public AutoriPageController(ObservableList<Autore> list) {
         this.list = list;
+    }
+    
+    public static void mostraPerLista(ObservableList<Autore> list) {
+        FXMLLoader loader = new FXMLLoader(AutoriPageController.class.getResource("/res/EditorAutoriView.fxml"));
+        loader.setController(new AutoriPageController(list));
+
+        try {
+            Stage stage = new Stage();
+            Scene scene = new Scene(loader.load());
+            stage.setScene(scene);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
     }
     
     @Override
@@ -56,6 +76,18 @@ public class AutoriPageController implements Initializable {
         
         nomeColumn.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getAnagrafica().getNome()));
         cognomeColumn.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getAnagrafica().getCognome()));
+        
+        nomeColumn.setEditable(true);
+        cognomeColumn.setEditable(true);
+        
+        nomeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        cognomeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        nomeColumn.setOnEditCommit(e -> {
+            e.getRowValue().getAnagrafica().setNome(e.getNewValue());
+        });
+        cognomeColumn.setOnEditCommit(e -> {
+            e.getRowValue().getAnagrafica().setCognome(e.getNewValue());
+        });
     }
     
     @FXML
