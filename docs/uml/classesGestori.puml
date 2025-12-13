@@ -47,6 +47,8 @@ together {
 
 +abstract class Gestore<E> {
     -lista: List<E>
+
+    +Gestore()
 }
 
 together {
