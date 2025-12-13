@@ -24,7 +24,8 @@ public class Main extends Application {
     public void start(Stage stage) {
         // Avvio App
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/res/AppView.fxml"));
-        loader.setController(new AppController("biblioteca.bin"));
+        AppController app = new AppController("biblioteca.bin");
+        loader.setController(app);
 
         Parent root = null;
         try {
@@ -33,6 +34,11 @@ public class Main extends Application {
             e.printStackTrace();
             return;
         }
+        
+        // Salvataggio automatico alla chiusura della finestra
+        stage.setOnCloseRequest(event -> {
+            app.salvaSuFile();
+        });
 
         Scene scene = new Scene(root, 900, 700);
         stage.setScene(scene);
