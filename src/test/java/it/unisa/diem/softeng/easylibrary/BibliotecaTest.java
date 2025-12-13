@@ -14,6 +14,7 @@ import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmail;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ import org.junit.Before;
 public class BibliotecaTest {
     private Biblioteca b;
     private static final String TEST_FILE = "biblioteca_test.bin";
-    
+
     private Matricola m;
     private Utente u;
     private IndirizzoEmail e;
@@ -34,22 +35,22 @@ public class BibliotecaTest {
 
     public BibliotecaTest() {
     }
-    
+
     @Before
     public void setUp() {
         b = new Biblioteca();
-        
+
         m = new Matricola("0123456789");
         e = new IndirizzoEmail("m.rossi@studenti.unisa.it");
         u = new Utente("Mario", "Rossi", m, e);
-        
+
         List<Autore> autori = new ArrayList<>();
         autori.add(new Autore("George", "Orwell"));
         l = new Libro("1984", autori, 1949, "123456789X", 3);
 
         p = new Prestito(m, l.getISBN(), StatoPrestito.ATTIVO, LocalDate.now().plusDays(2));
     }
-    
+
     @After
     public void tearDown() {
         File f = new File(TEST_FILE);
@@ -57,15 +58,15 @@ public class BibliotecaTest {
             f.delete();
         }
     }
-    
-    
+
+
     @Test
     public void testCostruttoreInizializzaArchivi() {
         assertNotNull(b.getArchivioUtenti());
         assertNotNull(b.getArchivioLibri());
         assertNotNull(b.getArchivioPrestiti());
     }
-    
+
     /**
      * Test per verificare che Biblioteca() carichi archivi vuoti
      */
@@ -75,7 +76,7 @@ public class BibliotecaTest {
         assertTrue(b.getArchivioLibri().getLista().isEmpty());
         assertTrue(b.getArchivioPrestiti().getLista().isEmpty());
     }
-    
+
 
     @Test
     public void testArchivioPrestiti() {
@@ -86,7 +87,7 @@ public class BibliotecaTest {
 
         assertTrue(archivioP.getLista().contains(p));
     }
-    
+
     @Test
     public void testGetterArchivioUtenti() {
         Indicizzabile<Matricola, Utente> archivioU = b.getArchivioUtenti();
@@ -94,7 +95,7 @@ public class BibliotecaTest {
 
         assertTrue(archivioU.contiene(m));
     }
-    
+
     @Test
     public void testArchivioLibri() {
         Indicizzabile<ISBN, Libro> archivioL = b.getArchivioLibri();
@@ -102,18 +103,18 @@ public class BibliotecaTest {
 
         assertTrue(archivioL.contiene(l.getISBN()));
     }
-    
-    
+
+
     @Test
     public void testGetterClasseCorrettaUtenti() {
         assertTrue(b.getArchivioUtenti() instanceof Indicizzabile);
     }
-    
+
     @Test
     public void testGetterClasseCorrettaLibri() {
         assertTrue(b.getArchivioLibri() instanceof Indicizzabile);
     }
-    
+
     @Test
     public void testGetterClasseCorrettaPrestiti() {
         assertTrue(b.getArchivioPrestiti() instanceof Archiviabile);
@@ -125,7 +126,11 @@ public class BibliotecaTest {
         b.getArchivioLibri().registra(l);
         b.getArchivioPrestiti().registra(p);
 
-        b.salvaFile(TEST_FILE);
+        try {
+            b.salvaFile(TEST_FILE);
+        } catch (Exception e) {
+            fail(e.toString());
+        }
     }
 
     public void testCaricaFile() {
@@ -133,19 +138,22 @@ public class BibliotecaTest {
         b.getArchivioLibri().registra(l);
         b.getArchivioPrestiti().registra(p);
 
-        b.salvaFile(TEST_FILE);
-
-        Biblioteca caricata = Biblioteca.caricaFile(TEST_FILE);
+        Biblioteca caricata = null;
+        try {
+            b.salvaFile(TEST_FILE);
+            caricata = Biblioteca.caricaFile(TEST_FILE);
+        } catch (Exception e) {
+            fail(e.toString());
+        }
         assertNotNull(caricata);
 
         assertTrue(caricata.getArchivioUtenti().contiene(m));
         assertTrue(caricata.getArchivioLibri().contiene(l.getISBN()));
         assertEquals(1, caricata.getArchivioPrestiti().getLista().size());
     }
-    
+
     @Test
     public void testCaricaFileInesistente() {
-        Biblioteca b = Biblioteca.caricaFile("file_che_non_esiste.dat");
-        assertNull(b);
+        assertThrows(IOException.class, () -> { Biblioteca.caricaFile("file_che_non_esiste.dat"); });
     }
 }
