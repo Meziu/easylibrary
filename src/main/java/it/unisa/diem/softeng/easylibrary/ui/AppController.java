@@ -8,7 +8,6 @@ import it.unisa.diem.softeng.easylibrary.ui.views.HomePageController;
 import it.unisa.diem.softeng.easylibrary.ui.views.LibriPageController;
 import it.unisa.diem.softeng.easylibrary.ui.views.PrestitiPageController;
 import it.unisa.diem.softeng.easylibrary.ui.views.UtentiPageController;
-import it.unisa.diem.softeng.easylibrary.ui.views.VisualizzatoreHomePage;
 import it.unisa.diem.softeng.easylibrary.ui.views.VisualizzatorePagine;
 import java.io.IOException;
 import java.net.URL;
@@ -23,7 +22,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
 
-public class AppController implements Initializable, VisualizzatorePagine, VisualizzatoreHomePage {
+public class AppController implements Initializable, VisualizzatorePagine {
     private Biblioteca biblioteca;
     private String fileArchivio;
 

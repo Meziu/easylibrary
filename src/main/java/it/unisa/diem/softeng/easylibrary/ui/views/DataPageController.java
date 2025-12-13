@@ -20,15 +20,15 @@ public abstract class DataPageController<T, RC> implements Initializable {
     protected BorderPane ricercaContent;
     @FXML
     protected Label viewTitle;
-    
-    protected VisualizzatoreHomePage hp;
+
+    protected VisualizzatorePagine vp;
     protected RC rc;
-    
+
     private String titoloVista;
     private String ricercaForm;
-    
-    public DataPageController(VisualizzatoreHomePage hp, RC rc, String titoloVista, String ricercaForm) {
-        this.hp = hp;
+
+    public DataPageController(VisualizzatorePagine vp, RC rc, String titoloVista, String ricercaForm) {
+        this.vp = vp;
         this.rc = rc;
         this.titoloVista = titoloVista;
         this.ricercaForm = ricercaForm;
@@ -38,10 +38,10 @@ public abstract class DataPageController<T, RC> implements Initializable {
     protected abstract void initializeColonne();
     private void initializeRicerca() {
         this.viewTitle.setText(titoloVista);
-        
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource(ricercaForm));
         loader.setController(rc);
-        
+
         try {
             ricercaContent.setCenter(loader.load());
         } catch (IOException e) {
@@ -60,15 +60,15 @@ public abstract class DataPageController<T, RC> implements Initializable {
     public void setItems(java.util.List<T> items) {
         table.getItems().setAll(items);
     }
-    
+
     @FXML
     public abstract void add(ActionEvent event);
-    
+
     @FXML
     public abstract void remove(ActionEvent event);
-    
+
     @FXML
     public void returnHome(ActionEvent event) {
-        hp.visualizzaHome();
+        vp.visualizzaHome();
     }
 }

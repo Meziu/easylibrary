@@ -16,14 +16,14 @@ import javafx.scene.control.TableColumn;
 public class LibriPageController extends DataPageController<Libro, RicercaLibroController> {
 
     private Indicizzabile<ISBN, Libro> libri;
-    
-    public LibriPageController(VisualizzatoreHomePage hp, Indicizzabile<ISBN, Libro> libri){
-        super(hp, new RicercaLibroController(), "Libri", "/res/RicercaLibro.fxml");
-        
+
+    public LibriPageController(VisualizzatorePagine vp, Indicizzabile<ISBN, Libro> libri){
+        super(vp, new RicercaLibroController(), "Libri", "/res/RicercaLibro.fxml");
+
         this.libri = libri;
     }
-    
-    
+
+
     @Override
     protected void initializeColonne() {
 
@@ -39,7 +39,7 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
                         .map(a -> a.getAnagrafica().getNome() + " " + a.getAnagrafica().getCognome())
                         .collect(Collectors.joining(", ")))
         );
-        
+
         TableColumn<Libro, String> annoCol = new TableColumn<>("Anno di pubblicazione");
         annoCol.setCellValueFactory(c ->
                 new SimpleStringProperty(String.valueOf(c.getValue().getAnnoPubblicazione()))
@@ -54,31 +54,31 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
         copieCol.setCellValueFactory(c ->
                 new SimpleStringProperty(String.valueOf(c.getValue().getCopieDisponibili()))
         );
-        
 
-        
-        
+
+
+
         table.getColumns().addAll(isbnCol, titoloCol, autoriCol, annoCol, copieCol);
 
-        
+
         // RENDIAMO LE COLONNE MODIFICABILI
         titoloCol.setEditable(true);
         autoriCol.setEditable(true);
         annoCol.setEditable(true);
         copieCol.setEditable(true);
-        
-        
+
+
         // Carica i libri
         setItems(libri.getLista());
     }
-    
+
     @Override
     public void add(ActionEvent event) {
-        
+
     }
 
     @Override
     public void remove(ActionEvent event) {
-        
+
     }
 }

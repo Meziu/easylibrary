@@ -10,12 +10,12 @@ import javafx.scene.control.TableColumn;
 
 public class PrestitiPageController extends DataPageController<Prestito, RicercaPrestitoController> {
     private Archiviabile<Prestito> prestiti;
-    
-    public PrestitiPageController(VisualizzatoreHomePage hp, Archiviabile<Prestito> prestiti) {
-        super(hp, new RicercaPrestitoController(), "Prestiti", "/res/RicercaPrestiti.fxml");
+
+    public PrestitiPageController(VisualizzatorePagine vp, Archiviabile<Prestito> prestiti) {
+        super(vp, new RicercaPrestitoController(), "Prestiti", "/res/RicercaPrestiti.fxml");
         this.prestiti = prestiti;
     }
-    
+
     @Override
     protected void initializeColonne() {
 
@@ -28,7 +28,7 @@ public class PrestitiPageController extends DataPageController<Prestito, Ricerca
         libroCol.setCellValueFactory(c ->
                 new SimpleStringProperty(c.getValue().getISBN().getISBN())
         );
-        
+
         TableColumn<Prestito, String> statoCol = new TableColumn<>("Stato prestito");
         statoCol.setCellValueFactory(c ->
                 new SimpleStringProperty( c.getValue().getStato().toString())
@@ -38,29 +38,29 @@ public class PrestitiPageController extends DataPageController<Prestito, Ricerca
         scadenzaCol.setCellValueFactory(c ->
                 new SimpleStringProperty(c.getValue().getDataDiScadenza().toString())
         );
-        
-   
+
+
         table.getColumns().addAll(utenteCol, libroCol, statoCol, scadenzaCol);
 
-        
+
         // RENDIAMO LE COLONNE MODIFICABILI
         utenteCol.setEditable(true);
         libroCol.setEditable(true);
         statoCol.setEditable(true);
         scadenzaCol.setEditable(true);
-        
-        
+
+
         // Carica i libri
         setItems(prestiti.getLista());
     }
-    
+
     @Override
     public void add(ActionEvent event) {
-        
+
     }
 
     @Override
     public void remove(ActionEvent event) {
-        
+
     }
 }

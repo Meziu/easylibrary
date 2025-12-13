@@ -18,25 +18,24 @@ import javafx.scene.control.cell.TextFieldTableCell;
 public class UtentiPageController extends DataPageController<Utente, RicercaUtenteController> {
     private Indicizzabile<Matricola, Utente> utenti;
     private Indicizzabile<ISBN, Libro> libri;
-    private VisualizzatoreHomePage hp;
-    
-    public UtentiPageController(VisualizzatoreHomePage hp, Indicizzabile<Matricola, Utente> utenti, Indicizzabile<ISBN, Libro> libri){
-        super(hp, new RicercaUtenteController(), "Utenti", "/res/RicercaUtente.fxml");
-        
+
+    public UtentiPageController(VisualizzatorePagine vp, Indicizzabile<Matricola, Utente> utenti, Indicizzabile<ISBN, Libro> libri){
+        super(vp, new RicercaUtenteController(), "Utenti", "/res/RicercaUtente.fxml");
+
         this.utenti = utenti;
         this.libri = libri;
     }
 
     @Override
     public void add(ActionEvent event) {
-        
+
     }
 
     @Override
     public void remove(ActionEvent event) {
-        
+
     }
-    
+
     @Override
     protected void initializeColonne() {
 
@@ -69,35 +68,35 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
                         .collect(Collectors.joining(", "))
                 )
         );
-        
+
         table.getColumns().addAll(matrCol, nomeCol, cognomeCol, emailCol, prestitiCol);
 
-        
+
         // RENDIAMO LE COLONNE MODIFICABILI
         nomeCol.setEditable(true);
         cognomeCol.setEditable(true);
         emailCol.setEditable(true);
-        
+
         //colonna nome effettivamente modificabile
         nomeCol.setCellFactory(TextFieldTableCell.forTableColumn());
         nomeCol.setOnEditCommit((TableColumn.CellEditEvent<Utente, String> e) -> {
             Utente u = e.getRowValue();
             u.getAnagrafica().setNome(e.getNewValue());
         });
-        
+
         //colonna cognome effettivamente modificabile
         cognomeCol.setCellFactory(TextFieldTableCell.forTableColumn());
         cognomeCol.setOnEditCommit((TableColumn.CellEditEvent<Utente, String> e) -> {
             Utente u = e.getRowValue();
             u.getAnagrafica().setCognome(e.getNewValue());
         });
-        
+
         //modifica l'email
         emailCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        emailCol.setOnEditCommit((TableColumn.CellEditEvent<Utente, String> e) -> { 
+        emailCol.setOnEditCommit((TableColumn.CellEditEvent<Utente, String> e) -> {
             Utente u = e.getRowValue();
             IndirizzoEmail nuovaEmail= new IndirizzoEmail(e.getNewValue());
-            
+
             try{
                 u.setEmail(nuovaEmail);
             }
@@ -105,7 +104,7 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
                 new Alert(Alert.AlertType.ERROR, "Email non valida"+ ex.getMessage()).show();
             }
         });
-        
+
         // Carica gli utenti
         setItems(utenti.getLista());
     }
