@@ -1,5 +1,6 @@
 package it.unisa.diem.softeng.easylibrary.ui.views;
 
+import it.unisa.diem.softeng.easylibrary.archivio.Archiviabile;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -8,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
@@ -22,15 +25,19 @@ public abstract class DataPageController<T, RC, AC extends DataAddController<?>>
     protected BorderPane ricercaContent;
     @FXML
     protected Label viewTitle;
+    @FXML
+    private Button removeButton;
 
     protected VisualizzatorePagine vp;
     protected RC ricercaController;
     private AC addController;
 
+    private Archiviabile<T> archivio;
     private String titoloVista;
     private String ricercaForm;
 
-    public DataPageController(VisualizzatorePagine vp, RC ricercaController, String titoloVista, String ricercaForm, AC addController) {
+    public DataPageController(Archiviabile<T> archivio, VisualizzatorePagine vp, RC ricercaController, String titoloVista, String ricercaForm, AC addController) {
+        this.archivio = archivio;
         this.vp = vp;
         this.ricercaController = ricercaController;
         this.titoloVista = titoloVista;
@@ -56,6 +63,8 @@ public abstract class DataPageController<T, RC, AC extends DataAddController<?>>
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        removeButton.disableProperty().bind(table.getSelectionModel().selectedItemProperty().isNull());
+        
         initializeColonne();
         initializeRicerca();
     }
@@ -83,7 +92,17 @@ public abstract class DataPageController<T, RC, AC extends DataAddController<?>>
     }
 
     @FXML
-    public abstract void remove(ActionEvent event);
+    private void remove(ActionEvent event) {
+        T selectedItem = table.getSelectionModel().getSelectedItem();
+
+        try {
+            archivio.rimuovi(selectedItem);
+            setItems(archivio.getLista());
+
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Errore durante la rimozione dell'utente: " + e.getMessage()).show();
+        }
+    }
 
     @FXML
     public void returnHome(ActionEvent event) {
