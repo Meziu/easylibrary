@@ -45,4 +45,3 @@ public class AutoriPageController {
     public void annulla(ActionEvent event) {
     }
 }
-
