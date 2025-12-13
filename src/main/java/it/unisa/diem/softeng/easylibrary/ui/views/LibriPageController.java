@@ -24,7 +24,7 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
 
 
     public LibriPageController(VisualizzatorePagine vp, Indicizzabile<ISBN, Libro> libri){
-        super(vp, new RicercaLibroController(), "Libri", "/res/RicercaLibro.fxml", new LibroAddController(libri));
+        super(libri, vp, new RicercaLibroController(), "Libri", "/res/RicercaLibro.fxml", new LibroAddController(libri));
 
         this.libri = libri;
     }
@@ -118,25 +118,6 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
         super.add(event);
         
         setItems(libri.getLista());
-    }
-
-    @Override
-    public void remove(ActionEvent event) {
-        Object selectedItem = table.getSelectionModel().getSelectedItem();
-
-        if (selectedItem == null) {
-            new Alert(Alert.AlertType.WARNING, "Seleziona una riga da rimuovere.").show();
-            return;
-        }
-
-        try {
-            Libro libroDaRimuovere = (Libro) selectedItem;
-            libri.rimuovi(libroDaRimuovere);
-            setItems(libri.getLista());
-
-        } catch (Exception e) {
-            new Alert(AlertType.ERROR, "Errore durante la rimozione dell'utente: " + e.getMessage()).show();
-        }
     }
 
     public void filtro() {

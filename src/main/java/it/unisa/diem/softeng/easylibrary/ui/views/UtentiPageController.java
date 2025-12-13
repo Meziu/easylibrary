@@ -23,18 +23,10 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
     private Indicizzabile<ISBN, Libro> libri;
 
     public UtentiPageController(VisualizzatorePagine vp, Indicizzabile<Matricola, Utente> utenti, Indicizzabile<ISBN, Libro> libri){
-        super(vp, new RicercaUtenteController(), "Utenti", "/res/RicercaUtente.fxml", new UtenteAddController(utenti));
+        super(utenti, vp, new RicercaUtenteController(), "Utenti", "/res/RicercaUtente.fxml", new UtenteAddController(utenti));
 
         this.utenti = utenti;
         this.libri = libri;
-    }
-
-    @Override
-    public void remove(ActionEvent event) {
-
-        Utente u = table.getSelectionModel().getSelectedItem();
-        utenti.rimuovi(u);
-        setItems(utenti.getLista());  //controllare se poi gli utenti vengono davvero rimossi nel file
     }
 
     @Override
