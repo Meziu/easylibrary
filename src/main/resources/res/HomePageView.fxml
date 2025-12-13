@@ -17,7 +17,7 @@
       </Label>
       <ImageView fitHeight="240.0" fitWidth="240.0" pickOnBounds="true" preserveRatio="true" styleClass="logo-image">
          <image>
-            <Image url="@ImmagineUnisa.png" />
+            <Image url="@unisaLogo.png" />
          </image>
       </ImageView>
       <VBox alignment="CENTER" spacing="15.0">
