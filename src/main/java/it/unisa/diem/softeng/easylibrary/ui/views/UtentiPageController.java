@@ -34,6 +34,9 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
     @Override
     public void remove(ActionEvent event) {
 
+        Utente u = table.getSelectionModel().getSelectedItem();
+        utenti.rimuovi(u);
+        setItems(utenti.getLista());  //controllare se poi gli utenti vengono davvero rimossi nel file
     }
 
     @Override
@@ -65,7 +68,7 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
                         .stream()
                         .map(a -> libri.ottieni(a.getISBN()))
                         .map(l -> l.getTitolo())
-                        .collect(Collectors.joining(", "))
+                        .collect(Collectors.joining("\n "))
                 )
         );
 
@@ -95,14 +98,17 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
         emailCol.setCellFactory(TextFieldTableCell.forTableColumn());
         emailCol.setOnEditCommit((TableColumn.CellEditEvent<Utente, String> e) -> {
             Utente u = e.getRowValue();
+            
             IndirizzoEmail nuovaEmail= new IndirizzoEmail(e.getNewValue());
-
-            try{
+            
+            /*try{
                 u.setEmail(nuovaEmail);
             }
             catch(IndirizzoEmailInvalidoException ex){
                 new Alert(Alert.AlertType.ERROR, "Email non valida"+ ex.getMessage()).show();
-            }
+            }*/
+            
+            
         });
 
         // Carica gli utenti

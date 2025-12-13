@@ -46,7 +46,7 @@ public class BibliotecaTest {
 
         List<Autore> autori = new ArrayList<>();
         autori.add(new Autore("George", "Orwell"));
-        l = new Libro("1984", autori, 1949, "123456789X", 3);
+        l = new Libro("1984", autori, 1949, new ISBN("123456789X"), 3);
 
         p = new Prestito(m, l.getISBN(), StatoPrestito.ATTIVO, LocalDate.now().plusDays(2));
     }

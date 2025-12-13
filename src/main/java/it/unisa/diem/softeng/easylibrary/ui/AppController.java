@@ -1,6 +1,11 @@
 package it.unisa.diem.softeng.easylibrary.ui;
 
 import it.unisa.diem.softeng.easylibrary.Biblioteca;
+import it.unisa.diem.softeng.easylibrary.dati.libri.Autore;
+import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
+import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
+import it.unisa.diem.softeng.easylibrary.dati.prestiti.Prestito;
+import it.unisa.diem.softeng.easylibrary.dati.prestiti.StatoPrestito;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmail;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
@@ -12,6 +17,9 @@ import it.unisa.diem.softeng.easylibrary.ui.views.VisualizzatorePagine;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

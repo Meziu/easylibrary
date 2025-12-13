@@ -71,4 +71,6 @@ public abstract class DataPageController<T, RC> implements Initializable {
     public void returnHome(ActionEvent event) {
         vp.visualizzaHome();
     }
+    
+    
 }
