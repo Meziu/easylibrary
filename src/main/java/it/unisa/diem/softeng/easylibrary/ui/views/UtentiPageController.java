@@ -7,36 +7,36 @@ import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmail;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmailInvalidoException;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
+import java.io.IOException;
 import java.util.stream.Collectors;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.Alert;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Stage;
 
 
-public class UtentiPageController extends DataPageController<Utente, RicercaUtenteController> {
+public class UtentiPageController extends DataPageController<Utente, RicercaUtenteController, UtenteAddController> {
     private Indicizzabile<Matricola, Utente> utenti;
     private Indicizzabile<ISBN, Libro> libri;
-    private VisualizzatoreHomePage hp;
-    
-    public UtentiPageController(VisualizzatoreHomePage hp, Indicizzabile<Matricola, Utente> utenti, Indicizzabile<ISBN, Libro> libri){
-        super(hp, new RicercaUtenteController(), "Utenti", "/res/RicercaUtente.fxml");
-        
+
+    public UtentiPageController(VisualizzatorePagine vp, Indicizzabile<Matricola, Utente> utenti, Indicizzabile<ISBN, Libro> libri){
+        super(vp, new RicercaUtenteController(), "Utenti", "/res/RicercaUtente.fxml", new UtenteAddController(utenti));
+
         this.utenti = utenti;
         this.libri = libri;
     }
 
     @Override
-    public void add(ActionEvent event) {
-        
+    public void remove(ActionEvent event) {
+
+        Utente u = table.getSelectionModel().getSelectedItem();
+        utenti.rimuovi(u);
+        setItems(utenti.getLista());  //controllare se poi gli utenti vengono davvero rimossi nel file
     }
 
-    @Override
-    public void remove(ActionEvent event) {
-        
-    }
-    
     @Override
     protected void initializeColonne() {
 
@@ -66,47 +66,57 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
                         .stream()
                         .map(a -> libri.ottieni(a.getISBN()))
                         .map(l -> l.getTitolo())
-                        .collect(Collectors.joining(", "))
+                        .collect(Collectors.joining("\n "))
                 )
         );
-        
+
         table.getColumns().addAll(matrCol, nomeCol, cognomeCol, emailCol, prestitiCol);
 
-        
+
         // RENDIAMO LE COLONNE MODIFICABILI
         nomeCol.setEditable(true);
         cognomeCol.setEditable(true);
         emailCol.setEditable(true);
-        
+
         //colonna nome effettivamente modificabile
         nomeCol.setCellFactory(TextFieldTableCell.forTableColumn());
         nomeCol.setOnEditCommit((TableColumn.CellEditEvent<Utente, String> e) -> {
             Utente u = e.getRowValue();
             u.getAnagrafica().setNome(e.getNewValue());
         });
-        
+
         //colonna cognome effettivamente modificabile
         cognomeCol.setCellFactory(TextFieldTableCell.forTableColumn());
         cognomeCol.setOnEditCommit((TableColumn.CellEditEvent<Utente, String> e) -> {
             Utente u = e.getRowValue();
             u.getAnagrafica().setCognome(e.getNewValue());
         });
-        
+
         //modifica l'email
         emailCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        emailCol.setOnEditCommit((TableColumn.CellEditEvent<Utente, String> e) -> { 
+        emailCol.setOnEditCommit((TableColumn.CellEditEvent<Utente, String> e) -> {
             Utente u = e.getRowValue();
+            
             IndirizzoEmail nuovaEmail= new IndirizzoEmail(e.getNewValue());
             
-            try{
+            /*try{
                 u.setEmail(nuovaEmail);
             }
             catch(IndirizzoEmailInvalidoException ex){
                 new Alert(Alert.AlertType.ERROR, "Email non valida"+ ex.getMessage()).show();
-            }
+            }*/
+            
+            
         });
-        
+
         // Carica gli utenti
+        setItems(utenti.getLista());
+    }
+    
+    @Override
+    protected void add(ActionEvent event) {
+        super.add(event);
+        
         setItems(utenti.getLista());
     }
 }

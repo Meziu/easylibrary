@@ -25,7 +25,7 @@ public class Main extends Application {
         // Avvio App
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/res/AppView.fxml"));
         loader.setController(new AppController("biblioteca.bin"));
-        
+
         Parent root = null;
         try {
             root = loader.load();

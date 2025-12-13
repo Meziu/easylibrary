@@ -18,7 +18,7 @@ public class LibroTest {
         aut = new ArrayList<>();
         aut.add(new Autore("George", "Orwell"));
 
-        l = new Libro("1984", aut, 1949, "123456789X", 2);
+        l = new Libro("1984", aut, 1949, new ISBN("123456789X"), 2);
     }
 
     
@@ -28,7 +28,7 @@ public class LibroTest {
     */
     @Test
     public void testCostruzioneLibro() {
-        Libro l1 = new Libro("1984", aut, 1949, "123456789X", 2);
+        Libro l1 = new Libro("1984", aut, 1949, new ISBN("123456789X"), 2);
         assertNotNull(l1);
         assertEquals("1984", l1.getTitolo());
         assertEquals(aut, l1.getAutori());
@@ -133,7 +133,7 @@ public class LibroTest {
     */
     @Test
     public void equalsRiconosceDueLibriUguali() {
-        Libro i = new Libro("1984", aut, 1949, "123456789X", 2);
+        Libro i = new Libro("1984", aut, 1949, new ISBN("123456789X"), 2);
 
         assertEquals(l, i);
         assertEquals(i, l); // simmetria
@@ -141,7 +141,7 @@ public class LibroTest {
 
     @Test
     public void equalsRiconosceLibriDiversi() {
-        Libro i = new Libro("1950", aut, 1949, "123456799X", 2);
+        Libro i = new Libro("1950", aut, 1949, new ISBN("123456799X"), 2);
 
         assertNotEquals(l, i);
     }
@@ -164,7 +164,7 @@ public class LibroTest {
     */
     @Test
     public void testCompareToFunzionaCorrettamenteTitolo() {
-        Libro l2 = new Libro("1880", aut, 1827, "987654321X", 2);
+        Libro l2 = new Libro("1880", aut, 1827, new ISBN("987654321X"), 2);
 
         assertTrue(l2.compareTo(l) < 0);
         assertTrue(l.compareTo(l2) > 0);
@@ -172,7 +172,7 @@ public class LibroTest {
     
     @Test
     public void testCompareToFunzionaCorrettamenteISBN() {
-        Libro l2 = new Libro("1984", aut, 1949, "853456789X", 2);
+        Libro l2 = new Libro("1984", aut, 1949, new ISBN("853456789X"), 2);
 
         assertTrue(l.compareTo(l2) < 0);
         assertTrue(l2.compareTo(l) > 0);
@@ -181,13 +181,13 @@ public class LibroTest {
     
     @Test
     public void testCompareToRiconosceLibriUguali() {
-        Libro l2 = new Libro("1984", aut, 1949, "123456789X", 2);
+        Libro l2 = new Libro("1984", aut, 1949, new ISBN("123456789X"), 2);
         assertEquals(0, l.compareTo(l2));
     }
 
     @Test
     public void testCompareToDistingueISBNDiversi() {
-        Libro l2 = new Libro("1984", aut, 1949, "987654321X", 2);
+        Libro l2 = new Libro("1984", aut, 1949, new ISBN("987654321X"), 2);
         assertNotEquals(l, l2);
     }
 }

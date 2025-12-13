@@ -33,15 +33,15 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @param\[in] titolo Stringa di caratteri del titolo del libro.
      * @param\[in] autori Lista degli autori del libro.
      * @param\[in] annoPubblicazione  Anno di pubblicazione del libro.
-     * @param\[in] isbn Stringa di caratteri del codice ISBN.
+     * @param\[in] isbn Codice ISBN.
      * @param\[in] copieDisponibili Interi che indica il numero di copie disponibili.
      */
-    public Libro(String titolo, List<Autore> autori, int annoPubblicazione, String isbn, int copieDisponibili) {
+    public Libro(String titolo, List<Autore> autori, int annoPubblicazione, ISBN isbn, int copieDisponibili) {
         this.titolo = titolo;
         this.autori = new ArrayList<>();
         this.autori.addAll(autori);
         this.annoPubblicazione = Year.of(annoPubblicazione);
-        this.isbn = new ISBN(isbn);
+        this.isbn = isbn;
         this.copieDisponibili = copieDisponibili;
     }
 

@@ -18,12 +18,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
 
-public class LibriPageController extends DataPageController<Libro, RicercaLibroController> {
+public class LibriPageController extends DataPageController<Libro, RicercaLibroController, LibroAddController> {
 
     private Indicizzabile<ISBN, Libro> libri;
 
-    public LibriPageController(VisualizzatoreHomePage hp, Indicizzabile<ISBN, Libro> libri) {
-        super(hp, new RicercaLibroController(), "Libri", "/res/RicercaLibro.fxml");
+
+    public LibriPageController(VisualizzatorePagine vp, Indicizzabile<ISBN, Libro> libri){
+        super(vp, new RicercaLibroController(), "Libri", "/res/RicercaLibro.fxml", new LibroAddController(libri));
 
         this.libri = libri;
     }
@@ -137,7 +138,7 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
     }
 
     public void filtro() {
-        FiltroLibri filtro = rc.new FiltroLibri();
+        FiltroLibri filtro = ricercaController.new FiltroLibri();
         setItems(libri.filtra(filtro));
     }
 }

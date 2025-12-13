@@ -20,7 +20,7 @@ public class GestoreLibriTest {
                 "1984",
                 new ArrayList<>(Arrays.asList(new Autore("George", "Orwell"))),
                 1948,
-                "1443434973",
+                new ISBN("1443434973"),
                 1
         ));
 
@@ -28,7 +28,7 @@ public class GestoreLibriTest {
                 "Il Signore degli Anelli",
                 new ArrayList<>(Arrays.asList(new Autore("John Ronald Reuel", "Tolkien"))),
                 1954,
-                "0261102389",
+                new ISBN("0261102389"),
                 3
         ));
 
@@ -36,7 +36,7 @@ public class GestoreLibriTest {
                 "Il Grande Gatsby",
                 new ArrayList<>(Arrays.asList(new Autore("Francis Scott", "Fitzgerald"))),
                 1925,
-                "0743273567",
+                new ISBN("0743273567"),
                 3
         ));
 
@@ -44,7 +44,7 @@ public class GestoreLibriTest {
                 "Dune",
                 new ArrayList<>(Arrays.asList(new Autore("Frank", "Herbert"))),
                 1965,
-                "0441013597",
+                new ISBN("0441013597"),
                 1
         ));
 
@@ -52,7 +52,7 @@ public class GestoreLibriTest {
                 "La Metamorfosi",
                 new ArrayList<>(Arrays.asList(new Autore("Franz", "Kafka"))),
                 1915,
-                "8807900059",
+                new ISBN("8807900059"),
                 3
         ));
 
@@ -60,7 +60,7 @@ public class GestoreLibriTest {
                 "Il Piccolo Principe",
                 new ArrayList<>(Arrays.asList(new Autore("Antoine", "de Saint-Exupéry"))),
                 1943,
-                "0156012197",
+                new ISBN("0156012197"),
                 1
         ));
     }
@@ -78,7 +78,7 @@ public class GestoreLibriTest {
                 "To Kill a Mockingbird",
                 new ArrayList<>(Arrays.asList(new Autore("Harper", "Lee"))),
                 2002,
-                "0060935464",
+                new ISBN("0060935464"),
                 1
         );
         
@@ -101,7 +101,7 @@ public class GestoreLibriTest {
                 "To Kill a Mockingbird",
                 new ArrayList<>(Arrays.asList(new Autore("Harper", "Lee"))),
                 2002,
-                "0060935464",
+                new ISBN("0060935464"),
                 1
         );
         
@@ -124,7 +124,7 @@ public class GestoreLibriTest {
                 "To Kill a Mockingbird",
                 new ArrayList<>(Arrays.asList(new Autore("Harper", "Lee"))),
                 2002,
-                "0060935464",
+                new ISBN("0060935464"),
                 1
         ), libro -> {});});
     }

@@ -15,4 +15,6 @@ public interface VisualizzatorePagine {
      void visualizzaUtenti();
 
      void visualizzaPrestiti();
+
+     void visualizzaHome();
 }

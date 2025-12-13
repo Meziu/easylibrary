@@ -67,8 +67,9 @@
    		\setlength\itemsep{-0.1cm}
 		\item{il libro ha almeno una copia disponibile;}
 		\item{l’utente ha meno di tre prestiti attivi.}
+		\item{la data di scadenza è successiva alla data di registrazione.}
 	\end{itemize}
-	\vspace{-6pt} Se una o più delle condizioni sopra indicate non risultano soddisfatte, il gestore sarà notificato di quali condizioni non siano rispettate e non potrà confermare l’operazione. Al termine della registrazione, il sistema deve decrementare il numero di copie disponibili del libro e inserire le informazioni del prestito nell’archivio (DF-1.3). \\È possibile per un utente prendere in prestito più di una singola copia del medesimo libro.}{Dati relativi all’utente e ai libri di cui si vuole effettuare il prestito.}{Nessuno.}{L’utente è correttamente registrato nel sistema. \\Il libro da prestare è correttamente registrato nel sistema. \\L’utente richiede il prestito di un nuovo libro.}{Il numero di copie disponibili del libro è \\decrementato. Il prestito viene aggiunto alla lista dei prestiti attivi dell’utente. Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
+	\vspace{-6pt} Se una o più delle condizioni sopra indicate non risultano soddisfatte, il gestore sarà notificato di quali condizioni non siano rispettate e non potrà confermare l’operazione. Al termine della registrazione, il sistema deve decrementare il numero di copie disponibili del libro e inserire le informazioni del prestito nell’archivio (DF-1.3). \\È possibile per un utente prendere in prestito più di una singola copia del medesimo libro.}{Dati relativi all’utente e ai libri di cui si vuole effettuare il prestito.}{Nessuno.}{L’utente a carico del prestito è correttamente registrato nel sistema. Il libro da prestare è correttamente registrato nel sistema. La data di scadenza è successiva alla data di registrazione.}{Il numero di copie disponibili del libro è decrementato. Il prestito viene aggiunto alla lista dei prestiti attivi dell’utente. Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
 \requisitebox{BF-1.2}{Restituzione di un libro}{Il gestore registra la restituzione di un libro da parte di un utente. Il gestore ricerca il prestito corrispondente all’interno del sistema e lo segna come restituito. Se tale prestito era già contrassegnato come restituito, il sistema non compierà operazioni aggiuntive. Altrimenti, il sistema segna come disponibile la copia del libro.}{Dati del libro da restituire e dell’utente che effettua la restituzione.}{Nessuno.}{Il prestito deve essere attivo.}{Il prestito viene segnalato come restituito. La copia del libro viene resa disponibile per nuovi prestiti. Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
 
 
@@ -361,7 +362,7 @@
 		\item Il gestore seleziona l'opzione per aggiungere un prestito.
 		\item Il gestore cerca l’utente a carico del prestito e il libro da prestare,\\li seleziona tra quelli suggeriti dall’interfaccia.
 		\item Il gestore inserisce la data di restituzione prevista per il prestito.
-		\item Il sistema verifica disponibilità di copie del libro in prestito e il limite di prestiti dell’utente.
+		\item Il sistema verifica disponibilità di copie del libro in prestito, che il limite di prestiti dell’utente non sia stato raggiunto e che la data di scadenza sia successiva a quella di registrazione.
 		\item Il gestore seleziona l'opzione per confermare l'operazione.
 		\item Il prestito viene registrato nell'archivio del sistema.
 	\end{enumerate}
@@ -371,7 +372,7 @@
 		\item[] \textbf{4A - Limite di prestiti raggiunto, con correzione}
 		\item Se l'utente ha già 3 prestiti attivi, il sistema non permette al gestore di confermare l'operazione.
 		\item Il gestore corregge i dati inseriti cambiando l'utente a carico.
-		\item Il flusso riprende dal passo 6.
+		\item Il flusso riprende dal passo 5.
 	\end{enumerate}
 	
 	\vspace{-0.8\topsep}
@@ -387,7 +388,7 @@
 		\item[] \textbf{4C - Copie del libro terminate, con correzione}
 		\item Se non ci sono copie disponibili del libro da prestare nell'archivio, il sistema non permette al gestore di confermare l'operazione.
 		\item Il gestore corregge i dati inseriti cambiando il libro da prestare.
-		\item Il flusso riprende dal passo 6.
+		\item Il flusso riprende dal passo 5.
 	\end{enumerate}
 	
 	\vspace{-0.8\topsep}
@@ -396,6 +397,24 @@
 		\item Se non ci sono copie disponibili del libro da prestare nell'archivio, il sistema non permette al gestore di confermare l'operazione.
 		\item Il gestore annulla l'operazione.
 		\item Il prestito non viene registrato nell'archivio del sistema.
+	\end{enumerate}
+	
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=4E.\arabic*]
+		\item[] \textbf{4E - Data di scadenza nel passato, senza correzione}
+		\item Se la data di scadenza è precedente a quella di registrazione, il sistema non
+		permette al gestore di confermare l'operazione.
+		\item Il gestore annulla l'operazione.
+		\item Il prestito non viene registrato nell'archivio del sistema.
+	\end{enumerate}
+	
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=4F.\arabic*]
+		\item[] \textbf{4F - Data di scadenza nel passato, con correzione}
+		\item Se la data di scadenza è precedente a quella di registrazione, il sistema non
+		permette al gestore di confermare l'operazione.
+		\item Il gestore corregge i dati inseriti inserendo una data di scadenza valida.
+		\item Il flusso riprende dal passo 5.
 	\end{enumerate}
 	
 	\vspace{-0.8\topsep}
@@ -519,22 +538,24 @@
 
 
 \newpage
-\usecase{UC-\stepcounter{ucid}}{Modifica di un prestito}{Gestore della biblioteca.}{Il gestore sta visualizzando l'elenco dei prestiti.}{La data di scadenza del prestito è stata modificata}{
+\usecase{UC-\stepcounter{ucid}}{Modifica di un prestito}{Gestore della biblioteca.}{Il gestore sta visualizzando l'elenco dei prestiti.}{La data di scadenza del prestito è stata modificata.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Il gestore individua il prestito da modificare.
 		\item Il gestore seleziona la data di scadenza del prestito.
-		\item Il gestore sovrascrive il campo con una nuova data.
+		\item Il gestore inserisce la nuova data di restituzione.
+		\item Il sistema verifica la validità della nuova data inserita.
 		\item Il sistema salva le modifiche.
 	\end{enumerate}
 }{
 	\vspace{-0.8\topsep}
-	\begin{enumerate}[label=3A.\arabic*]
-		\item[] \textbf{3A - Data di scadenza non valida}
-		\item Il gestore inserisce una data non valida
-		\item Il sistema mostra un messaggio di errore
-		\item La data non viene modificata
-		\item Il flusso riprende dal passo 3
+	\begin{enumerate}[label=4A.\arabic*]
+		\item[] \textbf{4A - Data di scadenza non valida}
+		\item Il sistema rileva che la nuova data di restituzione è precedente a quella
+		di registrazione.
+		\item Il sistema mostra un messaggio di errore.
+		\item La data non viene modificata.
+		\item Il flusso riprende dal passo 2.
 	\end{enumerate}
 }
 
