@@ -176,7 +176,7 @@ public class AppController implements Initializable, VisualizzatorePagine {
     @Override
     public void visualizzaPrestiti() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/res/DataPageView.fxml"));
-        loader.setController(new PrestitiPageController(this, biblioteca.getArchivioPrestiti()));
+        loader.setController(new PrestitiPageController(this, biblioteca.getArchivioPrestiti(), biblioteca.getArchivioUtenti(), biblioteca.getArchivioLibri()));
 
         try {
             appContent.setCenter(loader.load());

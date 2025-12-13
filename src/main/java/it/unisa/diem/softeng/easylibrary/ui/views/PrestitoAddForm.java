@@ -5,10 +5,18 @@
  */
 package it.unisa.diem.softeng.easylibrary.ui.views;
 
+import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
+import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
+import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
+
 /**
  *
  * @author marco
  */
 public class PrestitoAddForm {
-    
+    @FXML
+    public ComboBox<Matricola> matricolaField;
+    @FXML
+    public ComboBox<ISBN> isbnField;
 }

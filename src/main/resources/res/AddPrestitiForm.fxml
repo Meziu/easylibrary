@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="CENTER" hgap="20.0" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane alignment="CENTER" hgap="20.0" vgap="10.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label text="Utente (Matricola):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-      <TextField fx:id="utenteField" prefWidth="250.0" promptText="Inserisci la matricola" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+      <ComboBox fx:id="matricolaField" editable="true" promptText="Inserisci matricola" GridPane.columnIndex="1" />
       <Label text="Libro (ISBN):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-      <TextField fx:id="libroField" promptText="Inserisci il codice ISBN" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <ComboBox fx:id="isbnField" editable="true" promptText="Inserisci ISBN" GridPane.columnIndex="1" GridPane.rowIndex="1" />
    </children>
    <columnConstraints>
       <ColumnConstraints />

@@ -46,13 +46,13 @@ public class AutoriPageController implements Initializable {
     private Button rimuoviButton;
     
     // Lista in input ed output
-    private ObservableList<Autore> list;
+    private List<Autore> list;
     
-    public AutoriPageController(ObservableList<Autore> list) {
+    public AutoriPageController(List<Autore> list) {
         this.list = list;
     }
     
-    public static void mostraPerLista(ObservableList<Autore> list) {
+    public static void mostraPerLista(List<Autore> list) {
         FXMLLoader loader = new FXMLLoader(AutoriPageController.class.getResource("/res/EditorAutoriView.fxml"));
         loader.setController(new AutoriPageController(list));
 

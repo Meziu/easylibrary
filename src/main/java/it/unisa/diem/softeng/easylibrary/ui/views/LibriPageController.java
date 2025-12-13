@@ -1,19 +1,14 @@
 package it.unisa.diem.softeng.easylibrary.ui.views;
 
 import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
-import it.unisa.diem.softeng.easylibrary.dati.libri.Autore;
 import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
 import it.unisa.diem.softeng.easylibrary.ui.views.RicercaLibroController.FiltroLibri;
-import java.time.Year;
-import java.util.List;
-import java.util.stream.Collectors;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
@@ -37,13 +32,29 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
                 -> new SimpleStringProperty(c.getValue().getTitolo())
         );
 
-        TableColumn<Libro, String> autoriCol = new TableColumn<>("Autori");
-        autoriCol.setCellValueFactory(c
-                -> new SimpleStringProperty(c.getValue().getAutori()
-                        .stream()
-                        .map(a -> a.getAnagrafica().getNome() + " " + a.getAnagrafica().getCognome())
-                        .collect(Collectors.joining(", ")))
-        );
+        TableColumn<Libro, Object> autoriCol = new TableColumn<>("Autori");
+        autoriCol.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue()));
+        autoriCol.setCellFactory(col -> new TableCell<Libro, Object> () {
+
+            final Button btn = new Button("Visualizza autori");
+
+            @Override
+            public void updateItem(Object o, boolean empty) {
+                super.updateItem(o, empty);
+                
+                if (empty) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    btn.setOnAction(event -> {
+                        Libro l = getTableView().getItems().get(getIndex());
+
+                        AutoriPageController.mostraPerLista(l.getAutori());
+                    });
+                    setGraphic(btn);
+                }
+            }
+        });
 
         TableColumn<Libro, String> annoCol = new TableColumn<>("Anno di pubblicazione");
         annoCol.setCellValueFactory(c
