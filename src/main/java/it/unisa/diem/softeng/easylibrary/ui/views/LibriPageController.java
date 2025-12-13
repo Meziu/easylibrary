@@ -113,13 +113,6 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
 
     }
 
-    @Override
-    public void add(ActionEvent event) {
-        super.add(event);
-        
-        setItems(libri.getLista());
-    }
-
     public void filtro() {
         FiltroLibri filtro = ricercaController.new FiltroLibri();
         setItems(libri.filtra(filtro));

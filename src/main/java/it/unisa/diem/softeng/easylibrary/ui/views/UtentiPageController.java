@@ -104,11 +104,4 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
         // Carica gli utenti
         setItems(utenti.getLista());
     }
-    
-    @Override
-    protected void add(ActionEvent event) {
-        super.add(event);
-        
-        setItems(utenti.getLista());
-    }
 }

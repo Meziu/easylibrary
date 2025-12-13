@@ -75,7 +75,7 @@ public abstract class DataPageController<T, RC, AC extends DataAddController<?>>
     }
 
     @FXML
-    protected void add(ActionEvent event) {
+    private void add(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/res/DataAddView.fxml"));
         loader.setController(addController);
 
@@ -89,6 +89,8 @@ public abstract class DataPageController<T, RC, AC extends DataAddController<?>>
             e.printStackTrace();
             return;
         }
+        
+        setItems(archivio.getLista());
     }
 
     @FXML
@@ -108,6 +110,4 @@ public abstract class DataPageController<T, RC, AC extends DataAddController<?>>
     public void returnHome(ActionEvent event) {
         vp.visualizzaHome();
     }
-    
-    
 }
