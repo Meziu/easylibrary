@@ -159,20 +159,4 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
             return FXCollections.observableList(libri.filtra(ricercaController.new FiltroLibri()));
         }, ricercaController.ricercaTitoloField.textProperty(), ricercaController.ricercaAutoreField.textProperty(), ricercaController.ricercaISBNField.textProperty()));
     }
-
-    @Override
-    protected void remove(ActionEvent event) {
-        Libro l = table.getSelectionModel().getSelectedItem();
-
-        // Controllo assenza di prestiti per il libro.
-        if (!this.prestiti.filtra(p -> {
-            return p.getISBN().equals(l.getISBN());
-        }).isEmpty()) {
-            String error = "Impossibile rimuovere libro di ISBN \"" + l.getISBN().getISBN() + "\" poichè sono associati prestiti";
-            AlertGrande.mostraAlertErrore(error);
-
-        } else {
-            super.remove(event);
-        }
-    }
 }

@@ -56,7 +56,7 @@ public class Libro implements Comparable<Libro>, Serializable {
             throw new IllegalArgumentException("Numero di copie negativo");
         }
 
-        if (annoPubblicazione >= Year.now().getValue()) {
+        if (annoPubblicazione > Year.now().getValue()) {
             throw new IllegalArgumentException("Anno di pubblicazione nel futuro");
         }
 

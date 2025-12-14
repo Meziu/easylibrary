@@ -37,18 +37,34 @@ public class PrestitiPageController extends DataPageController<Prestito, Ricerca
     protected void initializeColonne() {
 
         TableColumn<Prestito, String> utenteCol = new TableColumn<>("Utente");
-        utenteCol.setCellValueFactory(c ->
-                new SimpleStringProperty(utenti.ottieni(c.getValue().getMatricola()).toString())
+        utenteCol.setCellValueFactory(c -> {
+                Utente u = utenti.ottieni(c.getValue().getMatricola());
+                
+                // Mostra nome, cognome e codice della matricola
+                if (u != null) {
+                    return new SimpleStringProperty(u.toString());
+                } else { // Se l'utente non è presente, mostra solo la matricola
+                    return new SimpleStringProperty(c.getValue().getMatricola().getMatricola());
+                }
+            }
         );
 
         TableColumn<Prestito, String> libroCol = new TableColumn<>("Libro");
-        libroCol.setCellValueFactory(c ->
-                new SimpleStringProperty(libri.ottieni(c.getValue().getISBN()).toString())
+        libroCol.setCellValueFactory(c -> {
+                Libro l = libri.ottieni(c.getValue().getISBN());
+                
+                // Mostra titolo e codice del libro
+                if (l != null) {
+                    return new SimpleStringProperty(l.toString());
+                } else { // Se il libro non è presente, mostra solo l'ISBN
+                    return new SimpleStringProperty(c.getValue().getISBN().getISBN());
+                }
+            }
         );
 
         TableColumn<Prestito, String> statoCol = new TableColumn<>("Stato prestito");
         statoCol.setCellValueFactory(c ->
-                new SimpleStringProperty( c.getValue().getStato().toString())
+                new SimpleStringProperty(c.getValue().getStato().toString())
         );
 
         TableColumn<Prestito, LocalDate> scadenzaCol = new TableColumn<>("Data di scadenza");

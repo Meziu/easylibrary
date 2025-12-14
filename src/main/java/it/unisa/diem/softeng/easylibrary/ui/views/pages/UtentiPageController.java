@@ -57,8 +57,17 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
         prestitiCol.setCellValueFactory(c
                 -> new SimpleStringProperty(c.getValue().getPrestitiAttivi()
                         .stream()
-                        .map(a -> libri.ottieni(a.getISBN()))
-                        .map(l -> l.toString())
+                        .map(a -> {
+                            Libro l = libri.ottieni(a.getISBN());
+                            
+                            // Se il libro è stato rimosso dall'elenco, mostrane solo l'ISBN
+                            if (l != null) {
+                                return l.toString();
+                            }
+                            else {
+                                return a.getISBN().getISBN();
+                            }
+                        })
                         .collect(Collectors.joining("\n"))
                 )
         );
