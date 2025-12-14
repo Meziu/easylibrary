@@ -24,6 +24,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 
 public class BibliotecaTest {
+
     private Biblioteca b;
     private static final String TEST_FILE = "biblioteca_test.bin";
 
@@ -59,7 +60,6 @@ public class BibliotecaTest {
         }
     }
 
-
     @Test
     public void testCostruttoreInizializzaArchivi() {
         assertNotNull(b.getArchivioUtenti());
@@ -76,7 +76,6 @@ public class BibliotecaTest {
         assertTrue(b.getArchivioLibri().getLista().isEmpty());
         assertTrue(b.getArchivioPrestiti().getLista().isEmpty());
     }
-
 
     @Test
     public void testArchivioPrestiti() {
@@ -103,7 +102,6 @@ public class BibliotecaTest {
 
         assertTrue(archivioL.contiene(l.getISBN()));
     }
-
 
     @Test
     public void testGetterClasseCorrettaUtenti() {
@@ -154,11 +152,15 @@ public class BibliotecaTest {
 
     @Test
     public void testCaricaFileInesistente() {
-        assertThrows(IOException.class, () -> { Biblioteca.caricaFile("file_che_non_esiste.dat"); });
+        assertThrows(IOException.class, () -> {
+            Biblioteca.caricaFile("file_che_non_esiste.dat");
+        });
     }
-    
+
     @Test
     public void testCaricaFileNull() {
-        assertThrows(NullPointerException.class, () -> { Biblioteca.caricaFile(null); });
+        assertThrows(NullPointerException.class, () -> {
+            Biblioteca.caricaFile(null);
+        });
     }
 }

@@ -13,7 +13,7 @@ public class GestoreLibriTest {
 
     public GestoreLibriTest() {
     }
-    
+
     public static void aggiungiLibri(GestoreLibri g) {
         // Inserimento volutamente non in ordine
         g.registra(new Libro(
@@ -81,9 +81,9 @@ public class GestoreLibriTest {
                 new ISBN("0060935464"),
                 1
         );
-        
+
         gestore.registra(l);
-        
+
         assertTrue(gestore.contiene(l.getISBN()));
         assertTrue(gestore.getLista().contains(l));
     }
@@ -91,12 +91,12 @@ public class GestoreLibriTest {
     @Test
     public void testRimuovi() {
         Libro l = gestore.ottieni(new ISBN("0441013597"));
-        
+
         gestore.rimuovi(l);
-        
+
         assertFalse(gestore.contiene(l.getISBN()));
         assertFalse(gestore.getLista().contains(l));
-        
+
         Libro l2 = new Libro(
                 "To Kill a Mockingbird",
                 new ArrayList<>(Arrays.asList(new Autore("Harper", "Lee"))),
@@ -104,7 +104,7 @@ public class GestoreLibriTest {
                 new ISBN("0060935464"),
                 1
         );
-        
+
         assertThrows(ValoreNonPresenteException.class, () -> {
             gestore.rimuovi(l2);
         });
@@ -113,29 +113,32 @@ public class GestoreLibriTest {
     @Test
     public void testModifica() {
         Libro l = gestore.ottieni(new ISBN("8807900059"));
-        
+
         gestore.modifica(l, libro -> {
             libro.setTitolo("DecisamenteUnTitoloErroneo");
         });
-        
+
         assertEquals(gestore.ottieni(l.getISBN()).getTitolo(), "DecisamenteUnTitoloErroneo");
-        
-        assertThrows(ValoreNonPresenteException.class, () -> {gestore.modifica(new Libro(
-                "To Kill a Mockingbird",
-                new ArrayList<>(Arrays.asList(new Autore("Harper", "Lee"))),
-                2002,
-                new ISBN("0060935464"),
-                1
-        ), libro -> {});});
+
+        assertThrows(ValoreNonPresenteException.class, () -> {
+            gestore.modifica(new Libro(
+                    "To Kill a Mockingbird",
+                    new ArrayList<>(Arrays.asList(new Autore("Harper", "Lee"))),
+                    2002,
+                    new ISBN("0060935464"),
+                    1
+            ), libro -> {
+            });
+        });
     }
 
     @Test
     public void testOttieni() {
         ISBN i1 = new ISBN("0743273567"); // esistente
         ISBN i2 = new ISBN("0060935464"); // inesistente
-        
+
         assertEquals(gestore.ottieni(i1).getISBN(), i1);
-        
+
         assertEquals(gestore.ottieni(i2), null);
     }
 
@@ -143,9 +146,9 @@ public class GestoreLibriTest {
     public void testContiene() {
         ISBN i1 = new ISBN("0743273567"); // esistente
         ISBN i2 = new ISBN("0060935464"); // inesistente
-        
+
         assertTrue(gestore.contiene(i1));
-        
+
         assertFalse(gestore.contiene(i2));
     }
 

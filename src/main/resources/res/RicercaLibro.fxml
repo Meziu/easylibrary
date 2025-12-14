@@ -6,36 +6,36 @@
 <?import javafx.scene.text.Font?>
 
 <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label text="Titolo">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <TextField fx:id="ricercaTitoloField" promptText="Titolo">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </TextField>
-      <Label text="Autore">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <TextField fx:id="ricercaAutoreField" promptText="Autore">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </TextField>
-      <Label text="ISBN">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <TextField fx:id="ricercaISBNField" promptText="ISBN">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </TextField>
-   </children>
+    <children>
+        <Label text="Titolo">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Label>
+        <TextField fx:id="ricercaTitoloField" promptText="Titolo">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </TextField>
+        <Label text="Autore">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Label>
+        <TextField fx:id="ricercaAutoreField" promptText="Autore">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </TextField>
+        <Label text="ISBN">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Label>
+        <TextField fx:id="ricercaISBNField" promptText="ISBN">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </TextField>
+    </children>
 </VBox>

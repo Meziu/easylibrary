@@ -8,21 +8,21 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <GridPane alignment="CENTER" hgap="20.0" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label text="Utente (Matricola):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-      <TextField fx:id="matricolaField" promptText="Inserisci matricola" GridPane.columnIndex="1" />
-      <Label text="Libro (ISBN):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-      <TextField fx:id="isbnField" promptText="Inserisci ISBN" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Label layoutX="10.0" layoutY="14.0" text="Data di restituzione:" GridPane.rowIndex="2" />
-      <DatePicker fx:id="dataRestituzioneField" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-   </children>
-   <columnConstraints>
-      <ColumnConstraints />
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-   </rowConstraints>
+    <children>
+        <Label text="Utente (Matricola):" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="matricolaField" promptText="Inserisci matricola" GridPane.columnIndex="1" />
+        <Label text="Libro (ISBN):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="isbnField" promptText="Inserisci ISBN" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label layoutX="10.0" layoutY="14.0" text="Data di restituzione:" GridPane.rowIndex="2" />
+        <DatePicker fx:id="dataRestituzioneField" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    </children>
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    </rowConstraints>
 </GridPane>

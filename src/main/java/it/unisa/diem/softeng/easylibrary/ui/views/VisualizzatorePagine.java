@@ -10,11 +10,12 @@ package it.unisa.diem.softeng.easylibrary.ui.views;
  * @author serenagiannitti
  */
 public interface VisualizzatorePagine {
-     void visualizzaLibri();
 
-     void visualizzaUtenti();
+    void visualizzaLibri();
 
-     void visualizzaPrestiti();
+    void visualizzaUtenti();
 
-     void visualizzaHome();
+    void visualizzaPrestiti();
+
+    void visualizzaHome();
 }

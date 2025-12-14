@@ -8,16 +8,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  * @brief Rappresenta un utente della biblioteca.
  *
  * La classe contiene informazioni specifiche degli utenti della biblioteca,
- * quali la sua Anagrafica, la Matricola, l'IndirizzoEmail
- * e la lista dei prestiti attivi.
+ * quali la sua Anagrafica, la Matricola, l'IndirizzoEmail e la lista dei
+ * prestiti attivi.
  *
- * Gli utenti sono ordinati prima per Anagrafica
- * e poi, a parità, per matricola.
+ * Gli utenti sono ordinati prima per Anagrafica e poi, a parità, per matricola.
  *
  * @see Anagrafica
  * @see Matricola
@@ -25,6 +23,7 @@ import java.util.Objects;
  * @see Prestito
  */
 public class Utente implements Comparable<Utente>, Serializable {
+
     public static final int MAX_PRESTITI_ATTIVI = 3;
 
     private Anagrafica anagrafica;
@@ -32,7 +31,6 @@ public class Utente implements Comparable<Utente>, Serializable {
     private IndirizzoEmail email;
     private final List<Prestito> prestitiAttivi;
 
-    
     /**
      * @brief Costruisce un nuovo utente.
      *
@@ -40,25 +38,25 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @param\[in] cognome Cognome dell'utente
      * @param\[in] matricola Matricola univoca
      * @param\[in] email Indirizzo email
-     * 
-     * @throws IllegalArgumentException Se la matricola e/o l'indirizzo email passato
-     * è nullo.
+     *
+     * @throws IllegalArgumentException Se la matricola e/o l'indirizzo email
+     * passato è nullo.
      */
     public Utente(String nome, String cognome, Matricola matricola, IndirizzoEmail email) {
-        if(matricola == null){
+        if (matricola == null) {
             throw new IllegalArgumentException("Matricola nulla");
         }
-        
-        if(email == null){
+
+        if (email == null) {
             throw new IllegalArgumentException("Email nulla");
         }
-        
+
         this.anagrafica = new Anagrafica(nome, cognome);
         this.matricola = matricola;
         this.email = email;
         this.prestitiAttivi = new ArrayList<>();
     }
-    
+
     /**
      * @brief Restituisce l'Anagrafica dell'utente.
      * @return L'anagrafica
@@ -82,27 +80,26 @@ public class Utente implements Comparable<Utente>, Serializable {
     public IndirizzoEmail getEmail() {
         return email;
     }
-    
+
     /**
      * @brief Restituisce la lista dei prestiti attivi.
      *
-     * La lista è restituita come non modificabile.
-     * In tal modo le modifiche ai prestiti possono avvenire solo tramite i metodi di Utente.
+     * La lista è restituita come non modificabile. In tal modo le modifiche ai
+     * prestiti possono avvenire solo tramite i metodi di Utente.
      * @return Lista non modificabile dei prestiti attivi
      */
     public List<Prestito> getPrestitiAttivi() {
         return Collections.unmodifiableList(prestitiAttivi);
     }
-    
 
     /**
      * @brief Imposta un nuovo indirizzo email.
      * @param\[in] email Nuovo indirizzo email
-     * 
+     *
      * @throws IllegalArgumentException Se l'indirizzo email passato è nullo.
      */
     public void setEmail(IndirizzoEmail email) {
-        if(email == null){
+        if (email == null) {
             throw new IllegalArgumentException("Email nulla");
         }
         this.email = email;
@@ -111,11 +108,10 @@ public class Utente implements Comparable<Utente>, Serializable {
     /**
      * @brief Registra un nuovo prestito attivo per l'utente.
      * @param\[in] p Prestito da aggiungere
-     * 
+     *
      * @throws LimitePrestitiSuperatoException
-     * @throws IllegalArgumentException Se il prestito passato
-     * è nullo.
-    */
+     * @throws IllegalArgumentException Se il prestito passato è nullo.
+     */
     public void registraPrestito(Prestito p) {
         if (p == null) {
             throw new IllegalArgumentException("Prestito nullo");
@@ -138,17 +134,16 @@ public class Utente implements Comparable<Utente>, Serializable {
         this.prestitiAttivi.remove(p);
     }
 
-    
     /**
      * @brief Confronta l'utente con un altro Utente.
-     * 
-     * La comparazione è svolta aderendo al contratto di Comparable,
-     * tramite il metodo compareTo() nella classe Anagrafica e,
-     * a parità di Anagrafica, per matricola.
+     *
+     * La comparazione è svolta aderendo al contratto di Comparable, tramite il
+     * metodo compareTo() nella classe Anagrafica e, a parità di Anagrafica, per
+     * matricola.
      *
      * @param\[in] u Utente da confrontare
-     * @return Valore negativo, zero o positivo se questo utente è rispettivamente minore,
-     *         uguale o maggiore rispetto al'utente passato.
+     * @return Valore negativo, zero o positivo se questo utente è
+     * rispettivamente minore, uguale o maggiore rispetto al'utente passato.
      */
     @Override
     public int compareTo(Utente u) {
@@ -157,15 +152,15 @@ public class Utente implements Comparable<Utente>, Serializable {
         if (c == 0) {
             return this.matricola.compareTo(u.matricola);
         }
-        
+
         return c;
     }
-    
+
     /**
-     * 
-     * @brief Uguaglianza con un altro Utente.
-     * Due utenti sono considerati uguali se hanno la stessa Anagrafica e la stessa Matricola.
-     * 
+     *
+     * @brief Uguaglianza con un altro Utente. Due utenti sono considerati
+     * uguali se hanno la stessa Anagrafica e la stessa Matricola.
+     *
      * @param obj oggetto con cui confrontare.
      * @return true se gli utenti sono uguali, false altrimenti.
      */
@@ -180,29 +175,29 @@ public class Utente implements Comparable<Utente>, Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        
+
         final Utente other = (Utente) obj;
         if (!Objects.equals(this.anagrafica, other.anagrafica)) {
             return false;
         }
-        
+
         if (!Objects.equals(this.matricola, other.matricola)) {
             return false;
         }
-        
+
         return true;
     }
-    
+
     /**
-    * @brief Rappresentazione testuale dell'utente.
-    * Restituisce una stringa che identifica univocamente l'utente in forma
-    * leggibile, nel formato: nome cognome matricola.
-    *
-    * @return stringa rappresentativa dell'utente
-    */
+     * @brief Rappresentazione testuale dell'utente. Restituisce una stringa che
+     * identifica univocamente l'utente in forma leggibile, nel formato: nome
+     * cognome matricola.
+     *
+     * @return stringa rappresentativa dell'utente
+     */
     @Override
     public String toString() {
         return this.anagrafica.getNome() + " " + this.anagrafica.getCognome() + " <" + this.matricola.getMatricola() + ">";
     }
-    
+
 }

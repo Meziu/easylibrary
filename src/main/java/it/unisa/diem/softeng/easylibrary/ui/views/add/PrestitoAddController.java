@@ -80,19 +80,19 @@ public class PrestitoAddController extends DataAddController<PrestitoAddForm> im
     protected void confermaInserimento() {
         Matricola m = new Matricola(this.formController.matricolaField.getText());
         ISBN i = new ISBN(this.formController.isbnField.getText());
-        
+
         if (!utenti.contiene(m)) {
             String error = "Matricola \"" + this.formController.matricolaField.getText() + "\" non registrata nel sistema";
             AlertGrande.mostraAlertErrore(error);
             return;
         }
-        
+
         if (!libri.contiene(i)) {
             String error = "ISBN \"" + this.formController.isbnField.getText() + "\" non registrato nel sistema";
             AlertGrande.mostraAlertErrore(error);
             return;
         }
-        
+
         try {
             Prestito p = new Prestito(m, i, StatoPrestito.ATTIVO, this.formController.dataRestituzioneField.getValue());
             this.prestiti.registra(p);

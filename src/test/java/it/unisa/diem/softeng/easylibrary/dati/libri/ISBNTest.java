@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 
 public class ISBNTest {
+
     private ISBN isbn;
 
     public ISBNTest() {
@@ -12,13 +13,13 @@ public class ISBNTest {
 
     @Before
     public void setUp() {
-       isbn = new ISBN("123456789X");
+        isbn = new ISBN("123456789X");
     }
-    
+
     /* 
     *  COSTRUTTORE
     *
-    */
+     */
     @Test
     public void testCostruzioneISBNValidoSenzaTrattini() {
         ISBN isbn = new ISBN("123456789X");
@@ -42,35 +43,34 @@ public class ISBNTest {
         assertThrows(ISBNInvalidoException.class,
                 () -> new ISBN("12345"));  // Troppo corto
     }
-    
+
     @Test
     public void testCostruzioneISBNNullo() {
         assertThrows(ISBNInvalidoException.class, ()
                 -> new ISBN(null)
         );
     }
-    
+
     @Test
     public void testCostruzioneISBNVuoto() {
         assertThrows(ISBNInvalidoException.class, ()
                 -> new ISBN("")
         );
     }
-    
+
     /* 
     *   GET ISBN
     * 
-    */
+     */
     @Test
     public void testGetISBN() {
         assertEquals(isbn.getISBN(), "123456789X");
     }
-    
-    
+
     /*
     *   VERIFICA ISBN-10
     * 
-    */
+     */
     @Test
     public void testVerificaISBN10Valido() {
         assertTrue(ISBN.verifica("123456789X"));
@@ -95,13 +95,11 @@ public class ISBNTest {
     public void testVerificaISBN10UltimoCarattereNonValido() {
         assertFalse(ISBN.verifica("123456789Z")); // Z non ammessa
     }
-    
 
-    
     /* 
     *  VERIFICA ISBN-13
     *
-    */
+     */
     @Test
     public void testVerificaISBN13Valido() {
         assertTrue(ISBN.verifica("9780306406157"));
@@ -116,12 +114,11 @@ public class ISBNTest {
     public void testVerificaISBN13LunghezzaErrata() {
         assertFalse(ISBN.verifica("123456789")); // 9 caratteri = falso
     }
-    
-        
+
     /*
     *   EQUALS
     *
-    */
+     */
     @Test
     public void equalsRiconosceDueISBNUguali() {
         ISBN i = new ISBN("123456789X");
@@ -136,7 +133,7 @@ public class ISBNTest {
 
         assertNotEquals(isbn, i);
     }
-    
+
     @Test
     public void equalsConNull() {
         assertNotEquals(isbn, null);
@@ -146,12 +143,11 @@ public class ISBNTest {
     public void equalsConOggettoDiClasseDiversa() {
         assertNotEquals(isbn, 5);  // tipo diverso
     }
-    
-    
+
     /* 
     *  COMPARE TO
     * 
-    */
+     */
     @Test
     public void testCompareToFunzionaCorrettamente() {
         ISBN i1 = new ISBN("0000000001");
@@ -167,8 +163,7 @@ public class ISBNTest {
 
         assertEquals(0, isbn.compareTo(i1));
     }
-    
-  
+
     @Test
     public void testCompareToRiconosceISBNUguali() {
         ISBN i1 = new ISBN("123456789X");

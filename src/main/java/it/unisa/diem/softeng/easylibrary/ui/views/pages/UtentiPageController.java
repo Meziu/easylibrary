@@ -30,6 +30,7 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
         this.libri = libri;
     }
 
+    @SuppressWarnings("unchecked") // lint per operazioni di casting sulle colonne
     @Override
     protected void initializeColonne() {
 
@@ -59,12 +60,11 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
                         .stream()
                         .map(a -> {
                             Libro l = libri.ottieni(a.getISBN());
-                            
+
                             // Se il libro è stato rimosso dall'elenco, mostrane solo l'ISBN
                             if (l != null) {
                                 return l.toString();
-                            }
-                            else {
+                            } else {
                                 return a.getISBN().getISBN();
                             }
                         })

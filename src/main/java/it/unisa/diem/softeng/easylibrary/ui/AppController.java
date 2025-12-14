@@ -19,15 +19,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
-
 public class AppController implements Initializable, VisualizzatorePagine {
+
     private Biblioteca biblioteca;
     private String fileArchivio;
 
     @FXML
     private BorderPane appContent;
 
-    public AppController(String fileArchivio){
+    public AppController(String fileArchivio) {
         caricaDaFile(fileArchivio);
 
         if (biblioteca == null) {

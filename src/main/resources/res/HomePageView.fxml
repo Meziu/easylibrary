@@ -9,38 +9,38 @@
 <?import javafx.scene.text.Font?>
 
 <VBox alignment="CENTER" spacing="50.0" style="-fx-background-color: lightGrey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label styleClass="title-text" text="EASYLIBRARY">
-         <font>
-            <Font size="60.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="240.0" fitWidth="240.0" pickOnBounds="true" preserveRatio="true" styleClass="logo-image">
-         <image>
-            <Image url="@unisaLogo.png" />
-         </image>
-      </ImageView>
-      <VBox alignment="CENTER" spacing="15.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#visualizzaUtenti" prefHeight="50.0" prefWidth="300.0" styleClass="main-button" text="Visualizza utenti">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#visualizzaLibri" prefHeight="50.0" prefWidth="300.0" styleClass="main-button" text="Visualizza libri">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#visualizzaPrestiti" prefHeight="50.0" prefWidth="300.0" styleClass="main-button" text="Visualizza prestiti">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-         </children>
-      </VBox>
-   </children>
-   <padding>
-      <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
-   </padding>
+    <children>
+        <Label styleClass="title-text" text="EASYLIBRARY">
+            <font>
+                <Font size="60.0" />
+            </font>
+        </Label>
+        <ImageView fitHeight="240.0" fitWidth="240.0" pickOnBounds="true" preserveRatio="true" styleClass="logo-image">
+            <image>
+                <Image url="@unisaLogo.png" />
+            </image>
+        </ImageView>
+        <VBox alignment="CENTER" spacing="15.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#visualizzaUtenti" prefHeight="50.0" prefWidth="300.0" styleClass="main-button" text="Visualizza utenti">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#visualizzaLibri" prefHeight="50.0" prefWidth="300.0" styleClass="main-button" text="Visualizza libri">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#visualizzaPrestiti" prefHeight="50.0" prefWidth="300.0" styleClass="main-button" text="Visualizza prestiti">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+            </children>
+        </VBox>
+    </children>
+    <padding>
+        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+    </padding>
 </VBox>

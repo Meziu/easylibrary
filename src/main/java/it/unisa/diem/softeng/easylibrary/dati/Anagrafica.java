@@ -4,11 +4,12 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * 
+ *
  * @brief Rappresentazione dell'anagrafica di una persona.
- * 
- * La classe è serializzabile e implementa l'interfaccia Comparable per consentire il confronto tra persone
- * basato sul cognome e, a parità di cognome, sul nome.
+ *
+ * La classe è serializzabile e implementa l'interfaccia Comparable per
+ * consentire il confronto tra persone basato sul cognome e, a parità di
+ * cognome, sul nome.
  */
 public class Anagrafica implements Comparable<Anagrafica>, Serializable {
 
@@ -16,15 +17,15 @@ public class Anagrafica implements Comparable<Anagrafica>, Serializable {
     private String cognome;
 
     /**
-     * 
-     * @brief Costruttore.
-     * Costruisce un nuovo oggetto Anagrafica a partire dalle
-     * stringhe che ne compongono il nome e il cognome.
-     * 
+     *
+     * @brief Costruttore. Costruisce un nuovo oggetto Anagrafica a partire
+     * dalle stringhe che ne compongono il nome e il cognome.
+     *
      * @param\[in] nome Stringa di caratteri del nome.
      * @param\[in] cognome Stringa di caratteri del cognome.
-     * 
-     * @throws IllegalArgumentException se le stringhe nome e/o cognome passate come parametri sono vuote o null.
+     *
+     * @throws IllegalArgumentException se le stringhe nome e/o cognome passate
+     * come parametri sono vuote o null.
      */
     public Anagrafica(String nome, String cognome) {
         if (nome == null || nome.trim().isEmpty()) {
@@ -39,7 +40,7 @@ public class Anagrafica implements Comparable<Anagrafica>, Serializable {
 
     /**
      * @brief Getter della stringa del nome.
-     * 
+     *
      * @return La stringa di caratteri che compongono il nome della Anagrafica.
      */
     public String getNome() {
@@ -48,8 +49,9 @@ public class Anagrafica implements Comparable<Anagrafica>, Serializable {
 
     /**
      * @brief Getter della stringa del cognome.
-     * 
-     * @return La stringa di caratteri che compongono il cognome della Anagrafica.
+     *
+     * @return La stringa di caratteri che compongono il cognome della
+     * Anagrafica.
      */
     public String getCognome() {
         return cognome;
@@ -57,10 +59,12 @@ public class Anagrafica implements Comparable<Anagrafica>, Serializable {
 
     /**
      * @brief Setter della stringa del nome.
-     * 
-     * @param\[in] nome La stringa di caratteri con cui sostituire il nome della Anagrafica.
-     * 
-     * @throws IllegalArgumentException se la stringa passata come parametro è nulla. 
+     *
+     * @param\[in] nome La stringa di caratteri con cui sostituire il nome della
+     * Anagrafica.
+     *
+     * @throws IllegalArgumentException se la stringa passata come parametro è
+     * nulla.
      */
     public void setNome(String nome) {
         if (nome == null || nome.trim().isEmpty()) {
@@ -71,10 +75,12 @@ public class Anagrafica implements Comparable<Anagrafica>, Serializable {
 
     /**
      * @brief Setter della stringa del cognome.
-     * 
-     * @param\[in] cognome La stringa di caratteri con cui sostituire il cognome della Anagrafica.
-     * 
-     * @throws IllegalArgumentException  se la stringa passata come parametro è nulla.
+     *
+     * @param\[in] cognome La stringa di caratteri con cui sostituire il cognome
+     * della Anagrafica.
+     *
+     * @throws IllegalArgumentException se la stringa passata come parametro è
+     * nulla.
      */
     public void setCognome(String cognome) {
         if (cognome == null || cognome.trim().isEmpty()) {
@@ -84,15 +90,15 @@ public class Anagrafica implements Comparable<Anagrafica>, Serializable {
     }
 
     /**
-     * 
-     * @brief Comparazione con un'altra Anagrafica.
-     * La comparazione è svolta aderendo al contratto di Comparable,
-     * dove una Anagrafica è ordinata rispetto ad un'altra in ordine
-     * lessicografico prima del cognome e poi, a parità di
-     * cognome, del nome.
-     * 
-     * @return Valore negativo, zero o positivo se l'anagrafica corrente è rispettivamente
-     * minore, uguale o maggiore dell'anagrafica passato come parametro.
+     *
+     * @brief Comparazione con un'altra Anagrafica. La comparazione è svolta
+     * aderendo al contratto di Comparable, dove una Anagrafica è ordinata
+     * rispetto ad un'altra in ordine lessicografico prima del cognome e poi, a
+     * parità di cognome, del nome.
+     *
+     * @return Valore negativo, zero o positivo se l'anagrafica corrente è
+     * rispettivamente minore, uguale o maggiore dell'anagrafica passato come
+     * parametro.
      */
     @Override
     public int compareTo(Anagrafica a) {
@@ -106,10 +112,11 @@ public class Anagrafica implements Comparable<Anagrafica>, Serializable {
     }
 
     /**
-     * 
+     *
      * @brief Uguaglianza con un'altra Anagrafica.
-     * 
-     * @return true se le due Anagrafica hanno nome e cognome uguale (per String.equals), false altrimenti.
+     *
+     * @return true se le due Anagrafica hanno nome e cognome uguale (per
+     * String.equals), false altrimenti.
      */
     @Override
     public boolean equals(Object obj) {

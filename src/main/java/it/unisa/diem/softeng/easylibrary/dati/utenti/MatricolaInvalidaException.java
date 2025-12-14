@@ -1,13 +1,12 @@
 package it.unisa.diem.softeng.easylibrary.dati.utenti;
 
 /**
- * 
+ *
  * @brief Eccezione che segnala la creazione di una matricola non valida.
  *
- * Questa eccezione viene utilizzata per segnalare errori legati alla
- * creazione, validazione o utilizzo di una matricola non conforme
- * allo standard previsto.
- * 
+ * Questa eccezione viene utilizzata per segnalare errori legati alla creazione,
+ * validazione o utilizzo di una matricola non conforme allo standard previsto.
+ *
  * @see Matricola
  */
 public class MatricolaInvalidaException extends RuntimeException {
@@ -23,7 +22,8 @@ public class MatricolaInvalidaException extends RuntimeException {
     /**
      * @brief Costruttore con messaggio di errore.
      *
-     * @param string messaggio descrittivo dell'errore relativo alla matricola non valida.
+     * @param string messaggio descrittivo dell'errore relativo alla matricola
+     * non valida.
      */
     public MatricolaInvalidaException(String string) {
         super(string);

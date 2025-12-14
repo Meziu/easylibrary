@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.HBox?>
 
 <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label text="Solo Prestiti Attivi" />
-      <CheckBox fx:id="mostraPrestitiAttivi" mnemonicParsing="false" selected="true" />
-   </children>
-   <padding>
-      <Insets top="40.0" />
-   </padding>
+    <children>
+        <Label text="Solo Prestiti Attivi" />
+        <CheckBox fx:id="mostraPrestitiAttivi" mnemonicParsing="false" selected="true" />
+    </children>
+    <padding>
+        <Insets top="40.0" />
+    </padding>
 </HBox>

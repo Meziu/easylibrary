@@ -16,7 +16,6 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -35,6 +34,7 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
         this.prestiti = prestiti;
     }
 
+    @SuppressWarnings("unchecked") // lint per operazioni di casting sulle colonne
     @Override
     protected void initializeColonne() {
 

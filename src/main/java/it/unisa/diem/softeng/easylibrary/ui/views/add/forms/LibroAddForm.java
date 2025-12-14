@@ -32,9 +32,9 @@ public class LibroAddForm implements Initializable {
     public Spinner<Integer> annoField;
     @FXML
     public Spinner<Integer> copieField;
-    
+
     public ObservableList<Autore> listaAutori;
-    
+
     public LibroAddForm() {
         listaAutori = FXCollections.observableArrayList();
     }

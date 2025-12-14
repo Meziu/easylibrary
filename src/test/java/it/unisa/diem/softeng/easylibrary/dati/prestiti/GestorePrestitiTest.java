@@ -15,25 +15,26 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class GestorePrestitiTest {
+
     GestoreUtenti utenti;
     GestoreLibri libri;
     GestorePrestiti prestiti;
     LocalDate stamp;
-    
+
     public GestorePrestitiTest() {
     }
-    
+
     @Before
     public void setUp() {
         utenti = new GestoreUtenti();
         libri = new GestoreLibri();
         prestiti = new GestorePrestiti(utenti, libri);
-        
+
         GestoreUtentiTest.aggiungiUtenti(utenti);
         GestoreLibriTest.aggiungiLibri(libri);
-        
+
         stamp = LocalDate.now().plusDays(10);
-        
+
         prestiti.registra(new Prestito(new Matricola("8482921412"), new ISBN("0261102389"), StatoPrestito.ATTIVO, stamp.plusDays(10)));
         prestiti.registra(new Prestito(new Matricola("1938274018"), new ISBN("0441013597"), StatoPrestito.ATTIVO, stamp.plusDays(-10)));
         prestiti.registra(new Prestito(new Matricola("4729831451"), new ISBN("1443434973"), StatoPrestito.ATTIVO, stamp.plusDays(15)));
@@ -45,10 +46,10 @@ public class GestorePrestitiTest {
     public void testRimuovi() {
         ISBN l = new ISBN("0261102389");
         int copieDisponibiliPrima = libri.ottieni(l).getCopieDisponibili();
-        
+
         Prestito p1 = new Prestito(new Matricola("8482921412"), l, StatoPrestito.ATTIVO, stamp.plusDays(10));
         prestiti.rimuovi(p1);
-        
+
         p1.setStato(StatoPrestito.RESTITUITO);
         assertTrue(prestiti.getLista().contains(p1));
         assertEquals(prestiti.getLista().get(Collections.binarySearch(prestiti.getLista(), p1)).getStato(), StatoPrestito.RESTITUITO);
@@ -60,20 +61,26 @@ public class GestorePrestitiTest {
         // Prestito valido
         Prestito p1 = new Prestito(new Matricola("8482921412"), new ISBN("0743273567"), StatoPrestito.ATTIVO, stamp.plusDays(10));
         prestiti.registra(p1);
-        
+
         assertTrue(prestiti.getLista().contains(p1));
-        
+
         // Prestito per libro senza altre copie
         Prestito p2 = new Prestito(new Matricola("4729831451"), new ISBN("1443434973"), StatoPrestito.ATTIVO, stamp.plusDays(2));
-        assertThrows(NessunaCopiaDisponibileException.class, () -> { prestiti.registra(p2); });
-        
+        assertThrows(NessunaCopiaDisponibileException.class, () -> {
+            prestiti.registra(p2);
+        });
+
         // Prestito per utente inesistente
         Prestito p4 = new Prestito(new Matricola("2198892193"), new ISBN("0261102389"), StatoPrestito.ATTIVO, stamp.plusDays(20));
-        assertThrows(ValoreNonPresenteException.class, () -> { prestiti.registra(p4); });
-        
+        assertThrows(ValoreNonPresenteException.class, () -> {
+            prestiti.registra(p4);
+        });
+
         // Prestito per libro inesistente
         Prestito p5 = new Prestito(new Matricola("4729831451"), new ISBN("9780451526342"), StatoPrestito.ATTIVO, stamp.plusDays(20));
-        assertThrows(ValoreNonPresenteException.class, () -> { prestiti.registra(p5); });
+        assertThrows(ValoreNonPresenteException.class, () -> {
+            prestiti.registra(p5);
+        });
     }
 
 }

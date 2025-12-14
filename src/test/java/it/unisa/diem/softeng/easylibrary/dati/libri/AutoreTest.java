@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 
 public class AutoreTest {
+
     private Autore a;
 
     public AutoreTest() {
@@ -12,13 +13,13 @@ public class AutoreTest {
 
     @Before
     public void setUp() {
-       a = new Autore("Mario", "Rossi");
+        a = new Autore("Mario", "Rossi");
     }
-    
+
     /* 
     *  COSTRUTTORE
     * 
-    */
+     */
     @Test
     public void testCostruzioneAutoreValida() {
         Autore a1 = new Autore("Mario", "Rossi");
@@ -26,23 +27,21 @@ public class AutoreTest {
         assertEquals("Mario", a1.getAnagrafica().getNome());          // nome corretto
         assertEquals("Rossi", a1.getAnagrafica().getCognome());       // cognome corretto
     }
-    
-    
+
     /* 
     *   GET ANAGRAFICA
     * 
-    */
+     */
     @Test
     public void testGetAnagrafica() {
         assertEquals(a.getAnagrafica().getNome(), "Mario");
         assertEquals(a.getAnagrafica().getCognome(), "Rossi");
     }
-    
-    
+
     /*
     *   EQUALS
     *
-    */
+     */
     @Test
     public void equalsRiconosceDueAutoriUguali() {
         Autore a1 = new Autore("Mario", "Rossi");
@@ -64,7 +63,7 @@ public class AutoreTest {
 
         assertNotEquals(a, a1);
     }
-    
+
     @Test
     public void equalsConNullRitornaFalse() {
         assertNotEquals(a, null);

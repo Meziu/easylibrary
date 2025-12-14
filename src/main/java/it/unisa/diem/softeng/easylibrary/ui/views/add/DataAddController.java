@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 
 public abstract class DataAddController<F> implements Initializable {
+
     @FXML
     private BorderPane registrazioneContent;
     @FXML
@@ -27,7 +28,7 @@ public abstract class DataAddController<F> implements Initializable {
     private String aggiuntaForm;
     private String viewTitle;
 
-    protected DataAddController(String viewTitle, F formController,  String aggiuntaForm) {
+    protected DataAddController(String viewTitle, F formController, String aggiuntaForm) {
         this.formController = formController;
         this.aggiuntaForm = aggiuntaForm;
         this.inserimentoValido = new SimpleBooleanProperty(false);
@@ -58,9 +59,9 @@ public abstract class DataAddController<F> implements Initializable {
     protected void annullaInserimento() {
         chiudiFinestra();
     }
-    
+
     public void chiudiFinestra() {
-        Stage s = (Stage)(registrazioneContent.getScene().getWindow());
+        Stage s = (Stage) (registrazioneContent.getScene().getWindow());
         s.close();
     }
 }

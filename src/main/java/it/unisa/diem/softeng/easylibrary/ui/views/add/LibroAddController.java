@@ -19,7 +19,8 @@ import javafx.beans.binding.Bindings;
  *
  * @author marco
  */
-public class LibroAddController extends DataAddController<LibroAddForm>{
+public class LibroAddController extends DataAddController<LibroAddForm> {
+
     private Archiviabile<Libro> libri;
 
     public LibroAddController(Archiviabile<Libro> libri) {
@@ -27,37 +28,37 @@ public class LibroAddController extends DataAddController<LibroAddForm>{
 
         this.libri = libri;
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         super.initialize(url, rb);
 
         inserimentoValido.bind(Bindings.createBooleanBinding(
-            () -> {
-                return !this.formController.titoloField.getText().trim().isEmpty() &&
-                        ISBN.verifica(this.formController.isbnField.getText()) &&
-                        !this.formController.listaAutori.isEmpty() &&
-                        this.formController.annoField.getValue() != null &&
-                        this.formController.copieField.getValue() != null &&
-                        this.formController.copieField.getValue() >= 0;
-            },
-            this.formController.titoloField.textProperty(),
-            this.formController.isbnField.textProperty(),
-            this.formController.listaAutori,
-            this.formController.annoField.valueProperty(),
-            this.formController.copieField.valueProperty()
+                () -> {
+                    return !this.formController.titoloField.getText().trim().isEmpty()
+                    && ISBN.verifica(this.formController.isbnField.getText())
+                    && !this.formController.listaAutori.isEmpty()
+                    && this.formController.annoField.getValue() != null
+                    && this.formController.copieField.getValue() != null
+                    && this.formController.copieField.getValue() >= 0;
+                },
+                this.formController.titoloField.textProperty(),
+                this.formController.isbnField.textProperty(),
+                this.formController.listaAutori,
+                this.formController.annoField.valueProperty(),
+                this.formController.copieField.valueProperty()
         ));
     }
-    
+
     @Override
     protected void confermaInserimento() {
         Libro newLibro = new Libro(this.formController.titoloField.getText(),
-                                        this.formController.listaAutori,
-                                        this.formController.annoField.getValue(),
-                                        new ISBN(this.formController.isbnField.getText()),
-                                        this.formController.copieField.getValue()
+                this.formController.listaAutori,
+                this.formController.annoField.getValue(),
+                new ISBN(this.formController.isbnField.getText()),
+                this.formController.copieField.getValue()
         );
-        
+
         try {
             libri.registra(newLibro);
             this.formController.listaAutori.clear();
@@ -67,11 +68,11 @@ public class LibroAddController extends DataAddController<LibroAddForm>{
             AlertGrande.mostraAlertErrore(error);
         }
     }
-    
+
     @Override
     protected void annullaInserimento() {
         this.formController.listaAutori.clear();
         super.annullaInserimento();
     }
-    
+
 }

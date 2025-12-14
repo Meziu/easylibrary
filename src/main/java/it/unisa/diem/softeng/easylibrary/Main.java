@@ -31,7 +31,7 @@ public class Main extends Application {
             e.printStackTrace();
             return;
         }
-        
+
         // Salvataggio automatico alla chiusura della finestra
         stage.setOnCloseRequest(event -> {
             app.salvaSuFile();

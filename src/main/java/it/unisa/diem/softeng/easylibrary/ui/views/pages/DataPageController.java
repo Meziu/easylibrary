@@ -20,7 +20,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-
 public abstract class DataPageController<T, RC, AC extends DataAddController<?>> implements Initializable {
 
     @FXML
@@ -49,8 +48,11 @@ public abstract class DataPageController<T, RC, AC extends DataAddController<?>>
         this.addController = addController;
     }
 
-    /** Implementato dalle sottoclassi */
+    /**
+     * Implementato dalle sottoclassi
+     */
     protected abstract void initializeColonne();
+
     private void initializeRicerca() {
         this.viewTitle.setText(titoloVista);
 
@@ -64,19 +66,21 @@ public abstract class DataPageController<T, RC, AC extends DataAddController<?>>
             return;
         }
     }
-    
+
     protected abstract void initializeFiltro();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         removeButton.disableProperty().bind(table.getSelectionModel().selectedItemProperty().isNull());
-        
+
         initializeColonne();
         initializeRicerca();
         initializeFiltro();
     }
 
-    /** Per riempire la tabella */
+    /**
+     * Per riempire la tabella
+     */
     public void setItems(java.util.List<T> items) {
         table.getItems().setAll(items);
     }
@@ -89,17 +93,17 @@ public abstract class DataPageController<T, RC, AC extends DataAddController<?>>
         try {
             Stage stage = new Stage();
             Scene scene = new Scene(loader.load());
-            stage.initOwner(((Node)event.getSource()).getScene().getWindow());
+            stage.initOwner(((Node) event.getSource()).getScene().getWindow());
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setResizable(false);
-            
+
             stage.setScene(scene);
             stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
             return;
         }
-        
+
         setItems(archivio.getLista());
         table.refresh();
         this.initializeFiltro();
@@ -115,7 +119,7 @@ public abstract class DataPageController<T, RC, AC extends DataAddController<?>>
             this.initializeFiltro();
 
         } catch (Exception e) {
-           AlertGrande.mostraAlertErrore("Errore durante la rimozione del valore: " + e.toString());
+            AlertGrande.mostraAlertErrore("Errore durante la rimozione del valore: " + e.toString());
         }
     }
 

@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 
 public class UtenteAddController extends DataAddController<UtenteAddForm> {
+
     private Archiviabile<Utente> utenti;
 
     public UtenteAddController(Archiviabile<Utente> utenti) {
@@ -25,27 +26,27 @@ public class UtenteAddController extends DataAddController<UtenteAddForm> {
         super.initialize(url, rb);
 
         inserimentoValido.bind(Bindings.createBooleanBinding(
-            () -> {
-                return !this.formController.nomeField.getText().trim().isEmpty() &&
-                        !this.formController.cognomeField.getText().trim().isEmpty() &&
-                        Matricola.verifica(this.formController.matricolaField.getText()) &&
-                        IndirizzoEmail.verifica(this.formController.emailField.getText());
-            },
-            this.formController.nomeField.textProperty(),
-            this.formController.cognomeField.textProperty(),
-            this.formController.matricolaField.textProperty(),
-            this.formController.emailField.textProperty()
+                () -> {
+                    return !this.formController.nomeField.getText().trim().isEmpty()
+                    && !this.formController.cognomeField.getText().trim().isEmpty()
+                    && Matricola.verifica(this.formController.matricolaField.getText())
+                    && IndirizzoEmail.verifica(this.formController.emailField.getText());
+                },
+                this.formController.nomeField.textProperty(),
+                this.formController.cognomeField.textProperty(),
+                this.formController.matricolaField.textProperty(),
+                this.formController.emailField.textProperty()
         ));
     }
 
     @Override
     protected void confermaInserimento() {
         Utente newUtente = new Utente(this.formController.nomeField.getText(),
-                                        this.formController.cognomeField.getText(),
-                                        new Matricola(this.formController.matricolaField.getText()),
-                                        new IndirizzoEmail(this.formController.emailField.getText())
+                this.formController.cognomeField.getText(),
+                new Matricola(this.formController.matricolaField.getText()),
+                new IndirizzoEmail(this.formController.emailField.getText())
         );
-        
+
         try {
             utenti.registra(newUtente);
             chiudiFinestra();

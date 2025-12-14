@@ -12,12 +12,12 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 
 public class UtenteTest {
+
     private Utente u;
     private Matricola m;
     private IndirizzoEmail e;
     private Prestito nuovo;
 
-    
     public UtenteTest() {
     }
 
@@ -26,15 +26,14 @@ public class UtenteTest {
         m = new Matricola("0123456789");
         e = new IndirizzoEmail("m.rossi@studenti.unisa.it");
         u = new Utente("Mario", "Rossi", m, e);
-        
+
         nuovo = new Prestito(m, new ISBN("123456789X"), StatoPrestito.ATTIVO, LocalDate.now().plusDays(2));
     }
-    
-    
+
     /* 
     *  COSTRUTTORE
     *
-    */
+     */
     @Test
     public void testCostruzioneUtente() {
         Utente ut = new Utente("Mario", "Rossi", m, e);
@@ -45,14 +44,14 @@ public class UtenteTest {
         assertEquals(e, ut.getEmail());
         assertTrue(ut.getPrestitiAttivi().isEmpty());
     }
-    
+
     @Test
     public void testCostruzioneUtenteMatricolaNull() {
         assertThrows(IllegalArgumentException.class, ()
                 -> new Utente("Mario", "Rossi", null, e)
         );
     }
-    
+
     @Test
     public void testCostruzioneUtenteEmailNull() {
         assertThrows(IllegalArgumentException.class, ()
@@ -64,7 +63,7 @@ public class UtenteTest {
     /* 
     *   GET
     * 
-    */
+     */
     @Test
     public void testGetAnagrafica() {
         assertEquals(u.getAnagrafica().getNome(), "Mario");
@@ -84,17 +83,16 @@ public class UtenteTest {
     @Test
     public void testGetPrestitiAttivi() {
         Prestito p = new Prestito(m, new ISBN("123456789X"), StatoPrestito.ATTIVO, LocalDate.now().plusDays(2));
-                
+
         u.registraPrestito(nuovo);
         u.registraPrestito(p);
-        
+
         List<Prestito> prestiti = u.getPrestitiAttivi();
         assertEquals(2, prestiti.size());
         assertTrue(prestiti.contains(nuovo));
         assertTrue(prestiti.contains(p));
     }
-    
-    
+
     @Test
     public void testGetPrestitiAttiviNonModificabile() {
         assertThrows(UnsupportedOperationException.class, () -> {
@@ -102,11 +100,10 @@ public class UtenteTest {
         });
     }
 
-    
     /* 
     *   SET
     * 
-    */
+     */
     @Test
     public void testSetEmail() {
         IndirizzoEmail nuova = new IndirizzoEmail("email@studenti.unisa.it");
@@ -120,11 +117,11 @@ public class UtenteTest {
                 -> u.setEmail(null)
         );
     }
-    
+
     /* 
     *   LISTA PRESTITI
     * 
-    */
+     */
     @Test
     public void testRegistraPrestito() {
         u.registraPrestito(nuovo);
@@ -132,14 +129,14 @@ public class UtenteTest {
         assertTrue(u.getPrestitiAttivi().contains(nuovo));
         assertEquals(1, u.getPrestitiAttivi().size());
     }
-    
+
     @Test
     public void testRegistraPrestitoNull() {
         assertThrows(IllegalArgumentException.class, ()
                 -> u.registraPrestito(null)
         );
     }
-    
+
     @Test
     public void testRegistraPrestitoFinoAlLimite() {
         for (int i = 0; i < Utente.MAX_PRESTITI_ATTIVI; i++) {
@@ -157,14 +154,14 @@ public class UtenteTest {
 
         //il quarto deve fallire
         assertThrows(LimitePrestitiSuperatoException.class,
-            () -> u.registraPrestito(nuovo));
+                () -> u.registraPrestito(nuovo));
     }
 
     @Test
     public void testRimuoviPrestitoUnicoElemento() {
         u.registraPrestito(nuovo);
         int prevSize = u.getPrestitiAttivi().size();
-        
+
         u.rimuoviPrestito(nuovo);
         int newSize = u.getPrestitiAttivi().size();
 
@@ -178,11 +175,11 @@ public class UtenteTest {
 
         assertFalse(u.getPrestitiAttivi().contains(nuovo));
     }
-    
+
     /*
     *   EQUALS
     *
-    */
+     */
     @Test
     public void equalsRiconosceDueUtentiUguali() {
         Utente u1 = new Utente("Mario", "Rossi", new Matricola("0123456789"), new IndirizzoEmail("m.rossi@studenti.unisa.it"));
@@ -204,7 +201,7 @@ public class UtenteTest {
 
         assertNotEquals(u, u1);
     }
-    
+
     @Test
     public void equalsConNullRitornaFalse() {
         assertNotEquals(u, null);
@@ -214,13 +211,11 @@ public class UtenteTest {
     public void equalsConOggettoDiClasseDiversaRitornaFalse() {
         assertNotEquals(u, "Mario Rossi");  // tipo diverso
     }
-    
-    
-    
+
     /*
     *  COMPARE TO
     * 
-    */
+     */
     @Test
     public void testCompareToOrdinaPerNome() {
         Utente u2 = new Utente("Luca", "Rossi",
@@ -228,18 +223,16 @@ public class UtenteTest {
                 new IndirizzoEmail("luca@studenti.unisa.it"));
 
         assertTrue(u2.compareTo(u) < 0);
-        assertTrue(u.compareTo(u2) > 0); 
-        
-        
+        assertTrue(u.compareTo(u2) > 0);
+
         Utente u3 = new Utente("Ugo", "Rossi",
                 new Matricola("1564567890"),
                 new IndirizzoEmail("ugo@studenti.unisa.it"));
 
         assertTrue(u.compareTo(u3) < 0);
-        assertTrue(u3.compareTo(u) > 0); 
+        assertTrue(u3.compareTo(u) > 0);
     }
-    
-    
+
     @Test
     public void testCompareToOrdinaPerCognome() {
         Utente u2 = new Utente("Mario", "Bianchi",
@@ -247,9 +240,8 @@ public class UtenteTest {
                 new IndirizzoEmail("mario@studenti.unisa.it"));
 
         assertTrue(u2.compareTo(u) < 0);
-        assertTrue(u.compareTo(u2) > 0);  
-        
-        
+        assertTrue(u.compareTo(u2) > 0);
+
         Utente u3 = new Utente("Mario", "Verdi",
                 new Matricola("1234567890"),
                 new IndirizzoEmail("mario@studenti.unisa.it"));
@@ -265,8 +257,7 @@ public class UtenteTest {
 
         assertTrue(u.compareTo(u2) < 0);
         assertTrue(u2.compareTo(u) > 0);
-        
-        
+
         Utente u3 = new Utente("Mario", "Rossi",
                 new Matricola("0000000000"),
                 new IndirizzoEmail("mario@studenti.unisa.it"));

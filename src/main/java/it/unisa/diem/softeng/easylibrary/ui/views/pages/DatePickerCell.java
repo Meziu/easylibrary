@@ -62,14 +62,14 @@ public class DatePickerCell extends TableCell<Prestito, LocalDate> {
                 // Visualizza il testo formattato
                 setText(getString());
                 setGraphic(null);
-                
+
                 // Colorazione date scadute.
-                if (!item.isAfter(LocalDate.now()) &&
-                        getTableRow() != null &&
-                        getTableRow().getItem() != null &&
-                        ((Prestito) getTableRow().getItem()).getStato().equals(StatoPrestito.ATTIVO)) {
+                if (!item.isAfter(LocalDate.now())
+                        && getTableRow() != null
+                        && getTableRow().getItem() != null
+                        && ((Prestito) getTableRow().getItem()).getStato().equals(StatoPrestito.ATTIVO)) {
                     setStyle(
-                        "-fx-background-color: #ff6666;"
+                            "-fx-background-color: #ff6666;"
                     );
                 } else {
                     setStyle(null);
@@ -86,12 +86,13 @@ public class DatePickerCell extends TableCell<Prestito, LocalDate> {
             public String toString(LocalDate date) {
                 return (date != null) ? FORMATTER.format(date) : "";
             }
+
             @Override
             public LocalDate fromString(String string) {
                 return LocalDate.parse(string, FORMATTER);
             }
         });
-        
+
         // Quando l'utente seleziona una data, committiamo il nuovo valore
         datePicker.setOnAction(event -> {
             commitEdit((LocalDate) datePicker.getValue());
@@ -103,6 +104,7 @@ public class DatePickerCell extends TableCell<Prestito, LocalDate> {
             }
         });
     }
+
     private String getString() {
         LocalDate date = getItem();
         return (date == null) ? "" : FORMATTER.format(date);

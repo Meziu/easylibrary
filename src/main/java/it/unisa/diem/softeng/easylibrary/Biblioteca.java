@@ -13,13 +13,12 @@ import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
 import java.io.*;
 import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
 
-
 /**
  * @brief Rappresenta una biblioteca che gestisce utenti, libri e prestiti.
  *
- * La classe fornisce metodi per registrare prestiti e restituzioni,
- * filtrare i prestiti attivi e salvare/caricare lo stato della biblioteca.
- * Implementa Serializable per consentire la persistenza su file.
+ * La classe fornisce metodi per registrare prestiti e restituzioni, filtrare i
+ * prestiti attivi e salvare/caricare lo stato della biblioteca. Implementa
+ * Serializable per consentire la persistenza su file.
  *
  * @see GestorePrestiti
  * @see GestoreUtenti
@@ -50,8 +49,9 @@ public class Biblioteca implements Serializable {
 
     /**
      * @brief Getter dell'archivio utenti.
-     * 
-     * @return L'archivio indicizzabile degli utenti registrati nella biblioteca.
+     *
+     * @return L'archivio indicizzabile degli utenti registrati nella
+     * biblioteca.
      */
     public Indicizzabile<Matricola, Utente> getArchivioUtenti() {
         return archivioUtenti;
@@ -59,7 +59,7 @@ public class Biblioteca implements Serializable {
 
     /**
      * @brief Getter dell'archivio libri.
-     * 
+     *
      * @return L'archivio indicizzabile dei libri registrati nella biblioteca.
      */
     public Indicizzabile<ISBN, Libro> getArchivioLibri() {
@@ -68,8 +68,9 @@ public class Biblioteca implements Serializable {
 
     /**
      * @brief Getter dell'archivio prestiti.
-     * 
-     * @return L'archivio indicizzabile dei prestiti registrati nella biblioteca.
+     *
+     * @return L'archivio indicizzabile dei prestiti registrati nella
+     * biblioteca.
      */
     public Archiviabile<Prestito> getArchivioPrestiti() {
         return archivioPrestiti;
@@ -82,7 +83,8 @@ public class Biblioteca implements Serializable {
      *
      * @post Lo stato della biblioteca viene scritto nel file specificato
      *
-     * @throws IOException nel caso in cui il percorso specificato non sia accessibile.
+     * @throws IOException nel caso in cui il percorso specificato non sia
+     * accessibile.
      */
     public void salvaFile(String filename) throws IOException {
         try (ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filename)))) {
@@ -95,10 +97,13 @@ public class Biblioteca implements Serializable {
      *
      * @param\[in] filename Nome del file da cui leggere lo stato
      *
-     * @pre Il file deve esistere e contenere un oggetto Biblioteca serializzato.
-     * @return Oggetto Biblioteca caricato, o null in caso di errore nella deserializzazione delle classi.
+     * @pre Il file deve esistere e contenere un oggetto Biblioteca
+     * serializzato.
+     * @return Oggetto Biblioteca caricato, o null in caso di errore nella
+     * deserializzazione delle classi.
      *
-     * @throws IOException nel caso in cui il file non esista o non sia accessibile.
+     * @throws IOException nel caso in cui il file non esista o non sia
+     * accessibile.
      */
     public static Biblioteca caricaFile(String filename) throws IOException {
         try (ObjectInputStream in = new ObjectInputStream(

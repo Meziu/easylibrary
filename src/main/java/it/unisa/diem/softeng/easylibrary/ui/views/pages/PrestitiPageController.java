@@ -19,57 +19,58 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.scene.control.TableColumn;
 
-
 public class PrestitiPageController extends DataPageController<Prestito, RicercaPrestitoController, PrestitoAddController> {
+
     private Archiviabile<Prestito> prestiti;
     private Indicizzabile<Matricola, Utente> utenti;
     private Indicizzabile<ISBN, Libro> libri;
 
     public PrestitiPageController(VisualizzatorePagine vp, Archiviabile<Prestito> prestiti, Indicizzabile<Matricola, Utente> utenti, Indicizzabile<ISBN, Libro> libri) {
         super(prestiti, vp, new RicercaPrestitoController(), "Prestiti", "/res/RicercaPrestiti.fxml", new PrestitoAddController(prestiti, utenti, libri));
-        
+
         this.prestiti = prestiti;
         this.utenti = utenti;
         this.libri = libri;
     }
 
+    @SuppressWarnings("unchecked") // lint per operazioni di casting sulle colonne
     @Override
     protected void initializeColonne() {
 
         TableColumn<Prestito, String> utenteCol = new TableColumn<>("Utente");
         utenteCol.setCellValueFactory(c -> {
-                Utente u = utenti.ottieni(c.getValue().getMatricola());
-                
-                // Mostra nome, cognome e codice della matricola
-                if (u != null) {
-                    return new SimpleStringProperty(u.toString());
-                } else { // Se l'utente non è presente, mostra solo la matricola
-                    return new SimpleStringProperty(c.getValue().getMatricola().getMatricola());
-                }
+            Utente u = utenti.ottieni(c.getValue().getMatricola());
+
+            // Mostra nome, cognome e codice della matricola
+            if (u != null) {
+                return new SimpleStringProperty(u.toString());
+            } else { // Se l'utente non è presente, mostra solo la matricola
+                return new SimpleStringProperty(c.getValue().getMatricola().getMatricola());
             }
+        }
         );
 
         TableColumn<Prestito, String> libroCol = new TableColumn<>("Libro");
         libroCol.setCellValueFactory(c -> {
-                Libro l = libri.ottieni(c.getValue().getISBN());
-                
-                // Mostra titolo e codice del libro
-                if (l != null) {
-                    return new SimpleStringProperty(l.toString());
-                } else { // Se il libro non è presente, mostra solo l'ISBN
-                    return new SimpleStringProperty(c.getValue().getISBN().getISBN());
-                }
+            Libro l = libri.ottieni(c.getValue().getISBN());
+
+            // Mostra titolo e codice del libro
+            if (l != null) {
+                return new SimpleStringProperty(l.toString());
+            } else { // Se il libro non è presente, mostra solo l'ISBN
+                return new SimpleStringProperty(c.getValue().getISBN().getISBN());
             }
+        }
         );
 
         TableColumn<Prestito, String> statoCol = new TableColumn<>("Stato prestito");
-        statoCol.setCellValueFactory(c ->
-                new SimpleStringProperty(c.getValue().getStato().toString())
+        statoCol.setCellValueFactory(c
+                -> new SimpleStringProperty(c.getValue().getStato().toString())
         );
 
         TableColumn<Prestito, LocalDate> scadenzaCol = new TableColumn<>("Data di scadenza");
-        scadenzaCol.setCellValueFactory(c ->
-                new SimpleObjectProperty<LocalDate>(c.getValue().getDataDiScadenza())
+        scadenzaCol.setCellValueFactory(c
+                -> new SimpleObjectProperty<LocalDate>(c.getValue().getDataDiScadenza())
         );
         scadenzaCol.setCellFactory(cl -> new DatePickerCell());
         scadenzaCol.setOnEditCommit(e -> {
@@ -81,14 +82,12 @@ public class PrestitiPageController extends DataPageController<Prestito, Ricerca
                 prestiti.modifica(e.getRowValue(), p -> {
                     p.setDataDiScadenza(e.getNewValue());
                 });
-                
+
                 setItems(prestiti.getLista());
             }
         });
 
-
         table.getColumns().addAll(utenteCol, libroCol, statoCol, scadenzaCol);
-
 
         // RENDIAMO LE COLONNE MODIFICABILI
         utenteCol.setEditable(true);
@@ -96,11 +95,10 @@ public class PrestitiPageController extends DataPageController<Prestito, Ricerca
         statoCol.setEditable(true);
         scadenzaCol.setEditable(true);
 
-
         // Carica i libri
         setItems(prestiti.getLista());
     }
-    
+
     @Override
     protected void initializeFiltro() {
         this.table.itemsProperty().bind(Bindings.createObjectBinding(() -> {

@@ -5,20 +5,21 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 
 public class MatricolaTest {
+
     private Matricola m;
-    
+
     public MatricolaTest() {
     }
-    
+
     @Before
     public void setUp() {
-       m = new Matricola("0123456789");
+        m = new Matricola("0123456789");
     }
 
     /* 
     *  COSTRUTTORE
     *
-    */
+     */
     @Test
     public void testCostruzioneMatricolaValida() {
         Matricola m = new Matricola("0123456789");
@@ -31,14 +32,14 @@ public class MatricolaTest {
                 -> new Matricola(null)
         );
     }
-    
+
     @Test
     public void testCostruzioneMatricolaVuotaLanciaEccezione() {
         assertThrows(MatricolaInvalidaException.class, ()
                 -> new Matricola("")
         );
     }
-    
+
     @Test
     public void testCostruzioneMatricolaCortaLanciaEccezione() {
         assertThrows(MatricolaInvalidaException.class,
@@ -63,22 +64,19 @@ public class MatricolaTest {
                 () -> new Matricola(null));
     }
 
-    
     /* 
     *   GET MATRICOLA
     * 
-    */
+     */
     @Test
     public void testGetMatricola() {
         assertEquals(m.getMatricola(), "0123456789");
     }
-    
-    
-    
+
     /*
     *   VERIFICA
     * 
-    */
+     */
     @Test
     public void testVerificaMatricolaValida() {
         assertTrue(Matricola.verifica("0123456789"));
@@ -102,8 +100,7 @@ public class MatricolaTest {
 
     /*
     *  EQUALS
-    */
-
+     */
     @Test
     public void testEqualsRiconosceMatricoleUguali() {
         Matricola m1 = new Matricola("0123456789");
@@ -133,7 +130,7 @@ public class MatricolaTest {
 
     /*
     *  COMPARE TO
-    */
+     */
     @Test
     public void testCompareToFunzionaCorrettamente() {
         Matricola m1 = new Matricola("0000000001");

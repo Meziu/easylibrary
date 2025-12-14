@@ -7,17 +7,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-
 public class HomePageController implements Initializable {
+
     private VisualizzatorePagine vsPagine;
-    
+
     public HomePageController(VisualizzatorePagine vsPagine) {
         this.vsPagine = vsPagine;
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    }    
+    }
 
     @FXML
     private void visualizzaUtenti(ActionEvent event) {
