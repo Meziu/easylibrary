@@ -21,8 +21,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 
 /**
@@ -57,128 +57,19 @@ public class PrestitoAddController extends DataAddController<PrestitoAddForm> im
                 this.formController.isbnField.valueProperty(),
                 this.formController.dataRestituzioneField.valueProperty()
         ));
-
-        // Rendi le ComboBox editabili per permettere la ricerca
-        this.formController.matricolaField.setEditable(true);
-        this.formController.isbnField.setEditable(true);
-
-        // Crea liste osservabili dalle liste originali
-        ObservableList<Utente> utentiObservable = FXCollections.observableArrayList(utenti.getLista());
-        ObservableList<Libro> libriObservable = FXCollections.observableArrayList(libri.getLista());
-
-        // Imposta le liste iniziali
-        this.formController.matricolaField.setItems(utentiObservable);
-        this.formController.isbnField.setItems(libriObservable);
-
-        // StringConverter per Utente
-        this.formController.matricolaField.setConverter(new javafx.util.StringConverter<Utente>() {
-            @Override
-            public String toString(Utente utente) {
-                if (utente == null) {
-                    return "";
-                }
+        
+        //this.formController.matricolaField.setEditable(true);
+        
+        this.formController.matricolaField.itemsProperty().bind(Bindings.createObjectBinding(() -> {
+            return FXCollections.observableList(utenti.filtra(u -> {
+                String text = this.formController.matricolaField.editorProperty().get().getText();
                 
-                // Estrazione di matricola dalla stringa
-                String str = utente.toString();
-                int start = str.indexOf('<');
-                int end = str.indexOf('>');
-                return (start != -1 && end != -1) ? str.substring(start + 1, end) : str;
-            }
+                return u.getMatricola().getMatricola().startsWith(text);
+            }));
+        }, this.formController.matricolaField.editorProperty().get().textProperty()));
 
-            @Override
-            public Utente fromString(String string) {
-                try {
-                    Matricola m = new Matricola(string);
-                    return utenti.ottieni(m);
-                } catch (Exception e) {
-                    // Se la matricola non è completa o valida
-                    return null;
-                }
-            }
-        });
-
-        // StringConverter per Libro
-        this.formController.isbnField.setConverter(new javafx.util.StringConverter<Libro>() {
-            @Override
-            public String toString(Libro libro) {
-                if (libro == null) {
-                    return "";
-                }
-                
-                // Estrazione di isbn dalla stringa
-                String str = libro.toString();
-                int start = str.indexOf('<');
-                int end = str.indexOf('>');
-                return (start != -1 && end != -1) ? str.substring(start + 1, end) : str;
-            }
-
-            @Override
-            public Libro fromString(String string) {
-                try {
-                    ISBN i = new ISBN(string);
-                    return libri.ottieni(i);
-                } catch (Exception e) {
-                    // Se la matricola non valida
-                    return null;
-                }
-            }
-        });
-
-        // La lista mostra nome, cognome e matricola
-        this.formController.matricolaField.setCellFactory(lv -> new javafx.scene.control.ListCell<Utente>() {
-            @Override
-            protected void updateItem(Utente item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.toString());
-            }
-        });
-
-        // La lista mostra titolo e isbn
-        this.formController.isbnField.setCellFactory(lv -> new javafx.scene.control.ListCell<Libro>() {
-            @Override
-            protected void updateItem(Libro item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.toString());
-            }
-        });
-
-        // Filtro per utenti basato
-        this.formController.matricolaField.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-            // Nascondi comboboxlista prima di aggiornare lista
-            if (this.formController.matricolaField.isShowing()) {
-                this.formController.matricolaField.hide();
-            }
-
-            ObservableList<Utente> filteredUtenti = FXCollections.observableArrayList(
-                    utenti.filtra(u -> u.getMatricola().getMatricola().toLowerCase()
-                    .startsWith(newValue.toLowerCase()))
-            );
-
-            this.formController.matricolaField.setItems(filteredUtenti);
-
-            // Rimostra lista se ci sono risultati
-            if (!filteredUtenti.isEmpty()) {
-                this.formController.matricolaField.show();
-            }
-        });
-
-        // Filtro per libri
-        this.formController.isbnField.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-            if (this.formController.isbnField.isShowing()) {
-                this.formController.isbnField.hide();
-            }
-
-            ObservableList<Libro> filteredLibri = FXCollections.observableArrayList(
-                    libri.filtra(l -> l.getISBN().getISBN().toLowerCase()
-                    .startsWith(newValue.toLowerCase()))
-            );
-
-            this.formController.isbnField.setItems(filteredLibri);
-
-            if (!filteredLibri.isEmpty()) {
-                this.formController.isbnField.show();
-            }
-        });
+        this.formController.matricolaField.itemsProperty().bind(new SimpleListProperty(FXCollections.observableList(utenti.getLista())));
+        this.formController.isbnField.itemsProperty().bind(new SimpleListProperty(FXCollections.observableList(libri.getLista())));
     }
 
     @Override
