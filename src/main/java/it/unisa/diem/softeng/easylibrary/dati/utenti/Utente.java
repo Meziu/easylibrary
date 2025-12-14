@@ -117,6 +117,7 @@ public class Utente implements Comparable<Utente>, Serializable {
     
     /**
      * @brief Confronta l'utente con un altro Utente.
+     * 
      * La comparazione è svolta aderendo al contratto di Comparable,
      * tramite il metodo compareTo() nella classe Anagrafica e,
      * a parità di cognome e nome, per matricola.
@@ -168,6 +169,13 @@ public class Utente implements Comparable<Utente>, Serializable {
         return true;
     }
     
+    /**
+    * @brief Rappresentazione testuale dell'utente.
+    * Restituisce una stringa che identifica univocamente l'utente in forma
+    * leggibile, nel formato: nome cognome matricola.
+    *
+    * @return stringa rappresentativa dell'utente
+    */
     @Override
     public String toString() {
         return this.anagrafica.getNome() + " " + this.anagrafica.getCognome() + " <" + this.matricola.getMatricola() + ">";
