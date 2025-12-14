@@ -26,14 +26,14 @@ public final class ISBN implements Comparable<ISBN>, Serializable {
      * @param\[in] isbn Stringa di caratteri del codice ISBN.
      *
      * @throws ISBNInvalidoException Se il codice inserito non è conforme allo
-     * standard di validità.
+     * standard di validità, è nullo o vuoto.
      *
      * \see verifica()
      *
      */
     public ISBN(String isbn) {
         if (isbn == null || isbn.trim().isEmpty()) {
-            throw new IllegalArgumentException("ISBN nullo o vuoto");
+            throw new ISBNInvalidoException("ISBN nullo o vuoto");
         }
         isbn = isbn.replaceAll("-", ""); // rimuove eventuali trattini
         
@@ -55,8 +55,7 @@ public final class ISBN implements Comparable<ISBN>, Serializable {
 
     /**
      * @brief Verifica del codice ISBN. Verifica se la stringa passata come
-     * argomento sia o meno un codice ISBN valido a seconda degli standard
-     * definiti dal documento ISO 2108.
+     * argomento sia o meno un codice ISBN valido.
      *
      * @param\[in] isbn Stringa di caratteri da verificare.
      * @return true se la stringa è un codice ISBN valido, false altrimenti.
