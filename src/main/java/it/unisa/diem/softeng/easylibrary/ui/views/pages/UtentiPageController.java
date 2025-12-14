@@ -75,10 +75,14 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
         nomeCol.setOnEditCommit((TableColumn.CellEditEvent<Utente, String> e) -> {
             Utente u = e.getRowValue();
 
-            utenti.modifica(u, utente -> {
-                utente.getAnagrafica().setNome(e.getNewValue());;
-            });
-            
+            if (e.getNewValue().isEmpty()) {
+                AlertGrande.mostraAlertErrore("Impossibile aggiungere un nome vuoto.");
+            } else {
+                utenti.modifica(u, utente -> {
+                    utente.getAnagrafica().setNome(e.getNewValue());;
+                });
+            }
+
             setItems(utenti.getLista());
             table.refresh();
         });
@@ -87,10 +91,15 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
         cognomeCol.setCellFactory(TextFieldTableCell.forTableColumn());
         cognomeCol.setOnEditCommit((TableColumn.CellEditEvent<Utente, String> e) -> {
             Utente u = e.getRowValue();
-            utenti.modifica(u, utente -> {
-                utente.getAnagrafica().setCognome(e.getNewValue());;
-            });
-            
+
+            if (e.getNewValue().isEmpty()) {
+                AlertGrande.mostraAlertErrore("Impossibile aggiungere un cognome vuoto.");
+            } else {
+                utenti.modifica(u, utente -> {
+                    utente.getAnagrafica().setCognome(e.getNewValue());;
+                });
+            }
+
             setItems(utenti.getLista());
             table.refresh();
         });

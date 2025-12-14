@@ -88,10 +88,24 @@ public class AutoriPageController implements Initializable {
         nomeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         cognomeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         nomeColumn.setOnEditCommit(e -> {
-            e.getRowValue().getAnagrafica().setNome(e.getNewValue());
+            Autore a = e.getRowValue();
+            
+            if (e.getNewValue().isEmpty()) {
+                AlertGrande.mostraAlertErrore("Impossibile aggiungere un nome vuoto.");
+            } else {
+                a.getAnagrafica().setNome(e.getNewValue());
+            }
+            autoriTable.refresh();
         });
         cognomeColumn.setOnEditCommit(e -> {
-            e.getRowValue().getAnagrafica().setCognome(e.getNewValue());
+            Autore a = e.getRowValue();
+            
+            if (e.getNewValue().isEmpty()) {
+                AlertGrande.mostraAlertErrore("Impossibile aggiungere un cognome vuoto.");
+            } else {
+                a.getAnagrafica().setCognome(e.getNewValue());
+            }
+            autoriTable.refresh();
         });
     }
     
