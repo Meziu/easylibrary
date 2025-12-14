@@ -2,7 +2,7 @@ package it.unisa.diem.softeng.easylibrary.dati.utenti;
 
 /**
  * 
- * @brief Eccezione lanciata quando una matricola risulta non valida.
+ * @brief Eccezione che segnala la creazione di una matricola non valida.
  *
  * Questa eccezione viene utilizzata per segnalare errori legati alla
  * creazione, validazione o utilizzo di una matricola non conforme
