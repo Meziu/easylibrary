@@ -37,10 +37,27 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @param\[in] copieDisponibili Interi che indica il numero di copie disponibili.
      */
     public Libro(String titolo, List<Autore> autori, int annoPubblicazione, ISBN isbn, int copieDisponibili) {
+        if (titolo == null) {
+            throw new IllegalArgumentException("Titolo nullo");
+        }
+        if (autori == null || autori.isEmpty()) {
+            throw new IllegalArgumentException("Lista autori nulla o vuota");
+        }
+        if (isbn == null) {
+            throw new IllegalArgumentException("ISBN nullo");
+        }
+        if (copieDisponibili < 0) {
+            throw new IllegalArgumentException("Numero di copie negativo");
+        }
+
+        Year anno = Year.of(annoPubblicazione);
+        if (anno.isAfter(Year.now())) {
+            throw new IllegalArgumentException("Anno di pubblicazione nel futuro");
+        }
+
         this.titolo = titolo;
-        this.autori = new ArrayList<>();
-        this.autori.addAll(autori);
-        this.annoPubblicazione = Year.of(annoPubblicazione);
+        this.autori = new ArrayList<>(autori);
+        this.annoPubblicazione = anno;
         this.isbn = isbn;
         this.copieDisponibili = copieDisponibili;
     }
@@ -101,6 +118,9 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @param\[in] titolo Nuovo titolo del libro.
      */
     public void setTitolo(String titolo) {
+        if (titolo == null) {
+            throw new IllegalArgumentException("Titolo nullo");
+        }
         this.titolo = titolo;
     }
 
@@ -111,7 +131,11 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @param\[in] autori Nuova lista di autori.
      */
     public void setAutori(List<Autore> autori) {
-        this.autori = autori;
+        if (autori == null || autori.isEmpty()) {
+            throw new IllegalArgumentException("Lista autori nulla o vuota");
+        }
+        this.autori = new ArrayList<>();
+        this.autori.addAll(autori);
     }
 
     /**
@@ -120,6 +144,10 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @param\[in] annoPubblicazione Nuovo anno di pubblicazione.
      */
     public void setAnnoPubblicazione(int annoPubblicazione) {
+        Year anno = Year.of(annoPubblicazione);
+        if (anno.isAfter(Year.now())) {
+            throw new IllegalArgumentException("Anno di pubblicazione nel futuro");
+        }
         this.annoPubblicazione = Year.of(annoPubblicazione);
     }
     
@@ -129,6 +157,9 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @param\[in] copieDisponibili Nuovo numero di copie disponibili.
      */
     public void setCopieDisponibili(int copieDisponibili) {
+        if (copieDisponibili < 0) {
+            throw new IllegalArgumentException("Numero di copie negativo");
+        }
         this.copieDisponibili = copieDisponibili;
     }
 
@@ -141,6 +172,9 @@ public class Libro implements Comparable<Libro>, Serializable {
      * 
      */
     public void aggiungiAutore(Autore a) {
+        if (a == null) {
+            throw new IllegalArgumentException("Lista autori nulla o vuota");
+        }
         autori.add(a);
     }
 
