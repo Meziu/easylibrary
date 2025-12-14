@@ -21,7 +21,9 @@ import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
  * filtrare i prestiti attivi e salvare/caricare lo stato della biblioteca.
  * Implementa Serializable per consentire la persistenza su file.
  *
- * @see Archiviabile
+ * @see GestorePrestiti
+ * @see GestoreUtenti
+ * @see GestoreLibri
  * @see Utente
  * @see Libro
  * @see Prestito
@@ -36,8 +38,9 @@ public class Biblioteca implements Serializable {
      * @brief Costruttore.
      *
      * Inizializza gli archivi con le rispettive classi gestore.
-     *
-     * @post Gli archivi utenti, libri e prestiti sono pronti all'uso
+     * @post archivioUtenti != null
+     * @post archivioLibri != null
+     * @post archivioPrestiti != null
      */
     public Biblioteca() {
         this.archivioUtenti = new GestoreUtenti();
@@ -45,14 +48,29 @@ public class Biblioteca implements Serializable {
         this.archivioPrestiti = new GestorePrestiti(this.archivioUtenti, this.archivioLibri);
     }
 
+    /**
+     * @brief Getter dell'archivio utenti.
+     * 
+     * @return L'archivio indicizzabile degli utenti registrati nella biblioteca.
+     */
     public Indicizzabile<Matricola, Utente> getArchivioUtenti() {
         return archivioUtenti;
     }
 
+    /**
+     * @brief Getter dell'archivio libri.
+     * 
+     * @return L'archivio indicizzabile dei libri registrati nella biblioteca.
+     */
     public Indicizzabile<ISBN, Libro> getArchivioLibri() {
         return archivioLibri;
     }
 
+    /**
+     * @brief Getter dell'archivio prestiti.
+     * 
+     * @return L'archivio indicizzabile dei prestiti registrati nella biblioteca.
+     */
     public Archiviabile<Prestito> getArchivioPrestiti() {
         return archivioPrestiti;
     }
@@ -60,7 +78,7 @@ public class Biblioteca implements Serializable {
     /**
      * @brief Salva lo stato della biblioteca su file.
      *
-     * @param filename Nome del file in cui salvare lo stato
+     * @param\[in] filename Nome del file in cui salvare lo stato
      *
      * @post Lo stato della biblioteca viene scritto nel file specificato
      *
@@ -75,7 +93,7 @@ public class Biblioteca implements Serializable {
     /**
      * @brief Carica lo stato della biblioteca da file.
      *
-     * @param filename Nome del file da cui leggere lo stato
+     * @param\[in] filename Nome del file da cui leggere lo stato
      *
      * @pre Il file deve esistere e contenere un oggetto Biblioteca serializzato.
      * @return Oggetto Biblioteca caricato, o null in caso di errore nella deserializzazione delle classi.
