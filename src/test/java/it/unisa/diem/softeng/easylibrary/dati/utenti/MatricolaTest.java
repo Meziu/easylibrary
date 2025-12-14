@@ -51,11 +51,11 @@ public class MatricolaTest {
 
     
     /* 
-    *   GET ISBN
+    *   GET MATRICOLA
     * 
     */
     @Test
-    public void testGetISBN() {
+    public void testGetMatricola() {
         assertEquals(m.getMatricola(), "0123456789");
     }
     
@@ -93,22 +93,20 @@ public class MatricolaTest {
     @Test
     public void testEqualsRiconosceMatricoleUguali() {
         Matricola m1 = new Matricola("0123456789");
-        Matricola m2 = new Matricola("0123456789");
 
-        assertEquals(m1, m2);
-        assertEquals(m1.hashCode(), m2.hashCode());
+        assertEquals(m, m1);
+        assertEquals(m.hashCode(), m1.hashCode());
     }
 
     @Test
     public void testEqualsDistingueMatricoleDiverse() {
-        Matricola m1 = new Matricola("0123456789");
-        Matricola m2 = new Matricola("9876543210");
+        Matricola m1 = new Matricola("9876543210");
 
-        assertNotEquals(m1, m2);
+        assertNotEquals(m, m1);
     }
 
     @Test
-    public void TestEqualsConOggettoDiClasseDiversa() {
+    public void testEqualsConOggettoDiClasseDiversa() {
         Matricola m = new Matricola("0123456789");
         assertNotEquals(m, "0123456789");
     }
@@ -136,21 +134,6 @@ public class MatricolaTest {
         Matricola m1 = new Matricola("0123456789");
 
         assertEquals(0, m.compareTo(m1));
-    }
-
-    @Test
-    public void testCompareToRiconosceMatricoleUguali() {
-        Matricola m1 = new Matricola("0123456789");
-
-        assertEquals(m, m1);
-        assertEquals(m.hashCode(), m1.hashCode());
-    }
-
-    @Test
-    public void testCompareToDistingueMatricoleDiverse() {
-        Matricola m1 = new Matricola("0123456888");
-
-        assertNotEquals(m, m1);
     }
 
 }

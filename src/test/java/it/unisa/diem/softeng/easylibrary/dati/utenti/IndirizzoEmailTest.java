@@ -46,6 +46,16 @@ public class IndirizzoEmailTest {
         assertFalse(IndirizzoEmail.verifica("ros&#si@studenti.unisa.it")); 
     }
     
+    @Test
+    public void testCostruzioneParteLocaleVuota() {
+        assertFalse(IndirizzoEmail.verifica("@studenti.unisa.it")); 
+    }
+    
+    @Test
+    public void testCostruzioneEmailVuota() {
+        assertFalse(IndirizzoEmail.verifica("")); 
+    }
+    
     
     /* 
     *   GET INDIRIZZO EMAIL

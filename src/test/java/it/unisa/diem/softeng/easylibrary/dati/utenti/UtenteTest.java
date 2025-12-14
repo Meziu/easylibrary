@@ -70,12 +70,22 @@ public class UtenteTest {
     @Test
     public void testGetPrestitiAttivi() {
         Prestito p = new Prestito(m, new ISBN("123456789X"), StatoPrestito.ATTIVO, LocalDate.now().plusDays(2));
-        List l = new ArrayList<>(Arrays.asList(nuovo, p));
                 
         u.registraPrestito(nuovo);
         u.registraPrestito(p);
         
-        assertEquals(u.getPrestitiAttivi(), l);
+        List<Prestito> prestiti = u.getPrestitiAttivi();
+        assertEquals(2, prestiti.size());
+        assertTrue(prestiti.contains(nuovo));
+        assertTrue(prestiti.contains(p));
+    }
+    
+    
+    @Test
+    public void testGetPrestitiAttiviNonModificabile() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            u.getPrestitiAttivi().add(nuovo);
+        });
     }
 
     
@@ -83,14 +93,13 @@ public class UtenteTest {
     *   SET
     * 
     */
-     @Test
+    @Test
     public void testSetEmail() {
         IndirizzoEmail nuova = new IndirizzoEmail("email@studenti.unisa.it");
         u.setEmail(nuova);
         assertEquals(nuova, u.getEmail());
     }
 
-    
     
     /* 
     *   LISTA PRESTITI
@@ -126,21 +135,23 @@ public class UtenteTest {
     }
 
     @Test
-    public void testRimuoviPrestito() {
-        Prestito rimuovere = new Prestito(m, new ISBN("123456789X"), StatoPrestito.ATTIVO, LocalDate.now().plusDays(2));
-        u.rimuoviPrestito(rimuovere);
+    public void testRimuoviPrestitoUnicoElemento() {
+        u.registraPrestito(nuovo);
+        int prevSize = u.getPrestitiAttivi().size();
+        
+        u.rimuoviPrestito(nuovo);
+        int newSize = u.getPrestitiAttivi().size();
 
-        assertFalse(u.getPrestitiAttivi().contains(rimuovere));
-        assertEquals(0, u.getPrestitiAttivi().size());
+        assertFalse(u.getPrestitiAttivi().contains(nuovo));
+        assertEquals(prevSize - 1, u.getPrestitiAttivi().size());
     }
 
     @Test
     public void testRimuoviPrestitoNonPresente() {
         u.rimuoviPrestito(nuovo);
 
-        assertTrue(u.getPrestitiAttivi().isEmpty());
+        assertFalse(u.getPrestitiAttivi().contains(nuovo));
     }
-
     
     /*
     *   EQUALS
