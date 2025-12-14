@@ -53,12 +53,12 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
                 -> new SimpleStringProperty(c.getValue().getEmail().getIndirizzoEmail())
         );
 
-        TableColumn<Utente, String> prestitiCol = new TableColumn<>("Prestiti attivi");
+        TableColumn<Utente, String> prestitiCol = new TableColumn<>("Libri in Prestito");
         prestitiCol.setCellValueFactory(c
                 -> new SimpleStringProperty(c.getValue().getPrestitiAttivi()
                         .stream()
                         .map(a -> libri.ottieni(a.getISBN()))
-                        .map(l -> l.getTitolo())
+                        .map(l -> l.toString())
                         .collect(Collectors.joining("\n"))
                 )
         );

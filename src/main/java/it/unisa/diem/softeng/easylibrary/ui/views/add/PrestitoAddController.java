@@ -8,6 +8,7 @@ package it.unisa.diem.softeng.easylibrary.ui.views.add;
 import it.unisa.diem.softeng.easylibrary.ui.views.add.forms.PrestitoAddForm;
 import it.unisa.diem.softeng.easylibrary.archivio.Archiviabile;
 import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
+import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
 import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
 import it.unisa.diem.softeng.easylibrary.dati.prestiti.NessunaCopiaDisponibileException;
@@ -19,11 +20,11 @@ import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
 import it.unisa.diem.softeng.easylibrary.ui.views.AlertGrande;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
+import javafx.util.StringConverter;
 
 /**
  *
@@ -50,6 +51,8 @@ public class PrestitoAddController extends DataAddController<PrestitoAddForm> im
         inserimentoValido.bind(Bindings.createBooleanBinding(() -> {
             return !this.formController.matricolaField.getText().isEmpty()
                     && !this.formController.matricolaField.getText().isEmpty()
+                    && Matricola.verifica(this.formController.matricolaField.getText())
+                    && ISBN.verifica(this.formController.isbnField.getText())
                     && this.formController.dataRestituzioneField.getValue() != null
                     && this.formController.dataRestituzioneField.getValue().isAfter(LocalDate.now());
         },
@@ -57,15 +60,45 @@ public class PrestitoAddController extends DataAddController<PrestitoAddForm> im
                 this.formController.isbnField.textProperty(),
                 this.formController.dataRestituzioneField.valueProperty()
         ));
+
+        this.formController.dataRestituzioneField.setConverter(new StringConverter<LocalDate>() {
+            final DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            @Override
+            public String toString(LocalDate date) {
+                return date != null ? df.format(date) : "";
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                return (string == null || string.isEmpty()) ? null : LocalDate.parse(string, df);
+            }
+        });
     }
 
     @Override
     protected void confermaInserimento() {
-        Prestito p = new Prestito(new Matricola(this.formController.matricolaField.getText()), new ISBN(this.formController.isbnField.getText()), StatoPrestito.ATTIVO, this.formController.dataRestituzioneField.getValue());
-
+        Matricola m = new Matricola(this.formController.matricolaField.getText());
+        ISBN i = new ISBN(this.formController.isbnField.getText());
+        
+        if (!utenti.contiene(m)) {
+            String error = "Matricola \"" + this.formController.matricolaField.getText() + "\" non registrata nel sistema";
+            AlertGrande.mostraAlertErrore(error);
+            return;
+        }
+        
+        if (!libri.contiene(i)) {
+            String error = "ISBN \"" + this.formController.isbnField.getText() + "\" non registrato nel sistema";
+            AlertGrande.mostraAlertErrore(error);
+            return;
+        }
+        
         try {
+            Prestito p = new Prestito(m, i, StatoPrestito.ATTIVO, this.formController.dataRestituzioneField.getValue());
             this.prestiti.registra(p);
             chiudiFinestra();
+        } catch (ValoreNonPresenteException e) {
+            AlertGrande.mostraAlertErrore(e.toString());
         } catch (LimitePrestitiSuperatoException e) {
             String error = "Utente con Matricola \"" + this.formController.matricolaField.getText() + "\" ha raggiunto il limite di prestiti";
             AlertGrande.mostraAlertErrore(error);
