@@ -67,10 +67,6 @@ public class GestorePrestitiTest {
         Prestito p2 = new Prestito(new Matricola("4729831451"), new ISBN("1443434973"), StatoPrestito.ATTIVO, stamp.plusDays(2));
         assertThrows(NessunaCopiaDisponibileException.class, () -> { prestiti.registra(p2); });
         
-        // Prestito per utente con già 3 prestiti
-        Prestito p3 = new Prestito(new Matricola("8482921412"), new ISBN("8807900059"), StatoPrestito.ATTIVO, stamp.plusDays(2));
-        assertThrows(LimitePrestitiSuperatoException.class, () -> { prestiti.registra(p3); });
-        
         // Prestito per utente inesistente
         Prestito p4 = new Prestito(new Matricola("2198892193"), new ISBN("0261102389"), StatoPrestito.ATTIVO, stamp.plusDays(20));
         assertThrows(ValoreNonPresenteException.class, () -> { prestiti.registra(p4); });

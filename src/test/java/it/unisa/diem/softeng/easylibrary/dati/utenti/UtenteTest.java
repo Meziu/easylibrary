@@ -142,18 +142,18 @@ public class UtenteTest {
     
     @Test
     public void testRegistraPrestitoFinoAlLimite() {
-        u.registraPrestito(nuovo);
-        u.registraPrestito(nuovo);
-        u.registraPrestito(nuovo);
+        for (int i = 0; i < Utente.MAX_PRESTITI_ATTIVI; i++) {
+            u.registraPrestito(nuovo);
+        }
 
-        assertEquals(3, u.getPrestitiAttivi().size());
+        assertEquals(Utente.MAX_PRESTITI_ATTIVI, u.getPrestitiAttivi().size());
     }
 
     @Test
     public void testRegistraPrestitoOltreLimiteLanciaEccezione() {
-        u.registraPrestito(nuovo);
-        u.registraPrestito(nuovo);
-        u.registraPrestito(nuovo);
+        for (int i = 0; i < Utente.MAX_PRESTITI_ATTIVI; i++) {
+            u.registraPrestito(nuovo);
+        }
 
         //il quarto deve fallire
         assertThrows(LimitePrestitiSuperatoException.class,

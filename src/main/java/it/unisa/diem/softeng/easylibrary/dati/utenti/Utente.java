@@ -25,6 +25,7 @@ import java.util.Objects;
  * @see Prestito
  */
 public class Utente implements Comparable<Utente>, Serializable {
+    public static final int MAX_PRESTITI_ATTIVI = 3;
 
     private Anagrafica anagrafica;
     private final Matricola matricola;
@@ -119,10 +120,10 @@ public class Utente implements Comparable<Utente>, Serializable {
         if (p == null) {
             throw new IllegalArgumentException("Prestito nullo");
         }
-        if (prestitiAttivi.size() >= 3) {
+        if (prestitiAttivi.size() >= MAX_PRESTITI_ATTIVI) {
             throw new LimitePrestitiSuperatoException();
         }
-        if (this.prestitiAttivi.size() >= 3) {
+        if (this.prestitiAttivi.size() >= MAX_PRESTITI_ATTIVI) {
             throw new LimitePrestitiSuperatoException();
         }
 
