@@ -35,6 +35,9 @@ public class Prestito implements Comparable<Prestito>, Serializable {
      * @param\[in] isbn ISBN del libro preso in prestito
      * @param\[in] stato Stato iniziale del prestito
      * @param\[in] scadenzaPrestito Data di scadenza del prestito
+     * 
+     * @throws IllegalArgumentException Se almeno uno tra i valori passati è nullo
+     * o se la data di scadenza è precedente alla data attuale.
      */
     public Prestito(Matricola matricolaUtente, ISBN isbn, StatoPrestito stato, LocalDate scadenzaPrestito) {
         if(matricolaUtente == null){
@@ -49,7 +52,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
             throw new IllegalArgumentException("Stato nullo");
         }
         
-        if(scadenzaPrestito.isBefore(LocalDate.now())){
+        if(scadenzaPrestito == null || scadenzaPrestito.isBefore(LocalDate.now())){
             throw new IllegalArgumentException("Data di scadenza prestito precedente alla data attuale");
         }
         
@@ -94,6 +97,8 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     /**
      * @brief Aggiorna lo stato del prestito.
      * @param\[in] nuovoStato Nuovo stato da assegnare al prestito
+     * 
+     * @throws IllegalArgumentException Se il nuovo stato passato come parametro è nullo.
      */
     public void setStato(StatoPrestito nuovoStato) {
         if(nuovoStato == null){
@@ -105,9 +110,11 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     /**
      * @brief Aggiorna la data di scadenza del prestito.
      * @param\[in] nuovaDataDiScadenza Nuova data di scadenza
+     * 
+     * @throws IllegalArgumentException Se la data di scadenza passata come parametro è nulla o precedente alla data attuale.
      */
     public void setDataDiScadenza(LocalDate nuovaDataDiScadenza) {
-        if(nuovaDataDiScadenza.isBefore(LocalDate.now())){
+        if( nuovaDataDiScadenza == null || nuovaDataDiScadenza.isBefore(LocalDate.now())){
             throw new IllegalArgumentException("Data di scadenza prestito precedente alla data attuale");
         }
         this.dataDiScadenza = nuovaDataDiScadenza;
