@@ -54,7 +54,7 @@ public class GestoreUtenti extends Gestore<Utente> implements Indicizzabile<Matr
 
         // Se era già presente quell'utente
         if (res != null) {
-            throw new ValoreGiàPresenteException("TODO FARE MESSAGGIO BELLO");
+            throw new ValoreGiàPresenteException();
         }
 
         super.registra(u);
@@ -72,13 +72,19 @@ public class GestoreUtenti extends Gestore<Utente> implements Indicizzabile<Matr
      */
     @Override
     public void rimuovi(Utente u) {
-        Utente res = indiceMatricole.remove(u.getMatricola());
+        Utente res = indiceMatricole.get(u.getMatricola());
 
         // Se non era presente l'utente
         if (res == null) {
-            throw new ValoreNonPresenteException("TODO FARE MESSAGGIO BELLO");
+            throw new ValoreNonPresenteException();
         }
-
+        
+        if (!u.getPrestitiAttivi().isEmpty()) {
+            throw new RuntimeException("Utente possiede prestiti attivi");
+        }
+        
+        
+        indiceMatricole.remove(res.getMatricola());
         super.rimuovi(u);
     }
     

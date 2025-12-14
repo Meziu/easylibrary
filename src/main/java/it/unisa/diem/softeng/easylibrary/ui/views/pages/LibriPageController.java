@@ -91,6 +91,9 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
             libri.modifica(l, (libroTrovatoNellArchivio) -> {
                 libroTrovatoNellArchivio.setTitolo(e.getNewValue());
             });
+            
+            setItems(libri.getLista());
+            table.refresh();
         });
 
         // autori
@@ -101,6 +104,9 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
             libri.modifica(l, (libro) -> {
                 libro.setAnnoPubblicazione(Integer.parseInt(e.getNewValue()));
             });
+            
+            setItems(libri.getLista());  
+            table.refresh();
         });
 
         copieCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
@@ -119,6 +125,7 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
                 });
 
             } catch (NumberFormatException ex) {
+                table.refresh();
                 libri.modifica(l, (libro) -> {
                     libro.setCopieDisponibili(e.getOldValue());
                 });
@@ -127,10 +134,6 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
             }
         });
 
-
-        /*rc.ricercaTitoloField.textProperty().addListener((obs, oldV, newV) -> filtro());
-        rc.ricercaAutoreField.textProperty().addListener((obs, oldV, newV) -> filtro());
-        rc.ricercaISBNField.textProperty().addListener((obs, oldV, newV) -> filtro());*/
         // Carica i libri
         setItems(libri.getLista());        
     }

@@ -56,12 +56,19 @@ public class PrestitoAddController extends DataAddController<PrestitoAddForm> im
                 this.formController.isbnField.valueProperty(),
                 this.formController.dataRestituzioneField.valueProperty()
         ));
+        
+        //this.formController.matricolaField.setEditable(true);
+        
+        this.formController.matricolaField.itemsProperty().bind(Bindings.createObjectBinding(() -> {
+            return FXCollections.observableList(utenti.filtra(u -> {
+                String text = this.formController.matricolaField.editorProperty().get().getText();
+                
+                return u.getMatricola().getMatricola().startsWith(text);
+            }));
+        }, this.formController.matricolaField.editorProperty().get().textProperty()));
 
-        SimpleListProperty<Utente> utentiList = new SimpleListProperty<>(FXCollections.observableList(this.utenti.getLista()));
-        SimpleListProperty<Libro> libriList = new SimpleListProperty<>(FXCollections.observableList(this.libri.getLista()));
-
-        this.formController.matricolaField.itemsProperty().bindBidirectional(utentiList);
-        this.formController.isbnField.itemsProperty().bindBidirectional(libriList);
+        this.formController.matricolaField.itemsProperty().bind(new SimpleListProperty(FXCollections.observableList(utenti.getLista())));
+        this.formController.isbnField.itemsProperty().bind(new SimpleListProperty(FXCollections.observableList(libri.getLista())));
     }
 
     @Override

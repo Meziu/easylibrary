@@ -117,7 +117,13 @@ public class Prestito implements Comparable<Prestito>, Serializable {
             int c2 = this.matricolaUtente.compareTo(p.matricolaUtente);
 
             if (c2 == 0) {
-                return this.isbn.compareTo(p.isbn);
+                int c3 = this.isbn.compareTo(p.isbn);
+                
+                if (c3 == 0) {
+                    return this.stato.compareTo(p.stato);
+                }
+                
+                return c3;
             }
 
             return c2;
@@ -154,6 +160,10 @@ public class Prestito implements Comparable<Prestito>, Serializable {
         }
         
         if (!Objects.equals(this.dataDiScadenza, other.dataDiScadenza)) {
+            return false;
+        }
+        
+        if (!Objects.equals(this.stato, other.stato)) {
             return false;
         }
         

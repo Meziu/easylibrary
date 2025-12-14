@@ -49,6 +49,7 @@ public class GestorePrestitiTest {
         Prestito p1 = new Prestito(new Matricola("8482921412"), l, StatoPrestito.ATTIVO, stamp.plusDays(10));
         prestiti.rimuovi(p1);
         
+        p1.setStato(StatoPrestito.RESTITUITO);
         assertTrue(prestiti.getLista().contains(p1));
         assertEquals(prestiti.getLista().get(Collections.binarySearch(prestiti.getLista(), p1)).getStato(), StatoPrestito.RESTITUITO);
         assertEquals(libri.ottieni(l).getCopieDisponibili(), copieDisponibiliPrima + 1);

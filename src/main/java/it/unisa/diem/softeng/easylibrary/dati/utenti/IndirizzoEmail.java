@@ -30,11 +30,7 @@ public class IndirizzoEmail implements Serializable {
      * 
      */
     public IndirizzoEmail(String email) {
-        if (verifica(email)) {
-            this.indirizzo = email;
-        } else {
-            throw new IndirizzoEmailInvalidoException(); // TODO
-        }
+        setIndirizzoEmail(email);
     }
 
     /**
@@ -51,7 +47,11 @@ public class IndirizzoEmail implements Serializable {
      * @param\[in] email Nuovo indirizzo email
      */
     public void setIndirizzoEmail(String email) {
-        this.indirizzo = email;
+        if (verifica(email)) {
+            this.indirizzo = email;
+        } else {
+            throw new IndirizzoEmailInvalidoException();
+        }
     }
 
     /*

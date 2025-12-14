@@ -52,7 +52,7 @@ public class GestoreLibri extends Gestore<Libro> implements Indicizzabile<ISBN, 
         Libro res = indiceISBN.putIfAbsent(l.getISBN(), l);
         // Se era già presente quel libro
         if (res != null) {
-            throw new ValoreGiàPresenteException("TODO MESSAGGIO");
+            throw new ValoreGiàPresenteException();
         }
         
         super.registra(l);
@@ -70,12 +70,14 @@ public class GestoreLibri extends Gestore<Libro> implements Indicizzabile<ISBN, 
      */
     @Override
     public void rimuovi(Libro l) {
-        Libro res = indiceISBN.remove(l.getISBN());
+        Libro res = indiceISBN.get(l.getISBN());
+        
         // Se non era presente l'utente
         if (res == null) {
-            throw new ValoreNonPresenteException(); // TODO
+            throw new ValoreNonPresenteException();
         }
         
+        indiceISBN.remove(res.getISBN());
         super.rimuovi(l);
     }
     

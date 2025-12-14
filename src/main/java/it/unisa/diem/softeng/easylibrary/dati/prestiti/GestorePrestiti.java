@@ -110,11 +110,12 @@ public class GestorePrestiti extends Gestore<Prestito> {
             throw new ValoreNonPresenteException();
         }
 
-        this.getLista().get(idx).setStato(StatoPrestito.RESTITUITO);
+        Prestito p1 = this.getLista().get(idx);
+        p1.setStato(StatoPrestito.RESTITUITO);
         
         // Restore strutture di utente e libro per ritornare allo stato prima del prestito.
-        archivioUtenti.ottieni(p.getMatricola()).rimuoviPrestito(p);
-        Libro l = archivioLibri.ottieni(p.getISBN());
+        archivioUtenti.ottieni(p.getMatricola()).rimuoviPrestito(p1);
+        Libro l = archivioLibri.ottieni(p1.getISBN());
         l.setCopieDisponibili(l.getCopieDisponibili() + 1);
     }
     

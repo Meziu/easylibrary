@@ -31,7 +31,7 @@ public final class Matricola implements Comparable<Matricola>, Serializable {
         if (verifica(matricola)) {
             this.matricola = matricola;
         } else {
-            throw new MatricolaInvalidaException(); // TODO
+            throw new MatricolaInvalidaException();
         }
     }
 

@@ -110,9 +110,16 @@ public abstract class DataPageController<T, RC, AC extends DataAddController<?>>
         try {
             archivio.rimuovi(selectedItem);
             setItems(archivio.getLista());
+            table.refresh();
 
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "Errore durante la rimozione dell'utente: " + e.getMessage()).show();
+            String error = "Errore durante la rimozione del valore: " + e.toString();
+            System.err.println(error);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            
+            a.getDialogPane().setContent(new Label(error));
+                    
+            a.show();
         }
     }
 
