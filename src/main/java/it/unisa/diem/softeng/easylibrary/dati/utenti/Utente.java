@@ -12,8 +12,8 @@ import java.util.Objects;
 /**
  * @brief Rappresenta un utente della biblioteca.
  *
- * La classe contiene informazioni specifiche
- * degli utenti della biblioteca, quali la sua Anagrafica, la Matricola, l'IndirizzoEmail
+ * La classe contiene informazioni specifiche degli utenti della biblioteca,
+ * quali la sua Anagrafica, la Matricola, l'IndirizzoEmail
  * e la lista dei prestiti attivi.
  *
  * Gli utenti sono ordinati prima per Anagrafica
@@ -21,6 +21,7 @@ import java.util.Objects;
  *
  * @see Anagrafica
  * @see Matricola
+ * @see IndirizzoEmail
  * @see Prestito
  */
 public class Utente implements Comparable<Utente>, Serializable {
@@ -73,6 +74,8 @@ public class Utente implements Comparable<Utente>, Serializable {
     /**
      * @brief Restituisce la lista dei prestiti attivi.
      *
+     * La lista è restituita come non modificabile.
+     * In questo modo le modifiche ai prestiti possono avvenire solo tramite i metodi di Utente.
      * @return Lista non modificabile dei prestiti attivi
      */
     public List<Prestito> getPrestitiAttivi() {
@@ -83,6 +86,8 @@ public class Utente implements Comparable<Utente>, Serializable {
     /**
      * @brief Imposta un nuovo indirizzo email.
      * @param\[in] email Nuovo indirizzo email
+     * 
+     * @pre email != null
      */
     public void setEmail(IndirizzoEmail email) {
         this.email = email;
@@ -111,14 +116,14 @@ public class Utente implements Comparable<Utente>, Serializable {
 
     
     /**
-     * @brief Confronta l'utente con un'altro Utente.
+     * @brief Confronta l'utente con un altro Utente.
      * La comparazione è svolta aderendo al contratto di Comparable,
      * tramite il metodo compareTo() nella classe Anagrafica e,
      * a parità di cognome e nome, per matricola.
      *
      * @param\[in] u Utente da confrontare
-     * @return Negativo, zero o positivo se questo utente è rispettivamente minore,
-     *         uguale o maggiore rispetto alla persona passata
+     * @return Valore negativo, zero o positivo se questo utente è rispettivamente minore,
+     *         uguale o maggiore rispetto alla persona passata.
      */
     @Override
     public int compareTo(Utente u) {
@@ -133,9 +138,11 @@ public class Utente implements Comparable<Utente>, Serializable {
     
     /**
      * 
-     * @brief Uguaglianza con un'altro Utente.
+     * @brief Uguaglianza con un altro Utente.
+     * Due utenti sono considerati uguali se hanno la stessa Anagrafica e la stessa Matricola.
      * 
-     * @return true se i due Utente hanno Anagrafica e Matricola uguale, false altrimenti.
+     * @param obj oggetto con cui confrontare.
+     * @return true se gli utenti sono uguali, false altrimenti.
      */
     @Override
     public boolean equals(Object obj) {
