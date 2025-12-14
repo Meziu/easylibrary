@@ -5,11 +5,9 @@
  */
 package it.unisa.diem.softeng.easylibrary.ui.views.add.forms;
 
-import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
-import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 
 /**
  *
@@ -17,9 +15,9 @@ import javafx.scene.control.DatePicker;
  */
 public class PrestitoAddForm {
     @FXML
-    public ComboBox<Utente> matricolaField;
+    public TextField matricolaField;
     @FXML
-    public ComboBox<Libro> isbnField;
+    public TextField isbnField;
     @FXML
     public DatePicker dataRestituzioneField;
 }

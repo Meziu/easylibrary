@@ -48,42 +48,29 @@ public class PrestitoAddController extends DataAddController<PrestitoAddForm> im
         super.initialize(url, rb);
 
         inserimentoValido.bind(Bindings.createBooleanBinding(() -> {
-            return this.formController.matricolaField.getValue() != null
-                    && this.formController.isbnField.getValue() != null
+            return !this.formController.matricolaField.getText().isEmpty()
+                    && !this.formController.matricolaField.getText().isEmpty()
                     && this.formController.dataRestituzioneField.getValue() != null
                     && this.formController.dataRestituzioneField.getValue().isAfter(LocalDate.now());
         },
-                this.formController.matricolaField.valueProperty(),
-                this.formController.isbnField.valueProperty(),
+                this.formController.matricolaField.textProperty(),
+                this.formController.isbnField.textProperty(),
                 this.formController.dataRestituzioneField.valueProperty()
         ));
-        
-        //this.formController.matricolaField.setEditable(true);
-        
-        this.formController.matricolaField.itemsProperty().bind(Bindings.createObjectBinding(() -> {
-            return FXCollections.observableList(utenti.filtra(u -> {
-                String text = this.formController.matricolaField.editorProperty().get().getText();
-                
-                return u.getMatricola().getMatricola().startsWith(text);
-            }));
-        }, this.formController.matricolaField.editorProperty().get().textProperty()));
-
-        this.formController.matricolaField.itemsProperty().bind(new SimpleListProperty(FXCollections.observableList(utenti.getLista())));
-        this.formController.isbnField.itemsProperty().bind(new SimpleListProperty(FXCollections.observableList(libri.getLista())));
     }
 
     @Override
     protected void confermaInserimento() {
-        Prestito p = new Prestito(this.formController.matricolaField.getValue().getMatricola(), this.formController.isbnField.getValue().getISBN(), StatoPrestito.ATTIVO, this.formController.dataRestituzioneField.getValue());
+        Prestito p = new Prestito(new Matricola(this.formController.matricolaField.getText()), new ISBN(this.formController.isbnField.getText()), StatoPrestito.ATTIVO, this.formController.dataRestituzioneField.getValue());
 
         try {
             this.prestiti.registra(p);
             chiudiFinestra();
         } catch (LimitePrestitiSuperatoException e) {
-            String error = "Utente con Matricola \"" + this.formController.matricolaField.getValue().getMatricola().getMatricola() + "\" ha raggiunto il limite di prestiti";
+            String error = "Utente con Matricola \"" + this.formController.matricolaField.getText() + "\" ha raggiunto il limite di prestiti";
             AlertGrande.mostraAlertErrore(error);
         } catch (NessunaCopiaDisponibileException e) {
-            String error = "Libro con ISBN \"" + this.formController.isbnField.getValue().getISBN().getISBN() + "\" non possiede copie disponibili";
+            String error = "Libro con ISBN \"" + this.formController.isbnField.getText() + "\" non possiede copie disponibili";
             AlertGrande.mostraAlertErrore(error);
         }
     }
