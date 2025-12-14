@@ -26,8 +26,8 @@ public class UtenteAddController extends DataAddController<UtenteAddForm> {
 
         inserimentoValido.bind(Bindings.createBooleanBinding(
             () -> {
-                return !this.formController.nomeField.getText().isEmpty() &&
-                        !this.formController.cognomeField.getText().isEmpty() &&
+                return !this.formController.nomeField.getText().trim().isEmpty() &&
+                        !this.formController.cognomeField.getText().trim().isEmpty() &&
                         Matricola.verifica(this.formController.matricolaField.getText()) &&
                         IndirizzoEmail.verifica(this.formController.emailField.getText());
             },

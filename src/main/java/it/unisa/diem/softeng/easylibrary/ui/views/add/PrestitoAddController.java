@@ -49,8 +49,8 @@ public class PrestitoAddController extends DataAddController<PrestitoAddForm> im
         super.initialize(url, rb);
 
         inserimentoValido.bind(Bindings.createBooleanBinding(() -> {
-            return !this.formController.matricolaField.getText().isEmpty()
-                    && !this.formController.matricolaField.getText().isEmpty()
+            return !this.formController.matricolaField.getText().trim().isEmpty()
+                    && !this.formController.matricolaField.getText().trim().isEmpty()
                     && Matricola.verifica(this.formController.matricolaField.getText())
                     && ISBN.verifica(this.formController.isbnField.getText())
                     && this.formController.dataRestituzioneField.getValue() != null

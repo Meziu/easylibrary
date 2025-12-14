@@ -94,10 +94,14 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
         titoloCol.setOnEditCommit((TableColumn.CellEditEvent<Libro, String> e) -> {
             Libro l = e.getRowValue();
 
-            libri.modifica(l, (libroTrovatoNellArchivio) -> {
-                libroTrovatoNellArchivio.setTitolo(e.getNewValue());
-            });
-            
+            if (e.getNewValue().trim().isEmpty()) {
+                AlertGrande.mostraAlertErrore("Impossibile aggiungere un titolo vuoto.");
+            } else {
+                libri.modifica(l, (libroTrovatoNellArchivio) -> {
+                    libroTrovatoNellArchivio.setTitolo(e.getNewValue());
+                });
+            }
+
             setItems(libri.getLista());
             table.refresh();
         });
@@ -106,7 +110,7 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
         annoCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         annoCol.setOnEditCommit((TableColumn.CellEditEvent<Libro, Integer> e) -> {
             Libro l = e.getRowValue();
-            
+
             if (e.getNewValue() > Year.now().getValue()) {
                 AlertGrande.mostraAlertErrore("Anno di pubblicazione successivo all'anno corrente");
             } else {
@@ -114,8 +118,8 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
                     libro.setAnnoPubblicazione(e.getNewValue());
                 });
             }
-            
-            setItems(libri.getLista());  
+
+            setItems(libri.getLista());
             table.refresh();
         });
 
@@ -139,15 +143,15 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
                 libri.modifica(l, (libro) -> {
                     libro.setCopieDisponibili(e.getOldValue());
                 });
-                
+
                 AlertGrande.mostraAlertErrore("Il numero di copie deve essere un intero positivo o zero.");
             }
         });
 
         // Carica i libri
-        setItems(libri.getLista());        
+        setItems(libri.getLista());
     }
-    
+
     @Override
     protected void initializeFiltro() {
         // Filtro
@@ -155,18 +159,18 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
             return FXCollections.observableList(libri.filtra(ricercaController.new FiltroLibri()));
         }, ricercaController.ricercaTitoloField.textProperty(), ricercaController.ricercaAutoreField.textProperty(), ricercaController.ricercaISBNField.textProperty()));
     }
-    
+
     @Override
     protected void remove(ActionEvent event) {
         Libro l = table.getSelectionModel().getSelectedItem();
-        
+
         // Controllo assenza di prestiti per il libro.
         if (!this.prestiti.filtra(p -> {
             return p.getISBN().equals(l.getISBN());
         }).isEmpty()) {
             String error = "Impossibile rimuovere libro di ISBN \"" + l.getISBN().getISBN() + "\" poichè sono associati prestiti";
             AlertGrande.mostraAlertErrore(error);
-            
+
         } else {
             super.remove(event);
         }

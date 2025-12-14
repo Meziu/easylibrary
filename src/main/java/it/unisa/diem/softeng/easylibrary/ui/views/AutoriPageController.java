@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -76,7 +77,10 @@ public class AutoriPageController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         autoriTable.getItems().setAll(this.list);
         
-        aggiungiButton.disableProperty().bind(nomeField.textProperty().isEmpty().or(cognomeField.textProperty().isEmpty()));
+        aggiungiButton.disableProperty().bind(Bindings.createBooleanBinding(() -> {
+            return nomeField.getText().trim().isEmpty() || cognomeField.getText().trim().isEmpty();
+        }, nomeField.textProperty(), cognomeField.textProperty()));
+        
         rimuoviButton.disableProperty().bind(autoriTable.getSelectionModel().selectedItemProperty().isNull());
         
         nomeColumn.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getAnagrafica().getNome()));
@@ -90,7 +94,7 @@ public class AutoriPageController implements Initializable {
         nomeColumn.setOnEditCommit(e -> {
             Autore a = e.getRowValue();
             
-            if (e.getNewValue().isEmpty()) {
+            if (e.getNewValue().trim().isEmpty()) {
                 AlertGrande.mostraAlertErrore("Impossibile aggiungere un nome vuoto.");
             } else {
                 a.getAnagrafica().setNome(e.getNewValue());
@@ -100,7 +104,7 @@ public class AutoriPageController implements Initializable {
         cognomeColumn.setOnEditCommit(e -> {
             Autore a = e.getRowValue();
             
-            if (e.getNewValue().isEmpty()) {
+            if (e.getNewValue().trim().isEmpty()) {
                 AlertGrande.mostraAlertErrore("Impossibile aggiungere un cognome vuoto.");
             } else {
                 a.getAnagrafica().setCognome(e.getNewValue());

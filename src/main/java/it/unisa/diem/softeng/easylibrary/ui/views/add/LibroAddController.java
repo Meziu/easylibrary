@@ -34,7 +34,7 @@ public class LibroAddController extends DataAddController<LibroAddForm>{
 
         inserimentoValido.bind(Bindings.createBooleanBinding(
             () -> {
-                return !this.formController.titoloField.getText().isEmpty() &&
+                return !this.formController.titoloField.getText().trim().isEmpty() &&
                         ISBN.verifica(this.formController.isbnField.getText()) &&
                         !this.formController.listaAutori.isEmpty() &&
                         this.formController.annoField.getValue() != null &&
