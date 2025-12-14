@@ -20,11 +20,53 @@ public class AnagraficaTest {
     *
     */
     @Test
-    public void testCostruzioneUtente() {
+    public void testCostruzioneAnagrafica() {
         Anagrafica an = new Anagrafica("Mario", "Rossi");
         assertNotNull(an);
         assertEquals("Mario", an.getNome());
         assertEquals("Rossi", an.getCognome());
+    }
+    
+    @Test
+    public void testCostruzioneAnagraficaNomeVuoto() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> new Anagrafica("", "Rossi")
+        );
+    }
+    
+    @Test
+    public void testCostruzioneAnagraficaNomenull() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> new Anagrafica(null, "Rossi")
+        );
+    }
+    
+    @Test
+    public void testCostruzioneAnagraficaCognomeVuoto() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> new Anagrafica("Mario", "")
+        );
+    }
+    
+    @Test
+    public void testCostruzioneAnagraficaCognomenull() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> new Anagrafica("Mario", null)
+        );
+    }
+    
+    @Test
+    public void testCostruzioneAnagraficaNomeCognomeVuoti() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> new Anagrafica("", "")
+        );
+    }
+    
+    @Test
+    public void testCostruzioneAnagraficaNomeCognomeNull() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> new Anagrafica(null, null)
+        );
     }
     
     /* 
@@ -51,6 +93,20 @@ public class AnagraficaTest {
         a.setNome("Francesco");
         assertEquals("Francesco", a.getNome());
     }
+    
+    @Test
+    public void testSetNomeNull() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> a.setNome(null)
+        );
+    }
+    
+    @Test
+    public void testSetNomeVuoto() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> a.setNome("")
+        );
+    }
 
     @Test
     public void testSetCognome() {
@@ -58,6 +114,19 @@ public class AnagraficaTest {
         assertEquals("Verdi", a.getCognome());
     }
 
+    @Test
+    public void testSetCognomeNull() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> a.setCognome(null)
+        );
+    }
+    
+    @Test
+    public void testSetCognomeVuoto() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> a.setCognome("")
+        );
+    }
     
     
     /*
