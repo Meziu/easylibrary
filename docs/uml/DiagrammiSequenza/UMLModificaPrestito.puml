@@ -2,34 +2,46 @@
 actor Gestore as G
 participant "GUI" as UI
 participant "Biblioteca" as B
-participant "ArchivioPrestito" as AP
+participant "Archiviabile<Prestito>" as A
 participant "Prestito" as P
 
+activate G
 '---Modifica prestiti---
 G -> UI : Interazione con "Prestiti"
+deactivate G
+
+activate UI
 UI -> B : getArchivioPrestiti()
+activate B
 B --> UI : Restituzione elenco dei Prestiti
+deactivate B
 UI -> G : Visualizza elenco dei prestiti
+activate G
 
 G -> UI : Selezione campo da modificare
 G -> UI : Modifica della data di Scadenza del prestito
+deactivate G
 
 '--- Invio all'archivio
-UI -> AP : modifica(Prestito da modificare,consumer)
-AP -> P : consumer.accept(Prestito)
+UI -> A : modifica(Prestito da modificare,consumer)
+activate A
+A -> P : consumer.accept(Prestito)
 P -> P : verifica(DataDiScadenza)
 
 '--- Data di scadenza valida---
-alt dataDiScadenza non valida
-P -> UI : throw DataDiScadenzaInvalidaException
+alt Data di scadenza precendente alla data corrente
+P -> UI : throw IllegalArgumentException
 UI -> G : La modifica viene annullata
 UI -> G : L'errore viene visualizzato
 UI -> G : Visualizzazione della vecchia data
+deactivate UI
 
 
 else DataDiScadenza valida
 P --> UI : Modifica  effettuata con successo
+activate UI
 UI -> G : Mostra il nuovo valore del campo
+deactivate UI
 
 end
 @enduml

@@ -1,41 +1,54 @@
 @startuml
-actor Gestore
+actor Gestore as G
 participant "GUI" as UI
 participant "Biblioteca" as B
-participant "ArchivioLibri" as A
+participant "Archiviabile<Libro>" as A
 participant "Libro" as L
 
 '  ---- Flusso principale -----
-activate Gestore
-Gestore -> UI : Interazione con "Libri"
-deactivate Gestore
+activate G
+G -> UI : Interazione con "Libri"
+deactivate G
 activate UI
 
 UI -> B : getArchivioLibri()
 activate B
 B --> UI : Restituzione elenco dei libri
 deactivate B
-UI -> Gestore : Mostra l'elenco dei libri
-activate Gestore
+UI -> G : Mostra l'elenco dei libri
+activate G
 
-Gestore -> UI : Seleziona campo Copie Disponibili da modificare
-Gestore -> UI : Inserisce nuovo valore
-deactivate Gestore
-UI -> A : modifica(Libro da modificare, consumer)
+G -> UI : Seleziona campo da modificare
+
+note right
+I campi di titolo, autori e numero di copie sono
+modificabili in modo simile usando la flessibilità
+di Consumer.
+endnote
+
+G -> UI : Inserisce nuovo valore
+deactivate G
+UI -> A : modifica(libro, consumer)
 activate A
 
 A -> L : consumer.accept(libro)
 activate L
 
-alt Numero Copie Libro Invalido
-    L -> UI : throw NumeroCopieInvalidoException
+alt Campo invalido
+    L -> UI : throw IllegalArgumentException
     deactivate L
-    UI -> Gestore : La modifica al valore viene annullata
-    UI -> Gestore : Mostra messaggio di errore
+
+    note left
+    La modifica al valore viene annullata
+    endnote
+
+    UI -> G : Mostra messaggio di errore
 else Campo valido
+    activate L
     L --> UI : Modifica effettuata con successo
+    deactivate L
     deactivate A
-    UI -> Gestore : Mostra il nuovo valore del campo
+    UI -> G : Mostra il nuovo valore del campo
 end
 deactivate UI
 

@@ -65,6 +65,8 @@ public class PrestitiPageController extends DataPageController<Prestito, Ricerca
                 prestiti.modifica(e.getRowValue(), p -> {
                     p.setDataDiScadenza(e.getNewValue());
                 });
+                
+                setItems(prestiti.getLista());
             }
         });
 

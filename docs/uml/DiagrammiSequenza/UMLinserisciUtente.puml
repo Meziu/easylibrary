@@ -2,7 +2,7 @@
 actor Gestore as G
 participant "GUI" as UI
 participant "Biblioteca" as B
-participant "ArchivioUtenti" as A
+participant "Archiviabile<Utente>" as A
 participant "Utente" as U
 participant "Matricola" as M
 participant "IndirizzoEmail" as E
@@ -26,57 +26,37 @@ deactivate G
 
 UI -> G : Mostra form di registrazione
 
-activate G
-G -> UI : Inserisce i dati utente
+loop Inserimento fino ad inserimento corretto
+    activate G
+    G -> UI : Inserisce i dati utente
+
+    activate UI
+    UI -> M
+    activate M
+    M -> M : verifica(matricola)
+
+    M --> UI : matricolaVerificata
+    deactivate M
+
+    UI -> E
+    activate E
+    E -> E : verifica(email)
+    E --> UI: emailVerificata
+    deactivate E
+
+    break Dati corretti
+        UI -> G : Sblocco interazione di conferma
+        deactivate UI
+    end
+end
+
 G -> UI : Conferma registrazione
 deactivate G
 
 ' ----- Invio dati a Sistema -----
 UI -> U : new Utente(nome,cognome,email,matricola)
-
 activate U
-U -> M : new Matricola(matricola)
-activate M
-M -> M : verifica(matricola)
-'deactivate UI
-
-' ----- Controllo Sintassi Matricola -----
-alt Sintassi Matricola Errata
-    M -> UI : throw MatricolaInvalidaException
-    deactivate M
-    deactivate U
-    'activate UI
-    UI -> G : Mostra messaggio di errore
-
-    else Sintassi Matricola Valida
-    activate U
-    activate M
-    M --> U : Restituzione Matricola
-    deactivate M
-end
-
-' ----- Controllo Email -----
-
-U -> E : new IndirizzoEmail(email)
-activate E
-E -> E : verifica(email)
-
-alt IndirizzoEmail non valido
-    E -> UI : throw IndirizzoEmailInvalidoException
-    deactivate E
-    deactivate U
-
-    UI -> G : Mostra messaggio di errore
-
-else IndirizzoEmail valido
-    activate E
-    activate U
-
-    E --> U : Restituzione IndirizzoEmail
-    deactivate E
-end
-
-U -> UI : Restituzione Utente
+U -> UI : nuovo Utente
 deactivate U
 
 ' ----- Controllo Matricola -----
@@ -91,11 +71,11 @@ alt Matricola già registrata
 else Matricola unica
     activate A
 
-end
 
 ' ----- Conclusione -----
 A --> UI : Corretta registrazione
+end
 deactivate A
-UI -> G : chiudi form di registrazione
+UI -> G : Chisura del form di registrazione
 deactivate UI
 @enduml
