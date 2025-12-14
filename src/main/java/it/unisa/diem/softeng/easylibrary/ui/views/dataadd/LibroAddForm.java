@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.unisa.diem.softeng.easylibrary.ui.views;
+package it.unisa.diem.softeng.easylibrary.ui.views.dataadd;
 
 import it.unisa.diem.softeng.easylibrary.dati.libri.Autore;
+import it.unisa.diem.softeng.easylibrary.ui.views.AutoriPageController;
 import java.net.URL;
 import java.time.Year;
 import java.util.ArrayList;

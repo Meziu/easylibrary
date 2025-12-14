@@ -1,4 +1,4 @@
-package it.unisa.diem.softeng.easylibrary.ui.views;
+package it.unisa.diem.softeng.easylibrary.ui.views.pages;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

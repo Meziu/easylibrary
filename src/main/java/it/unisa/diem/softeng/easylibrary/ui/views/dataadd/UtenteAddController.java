@@ -1,4 +1,4 @@
-package it.unisa.diem.softeng.easylibrary.ui.views;
+package it.unisa.diem.softeng.easylibrary.ui.views.dataadd;
 
 import it.unisa.diem.softeng.easylibrary.archivio.Archiviabile;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreGiàPresenteException;

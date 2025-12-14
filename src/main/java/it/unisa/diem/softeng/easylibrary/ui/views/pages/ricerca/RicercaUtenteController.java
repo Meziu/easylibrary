@@ -1,4 +1,4 @@
-package it.unisa.diem.softeng.easylibrary.ui.views;
+package it.unisa.diem.softeng.easylibrary.ui.views.pages.ricerca;
 
 import it.unisa.diem.softeng.easylibrary.archivio.Filtro;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;

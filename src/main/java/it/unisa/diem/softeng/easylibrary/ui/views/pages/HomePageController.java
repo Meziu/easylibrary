@@ -1,5 +1,6 @@
-package it.unisa.diem.softeng.easylibrary.ui.views;
+package it.unisa.diem.softeng.easylibrary.ui.views.pages;
 
+import it.unisa.diem.softeng.easylibrary.ui.views.VisualizzatorePagine;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;

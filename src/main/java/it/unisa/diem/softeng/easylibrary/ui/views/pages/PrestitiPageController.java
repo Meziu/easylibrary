@@ -1,5 +1,6 @@
-package it.unisa.diem.softeng.easylibrary.ui.views;
+package it.unisa.diem.softeng.easylibrary.ui.views.pages;
 
+import it.unisa.diem.softeng.easylibrary.ui.views.dataadd.PrestitoAddController;
 import it.unisa.diem.softeng.easylibrary.archivio.Archiviabile;
 import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
 import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
@@ -8,6 +9,8 @@ import it.unisa.diem.softeng.easylibrary.dati.prestiti.Prestito;
 import it.unisa.diem.softeng.easylibrary.dati.prestiti.StatoPrestito;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
+import it.unisa.diem.softeng.easylibrary.ui.views.pages.ricerca.RicercaPrestitoController;
+import it.unisa.diem.softeng.easylibrary.ui.views.VisualizzatorePagine;
 import java.time.LocalDate;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;

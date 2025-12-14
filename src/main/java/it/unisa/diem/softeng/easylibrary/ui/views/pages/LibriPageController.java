@@ -1,9 +1,13 @@
-package it.unisa.diem.softeng.easylibrary.ui.views;
+package it.unisa.diem.softeng.easylibrary.ui.views.pages;
 
+import it.unisa.diem.softeng.easylibrary.ui.views.dataadd.LibroAddController;
 import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
 import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
-import it.unisa.diem.softeng.easylibrary.ui.views.RicercaLibroController.FiltroLibri;
+import it.unisa.diem.softeng.easylibrary.ui.views.AutoriPageController;
+import it.unisa.diem.softeng.easylibrary.ui.views.pages.ricerca.RicercaLibroController;
+import it.unisa.diem.softeng.easylibrary.ui.views.pages.ricerca.RicercaLibroController.FiltroLibri;
+import it.unisa.diem.softeng.easylibrary.ui.views.VisualizzatorePagine;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;

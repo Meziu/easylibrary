@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.unisa.diem.softeng.easylibrary.ui.views;
+package it.unisa.diem.softeng.easylibrary.ui.views.dataadd;
 
 import it.unisa.diem.softeng.easylibrary.archivio.Archiviabile;
 import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
@@ -28,7 +28,7 @@ import javafx.scene.control.Alert;
  *
  * @author marco
  */
-class PrestitoAddController extends DataAddController<PrestitoAddForm> implements Initializable {
+public class PrestitoAddController extends DataAddController<PrestitoAddForm> implements Initializable {
 
     private Archiviabile<Prestito> prestiti;
     private Indicizzabile<Matricola, Utente> utenti;

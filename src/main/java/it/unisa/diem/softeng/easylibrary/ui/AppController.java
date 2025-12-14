@@ -1,10 +1,10 @@
 package it.unisa.diem.softeng.easylibrary.ui;
 
 import it.unisa.diem.softeng.easylibrary.Biblioteca;
-import it.unisa.diem.softeng.easylibrary.ui.views.HomePageController;
-import it.unisa.diem.softeng.easylibrary.ui.views.LibriPageController;
-import it.unisa.diem.softeng.easylibrary.ui.views.PrestitiPageController;
-import it.unisa.diem.softeng.easylibrary.ui.views.UtentiPageController;
+import it.unisa.diem.softeng.easylibrary.ui.views.pages.HomePageController;
+import it.unisa.diem.softeng.easylibrary.ui.views.pages.LibriPageController;
+import it.unisa.diem.softeng.easylibrary.ui.views.pages.PrestitiPageController;
+import it.unisa.diem.softeng.easylibrary.ui.views.pages.UtentiPageController;
 import it.unisa.diem.softeng.easylibrary.ui.views.VisualizzatorePagine;
 import java.io.File;
 import java.io.IOException;
