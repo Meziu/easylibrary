@@ -92,19 +92,11 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     }
 
     /**
-     * @brief Verifica se il prestito è scaduto.
-     * @return true se la data di scadenza è antecedente alla data odierna, false altrimenti
-     */
-    public boolean isScaduto() {
-        return dataDiScadenza.isBefore(LocalDate.now());
-    }
-
-    /**
      * @brief Aggiorna lo stato del prestito.
      * @param\[in] nuovoStato Nuovo stato da assegnare al prestito
      */
     public void setStato(StatoPrestito nuovoStato) {
-        if(stato == null){
+        if(nuovoStato == null){
             throw new IllegalArgumentException("Stato nullo");
         }
         this.stato = nuovoStato;
