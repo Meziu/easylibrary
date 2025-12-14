@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 
  * @brief Indirizzo di posta elettronica (email).
- * Gli indirizzi email sono composti (per standard
+ * Gli indirizzi email sono composti (secondo una versione semplificata dello standard
  * internazionale RFC 5322) da un campo di username e un nome di dominio.
  * Ogni utente è associato ad un IndirizzoEmail, che richiede che il nome
  * di dominio deve corrispondere a "studenti.unisa.it".
