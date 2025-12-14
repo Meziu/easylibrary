@@ -43,6 +43,19 @@ public class ISBNTest {
                 () -> new ISBN("12345"));  // Troppo corto
     }
     
+    @Test
+    public void testCostruzioneISBNNullo() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> new ISBN(null)
+        );
+    }
+    
+    @Test
+    public void testCostruzioneISBNVuoto() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> new ISBN("")
+        );
+    }
     
     /* 
     *   GET ISBN
