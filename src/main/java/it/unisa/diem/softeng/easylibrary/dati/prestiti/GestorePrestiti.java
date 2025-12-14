@@ -16,6 +16,9 @@ import java.util.Collections;
  * 
  * @see Gestore
  * @see Prestito
+ * @see Indicizzabile
+ * @see Libro
+ * @see Utente
 */
 public class GestorePrestiti extends Gestore<Prestito> {
     private final Indicizzabile<Matricola, Utente> archivioUtenti;
@@ -47,6 +50,8 @@ public class GestorePrestiti extends Gestore<Prestito> {
      * 
      * @throws ValoreNonPresenteException Se ISBN o Matricola specificati nel prestito
      * non sono presenti negli archivi di utenti e libri.
+     * 
+     * @throws NessunaCopiaDisponibileException se il libro non ha copie disponibili
      * 
      * @pre L'utente con la matricola fornita deve essere presente nell'archivio
      * @pre Il libro con l'ISBN fornito deve essere presente nell'archivio
@@ -97,7 +102,7 @@ public class GestorePrestiti extends Gestore<Prestito> {
      * @pre L'utente associato al prestito deve essere presente nell'archivio utenti.
      * @pre Il libro associato al prestito deve esistere nell'archivio libri.
      * 
-     * @post Il prestito viene rimosso dall'archivio dei prestiti.
+     * @post Lo stato del prestito è impostato a RESTITUITO.
      * @post Il prestito viene rimosso dalla lista dei prestiti attivi dell'utente.
      * @post Il numero di copie disponibili del libro viene incrementato di 1.
     */
