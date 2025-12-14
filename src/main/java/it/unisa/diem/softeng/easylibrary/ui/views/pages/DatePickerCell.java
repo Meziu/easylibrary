@@ -1,11 +1,13 @@
 package it.unisa.diem.softeng.easylibrary.ui.views.pages;
 
+import it.unisa.diem.softeng.easylibrary.dati.prestiti.Prestito;
+import it.unisa.diem.softeng.easylibrary.dati.prestiti.StatoPrestito;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 
-public class DatePickerCell<S, T extends LocalDate> extends TableCell<S, T> {
+public class DatePickerCell extends TableCell<Prestito, LocalDate> {
 
     private DatePicker datePicker;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -41,12 +43,13 @@ public class DatePickerCell<S, T extends LocalDate> extends TableCell<S, T> {
     }
 
     @Override
-    public void updateItem(T item, boolean empty) {
+    public void updateItem(LocalDate item, boolean empty) {
         super.updateItem(item, empty);
 
         if (empty) {
             setText(null);
             setGraphic(null);
+            setStyle(null);
         } else {
             if (isEditing()) {
                 if (datePicker != null) {
@@ -54,10 +57,23 @@ public class DatePickerCell<S, T extends LocalDate> extends TableCell<S, T> {
                 }
                 setText(null);
                 setGraphic(datePicker);
+                setStyle(null); // rimozione colore
             } else {
                 // Visualizza il testo formattato
                 setText(getString());
                 setGraphic(null);
+                
+                // Colorazione date scadute.
+                if (!item.isAfter(LocalDate.now()) &&
+                        getTableRow() != null &&
+                        getTableRow().getItem() != null &&
+                        ((Prestito) getTableRow().getItem()).getStato().equals(StatoPrestito.ATTIVO)) {
+                    setStyle(
+                        "-fx-background-color: #ff6666;"
+                    );
+                } else {
+                    setStyle(null);
+                }
             }
         }
     }
@@ -78,7 +94,7 @@ public class DatePickerCell<S, T extends LocalDate> extends TableCell<S, T> {
         
         // Quando l'utente seleziona una data, committiamo il nuovo valore
         datePicker.setOnAction(event -> {
-            commitEdit((T) datePicker.getValue());
+            commitEdit((LocalDate) datePicker.getValue());
         });
 
         datePicker.focusedProperty().addListener((observable, oldValue, newValue) -> {
