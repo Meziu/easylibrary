@@ -26,6 +26,20 @@ public class MatricolaTest {
     }
 
     @Test
+    public void testCostruzioneMatricolaNull() {
+        assertThrows(MatricolaInvalidaException.class, ()
+                -> new Matricola(null)
+        );
+    }
+    
+    @Test
+    public void testCostruzioneMatricolaVuotaLanciaEccezione() {
+        assertThrows(MatricolaInvalidaException.class, ()
+                -> new Matricola("")
+        );
+    }
+    
+    @Test
     public void testCostruzioneMatricolaCortaLanciaEccezione() {
         assertThrows(MatricolaInvalidaException.class,
                 () -> new Matricola("12345"));
