@@ -104,7 +104,7 @@ public abstract class DataPageController<T, RC, AC extends DataAddController<?>>
     }
 
     @FXML
-    private void remove(ActionEvent event) {
+    protected void remove(ActionEvent event) {
         T selectedItem = table.getSelectionModel().getSelectedItem();
 
         try {
@@ -119,7 +119,7 @@ public abstract class DataPageController<T, RC, AC extends DataAddController<?>>
             
             a.getDialogPane().setContent(new Label(error));
                     
-            a.show();
+            a.showAndWait();
         }
     }
 

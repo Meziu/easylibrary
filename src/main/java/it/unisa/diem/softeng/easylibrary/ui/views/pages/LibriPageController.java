@@ -1,19 +1,24 @@
 package it.unisa.diem.softeng.easylibrary.ui.views.pages;
 
+import it.unisa.diem.softeng.easylibrary.archivio.Archiviabile;
 import it.unisa.diem.softeng.easylibrary.ui.views.dataadd.LibroAddController;
 import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
 import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
+import it.unisa.diem.softeng.easylibrary.dati.prestiti.Prestito;
 import it.unisa.diem.softeng.easylibrary.ui.views.AutoriPageController;
 import it.unisa.diem.softeng.easylibrary.ui.views.pages.ricerca.RicercaLibroController;
 import it.unisa.diem.softeng.easylibrary.ui.views.pages.ricerca.RicercaLibroController.FiltroLibri;
 import it.unisa.diem.softeng.easylibrary.ui.views.VisualizzatorePagine;
+import java.time.Year;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -22,11 +27,13 @@ import javafx.util.converter.IntegerStringConverter;
 public class LibriPageController extends DataPageController<Libro, RicercaLibroController, LibroAddController> {
 
     private Indicizzabile<ISBN, Libro> libri;
+    private Archiviabile<Prestito> prestiti;
 
-    public LibriPageController(VisualizzatorePagine vp, Indicizzabile<ISBN, Libro> libri) {
+    public LibriPageController(VisualizzatorePagine vp, Indicizzabile<ISBN, Libro> libri, Archiviabile<Prestito> prestiti) {
         super(libri, vp, new RicercaLibroController(), "Libri", "/res/RicercaLibro.fxml", new LibroAddController(libri));
 
         this.libri = libri;
+        this.prestiti = prestiti;
     }
 
     @Override
@@ -61,9 +68,9 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
             }
         });
 
-        TableColumn<Libro, String> annoCol = new TableColumn<>("Anno di pubblicazione");
+        TableColumn<Libro, Integer> annoCol = new TableColumn<>("Anno di pubblicazione");
         annoCol.setCellValueFactory(c
-                -> new SimpleStringProperty(String.valueOf(c.getValue().getAnnoPubblicazione()))
+                -> new SimpleObjectProperty<Integer>(c.getValue().getAnnoPubblicazione())
         );
 
         TableColumn<Libro, String> isbnCol = new TableColumn<>("ISBN");
@@ -96,14 +103,20 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
             table.refresh();
         });
 
-        // autori
-        annoCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        annoCol.setOnEditCommit((TableColumn.CellEditEvent<Libro, String> e) -> {
+        // anno
+        annoCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        annoCol.setOnEditCommit((TableColumn.CellEditEvent<Libro, Integer> e) -> {
             Libro l = e.getRowValue();
-
-            libri.modifica(l, (libro) -> {
-                libro.setAnnoPubblicazione(Integer.parseInt(e.getNewValue()));
-            });
+            
+            if (e.getNewValue() > Year.now().getValue()) {
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.getDialogPane().setContent(new Label("Anno di pubblicazione successivo all'anno corrente"));
+                a.showAndWait();
+            } else {
+                libri.modifica(l, (libro) -> {
+                    libro.setAnnoPubblicazione(e.getNewValue());
+                });
+            }
             
             setItems(libri.getLista());  
             table.refresh();
@@ -130,7 +143,7 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
                     libro.setCopieDisponibili(e.getOldValue());
                 });
 
-                new Alert(Alert.AlertType.ERROR, "Il numero di copie deve essere un intero positivo o zero.").show();
+                new Alert(Alert.AlertType.ERROR, "Il numero di copie deve essere un intero positivo o zero.").showAndWait();
             }
         });
 
@@ -144,5 +157,26 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
         this.table.itemsProperty().bind(Bindings.createObjectBinding(() -> {
             return FXCollections.observableList(libri.filtra(ricercaController.new FiltroLibri()));
         }, ricercaController.ricercaTitoloField.textProperty(), ricercaController.ricercaAutoreField.textProperty(), ricercaController.ricercaISBNField.textProperty()));
+    }
+    
+    @Override
+    protected void remove(ActionEvent event) {
+        Libro l = table.getSelectionModel().getSelectedItem();
+        
+        // Controllo assenza di prestiti per il libro.
+        if (!this.prestiti.filtra(p -> {
+            return p.getISBN().equals(l.getISBN());
+        }).isEmpty()) {
+            String error = "Impossibile rimuovere libro di ISBN \"" + l.getISBN().getISBN() + "\" poichè sono associati prestiti";
+            System.err.println(error);
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            
+            a.getDialogPane().setContent(new Label(error));
+                    
+            a.showAndWait();
+            
+        } else {
+            super.remove(event);
+        }
     }
 }
