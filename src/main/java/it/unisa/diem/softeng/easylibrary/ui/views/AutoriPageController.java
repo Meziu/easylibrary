@@ -11,7 +11,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +21,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 /**
  *
@@ -52,12 +53,16 @@ public class AutoriPageController implements Initializable {
         this.list = list;
     }
     
-    public static void mostraPerLista(List<Autore> list) {
+    public static void mostraPerLista(Window owner, List<Autore> list) {
         FXMLLoader loader = new FXMLLoader(AutoriPageController.class.getResource("/res/EditorAutoriView.fxml"));
         loader.setController(new AutoriPageController(list));
 
         try {
             Stage stage = new Stage();
+            stage.initOwner(owner);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setResizable(false);
+            
             Scene scene = new Scene(loader.load());
             stage.setScene(scene);
             stage.showAndWait();

@@ -55,7 +55,7 @@ public abstract class DataAddController<F> implements Initializable {
     protected abstract void confermaInserimento();
 
     @FXML
-    private void annullaInserimento() {
+    protected void annullaInserimento() {
         chiudiFinestra();
     }
     

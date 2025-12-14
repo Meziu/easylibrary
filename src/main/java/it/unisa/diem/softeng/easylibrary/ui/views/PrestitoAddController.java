@@ -70,6 +70,7 @@ class PrestitoAddController extends DataAddController<PrestitoAddForm> implement
 
         try {
             this.prestiti.registra(p);
+            chiudiFinestra();
         } catch (LimitePrestitiSuperatoException e) {
             String error = "Utente con Matricola \"" + this.formController.matricolaField.getValue().getMatricola().getMatricola() + "\" ha raggiunto il limite di prestiti";
             System.err.println(error);
@@ -79,8 +80,6 @@ class PrestitoAddController extends DataAddController<PrestitoAddForm> implement
             System.err.println(error);
             new Alert(Alert.AlertType.ERROR, error).showAndWait();
         }
-
-        chiudiFinestra();
     }
 
 }

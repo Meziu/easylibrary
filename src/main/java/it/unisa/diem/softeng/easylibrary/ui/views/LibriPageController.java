@@ -49,7 +49,7 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
                     btn.setOnAction(event -> {
                         Libro l = getTableView().getItems().get(getIndex());
 
-                        AutoriPageController.mostraPerLista(l.getAutori());
+                        AutoriPageController.mostraPerLista(btn.getScene().getWindow(), l.getAutori());
                     });
                     setGraphic(btn);
                 }

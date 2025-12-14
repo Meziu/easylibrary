@@ -73,9 +73,9 @@ public class GestorePrestiti extends Gestore<Prestito> {
             throw new NessunaCopiaDisponibileException("Nessuna copia disponibile per il libro \"" + p.getISBN() + "\"");
         }
         
-        super.registra(p);
-        
         archivioUtenti.ottieni(p.getMatricola()).registraPrestito(p);
+        
+        super.registra(p);
         l.setCopieDisponibili(l.getCopieDisponibili() - 1);
     }
     

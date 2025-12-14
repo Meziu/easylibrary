@@ -47,12 +47,11 @@ public class UtenteAddController extends DataAddController<UtenteAddForm> {
         
         try {
             utenti.registra(newUtente);
+            chiudiFinestra();
         } catch (ValoreGiàPresenteException e) {
             String error = "Utente con Matricola \"" + newUtente.getMatricola().getMatricola() + "\" già presente nell'archivio";
             System.err.println(error);
             new Alert(Alert.AlertType.ERROR, error).showAndWait();
         }
-        
-        chiudiFinestra();
     }
 }

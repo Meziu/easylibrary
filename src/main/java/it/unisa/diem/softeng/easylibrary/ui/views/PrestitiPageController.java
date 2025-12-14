@@ -7,9 +7,10 @@ import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
 import it.unisa.diem.softeng.easylibrary.dati.prestiti.Prestito;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
-import java.util.stream.Collectors;
+import java.time.LocalDate;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 
 
@@ -29,14 +30,14 @@ public class PrestitiPageController extends DataPageController<Prestito, Ricerca
     @Override
     protected void initializeColonne() {
 
-        TableColumn<Prestito, String> utenteCol = new TableColumn<>("Matricola utente");
+        TableColumn<Prestito, String> utenteCol = new TableColumn<>("Utente");
         utenteCol.setCellValueFactory(c ->
-                new SimpleStringProperty(c.getValue().getMatricola().getMatricola())
+                new SimpleStringProperty(utenti.ottieni(c.getValue().getMatricola()).toString())
         );
 
-        TableColumn<Prestito, String> libroCol = new TableColumn<>("ISBN");
+        TableColumn<Prestito, String> libroCol = new TableColumn<>("Libro");
         libroCol.setCellValueFactory(c ->
-                new SimpleStringProperty(c.getValue().getISBN().getISBN())
+                new SimpleStringProperty(libri.ottieni(c.getValue().getISBN()).toString())
         );
 
         TableColumn<Prestito, String> statoCol = new TableColumn<>("Stato prestito");
@@ -44,10 +45,22 @@ public class PrestitiPageController extends DataPageController<Prestito, Ricerca
                 new SimpleStringProperty( c.getValue().getStato().toString())
         );
 
-        TableColumn<Prestito, String> scadenzaCol = new TableColumn<>("Scadenza");
+        TableColumn<Prestito, LocalDate> scadenzaCol = new TableColumn<>("Data di scadenza");
         scadenzaCol.setCellValueFactory(c ->
-                new SimpleStringProperty(c.getValue().getDataDiScadenza().toString())
+                new SimpleObjectProperty<LocalDate>(c.getValue().getDataDiScadenza())
         );
+        scadenzaCol.setCellFactory(cl -> new DatePickerCell());
+        scadenzaCol.setOnEditCommit(e -> {
+            if (e.getNewValue().isBefore(LocalDate.now())) {
+                // Refresh tabella per evitare sfarfallio
+                table.refresh();
+                new Alert(Alert.AlertType.ERROR, "Data inserita precedente a quella attuale.").showAndWait();
+            } else {
+                prestiti.modifica(e.getRowValue(), p -> {
+                    p.setDataDiScadenza(e.getNewValue());
+                });
+            }
+        });
 
 
         table.getColumns().addAll(utenteCol, libroCol, statoCol, scadenzaCol);

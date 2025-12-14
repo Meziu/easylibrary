@@ -61,15 +61,19 @@ public class LibroAddController extends DataAddController<LibroAddForm>{
         
         try {
             libri.registra(newLibro);
+            this.formController.listaAutori.clear();
+            chiudiFinestra();
         } catch (ValoreGiàPresenteException e) {
             String error = "Libro con ISBN \"" + newLibro.getISBN().getISBN() + "\" già presente nell'archivio";
             System.err.println(error);
             new Alert(Alert.AlertType.ERROR, error).showAndWait();
         }
-        
+    }
+    
+    @Override
+    protected void annullaInserimento() {
         this.formController.listaAutori.clear();
-        
-        chiudiFinestra();
+        super.annullaInserimento();
     }
     
 }

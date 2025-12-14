@@ -53,7 +53,7 @@ class LibroAddForm implements Initializable {
 
     @FXML
     public void inserisciAutori() {
-        AutoriPageController.mostraPerLista(listaAutori);
+        AutoriPageController.mostraPerLista(titoloField.getScene().getWindow(), listaAutori);
     }
 
 }
