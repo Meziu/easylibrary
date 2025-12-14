@@ -3,7 +3,6 @@ package it.unisa.diem.softeng.easylibrary.dati.utenti;
 import java.io.Serializable;
 
 /**
- * 
  * @brief  Rappresenta la matricola di un utente della biblioteca.
  * Ogni \ref Utente è associato univocamente ad una matricola.
  * Le matricole sono composte da esattamente 10 cifre numeriche.
@@ -14,7 +13,6 @@ public final class Matricola implements Comparable<Matricola>, Serializable {
     private final String matricola;
 
     /**
-     * 
      * @brief Costruttore.
      * Costruisce un nuovo oggetto Matricola a partire dalla
      * stringa di caratteri che la compongono, verificandone la validità.
@@ -73,11 +71,14 @@ public final class Matricola implements Comparable<Matricola>, Serializable {
     }
 
     /**
-     * 
      * @brief Comparazione con un'altra Matricola.
      * La comparazione è svolta aderendo al contratto di Comparable,
      * dove una Matricola è ordinata rispetto ad un'altra in ordine
      * lessicografico della stringa di caratteri associata.
+     * 
+     * @param\[in] matricola da confrontare
+     * @return Valore negativo, zero o positivo se questa matricola è rispettivamente minore,
+     *         uguale o maggiore rispetto alla matricola passata.
      */
     @Override
     public int compareTo(Matricola matricola) {
@@ -85,9 +86,10 @@ public final class Matricola implements Comparable<Matricola>, Serializable {
     }
 
     /**
-     * 
      * @brief HashCode associato alla Matricola.
      * Il calcolo è svolto aderendo al contratto di Object.hashCode().
+     * 
+     * @return valore hash coerente con equals().
      */
     @Override
     public int hashCode() {
@@ -95,11 +97,13 @@ public final class Matricola implements Comparable<Matricola>, Serializable {
     }
 
     /**
-     * 
      * @brief Criterio di uguaglianza.
      * Il criterio aderisce al contratto di Object.equals(),
      * dove una Matricola è considerata uguale ad un'altra solo se
      * la stringa di caratteri associata è uguale.
+     * 
+     * @param obj oggetto con cui confrontare.
+     * @return true se le matricola sono uguali, false altrimenti.
      */
     @Override
     public boolean equals(Object obj) {
