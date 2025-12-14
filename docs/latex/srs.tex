@@ -144,12 +144,12 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 \newcounter{ucid}
 \renewcommand{\thesubsubsection}{UC-\arabic{subsubsection}}
 
-\usecase{UC-\stepcounter{ucid}}{Visualizzazione della home page}{Gestore della biblioteca.}{Il gestore avvia il sistema.}{L’home page viene visualizzata correttamente.}{
+\usecase{UC-\stepcounter{ucid}}{Visualizzazione della home page}{Gestore della biblioteca.}{\vspace{-0.6cm}}{L’home page viene visualizzata correttamente.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Il sistema completa l’avvio.
 		\item Il sistema mostra la visualizzazione dell’home page al gestore.
-		\item Il sistema carica correttamente l’archivio delle informazioni salvato in una precedente sessione.
+		\item Il sistema carica correttamente l’archivio delle informazioni \\salvato in una precedente sessione.
 	\end{enumerate}
 }{
 	\vspace{-0.8\topsep}
@@ -164,7 +164,7 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 \hrule
 \vspace{0.5cm}
 
-\usecase{UC-\stepcounter{ucid}}{Visualizzazione del catalogo dei libri}{Gestore della biblioteca.}{Il gestore sta visualizzando l'home page.}{Il gestore ha consultato il catalogo dei libri.}{
+\usecase{UC-\stepcounter{ucid}}{Visualizzazione del catalogo dei libri}{Gestore della biblioteca.}{Il gestore può interagire alla Menu-Bar.}{Il gestore ha consultato il catalogo dei libri.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Il gestore interagisce con l'opzione per visualizzare il catalogo.
@@ -183,7 +183,7 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 \hrule
 \vspace{0.5cm}
 
-\usecase{UC-\stepcounter{ucid}}{Visualizzazione dei prestiti attivi}{Gestore della biblioteca}{Il gestore sta visualizzando l'home page.}{Le informazioni relative ai prestiti attivi vengono mostrate, evidenziando i prestiti in ritardo, in un elenco ordinato per data prevista di restituzione.}{
+\usecase{UC-\stepcounter{ucid}}{Visualizzazione dei prestiti attivi}{Gestore della biblioteca}{Il gestore può interagire alla Menu-Bar.}{Le informazioni relative ai prestiti attivi vengono mostrate, evidenziando i prestiti in ritardo, in un elenco ordinato per data prevista di restituzione.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Il gestore interagisce con l’opzione per visualizzare i prestiti attivi.
@@ -200,7 +200,7 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 
 \newpage
 
-\usecase{UC-\stepcounter{ucid}}{Visualizzazione dello storico dei prestiti}{Gestore della biblioteca}{Il gestore sta visualizzando la sezione relativa ai prestiti attivi.}{Le informazioni relative a tutti i prestiti vengono mostrate,\\evidenziando i prestiti in ritardo, in un elenco ordinato per data\\prevista di restituzione.}{
+\usecase{UC-\stepcounter{ucid}}{Visualizzazione dello storico dei prestiti}{Gestore della biblioteca}{Il gestore sta visualizzando la sezione relativa ai prestiti attivi.}{Le informazioni relative a tutti i prestiti vengono mostrate,evidenziando i prestiti in ritardo, in un elenco ordinato per data\\prevista di restituzione.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Il gestore interagisce con l'opzione per visualizzare anche i prestiti restituititi.
@@ -219,7 +219,7 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 \hrule
 \vspace{0.5cm}
 
-\usecase{UC-\stepcounter{ucid}}{Visualizzazione dell’elenco degli utenti}{Gestore della biblioteca}{Il gestore sta visualizzando l'home page.}{Viene mostrato l’elenco degli utenti ordinato alfabeticamente per\\cognome e, a parità di cognome, per nome.}{
+\usecase{UC-\stepcounter{ucid}}{Visualizzazione dell’elenco degli utenti}{Gestore della biblioteca}{Il gestore può interagire alla Menu-Bar.}{Viene mostrato l’elenco degli utenti ordinato alfabeticamente per\\cognome e, a parità di cognome, per nome.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Il gestore seleziona l’opzione per visualizzare l’elenco degli utenti.
@@ -241,12 +241,12 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 \usecase{UC-\stepcounter{ucid}}{Registrazione di un nuovo utente}{Gestore della biblioteca}{Il gestore sta visualizzando l’elenco degli utenti.}{Il nuovo utente è registrato nell’archivio.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
-		\item Il gestore interagisce con l’opzione per registrare un nuovo utente.
+		\item Il gestore interagisce con l'opzione per registrare un nuovo utente.
 		\item Il sistema mostra al gestore la visualizzazione del form di\\registrazione per un nuovo utente.
 		\item Il gestore inserisce i dati di nome, cognome, matricola ed email istituzionale del nuovo utente.
 		\item Il sistema verifica la validità della matricola
+		\item Il sistema verifica la validità dell'email.
 		\item Il sistema verifica che la matricola non sia già utilizzata.
-		\item Il sistema verifica la validità dell’email.
 		\item Il gestore interagisce con l’opzione di conferma dell’operazione.
 		\item Il sistema registra il nuovo utente.
 	\end{enumerate}
@@ -254,9 +254,8 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 \begin{enumerate}[label=4A.\arabic*]
 	\item[] \textbf{4A - Matricola non valida, con correzioni}
 	\item Il sistema rileva che la matricola non è valida
-	\item Il sistema mostra un messaggio di errore.
 	\item Il gestore corregge la matricola inserendone una valida.
-	\item L’esecuzione riprende dal passo 4.
+	\item L’esecuzione riprende dal passo 3.
 
 \end{enumerate}
 \phantom\\
@@ -264,40 +263,39 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 \begin{enumerate}[label=4B.\arabic*]
 	\item[] \textbf{4B - Matricola non valida, con annullamento}
 	\item Il sistema rileva che la matricola non è valida
-	\item Il sistema mostra un messaggio di errore.
 	\item Il gestore interagisce con l’opzione per annullare l’operazione.
 \end{enumerate}
 
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=5A.\arabic*]
-		\item[] \textbf{5A - Matricola duplicata, con correzione}
-		\item Il sistema rileva che la matricola inserita è già presente \\nell'archivio.
+		\item[] \textbf{5A - Email non valida, con correzione}
+		\item Il sistema rileva che la e-mail inserita non è valida.
 		\item Il sistema mostra un messaggio di errore.
-		\item Il gestore corregge la matricola.
-		\item L’esecuzione riprende dal passo 5.
+		\item Il gestore corregge l'e-mail .
+		\item L’esecuzione riprende dal passo 3.
 	\end{enumerate}
 	
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=5B.\arabic*]
-		\item[] \textbf{5B - Matricola duplicata, con annullamento}
-		\item Il sistema rileva che la matricola inserita è già presente nell'archivio.
-		\item Il sistema mostra un messaggio di errore.
+		\item[] \textbf{5B - Email non valida, con annullamento}
+		\item Il sistema rileva che la e-mail inserita non è valida.
 		\item Il gestore interagisce con l’opzione per annullare l’operazione.
+		
 	\end{enumerate}
 	
 	\vspace{-0.8\topsep}
-	\begin{enumerate}[label=7A.\arabic*]
-		\item[] \textbf{7A - Email non valida, con correzione}
-		\item Il sistema rileva che la e-mail inserita non è valida.
+	\begin{enumerate}[label=6A.\arabic*]
+		\item[] \textbf{6A - Matricola duplicata, con correzione}
+		\item Il sistema rileva che la matricola inserita è già presente \\nell'archivio.
 		\item Il sistema mostra un messaggio di errore.
-		\item Il gestore corregge l'e-mail.
-		\item L’esecuzione riprende dal passo 7.
+		\item Il gestore corregge la matricola.
+		\item L’esecuzione riprende dal passo 3.
 	\end{enumerate}
 	
 	\vspace{-0.8\topsep}
-	\begin{enumerate}[label=7B.\arabic*]
-		\item[] \textbf{7B - Email non valida, con annullamento}
-		\item Il sistema rileva che la e-mail inserita non è valida.
+	\begin{enumerate}[label=6B.\arabic*]
+		\item[] \textbf{5B - Matricola duplicata, con annullamento}
+		\item Il sistema rileva che la matricola inserita è già presente \\nell'archivio.
 		\item Il sistema mostra un messaggio di errore.
 		\item Il gestore interagisce con l’opzione per annullare l’operazione.
 	\end{enumerate}
@@ -316,16 +314,14 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 	\end{enumerate}
 }{
 	\vspace{-0.8\topsep}
-	\begin{enumerate}[label=4B.\arabic*]
-		\item[] \textbf{4B - Nuova E-Mail non valida}
+	\begin{enumerate}[label=4A.\arabic*]
+		\item[] \textbf{4A - Nuova E-Mail non valida}
 		\item Il sistema rileva l'inserimento di una e-mail non conforme.
 		\item Il sistema annulla la modifica e non modifica i dati nell'archivio.
 	\end{enumerate}
 }
 
-\vspace{0.5cm}
-\hrule
-\vspace{0.5cm}
+\newpage
 
 \usecase{UC-\stepcounter{ucid}}{Rimozione di un utente}{Gestore della biblioteca}{Il gestore sta visualizzando l'elenco degli utenti.}{L’utente viene rimosso dall'archivio.}{
 	\vspace{-0.8\topsep}
@@ -348,27 +344,26 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 \usecase{UC-\stepcounter{ucid}}{Ricerca di utenti}{Gestore della biblioteca}{Il gestore sta visualizzando l'elenco degli utenti.}{Viene mostrato l’elenco filtrato.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
-		\item Il gestore inserisce i campi di cognome o matricola nel form per la ricerca.
-		\item Il gestore interagisce con l'opzione per filtrare i risultati a seconda dei campi inseriti.
+		\item Il gestore inserisce i campi di cognome e matricola nel form per la ricerca.
 		\item Il sistema mostra nell'elenco solo gli utenti che corrispondono ai criteri di ricerca.
 	\end{enumerate}
 }{
 	\vspace{-0.8\topsep}
-	\begin{enumerate}[label=2A.\arabic*]
-		\item[] \textbf{2A - Matricola non valida(con correzione)}
+	\begin{enumerate}[label=1A.\arabic*]
+		\item[] \textbf{1A - Matricola non valida(con correzione)}
 		\item Il gestore inserisce una matricola non valida.
 		\item Il sistema mostra un messaggio di errore.
 		\item Il gestore corregge la matricola.
-		\item Il flusso riprende dal passo 2
+		\item Il flusso riprende dal passo 1.
 	\end{enumerate}
 }
 
 \newpage
-\usecase{UC-\stepcounter{ucid}}{Registrazione di un prestito}{Gestore della biblioteca}{Il gestore sta visualizzando l'elenco dei prestiti attivi.}{Prestito registrato.\\Copie disponibili del libro prestato decrementate.}{
+\usecase{UC-\stepcounter{ucid}}{Registrazione di un prestito}{Gestore della biblioteca}{Il gestore sta visualizzando l'elenco dei prestiti attivi.}{Prestito registrato.\\Copie disponibili del libro prestato decrementate.\\Prestito aggiunto alla lista dei prestiti dell'utente.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Il gestore seleziona l'opzione per aggiungere un prestito.
-		\item Il gestore cerca l’utente a carico del prestito e il libro da prestare,\\li seleziona tra quelli suggeriti dall’interfaccia.
+		\item Il gestore inserisce la matricola dell’utente a carico del prestito e l'ISBN del libro da prestare.
 		\item Il gestore inserisce la data di restituzione prevista per il prestito.
 		\item Il sistema verifica disponibilità di copie del libro in prestito, che il limite di prestiti dell’utente non sia stato raggiunto e che la data di scadenza sia successiva a quella di registrazione.
 		\item Il gestore seleziona l'opzione per confermare l'operazione.
@@ -390,7 +385,7 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 		\item Il gestore annulla l'operazione.
 		\item Il prestito non viene registrato nell'archivio del sistema.
 	\end{enumerate}
-	
+	\newpage
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=4C.\arabic*]
 		\item[] \textbf{4C - Copie del libro terminate, con correzione}
@@ -433,11 +428,9 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 	\end{enumerate}
 }
 
-\vspace{0.5cm}
-\hrule
-\vspace{0.5cm}
+\newpage
 
-\usecase{UC-\stepcounter{ucid}}{Restituzione di un libro}{Gestore della biblioteca}{Il gestore sta visualizzando l'elenco dello storico dei prestiti.}{Il prestito è segnato come restituito. Il numero di copie disponibili del libro restituito è incrementato.}{
+\usecase{UC-\stepcounter{ucid}}{Restituzione di un libro}{Gestore della biblioteca}{Il gestore sta visualizzando l'elenco dello storico dei prestiti.}{Il prestito è segnato come restituito.\\Il numero di copie disponibili del libro restituito è incrementato.\\Prestito rimosso da lista prestiti utente}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Il gestore seleziona il prestito da restituire dall'elenco.
@@ -454,6 +447,8 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 	\end{enumerate}
 }
 
+\newpage
+
 \usecase{UC-\stepcounter{ucid}}{Ricerca di libri}{Gestore della biblioteca}{Il gestore sta visualizzando l'elenco dei libri.}{Viene mostrato l’elenco filtrato.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
@@ -462,19 +457,10 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 		\item Il sistema mostra nell'elenco solo i libri che corrispondono ai criteri di ricerca.
 	\end{enumerate}
 }{
-	\vspace{-0.8\topsep}
-	\begin{enumerate}[label=2A.\arabic*]
-		\item[] \textbf{2A - Errore ISBN (con correzione)}
-		\item Il gestore inserisce un ISBN non valido.
-		\item Il sistema mostra un messaggio di errore.
-		\item Il gestore corregge l'ISBN.3
-		\item Il flusso riprende dal passo 2.
-	\end{enumerate}
+	Nessun flusso alternativo
 }
 
-\vspace{0.5cm}
-\hrule
-\vspace{1cm}
+\newpage
 
 \usecase{UC-\stepcounter{ucid}}{Inserimento di un nuovo libro}{Gestore della biblioteca}{Il gestore sta visualizzando l'elenco dei libri.}{Il nuovo libro è registrato nell’archivio.}{
 	\vspace{-0.8\topsep}
@@ -482,29 +468,55 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 		\item Il gestore interagisce con l'opzione di aggiunta di un nuovo libro.
 		\item Il sistema mostra al gestore la visualizzazione del form di\\registrazione per un nuovo libro.
 		\item Il gestore inserisce nei campi idonei titolo, lista di autori, data di pubblicazione, ISBN e numero copie disponibili nella biblioteca.
-		\item Il sistema verifica l’unicità dell’ISBN nell'archivio.
+		\item Il sistema verifica la validità dell'ISBN.
+		\item Il sistema verifica l'unicità dell’ISBN nell'archivio.
 		\item Il gestore interagisce con l'opzione per confermare l'operazione.
 		\item Il sistema registra il libro e conferma l’inserimento.
 	\end{enumerate}
 }{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=4A.\arabic*]
-		\item[] \textbf{4A - Nuovo ISBN già presente nell'archivio}
+		\item[] \textbf{4A - ISBN non valido, con correzioni}
+		\item Il sistema rileva un ISBN non conforme.
+		\item Il gestore corregge l'ISBN inserendone uno valido 
+		\item Il flusso riprende dal passo 5.
+	\end{enumerate}
+	
+	\begin{enumerate}[label=4B.\arabic*]
+		\item[] \textbf{4B - ISBN non valido, con annullamento}
+		\item Il sistema rileva che la matricola non è valida
+		\item Il gestore interagisce con l’opzione per annullare l’operazione.
+	\end{enumerate}
+	
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=5A.\arabic*]
+		\item[] \textbf{5A - ISBN già presente nell'archivio, con correzioni}
 		\item Il sistema rileva che l'ISBN inserito è già presente nell'archivio.
-		\item Il sistema disabilita l'opzione di conferma dell'operazione di aggiunta.
+		\item Il sistema mostra un messaggio di errore.
 		\item Il gestore corregge l'ISBN.
 		\item Il flusso riprende dal passo 6.
 	\end{enumerate}
 	
 	\vspace{-0.8\topsep}
-	\begin{enumerate}[label=5A.\arabic*]
-		\item[] \textbf{5A - Annullamento dell'operazione}
+	\begin{enumerate}[label=5B.\arabic*]
+		\item[] \textbf{5B - ISBN già presente nell'archivio, con annullamento}
+		\item Il sistema rileva che l'ISBN inserito è già presente nell'archivio.
+		\item Il sistema mostra un messaggio di errore.
+		\item Il gestore interagisce con l’opzione per annullare l’operazione.
+	\end{enumerate}
+	
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=6A.\arabic*]
+		\item[] \textbf{6A - Annullamento dell'operazione}
 		\item Il gestore decide di non confermare l'operazione e interagisce con l'opzione di annullamento.
 		\item Il sistema non registra la registrazione del nuovo libro.
 	\end{enumerate}
 }
 
-\newpage
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+
 \usecase{UC-\stepcounter{ucid}}{Modifica dei dati di un libro}{Gestore della biblioteca}{Il gestore sta visualizzando l'elenco dei libri.}{I dati sul libro sono correttamente aggiornati.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
@@ -517,8 +529,35 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 }{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=4A.\arabic*]
-		\item[] \textbf{4A - Dati inseriti non rispettano la coerenza dell'archivio}
-		\item Il sistema rileva che i dati modificati non rispettano i requisiti di coerenza o formattazione definiti per l'archivio.
+		\item[] \textbf{4A - Inserimento data di pubbicazione non valida, con correzioni}
+		\item Il sistema rileva che la data di pubblicazione inserita è successiva a quella attuale.
+		\item Il sistema mostra un messaggio di errore.
+		\item Il gestore modifica la data con una corretta.
+		\item Il flusso riprende dal passo 5.
+	\end{enumerate}
+	
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=4B.\arabic*]
+		\item[] \textbf{4B - Inserimento data di pubbicazione non valida, con annullamento}
+		\item Il sistema rileva che la data di pubblicazione inserita è successiva a quella attuale.
+		\item Il sistema mostra un messaggio di errore.
+		\item Il sistema rifiuta la modifica e il dato resta invariato.
+	\end{enumerate}
+
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=4C.\arabic*]
+		\item[] \textbf{4C - Inserimento vuoto campo titolo o autore, con correzioni}
+		\item Il sistema rileva che il titolo o autore è vuoto.
+		\item Il sistema mostra un messaggio di errore.
+		\item Il gestore modifica i campi inserendo titolo o autore non vuoto.
+		\item Il flusso riprende dal passo 5.
+	\end{enumerate}
+	
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=4D.\arabic*]
+		\item[] \textbf{4D - Inserimento data di pubbicazione non valida, con annullamento}
+		\item Il sistema rileva che il titolo o autore è vuoto.
+		\item Il sistema mostra un messaggio di errore.
 		\item Il sistema rifiuta la modifica e il dato resta invariato.
 	\end{enumerate}
 }
@@ -539,7 +578,7 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=3A.\arabic*]
 		\item[] \textbf{3A - Libro attualmente in prestito}
-		\item Il sistema non permette l'operazione di rimozione del libro.
+		\item Il sistema mostra un messaggio di errore.
 		\item Il gestore ricomincerà il flusso di rimozione.
 	\end{enumerate}
 }
@@ -558,20 +597,25 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 }{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=4A.\arabic*]
-		\item[] \textbf{4A - Data di scadenza non valida}
-		\item Il sistema rileva che la nuova data di restituzione è precedente a quella
-		di registrazione.
+		\item[] \textbf{4A - Data di scadenza non valida, con correzione}
+		\item Il sistema rileva che la nuova data di restituzione è precedente a quella di registrazione.
 		\item Il sistema mostra un messaggio di errore.
-		\item La data non viene modificata.
-		\item Il flusso riprende dal passo 2.
+		\item Il gestore modifica il campo inserendo una data valida.
+		\item Il flusso riprende dal passo 5.
+	\end{enumerate}
+	
+	\vspace{-0.8\topsep}
+	\begin{enumerate}[label=4B.\arabic*]
+		\item[] \textbf{4B - Data di scadenza non valida, con correzione}
+		\item Il sistema rileva che la nuova data di restituzione è precedente a quella di registrazione.
+		\item Il sistema mostra un messaggio di errore.
+		\item la modifca non viene accettata e il sistema torna alla data precedente.
 	\end{enumerate}
 }
 
-\vspace{0.5cm}
-\hrule
-\vspace{0.5cm}
+\newpage
 
-\usecase{UC-\stepcounter{ucid}}{Salvataggio dell'archivio su file}{Gestore della biblioteca.}{Il gestore ha visualizzato l'home page e l'archivio è stato correttamente popolato.}{I file di appoggio specificati sono riempiti delle informazioni \\dell'archivio}{
+\usecase{UC-\stepcounter{ucid}}{Salvataggio dell'archivio su file}{Gestore della biblioteca.}{Il gestore ha visualizzato l'home page e l'archivio è stato correttamente popolato.}{Il file di appoggio specificato è riempito delle informazioni \\dell'archivio}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Il gestore interagisce con l'opzione per salvare l'archivio su file.
@@ -589,17 +633,14 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 }
 
 
+\newpage
 
-\vspace{0.5cm}
-\hrule
-\vspace{0.5cm}
-
-\usecase{UC-\stepcounter{ucid}}{Caricamento dell'archivio da file}{Gestore della biblioteca.}{Il gestore ha visualizzato l'home page.}{L'archivio è popolato dalle informazioni presenti nei file di appoggio.}{
+\usecase{UC-\stepcounter{ucid}}{Caricamento dell'archivio dal file}{Gestore della biblioteca.}{Il gestore ha visualizzato l'home page.}{L'archivio è popolato dalle informazioni presenti nel file di appoggio.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
-		\item Il gestore interagisce con l'opzione per caricare l'archivio da file.
+		\item Il gestore interagisce con l'opzione per caricare l'archivio dal file.
 		\item Il gestore indica al sistema da quali file caricare l'archivio.
-		\item Il sistema controlla che sia possibile accedere e leggere dai file specificati.
+		\item Il sistema controlla che sia possibile accedere e leggere dal file specificato.
 		\item Il sistema popola l'archivio con i dati letti dai file, sovrascrivendo i dati precedentemente memorizzati.
 	\end{enumerate}
 }{
