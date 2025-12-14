@@ -1,6 +1,6 @@
 package it.unisa.diem.softeng.easylibrary.ui.views.pages;
 
-import it.unisa.diem.softeng.easylibrary.ui.views.dataadd.DataAddController;
+import it.unisa.diem.softeng.easylibrary.ui.views.add.DataAddController;
 import it.unisa.diem.softeng.easylibrary.archivio.Archiviabile;
 import it.unisa.diem.softeng.easylibrary.ui.views.AlertGrande;
 import it.unisa.diem.softeng.easylibrary.ui.views.VisualizzatorePagine;

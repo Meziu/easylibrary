@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.unisa.diem.softeng.easylibrary.ui.views.dataadd;
+package it.unisa.diem.softeng.easylibrary.ui.views.add.forms;
 
 import it.unisa.diem.softeng.easylibrary.dati.libri.Autore;
 import it.unisa.diem.softeng.easylibrary.ui.views.AutoriPageController;
@@ -22,7 +22,7 @@ import javafx.scene.control.TextField;
  *
  * @author marco
  */
-class LibroAddForm implements Initializable {
+public class LibroAddForm implements Initializable {
 
     @FXML
     public TextField titoloField;

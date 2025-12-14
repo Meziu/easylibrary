@@ -1,7 +1,7 @@
 package it.unisa.diem.softeng.easylibrary.ui.views.pages;
 
 import it.unisa.diem.softeng.easylibrary.archivio.Archiviabile;
-import it.unisa.diem.softeng.easylibrary.ui.views.dataadd.LibroAddController;
+import it.unisa.diem.softeng.easylibrary.ui.views.add.LibroAddController;
 import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
 import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;

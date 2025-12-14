@@ -1,4 +1,4 @@
-package it.unisa.diem.softeng.easylibrary.ui.views.dataadd;
+package it.unisa.diem.softeng.easylibrary.ui.views.add;
 
 import java.io.IOException;
 import java.net.URL;

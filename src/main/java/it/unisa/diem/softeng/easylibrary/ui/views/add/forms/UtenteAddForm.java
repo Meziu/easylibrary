@@ -1,4 +1,4 @@
-package it.unisa.diem.softeng.easylibrary.ui.views.dataadd;
+package it.unisa.diem.softeng.easylibrary.ui.views.add.forms;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;

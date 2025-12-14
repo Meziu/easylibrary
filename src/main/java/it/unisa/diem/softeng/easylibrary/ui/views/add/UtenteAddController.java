@@ -1,5 +1,6 @@
-package it.unisa.diem.softeng.easylibrary.ui.views.dataadd;
+package it.unisa.diem.softeng.easylibrary.ui.views.add;
 
+import it.unisa.diem.softeng.easylibrary.ui.views.add.forms.UtenteAddForm;
 import it.unisa.diem.softeng.easylibrary.archivio.Archiviabile;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreGiàPresenteException;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmail;
