@@ -209,6 +209,13 @@ public class Libro implements Comparable<Libro>, Serializable {
         return true;
     }
     
+    /**
+    * @brief Rappresentazione testuale del libro.
+    * Restituisce una stringa che identifica univocamente il libro in forma
+    * leggibile, nel formato: titolo ISBN.
+    *
+    * @return stringa rappresentativa del libro.
+    */
     @Override
     public String toString() {
         return this.titolo + " <" + this.isbn.getISBN() + ">";
