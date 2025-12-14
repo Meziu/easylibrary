@@ -21,9 +21,10 @@ public class AutoreTest {
     */
     @Test
     public void testCostruzioneAutoreValida() {
-        assertNotNull(a);                                           // l'oggetto è creato
-        assertEquals("Mario", a.getAnagrafica().getNome());          // nome corretto
-        assertEquals("Rossi", a.getAnagrafica().getCognome());       // cognome corretto
+        Autore a1 = new Autore("Mario", "Rossi");
+        assertNotNull(a1);                                           // l'oggetto è creato
+        assertEquals("Mario", a1.getAnagrafica().getNome());          // nome corretto
+        assertEquals("Rossi", a1.getAnagrafica().getCognome());       // cognome corretto
     }
     
     
