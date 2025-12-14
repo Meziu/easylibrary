@@ -37,6 +37,22 @@ public class Prestito implements Comparable<Prestito>, Serializable {
      * @param\[in] scadenzaPrestito Data di scadenza del prestito
      */
     public Prestito(Matricola matricolaUtente, ISBN isbn, StatoPrestito stato, LocalDate scadenzaPrestito) {
+        if(matricolaUtente == null){
+            throw new IllegalArgumentException("Matricola nulla");
+        }
+        
+        if(isbn == null){
+            throw new IllegalArgumentException("ISBN nullo");
+        }
+        
+        if(stato == null){
+            throw new IllegalArgumentException("Stato nullo");
+        }
+        
+        if(scadenzaPrestito.isBefore(LocalDate.now())){
+            throw new IllegalArgumentException("Data di scadenza prestito precedente alla data attuale");
+        }
+        
         this.matricolaUtente = matricolaUtente;
         this.isbn = isbn;
         this.stato = stato;
@@ -88,6 +104,9 @@ public class Prestito implements Comparable<Prestito>, Serializable {
      * @param\[in] nuovoStato Nuovo stato da assegnare al prestito
      */
     public void setStato(StatoPrestito nuovoStato) {
+        if(stato == null){
+            throw new IllegalArgumentException("Stato nullo");
+        }
         this.stato = nuovoStato;
     }
     
@@ -96,6 +115,9 @@ public class Prestito implements Comparable<Prestito>, Serializable {
      * @param\[in] nuovaDataDiScadenza Nuova data di scadenza
      */
     public void setDataDiScadenza(LocalDate nuovaDataDiScadenza) {
+        if(nuovaDataDiScadenza.isBefore(LocalDate.now())){
+            throw new IllegalArgumentException("Data di scadenza prestito precedente alla data attuale");
+        }
         this.dataDiScadenza = nuovaDataDiScadenza;
     }
 

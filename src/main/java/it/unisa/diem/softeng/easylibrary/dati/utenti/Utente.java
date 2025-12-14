@@ -41,6 +41,22 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @param\[in] email Indirizzo email
      */
     public Utente(String nome, String cognome, Matricola matricola, IndirizzoEmail email) {
+        if(nome == null){
+            throw new IllegalArgumentException("Nome nullo");
+        }
+        
+        if(cognome == null){
+            throw new IllegalArgumentException("Cognome nullo");
+        }
+        
+        if(matricola == null){
+            throw new IllegalArgumentException("Matricola nulla");
+        }
+        
+        if(email == null){
+            throw new IllegalArgumentException("Email nulla");
+        }
+        
         this.anagrafica = new Anagrafica(nome, cognome);
         this.matricola = matricola;
         this.email = email;
@@ -90,6 +106,9 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @pre email != null
      */
     public void setEmail(IndirizzoEmail email) {
+        if(email == null){
+            throw new IllegalArgumentException("Cognome nullo");
+        }
         this.email = email;
     }
 
