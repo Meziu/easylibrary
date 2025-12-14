@@ -1,6 +1,6 @@
 package it.unisa.diem.softeng.easylibrary.dati.libri;
 
-import it.unisa.diem.softeng.easylibrary.archivio.Gestore;
+import it.unisa.diem.softeng.easylibrary.archivio.GestoreOrdinato;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreGiàPresenteException;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
 
@@ -16,12 +16,12 @@ import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
  * rimuovere, modificare e cercare un libro nella biblioteca.
  * I libri sono identificati univocamente dal loro \ref ISBN.
  * 
- * @see Gestore
+ * @see GestoreOrdinato
  * @see Indicizzabile
  * @see Libro
  * @see ISBN
 */
-public class GestoreLibri extends Gestore<Libro> implements Indicizzabile<ISBN, Libro> {
+public class GestoreLibri extends GestoreOrdinato<Libro> implements Indicizzabile<ISBN, Libro> {
 
     private final Map<ISBN, Libro> indiceISBN;
 

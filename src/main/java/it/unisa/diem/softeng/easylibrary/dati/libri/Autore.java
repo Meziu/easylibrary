@@ -28,6 +28,11 @@ public class Autore implements Serializable {
         this.anagrafica = new Anagrafica(nome, cognome);
     }
     
+    /**
+     * @brief Restituisce l'Anagrafica associata all'Utente.
+     * 
+     * @return l'Anagrafica associata all'Utente.
+     */
     public Anagrafica getAnagrafica() {
         return this.anagrafica;
     }

@@ -5,7 +5,7 @@ import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
 
 import java.util.HashMap;
 import java.util.Map;
-import it.unisa.diem.softeng.easylibrary.archivio.Gestore;
+import it.unisa.diem.softeng.easylibrary.archivio.GestoreOrdinato;
 import java.util.function.Consumer;
 import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
 
@@ -17,12 +17,12 @@ import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
  * rimuovere, modificare e cercare un utente nel sistema della biblioteca.
  * Gli utenti sono identificati univocamente dalla loro \ref Matricola.
  * 
- * @see Gestore
+ * @see GestoreOrdinato
  * @see Indicizzabile
  * @see Utente
  * @see Matricola
 */
-public class GestoreUtenti extends Gestore<Utente> implements Indicizzabile<Matricola, Utente> {
+public class GestoreUtenti extends GestoreOrdinato<Utente> implements Indicizzabile<Matricola, Utente> {
 
     private final Map<Matricola, Utente> indiceMatricole;
 

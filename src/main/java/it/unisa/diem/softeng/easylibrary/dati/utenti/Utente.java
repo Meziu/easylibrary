@@ -98,8 +98,7 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @brief Imposta un nuovo indirizzo email.
      * @param\[in] email Nuovo indirizzo email
      * 
-     * @throws IllegalArgumentException Se l'indirizzo email passato
-     * è nullo.
+     * @throws IllegalArgumentException Se l'indirizzo email passato è nullo.
      */
     public void setEmail(IndirizzoEmail email) {
         if(email == null){

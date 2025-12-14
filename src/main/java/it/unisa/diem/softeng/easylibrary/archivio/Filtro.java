@@ -4,7 +4,7 @@ package it.unisa.diem.softeng.easylibrary.archivio;
  * @brief Interfaccia generica per definire un filtro.
  * 
  * Viene utilizzata per filtrare elementi secondo una condizione specifica.
- * La condizione è definita implementando il metodo controlla(T).
+ * La condizione è definita implementando il metodo controlla().
  *
  * @param <T> Tipo dell'elemento da filtrare
  */

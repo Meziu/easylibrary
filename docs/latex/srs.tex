@@ -41,16 +41,16 @@
 \subsection{Specifica dei Requisiti}
 \hypertarget{IF}{\subsubsection{Funzionalità individuali}}
 \requisitebox{IF-1.1}{Registrazione di un nuovo utente}{Il sistema consente la registrazione di un nuovo utente previa compilazione dei seguenti dati obbligatori: nome, cognome, \\matricola ed e-mail istituzionale.\\	La matricola deve essere univoca, ovvero non può coincidere con quella di altri utenti già presenti nel sistema.\\
-Inoltre, sia la matricola sia l’indirizzo e-mail devono rispettare il\\ formato predefinito (da DF-1.1).\\ Se il gestore inserisce matricola o e-mail istituzionale non conformi l'interazione di aggiunta viene disabilitata}{Nome, cognome, matricola, e-mail istituzionale}{Nessuno.}{Il sistema completa l'avvio. Le informazioni     
-\\sull’utente devono corrispondere alle specifiche del requisito DF-1.1.}{Il nuovo utente viene aggiunto all’elenco degli utenti registrati ed è disponibile per il salvataggio.}{Alta}
-\requisitebox{IF-1.2}{Modifica dei dati di un utente}{Il sistema permette di modificare le generalità fornite dall’utente. Tutte le informazioni possono essere modificate (campi DF-1.1) eccetto i prestiti attivi e la matricola. Se le nuove informazioni non sono valide (come matricola e indirizzo email non conforme) il campo non viene modificato bensì restituisce un messaggio di errore tornando al valore iniziale.}{Nuovi valori dei campi dell'utente.}{Nessuno.}{Il sistema completa l'avvio. L'utente è correttamente registrato nel sistema.}{L'utente selezionato viene aggiornato, e le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
-\requisitebox{IF-1.3}{Rimozione di un utente}{Il sistema permette la cancellazione di un utente \\registrato, purché non abbia prestiti attivi associati al \\proprio profilo. Se invece l’utente possiede uno o più prestiti attivi, il sistema disabiliterà l'interazione della cancellazione.}{Matricola associata all’utente da rimuovere.}{Nessuno.}{Il sistema completa l'avvio. \\Il profilo dell’utente è presente nel sistema.}{L'utente selezionato è rimosso dall'archivio, e le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
-\requisitebox{IF-1.4}{Ricerca di utenti}{Il sistema permette la ricerca di utenti tramite \\2 modalità: per cognome o per matricola. Il sistema restituisce tutti gli utenti che soddisfano il criterio di ricerca. Se non esistono nell’archivio del sistema utenti che corrispondono ai criteri di ricerca, sarà restituita una lista vuota di utenti.}{Criteri di ricerca (cognome, matricola).}{Utenti corrispondenti ai criteri di ricerca.}{Il sistema completa l'avvio.\\ Il criterio di ricerca è valido.}{Nessuna.}{Media}
+Inoltre, sia la matricola sia l’indirizzo e-mail devono rispettare il\\ formato predefinito (da DF-1.1).\\ Se il gestore inserisce matricola o e-mail istituzionale non conformi l'interazione di aggiunta viene disabilitata}{Nome, cognome, matricola, e-mail istituzionale}{Nessuno.}{Il sistema completa l'avvio. Le informazioni
+\\sull’utente devono corrispondere alle specifiche del requisito DF-1.1.}{Il nuovo utente viene aggiunto all’elenco degli utenti registrati.}{Alta}
+\requisitebox{IF-1.2}{Modifica dei dati di un utente}{Il sistema permette di modificare le generalità fornite dall’utente. Tutte le informazioni possono essere modificate (campi DF-1.1) eccetto i prestiti attivi e la matricola. Se le nuove informazioni non sono valide (matricola e /o indirizzo email non conformi alle specifiche o matricola duplicata nell'archivio del sistema) il campo non viene modificato bensì restituisce un messaggio di errore tornando al valore iniziale.}{Nuovi valori dei campi dell'utente.}{Nessuno.}{Il sistema completa l'avvio. L'utente è correttamente registrato nel sistema.}{L'utente selezionato viene aggiornato, e le modifiche sono riflesse nell’archivio.}{Alta}
+\requisitebox{IF-1.3}{Rimozione di un utente}{Il sistema permette la cancellazione di un utente \\registrato, purché non abbia prestiti attivi associati al \\proprio profilo. Se invece l’utente possiede uno o più prestiti attivi, il sistema disabiliterà l'interazione della cancellazione.}{Matricola associata all’utente da rimuovere.}{Nessuno.}{Il sistema completa l'avvio. \\Il profilo dell’utente è presente nel sistema.}{L'utente selezionato è rimosso dall'archivio, e le modifiche sono riflesse nell’archivio.}{Alta}
+\requisitebox{IF-1.4}{Ricerca di utenti}{Il sistema permette la ricerca di utenti tramite 2 modalità: per cognome o per matricola. Il sistema restituisce tutti gli utenti che soddisfano il criterio di ricerca. Se non esistono nell’archivio del sistema utenti che corrispondono ai criteri di ricerca, sarà restituita una lista vuota di utenti.}{Criteri di ricerca (cognome, matricola).}{Utenti corrispondenti ai criteri di ricerca.}{Il sistema completa l'avvio.\\ Il criterio di ricerca è valido.}{Nessuna.}{Media}
 \requisitebox{IF-2.1}{Inserimento di un nuovo libro}{Il sistema consente l’aggiunta di un nuovo libro \\all’archivio tramite l’inserimento dei campi necessari alla sua \\rappresentazione (DF-1.2).
 L’operazione di inserimento è consentita solo se l’ISBN non risulta già presente nel sistema e rispetta il \\formato definito in DF-1.2.
-Inoltre, il numero di copie disponibili del libro inserito non può essere inferiore a zero.}{Titolo, autore (nome e cognome), anno di pubblicazione, codice identificativo (ISBN), numero di copie disponibili.}{Nessuno.}{Il sistema completa l'avvio.}{Il libro è aggiunto all’archivio ed è disponibile  prestito e il salvataggio (DF-2.1).}{Alta}
-\requisitebox{IF-2.2}{Modifica dei dati relativi ad un libro}{Il sistema permette di modificare i dati relativi ad un libro (DF-1.2) nel sistema. È possibile modificare le informazioni \\relative a titolo, autore, anno di pubblicazione e numero di copie disponibili di un libro. L’anno di pubblicazione non può essere \\successivo all’anno corrente e il numero di copie disponibili non può essere inferiore a zero. Le modifiche devono mantenere la coerenza dei dati.}{Nuovi dati relativi al libro.}{Nessuno.}{Il sistema completa l'avvio. \\Il libro è presente nel sistema.}{I dati del libro risultano aggiornati secondo le \\modifiche specificate, e le modifiche sono riflesse nell’archivio e rese \\disponibili per il salvataggio (DF-2.1).}{Alta}
-\requisitebox{IF-2.3}{Rimozione di un libro}{Il sistema deve permettere di eliminare un libro \\dall’archivio, ma solo se non esistono prestiti attivi associati a quel titolo. In caso contrario, il sistema disabilità l'interazione della \\cancellazione.}{Dati relativi al libro \\presente nel sistema.}{Nessuno.}{Il sistema completa l'avvio. \\Il libro deve essere presente nell’archivio del sistema.}{Il libro è rimosso dall'archivio, e le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
+Inoltre, il numero di copie disponibili del libro inserito non può essere inferiore a zero.}{Titolo, autore (nome e cognome), anno di pubblicazione, codice identificativo (ISBN), numero di copie disponibili.}{Nessuno.}{Il sistema completa l'avvio.}{Il libro è aggiunto all’archivio.}{Alta}
+\requisitebox{IF-2.2}{Modifica dei dati relativi ad un libro}{Il sistema permette di modificare i dati relativi ad un libro (DF-1.2) nel sistema. È possibile modificare le informazioni \\relative a titolo, autore, anno di pubblicazione e numero di copie disponibili di un libro. L’anno di pubblicazione non può essere \\successivo all’anno corrente e il numero di copie disponibili non può essere inferiore a zero. Le modifiche devono mantenere la coerenza dei dati.}{Nuovi dati relativi al libro.}{Nessuno.}{Il sistema completa l'avvio. \\Il libro è presente nel sistema.}{I dati del libro risultano aggiornati secondo le \\modifiche specificate, e le modifiche sono riflesse nell’archivio.}{Alta}
+\requisitebox{IF-2.3}{Rimozione di un libro}{Il sistema deve permettere di eliminare un libro \\dall’archivio, ma solo se non esistono prestiti attivi associati a quel titolo. In caso contrario, il sistema disabilità l'interazione della \\cancellazione.}{Dati relativi al libro \\presente nel sistema.}{Nessuno.}{Il sistema completa l'avvio. \\Il libro deve essere presente nell’archivio del sistema.}{Il libro è rimosso dall'archivio, e le modifiche sono riflesse nell’archivio.}{Alta}
 \requisitebox{IF-2.4}{Ricerca di libri}{Il gestore deve poter cercare libri secondo tre modalità:\vspace{-8pt}
 	\begin{itemize}
 		\renewcommand{\labelitemi}{-}
@@ -61,7 +61,7 @@ Inoltre, il numero di copie disponibili del libro inserito non può essere infer
 	\end{itemize}
 	 \vspace{-8pt} il sistema deve restituire tutti i libri che soddisfano il criterio di \\ricerca. Se non esistono nell’archivio del sistema libri che \\corrispondono ai criteri di ricerca, sarà restituita una lista vuota di libri.}{Criterio di ricerca (Titolo, autore o ISBN del libro).}{Elenco dei libri corrispondenti ai criteri della ricerca.}{Il criterio di ricerca è valido.}{Nessuna.}{Media}
 \requisitebox{IF-3.1}{Raccolta dello storico dei prestiti}{Il gestore deve poter ottenere e operare sull'elenco dei prestiti attivi e restituiti.}{Nessuno.}{Elenco completo di tutti i prestiti (attivi e restituiti) presenti nell'archivio del sistema.}{Il sistema completa l'avvio.}{Nessuna.}{Media}
-\requisitebox{IF-3.2}{Modifica di un prestito}{Il sistema deve permettere al gestore di modificare la data di scadenza di un prestito già registrato. La nuova data non può essere precedente alla data corrente.}{Nuova data di scadenza del prestito.}{Nessuno.}{Il prestito deve essere correttamente registrato nel sistema.}{La data di scadenza del prestito deve essere \\modificata e salvata. Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Bassa}
+\requisitebox{IF-3.2}{Modifica di un prestito}{Il sistema deve permettere al gestore di modificare la data di scadenza di un prestito già registrato. La nuova data non può essere precedente alla data corrente.}{Nuova data di scadenza del prestito.}{Nessuno.}{Il prestito deve essere correttamente registrato nel sistema.}{La data di scadenza del prestito deve essere modificata e salvata. Le modifiche sono riflesse nell’archivio.}{Bassa}
 
 \hypertarget{BF}{\subsubsection{Business Flow}}
 \requisitebox{BF-1.1}{Registrazione di un nuovo prestito}{Il gestore registra il prestito di un libro da parte di un utente. Un prestito può essere registrato solo se: \vspace{-6pt}
@@ -72,27 +72,27 @@ Inoltre, il numero di copie disponibili del libro inserito non può essere infer
 		\item{l’utente ha meno di tre prestiti attivi.}
 		\item{la data di scadenza è successiva alla data di registrazione.}
 	\end{itemize}
-	\vspace{-6pt} Se una o più delle condizioni sopra indicate non risultano \\soddisfatte, il gestore sarà notificato di quali condizioni non siano rispettate e non potrà confermare l’operazione. Al termine della \\registrazione, il sistema deve decrementare il numero di copie \\disponibili del libro e inserire le informazioni del prestito nell’archivio (DF-1.3). \\È possibile per un utente prendere in prestito più di una singola copia del medesimo libro.}{Dati relativi all’utente e ai libri di cui si vuole effettuare il prestito.}{Nessuno.}{L’utente a carico del prestito è correttamente \\registrato nel sistema. Il libro da prestare è correttamente registrato nel sistema. La data di scadenza è successiva alla data di registrazione.}{Il numero di copie disponibili del libro è decrementato. Il prestito viene aggiunto alla lista dei prestiti attivi dell’utente. Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
-\requisitebox{BF-1.2}{Restituzione di un libro}{Il gestore registra la restituzione di un libro da parte di un utente. Il gestore ricerca il prestito corrispondente all’interno del sistema e lo segna come restituito. Se tale prestito era già \\contrassegnato come restituito, il sistema non compierà operazioni \\aggiuntive. Altrimenti, il sistema segna come disponibile la copia del libro.}{Dati del libro da restituire e dell’utente che effettua la \\restituzione.}{Nessuno.}{Il prestito deve essere attivo.}{Il prestito viene segnalato come restituito. La copia del libro viene resa disponibile per nuovi prestiti. Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
+	\vspace{-6pt} Se una o più delle condizioni sopra indicate non risultano soddisfatte, il gestore sarà notificato di quali condizioni non siano rispettate e non potrà confermare l’operazione. Al termine della registrazione, il sistema deve decrementare il numero di copie disponibili del libro e inserire le informazioni del prestito nell’archivio (DF-1.3). \\È possibile per un utente prendere in prestito più di una singola copia del medesimo libro.}{Dati relativi all’utente e ai libri di cui si vuole effettuare il prestito.}{Nessuno.}{L’utente a carico del prestito è correttamente registrato nel sistema. Il libro da prestare è correttamente registrato nel sistema. La data di scadenza è successiva alla data di registrazione.}{Il numero di copie disponibili del libro è decrementato. Il prestito viene aggiunto alla lista dei prestiti attivi dell’utente. Le modifiche sono riflesse nell’archivio.}{Alta}
+\requisitebox{BF-1.2}{Restituzione di un libro}{Il gestore registra la restituzione di un libro da parte di un utente. Il gestore ricerca il prestito corrispondente all’interno del sistema e lo segna come restituito. Se tale prestito era già contrassegnato come restituito, il sistema non compierà operazioni aggiuntive. Altrimenti, il sistema segna come disponibile la copia del libro.}{Dati del libro da restituire e dell’utente che effettua la restituzione.}{Nessuno.}{Il prestito deve essere attivo.}{Il prestito viene segnalato come restituito. La copia del libro viene resa disponibile per nuovi prestiti. Le modifiche sono riflesse nell’archivio.}{Alta}
 
 
 \hypertarget{DF}{\subsubsection{Esigenze Dati}}
-\requisiteboxsimple{DF-1.1}{Informazioni sull’utente}{Un utente deve essere rappresentato tramite i \\seguenti dati: nome, cognome, matricola univoca (stringa di 10 cifre numeriche), e-mail istituzionale univoca (formattata per standard RFC 5322, terminante nel campo di dominio con “studenti.unisa.it”), lista dei titoli dei libri in prestito (DF-1.3) attualemente attivi a carico \\dell’utente, che non possono essere più di 3. \\Tutti i campi dei dati non possono essere vuoti}{Alta}
-\requisiteboxsimple{DF-1.2}{Informazioni sul libro}{Un libro deve essere rappresentato tramite i seguenti dati: titolo, lista di autori (con ognuno campo di nome e di cognome non vuoti), data di pubblicazione (precedente o corrispondente alla data attuale, composta dai campi di giorno, mese ed anno), codice identificativo univoco ISBN (per standard ISO 2108) e numero di copie disponibili nell’archivio (non negative). \\Tutti i campi dei dati non possono essere vuoti}{Alta}
+\requisiteboxsimple{DF-1.1}{Informazioni sull’utente}{Un utente deve essere rappresentato tramite i seguenti dati: nome, cognome, matricola univoca (stringa di 10 cifre numeriche), e-mail istituzionale univoca (formattata per standard RFC 5322, terminante nel campo di dominio con “studenti.unisa.it”), lista dei titoli dei libri in prestito (DF-1.3) attualemente attivi a carico \\dell’utente, che non possono essere più di 3. \\Tutti i campi dei dati non possono essere vuoti}{Alta}
+\requisiteboxsimple{DF-1.2}{Informazioni sul libro}{Un libro deve essere rappresentato tramite i seguenti dati: titolo, lista di autori (con ognuno campo di nome e di cognome non vuoti), anno di pubblicazione (precedente o corrispondente all'anno attuale), codice identificativo univoco ISBN (per standard ISO 2108) e numero di copie disponibili nell’archivio (non negative). \\Tutti i campi dei dati non possono essere vuoti}{Alta}
 \requisiteboxsimple{DF-1.3}{Informazioni sul prestito}{Un prestito è rappresentato tramite le informazioni di utente a carico (DF-1.1), di libro preso in prestito (DF-1.2), di data prevista di restituzione del prestito, e di un indicatore che ne indica lo stato tra "attivo" o "restituito".}{Alta}
-\requisitebox{DF-2.1}{Salvataggio dei dati dell’archivio su file}{Ogni componente dell’archivio (libri, utenti, prestiti) deve essere salvato su un unico file locale univocamente associato. Il salvataggio deve avvenire:\vspace{-6pt} 
+\requisitebox{DF-2.1}{Salvataggio dei dati dell’archivio su file}{Ogni componente dell’archivio (libri, utenti, prestiti) deve essere salvato su un unico file locale. Il salvataggio deve avvenire:\vspace{-6pt}
 	\begin{itemize}
  	    \renewcommand{\labelitemi}{-}
 		\setlength\itemsep{-0.1mm}
 		\item{Su richiesta dell’utente.}
 		\item{Automaticamente alla chiusura dell’applicazione.}
 	\end{itemize}\vspace{-20pt} \phantom{X} }{Dati di archivio da salvare (quali l’insieme di studenti, libri e prestiti annessi). Il nome del file su cui devono essere salvati.}{File su sistema contenente i dati relativi all’archivio (archivio di utenti, libri e prestiti). Il modo in cui sono archiviati i file dipende dal requisito RNF-2.2.}{Nessuno.}{Nessuno.}{Alta}
-\requisitebox{DF-2.2}{Caricamento da file dell’archivio}{Il sistema carica nelle proprie collezioni corrispondenti i libri, utenti e i prestiti presenti nel file di appoggio secondo la \\serializzazione utilizzata (RNF-2.2).}{Nome del file da cui caricare l’archivio.}{Strutture dati dell’archivio.}{File di appoggio presente e coerente.}{La memoria del sistema è popolata dalle informazioni presenti nel file di appoggio.}{Alta}
+\requisitebox{DF-2.2}{Caricamento da file dell’archivio}{Il sistema carica nelle proprie collezioni corrispondenti i libri, utenti e i prestiti presenti nel file di appoggio secondo la \\serializzazione utilizzata.}{Nome del file da cui caricare l’archivio.}{Strutture dati dell’archivio.}{File di appoggio presente e coerente.}{La memoria del sistema è popolata dalle informazioni presenti nel file di appoggio.}{Alta}
 
 \newpage
 \hypertarget{UI}{\subsubsection{Interfaccia Utente}}
 \requisiteboxsimple{UI-1.1}{Menù principale dell’applicativo}{Landing page con menù di opzioni per accedere alle\\diverse funzionalità del sistema, aperto di default all’avvio del\\programma grafico. Il menù mostra il nome del sistema e i diversi collegamenti per permettere al gestore di visualizzare i vari elenchi di informazioni, quali uno per visualizzare la lista degli utenti (UI-2.1), dei libri (UI-3.1), e dei prestiti attivi (UI-4.1).}{Alta}
-\requisiteboxsimple{UI-1.2}{Menu Bar persistente}{Barra di menù persistente nella vista principale del programma. Contiene interazioni per:\vspace{-8pt} 
+\requisiteboxsimple{UI-1.2}{Menu Bar persistente}{Barra di menù persistente nella vista principale del programma. Contiene interazioni per:\vspace{-8pt}
 	\begin{itemize}
 		\renewcommand{\labelitemi}{-}
 		\setlength\itemsep{0.1mm}
@@ -100,7 +100,7 @@ Inoltre, il numero di copie disponibili del libro inserito non può essere infer
 		\item{Caricare l’archivio da un file specifico (DF-2.1).}
 		\item{Esportare l’archivio in un file specifico (DF-2.2).}
 		\item{un menù a tendina che permette di passare da una pagina all'altra.}
-	\end{itemize}\vspace{-8pt} 
+	\end{itemize}\vspace{-8pt}
 	L’interfaccia dell’applicativo viene aggiornata in base all'interazione scelta.
 }{Media}
 \requisiteboxsimple{UI-2.1}{Visualizzazione dell’elenco degli utenti}{Elenco grafico degli utenti registrati nell’archivio della biblioteca. La vista mostra le informazioni sugli utenti registrati\\nell’archivio della biblioteca includendo le loro informazioni (DF-1.1), \\ordinati alfabeticamente per cognome e, a parità di cognome, per nome, in una tabella. \\
@@ -277,15 +277,15 @@ Il sistema permette un interazione per mostrare la vista dello storico completo 
 		\item Il gestore corregge l'e-mail.
 		\item L’esecuzione riprende dal passo 6.
 	\end{enumerate}
-	
+
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=5B.\arabic*]
 		\item[] \textbf{5B - Email non valida, con annullamento}
 		\item Il sistema rileva che la e-mail inserita non è valida.
 		\item Il gestore interagisce con l’opzione per annullare l’operazione.
-		
+
 	\end{enumerate}
-	
+
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=6A.\arabic*]
 		\item[] \textbf{6A - Matricola duplicata, con correzione}
@@ -294,7 +294,7 @@ Il sistema permette un interazione per mostrare la vista dello storico completo 
 		\item Il gestore corregge la matricola.
 		\item L’esecuzione riprende dal passo 7.
 	\end{enumerate}
-	
+
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=6B.\arabic*]
 		\item[] \textbf{5B - Matricola duplicata, con annullamento}
@@ -373,7 +373,7 @@ Il sistema permette un interazione per mostrare la vista dello storico completo 
 		\item Il gestore corregge i dati inseriti cambiando l'utente a carico.
 		\item Il flusso riprende dal passo 5.
 	\end{enumerate}
-	
+
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=4B.\arabic*]
 		\item[] \textbf{4B - Limite di prestiti raggiunto, senza correzione}
@@ -389,7 +389,7 @@ Il sistema permette un interazione per mostrare la vista dello storico completo 
 		\item Il gestore corregge i dati inseriti cambiando il libro da prestare.
 		\item Il flusso riprende dal passo 5.
 	\end{enumerate}
-	
+
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=4D.\arabic*]
 		\item[] \textbf{4D - Copie del libro terminate, senza correzione}
@@ -397,7 +397,7 @@ Il sistema permette un interazione per mostrare la vista dello storico completo 
 		\item Il gestore annulla l'operazione.
 		\item Il prestito non viene registrato nell'archivio del sistema.
 	\end{enumerate}
-	
+
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=4E.\arabic*]
 		\item[] \textbf{4E - Data di scadenza nel passato, senza correzione}
@@ -406,7 +406,7 @@ Il sistema permette un interazione per mostrare la vista dello storico completo 
 		\item Il gestore annulla l'operazione.
 		\item Il prestito non viene registrato nell'archivio del sistema.
 	\end{enumerate}
-	
+
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=4F.\arabic*]
 		\item[] \textbf{4F - Data di scadenza nel passato, con correzione}
@@ -415,7 +415,7 @@ Il sistema permette un interazione per mostrare la vista dello storico completo 
 		\item Il gestore corregge i dati inseriti inserendo una data di scadenza valida.
 		\item Il flusso riprende dal passo 5.
 	\end{enumerate}
-	
+
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=5A.\arabic*]
 		\item[] \textbf{5A - Annullamento dell'operazione}
@@ -475,16 +475,16 @@ Il sistema permette un interazione per mostrare la vista dello storico completo 
 	\begin{enumerate}[label=4A.\arabic*]
 		\item[] \textbf{4A - ISBN non valido, con correzioni}
 		\item Il sistema rileva un ISBN non conforme.
-		\item Il gestore corregge l'ISBN inserendone uno valido 
+		\item Il gestore corregge l'ISBN inserendone uno valido
 		\item Il flusso riprende dal passo 5.
 	\end{enumerate}
-	
+
 	\begin{enumerate}[label=4B.\arabic*]
 		\item[] \textbf{4B - ISBN non valido, con annullamento}
 		\item Il sistema rileva che la matricola non è valida
 		\item Il gestore interagisce con l’opzione per annullare l’operazione.
 	\end{enumerate}
-	
+
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=5A.\arabic*]
 		\item[] \textbf{5A - ISBN già presente nell'archivio, con correzioni}
@@ -493,7 +493,7 @@ Il sistema permette un interazione per mostrare la vista dello storico completo 
 		\item Il gestore corregge l'ISBN.
 		\item Il flusso riprende dal passo 6.
 	\end{enumerate}
-	
+
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=5B.\arabic*]
 		\item[] \textbf{5B - ISBN già presente nell'archivio, con annullamento}
@@ -501,7 +501,7 @@ Il sistema permette un interazione per mostrare la vista dello storico completo 
 		\item Il sistema mostra un messaggio di errore.
 		\item Il gestore interagisce con l’opzione per annullare l’operazione.
 	\end{enumerate}
-	
+
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=6A.\arabic*]
 		\item[] \textbf{6A - Annullamento dell'operazione}
@@ -530,7 +530,7 @@ Il sistema permette un interazione per mostrare la vista dello storico completo 
 		\item Il gestore modifica la data con una corretta.
 		\item Il flusso riprende dal passo 5.
 	\end{enumerate}
-	
+
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=4B.\arabic*]
 		\item[] \textbf{4B - Inserimento data di pubbicazione non valida, con annullamento}
@@ -538,7 +538,7 @@ Il sistema permette un interazione per mostrare la vista dello storico completo 
 		\item Il sistema mostra un messaggio di errore.
 		\item Il sistema rifiuta la modifica e il dato resta invariato.
 	\end{enumerate}
-	
+
 	\newpage
 
 	\vspace{-0.8\topsep}
@@ -549,7 +549,7 @@ Il sistema permette un interazione per mostrare la vista dello storico completo 
 		\item Il gestore modifica i campi inserendo titolo o autore non vuoto.
 		\item Il flusso riprende dal passo 5.
 	\end{enumerate}
-	
+
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=4D.\arabic*]
 		\item[] \textbf{4D - Inserimento data di pubbicazione non valida, con annullamento}
@@ -599,7 +599,7 @@ Il sistema permette un interazione per mostrare la vista dello storico completo 
 		\item Il gestore modifica il campo inserendo una data valida.
 		\item Il flusso riprende dal passo 5.
 	\end{enumerate}
-	
+
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=4B.\arabic*]
 		\item[] \textbf{4B - Data di scadenza non valida, con correzione}
@@ -646,7 +646,7 @@ Il sistema permette un interazione per mostrare la vista dello storico completo 
 		\item Il sistema rileva l'impossibilità a leggere i dati dal file specificati.
 		\item Il sistema mostra un messaggio di errore e annulla l'operazione.
 	\end{enumerate}
-	
+
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=4A.\arabic*]
 		\item[] \textbf{4A - Errore di interpretazione dei dati}
@@ -691,4 +691,3 @@ Il sistema permette un interazione per mostrare la vista dello storico completo 
 \end{figure}
 
 \end{document}
-

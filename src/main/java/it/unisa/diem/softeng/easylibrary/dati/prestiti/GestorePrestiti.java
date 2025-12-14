@@ -1,7 +1,7 @@
 package it.unisa.diem.softeng.easylibrary.dati.prestiti;
 
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
-import it.unisa.diem.softeng.easylibrary.archivio.Gestore;
+import it.unisa.diem.softeng.easylibrary.archivio.GestoreOrdinato;
 import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
 import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
@@ -15,13 +15,13 @@ import java.util.Collections;
  * La classe GestorePrestiti estende Gestore e si occupa di registrare le
  * restituzioni dei prestiti.
  *
- * @see Gestore
+ * @see GestoreOrdinato
  * @see Prestito
  * @see Indicizzabile
  * @see Libro
  * @see Utente
  */
-public class GestorePrestiti extends Gestore<Prestito> {
+public class GestorePrestiti extends GestoreOrdinato<Prestito> {
 
     private final Indicizzabile<Matricola, Utente> archivioUtenti;
     private final Indicizzabile<ISBN, Libro> archivioLibri;
