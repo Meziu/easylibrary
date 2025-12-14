@@ -32,7 +32,7 @@ public class GestorePrestitiTest {
         GestoreUtentiTest.aggiungiUtenti(utenti);
         GestoreLibriTest.aggiungiLibri(libri);
         
-        stamp = LocalDate.of(2025, Month.DECEMBER, 6);
+        stamp = LocalDate.now().plusDays(10);
         
         prestiti.registra(new Prestito(new Matricola("8482921412"), new ISBN("0261102389"), StatoPrestito.ATTIVO, stamp.plusDays(10)));
         prestiti.registra(new Prestito(new Matricola("1938274018"), new ISBN("0441013597"), StatoPrestito.ATTIVO, stamp.plusDays(-10)));
