@@ -35,6 +35,12 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @param\[in] annoPubblicazione  Anno di pubblicazione del libro.
      * @param\[in] isbn Codice ISBN.
      * @param\[in] copieDisponibili Interi che indica il numero di copie disponibili.
+     * 
+     * @throws IllegalArgumentException Se:
+     * - titolo e lista di autori sono nulli o vuoti
+     * - isbn è nullo
+     * - copieDisponibili è un numero minore di 0
+     * - anno di pubblicazione è nel futuro
      */
     public Libro(String titolo, List<Autore> autori, int annoPubblicazione, ISBN isbn, int copieDisponibili) {
         if (titolo == null || titolo.trim().isEmpty()) {
@@ -116,6 +122,8 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @brief Imposta il titolo del libro.
      * 
      * @param\[in] titolo Nuovo titolo del libro.
+     * 
+     * @throws IllegalArgumentException se il titolo è nullo o vuoto
      */
     public void setTitolo(String titolo) {
         if (titolo == null || titolo.isEmpty()) {
@@ -129,6 +137,8 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @brief Imposta la lista degli autori del libro.
      * 
      * @param\[in] autori Nuova lista di autori.
+     * 
+     * @throws IllegalArgumentException se la lista di autori è nulla o vuota
      */
     public void setAutori(List<Autore> autori) {
         if (autori == null || autori.isEmpty()) {
@@ -142,6 +152,8 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @brief Imposta la data di pubblicazione del libro.
      * 
      * @param\[in] annoPubblicazione Nuovo anno di pubblicazione.
+     * 
+     * @throws IllegalArgumentException se l'anno di pubblicazione è nel futuro
      */
     public void setAnnoPubblicazione(int annoPubblicazione) {
         Year anno = Year.of(annoPubblicazione);
@@ -155,6 +167,8 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @brief Imposta il numero di copie disponibili del libro.
      * 
      * @param\[in] copieDisponibili Nuovo numero di copie disponibili.
+     * 
+     * @throws IllegalArgumentException se il numero di copie è negativo
      */
     public void setCopieDisponibili(int copieDisponibili) {
         if (copieDisponibili < 0) {
@@ -170,6 +184,8 @@ public class Libro implements Comparable<Libro>, Serializable {
      * 
      * @param\[in] a Autore da aggiungere alla lista.
      * 
+     * @throws IllegalArgumentException se l'autore passato è nullo.
+     * 
      */
     public void aggiungiAutore(Autore a) {
         if (a == null) {
@@ -178,13 +194,14 @@ public class Libro implements Comparable<Libro>, Serializable {
         autori.add(a);
     }
 
-     /**
+    /**
      * @brief Rimuove un autore dalla lista degli autori del libro.
      * 
-     * @post L'oggetto di tipo Autore viene rimosso dalla lista.
+     * @post Se l'autore è presente nella lista, viene rimosso.
+     * @post Se l'autore non è presente, la lista rimane invariata.
      * 
      * @param[in] a L'autore da rimuovere.
-     */
+    */
     public void rimuoviAutore(Autore a) {
         autori.remove(a);
     }
