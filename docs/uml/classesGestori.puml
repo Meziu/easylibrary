@@ -60,7 +60,7 @@ together {
 
 
     +class GestoreUtenti extends Gestore {
-        -indiceMatricola: Map<Matricola, Utente> {readOnly}
+        -indiceMatricole: Map<Matricola, Utente> {readOnly}
 
         +GestoreUtenti()
     }
@@ -87,7 +87,7 @@ GestoreUtenti .up.|> Indicizzabile
 
 GestorePrestiti -left-> Indicizzabile
 
-GestoreUtenti --> "1..*" Utente
-GestoreLibri --> "1..*" Libro
-GestorePrestiti --> "1..*" Prestito
+GestoreUtenti --> "0..*" Utente
+GestoreLibri --> "0..*" Libro
+GestorePrestiti --> "0..*" Prestito
 @enduml
