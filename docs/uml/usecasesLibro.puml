@@ -13,7 +13,6 @@ package Sistema {
     usecase "Rimozione di un libro dal catalogo" as UC14
 
     usecase "ISBN duplicato" as UCA3
-    usecase "Libro coinvolto in un prestito" as UCA4
 }
 
 
@@ -24,7 +23,6 @@ UC14 ..> UC2 : <<include>>
 
 UC12 <.. UCA3 : <<extend>>
 UC13 <.. UCA3 : <<extend>>
-UC14 <.. UCA4  : <<extend>>
 
 G -- UC11
 G -- UC12

@@ -14,6 +14,7 @@ package Sistema {
 
     usecase "Matricola duplicata" as UCA1
     usecase "E-Mail non valida" as UCA2
+    usecase "Utente con prestiti attivi" as UCA3
 }
 
 
@@ -26,6 +27,7 @@ UC6 <.. UCA1 : <<extend>>
 UC7 <.. UCA1 : <<extend>>
 UC6 <.. UCA2 : <<extend>>
 UC7 <.. UCA2 : <<extend>>
+UC8 <.. UCA3 : <<extend>>
 
 G -- UC6
 G -- UC7
