@@ -45,14 +45,14 @@ public class ISBNTest {
     
     @Test
     public void testCostruzioneISBNNullo() {
-        assertThrows(IllegalArgumentException.class, ()
+        assertThrows(ISBNInvalidoException.class, ()
                 -> new ISBN(null)
         );
     }
     
     @Test
     public void testCostruzioneISBNVuoto() {
-        assertThrows(IllegalArgumentException.class, ()
+        assertThrows(ISBNInvalidoException.class, ()
                 -> new ISBN("")
         );
     }
