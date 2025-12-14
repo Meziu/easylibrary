@@ -1,15 +1,23 @@
 @startuml
 start
-:Cerca libro;
+note
+Si presuppone che l'utente e il libro specificati
+siano validi e presenti nel sistema.
+endnote
+:Cerca libro per ISBN specificato;
 if (Copia disponibile?) then (si)
-    if(Limite prestiti raggiunto?) then (no)
-        :Aggiorna disponibilità;
-        :Registra prestito;
-    else (si)
-        :Mostra messaggio di errore (limite raggiunto);
+    :Cerca utente per Matricola specificata;
+    if(Limite prestiti raggiunto?) then (si)
+        :Registra il prestito nell'archivio;
+        :Aggiorna disponibilità dei libri;
+        :Registra prestito all'utente;
+    else (no)
+        :Mostra messaggio di errore
+        (limite di prestiti raggiunto);
     endif
 else (no)
-    :Mostra messaggio di errore (nessuna copia disponibile);
+    :Mostra messaggio di errore
+    (nessuna copia disponibile);
 endif
 stop
 @enduml

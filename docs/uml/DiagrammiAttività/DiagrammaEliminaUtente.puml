@@ -6,10 +6,12 @@ if (Utente presente nel sistema?) then (si)
     if(Utente ha prestiti attivi?) then (no)
         :Elimina utente;
     else (si)
-        :Mostra messaggio di errore (utente ha prestiti attivi);
+        :Mostra messaggio di errore
+        (utente ha prestiti attivi);
     endif
 else (no)
-:Mostra messaggio di errore (utente non presente nel sistema);
+:Mostra messaggio di errore
+(utente non presente nel sistema);
 endif
 
 stop
