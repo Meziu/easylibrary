@@ -39,16 +39,11 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @param\[in] cognome Cognome dell'utente
      * @param\[in] matricola Matricola univoca
      * @param\[in] email Indirizzo email
+     * 
+     * @throws IllegalArgumentException Se la matricola e/o l'indirizzo email passato
+     * è nullo.
      */
     public Utente(String nome, String cognome, Matricola matricola, IndirizzoEmail email) {
-        if(nome == null){
-            throw new IllegalArgumentException("Nome nullo");
-        }
-        
-        if(cognome == null){
-            throw new IllegalArgumentException("Cognome nullo");
-        }
-        
         if(matricola == null){
             throw new IllegalArgumentException("Matricola nulla");
         }
@@ -91,7 +86,7 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @brief Restituisce la lista dei prestiti attivi.
      *
      * La lista è restituita come non modificabile.
-     * In questo modo le modifiche ai prestiti possono avvenire solo tramite i metodi di Utente.
+     * In tal modo le modifiche ai prestiti possono avvenire solo tramite i metodi di Utente.
      * @return Lista non modificabile dei prestiti attivi
      */
     public List<Prestito> getPrestitiAttivi() {
@@ -103,11 +98,12 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @brief Imposta un nuovo indirizzo email.
      * @param\[in] email Nuovo indirizzo email
      * 
-     * @pre email != null
+     * @throws IllegalArgumentException Se l'indirizzo email passato
+     * è nullo.
      */
     public void setEmail(IndirizzoEmail email) {
         if(email == null){
-            throw new IllegalArgumentException("Cognome nullo");
+            throw new IllegalArgumentException("Email nulla");
         }
         this.email = email;
     }
@@ -115,13 +111,22 @@ public class Utente implements Comparable<Utente>, Serializable {
     /**
      * @brief Registra un nuovo prestito attivo per l'utente.
      * @param\[in] p Prestito da aggiungere
+     * 
      * @throws LimitePrestitiSuperatoException
-     */
+     * @throws IllegalArgumentException Se il prestito passato
+     * è nullo.
+    */
     public void registraPrestito(Prestito p) {
+        if (p == null) {
+            throw new IllegalArgumentException("Prestito nullo");
+        }
+        if (prestitiAttivi.size() >= 3) {
+            throw new LimitePrestitiSuperatoException();
+        }
         if (this.prestitiAttivi.size() >= 3) {
             throw new LimitePrestitiSuperatoException();
         }
-        
+
         this.prestitiAttivi.add(p);
     }
 
@@ -139,11 +144,11 @@ public class Utente implements Comparable<Utente>, Serializable {
      * 
      * La comparazione è svolta aderendo al contratto di Comparable,
      * tramite il metodo compareTo() nella classe Anagrafica e,
-     * a parità di cognome e nome, per matricola.
+     * a parità di Anagrafica, per matricola.
      *
      * @param\[in] u Utente da confrontare
      * @return Valore negativo, zero o positivo se questo utente è rispettivamente minore,
-     *         uguale o maggiore rispetto alla persona passata.
+     *         uguale o maggiore rispetto al'utente passato.
      */
     @Override
     public int compareTo(Utente u) {
