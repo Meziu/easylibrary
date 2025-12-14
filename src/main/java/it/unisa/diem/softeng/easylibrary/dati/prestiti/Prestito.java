@@ -14,7 +14,11 @@ import java.util.Objects;
  * e il libro (tramite ISBN), insieme allo stato del prestito e alla data di scadenza del prestito.
  *
  * La classe è serializzabile e implementa Comparable per consentire l'ordinamento dei prestiti
- * prima per data di scadenza, poi per matricola dell'utente e infine per ISBN del libro.
+ * prima per data di scadenza, poi per matricola dell'utente, per ISBN del libro e infine per stato del prestito.
+ * 
+ * @see Matricola
+ * @see ISBN
+ * @see StatoPrestito
  */
 public class Prestito implements Comparable<Prestito>, Serializable {
 
@@ -104,6 +108,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
      * - Data di scadenza (prima i prestiti più prossimi alla scadenza)
      * - Matricola dell'utente
      * - ISBN del libro
+     * - Stato del prestito (prima i prestiti attivi)
      *
      * @param\[in] p Prestito da confrontare
      * @return Negativo, zero o positivo se questo prestito è rispettivamente
@@ -134,9 +139,11 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     
     /**
      * 
-     * @brief Uguaglianza con un'altro Prestito.
+     * @brief Uguaglianza con un altro Prestito.
+     * Due prestiti sono considerati uguali se hanno tutti gli attributi uguali.
      * 
-     * @return true se i due Prestito hanno Matricola, ISBN e data di restituzione uguale, false altrimenti.
+     * @param obj oggetto con cui confrontare.
+     * @return true se i due Prestito hanno Matricola, ISBN, data di scadenza e stato uguali, false altrimenti.
      */
     @Override
     public boolean equals(Object obj) {
