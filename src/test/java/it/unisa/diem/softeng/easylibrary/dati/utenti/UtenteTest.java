@@ -45,6 +45,20 @@ public class UtenteTest {
         assertEquals(e, ut.getEmail());
         assertTrue(ut.getPrestitiAttivi().isEmpty());
     }
+    
+    @Test
+    public void testCostruzioneUtenteMatricolaNull() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> new Utente("Mario", "Rossi", null, e)
+        );
+    }
+    
+    @Test
+    public void testCostruzioneUtenteEmailNull() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> new Utente("Mario", "Rossi", m, null)
+        );
+    }
 
 
     /* 
@@ -100,6 +114,12 @@ public class UtenteTest {
         assertEquals(nuova, u.getEmail());
     }
 
+    @Test
+    public void testSetEmailNull() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> u.setEmail(null)
+        );
+    }
     
     /* 
     *   LISTA PRESTITI
@@ -113,6 +133,12 @@ public class UtenteTest {
         assertEquals(1, u.getPrestitiAttivi().size());
     }
     
+    @Test
+    public void testRegistraPrestitoNull() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> u.registraPrestito(null)
+        );
+    }
     
     @Test
     public void testRegistraPrestitoFinoAlLimite() {
