@@ -1,13 +1,13 @@
 package it.unisa.diem.softeng.easylibrary.dati.utenti;
 
 /**
- *
  * @brief Eccezione lanciata quando un utente tenta di registrare un nuovo prestito
  * ma ha già raggiunto il limite massimo di prestiti attivi consentiti.
  *
  * Viene utilizzata per segnalare errori nella gestione dei prestiti, impedendo
  * di superare il numero massimo di libri presi in prestito da un singolo utente.
- * 
+ *  
+ * @see Utente
  */
 public class LimitePrestitiSuperatoException extends RuntimeException {
 
