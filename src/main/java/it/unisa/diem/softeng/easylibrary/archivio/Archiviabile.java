@@ -11,10 +11,10 @@ import java.util.function.Consumer;
  * L'interfaccia definisce le operazioni di base su una collezione di elementi,
  * come registrazione, rimozione, modifica e filtraggio.
  * 
- * @param <E> Tipo di elemento gestito dall'archivio
- * 
- * @invariant La lista di elementi e gli elementi al suo interno devono essere
+ * La lista di elementi e gli elementi al suo interno devono essere
  * modificati solo tramite l'uso di modifica().
+ * 
+ * @param <E> Tipo di elemento gestito dall'archivio
  */
 public interface Archiviabile<E> extends Serializable {
 
@@ -27,6 +27,8 @@ public interface Archiviabile<E> extends Serializable {
     /**
      * @brief Registra un nuovo elemento nell'archivio.
      * @param elemento Elemento da aggiungere
+     * 
+     * @throws ValoreGiaPresenteException se l'elemento è già presente
      */
     void registra(E elemento);
 
@@ -38,6 +40,8 @@ public interface Archiviabile<E> extends Serializable {
      * trattarsi anche solo di una segnalazione sull'elemento.
      * 
      * @param elemento Elemento da rimuovere.
+     * 
+     * @throws ValoreNonPresenteException se l'elemento non è presente
      */
     void rimuovi(E elemento);
     
@@ -47,6 +51,8 @@ public interface Archiviabile<E> extends Serializable {
      * 
      * @param elemento Elemento da modificare.
      * @param c Consumer che definisce come modificare l'elemento.
+     * 
+     * @throws ValoreNonPresenteException se l'elemento non è presente
      */
     void modifica(E elemento, Consumer<E> c);
     
