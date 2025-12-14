@@ -7,6 +7,7 @@ import java.io.Serializable;
  * Ogni \ref Utente è associato univocamente ad una matricola.
  * Le matricole sono composte da esattamente 10 cifre numeriche.
  * 
+ * @see Utente
  */
 public final class Matricola implements Comparable<Matricola>, Serializable {
 
@@ -24,8 +25,11 @@ public final class Matricola implements Comparable<Matricola>, Serializable {
      * 
      * \see verifica()
      * 
-     */
+    */
     public Matricola(String matricola) {
+        if (matricola == null || matricola.trim().isEmpty()) {
+            throw new MatricolaInvalidaException("Matricola nulla o vuota");
+        }
         if (verifica(matricola)) {
             this.matricola = matricola;
         } else {
