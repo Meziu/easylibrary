@@ -1,7 +1,5 @@
 package it.unisa.diem.softeng.easylibrary;
 
-import it.unisa.diem.softeng.easylibrary.dati.prestiti.NessunaCopiaDisponibileException;
-import it.unisa.diem.softeng.easylibrary.dati.utenti.LimitePrestitiSuperatoException;
 import it.unisa.diem.softeng.easylibrary.dati.prestiti.GestorePrestiti;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.GestoreUtenti;
 import it.unisa.diem.softeng.easylibrary.dati.libri.GestoreLibri;
@@ -10,11 +8,8 @@ import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
 import it.unisa.diem.softeng.easylibrary.dati.prestiti.Prestito;
-import it.unisa.diem.softeng.easylibrary.dati.prestiti.StatoPrestito;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
 
-import java.time.LocalDate;
-import java.util.List;
 import java.io.*;
 import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
 

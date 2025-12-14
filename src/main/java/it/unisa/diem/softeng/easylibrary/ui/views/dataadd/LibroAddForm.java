@@ -9,7 +9,6 @@ import it.unisa.diem.softeng.easylibrary.dati.libri.Autore;
 import it.unisa.diem.softeng.easylibrary.ui.views.AutoriPageController;
 import java.net.URL;
 import java.time.Year;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

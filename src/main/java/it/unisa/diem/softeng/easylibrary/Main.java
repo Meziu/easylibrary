@@ -1,8 +1,5 @@
 package it.unisa.diem.softeng.easylibrary;
 
-import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmail;
-import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
-import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
 import it.unisa.diem.softeng.easylibrary.ui.AppController;
 import java.io.IOException;
 import javafx.application.Application;

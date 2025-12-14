@@ -7,11 +7,9 @@ package it.unisa.diem.softeng.easylibrary.ui.views.dataadd;
 
 import it.unisa.diem.softeng.easylibrary.archivio.Archiviabile;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreGiàPresenteException;
-import it.unisa.diem.softeng.easylibrary.dati.libri.Autore;
 import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.scene.control.Alert;

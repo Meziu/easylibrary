@@ -101,6 +101,8 @@ public abstract class DataPageController<T, RC, AC extends DataAddController<?>>
         }
         
         setItems(archivio.getLista());
+        table.refresh();
+        this.initializeFiltro();
     }
 
     @FXML
@@ -109,8 +111,8 @@ public abstract class DataPageController<T, RC, AC extends DataAddController<?>>
 
         try {
             archivio.rimuovi(selectedItem);
-            setItems(archivio.getLista());
             table.refresh();
+            this.initializeFiltro();
 
         } catch (Exception e) {
             String error = "Errore durante la rimozione del valore: " + e.toString();

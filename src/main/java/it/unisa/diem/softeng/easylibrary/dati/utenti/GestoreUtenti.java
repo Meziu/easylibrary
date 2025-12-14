@@ -3,7 +3,6 @@ package it.unisa.diem.softeng.easylibrary.dati.utenti;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreGiàPresenteException;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import it.unisa.diem.softeng.easylibrary.archivio.Gestore;
