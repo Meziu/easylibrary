@@ -9,33 +9,53 @@ import static org.junit.Assert.*;
 
 public class PrestitoTest {
     private Prestito p;
+    private Matricola m;
+    private ISBN isbn;
 
     public PrestitoTest() {
     }
     
+    @Before
+    public void setUp() {
+        m = new Matricola("0612709400");
+        isbn = new ISBN("123456789X");
+        
+        p = new Prestito(m, isbn, StatoPrestito.ATTIVO, LocalDate.now().plusDays(30));
+    }
+    
     @Test
     public void testCostruzionePrestitoValida() {
-        Prestito p = new Prestito(new Matricola("0612709671"), new ISBN("0133943038"), StatoPrestito.ATTIVO, LocalDate.of(2005, Month.MAY, 30));
+        Prestito p = new Prestito(new Matricola("0612709671"), new ISBN("0133943038"), StatoPrestito.ATTIVO, LocalDate.now().plusDays(30));
         assertNotNull(p);                                           // l'oggetto è creato
         assertEquals("0612709671", p.getMatricola().getMatricola());
         assertEquals("0133943038", p.getISBN().getISBN());
         assertEquals(StatoPrestito.ATTIVO, p.getStato());
-        assertEquals(LocalDate.of(2005, Month.MAY, 30), p.getDataDiScadenza());
+        assertEquals(LocalDate.now().plusDays(30), p.getDataDiScadenza());
     }
     
-    @Before
-    public void setUp() {
-        p = new Prestito(new Matricola("0612709671"), new ISBN("0133943038"), StatoPrestito.ATTIVO, LocalDate.of(2005, Month.MAY, 30));
+    @Test
+    public void testCostruzioneStatoPrestitoNull() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> new Prestito(m, isbn, null, LocalDate.now().plusDays(30))
+        );
     }
+    
+    @Test
+    public void testCostruzioneDataScadenzaPassata() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> new Prestito(m, isbn, StatoPrestito.ATTIVO, LocalDate.of(2005, Month.MAY, 30))
+        );
+    }
+    
 
     @Test
     public void testGetMatricola() {
-        assertEquals(p.getMatricola(), new Matricola("0612709671"));
+        assertEquals(p.getMatricola(), m);
     }
 
     @Test
     public void testGetISBN() {
-        assertEquals(p.getISBN(), new ISBN("0133943038"));
+        assertEquals(p.getISBN(), isbn);
     }
 
     @Test
@@ -45,19 +65,7 @@ public class PrestitoTest {
 
     @Test
     public void testGetDataDiScadenza() {
-        assertEquals(p.getDataDiScadenza(), LocalDate.of(2005, Month.MAY, 30));
-    }
-
-    @Test
-    public void testIsScadutoTrue() {
-        assertTrue(p.isScaduto());
-    }
-    
-    @Test
-    public void testIsScadutoFalse() {
-        Prestito futuro = new Prestito(new Matricola("0612709671"), new ISBN("0133943038"), StatoPrestito.ATTIVO, LocalDate.now().plusDays(2));
-        
-        assertFalse(futuro.isScaduto());
+        assertEquals(p.getDataDiScadenza(), LocalDate.now().plusDays(30));
     }
 
     @Test
@@ -73,42 +81,81 @@ public class PrestitoTest {
     }
 
     @Test
+    public void testSetStatoNull() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> p.setStato(null)
+        );
+    }
+    
+    @Test
     public void testSetDataDiScadenza() {
         LocalDate old = p.getDataDiScadenza();
-        p.setDataDiScadenza(LocalDate.now());
+        p.setDataDiScadenza(LocalDate.now().plusDays(40));
         assertNotEquals(p.getDataDiScadenza(), old);
     }
-
+    
     @Test
-    public void testCompareTo() {
-        assertEquals(p.compareTo(p), 0);
-        
-        Prestito p_lessData = new Prestito(new Matricola("0612709671"), new ISBN("0133943038"), StatoPrestito.ATTIVO, LocalDate.of(1925, Month.JANUARY, 1));
-        Prestito p_lessMatricola = new Prestito(new Matricola("0612709400"), new ISBN("0133943038"), StatoPrestito.ATTIVO, LocalDate.of(2005, Month.MAY, 30));
-        Prestito p_lessISBN = new Prestito(new Matricola("0612709671"), new ISBN("0133940000"), StatoPrestito.ATTIVO, LocalDate.of(2005, Month.MAY, 30));
-        
-        assertTrue(p.compareTo(p_lessData) > 0);
-        assertTrue(p_lessData.compareTo(p) < 0);
-        
-        assertTrue(p.compareTo(p_lessMatricola) > 0);
-        assertTrue(p_lessMatricola.compareTo(p) < 0);
-        
-        assertTrue(p.compareTo(p_lessISBN) > 0);
-        assertTrue(p_lessISBN.compareTo(p) < 0);
-        
-        Prestito p_moreData = new Prestito(new Matricola("0612709671"), new ISBN("0133943038"), StatoPrestito.ATTIVO, LocalDate.of(2025, Month.JUNE, 12));
-        Prestito p_moreMatricola = new Prestito(new Matricola("0612709742"), new ISBN("0133943038"), StatoPrestito.ATTIVO, LocalDate.of(2005, Month.MAY, 30));
-        Prestito p_moreISBN = new Prestito(new Matricola("0612709671"), new ISBN("0133953422"), StatoPrestito.ATTIVO, LocalDate.of(2005, Month.MAY, 30));
-        
-        assertTrue(p.compareTo(p_moreData) < 0);
-        assertTrue(p_moreData.compareTo(p) > 0);
-        
-        assertTrue(p.compareTo(p_moreMatricola) < 0);
-        assertTrue(p_moreMatricola.compareTo(p) > 0);
-        
-        assertTrue(p.compareTo(p_moreISBN) < 0);
-        assertTrue(p_moreISBN.compareTo(p) > 0);
+    public void testSetDataScadenzaPassata() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> p.setDataDiScadenza(LocalDate.of(2005, Month.MAY, 30))
+        );
     }
+    
+    
+    
+    /*
+    *  COMPARE TO
+    * 
+    */
+    @Test
+    public void testCompareToFunzionaCorrettamenteData() {
+        Prestito p1 = new Prestito(m, isbn, StatoPrestito.ATTIVO, LocalDate.now().plusDays(20));
+
+        assertTrue(p.compareTo(p1) > 0);
+        assertTrue(p1.compareTo(p) < 0);
+        
+        
+        Prestito p2 = new Prestito(m, isbn, StatoPrestito.ATTIVO, LocalDate.now().plusDays(40));
+        
+        assertTrue(p.compareTo(p2) < 0);
+        assertTrue(p2.compareTo(p) > 0);
+    }
+    
+    @Test
+    public void testCompareToFunzionaCorrettamenteMatricola() {
+        Prestito p1 = new Prestito(new Matricola("0612709300"), isbn, StatoPrestito.ATTIVO, LocalDate.now().plusDays(30));
+        
+        assertTrue(p.compareTo(p1) > 0);
+        assertTrue(p1.compareTo(p) < 0);
+        
+        Prestito p2 = new Prestito(new Matricola("0612709742"), isbn, StatoPrestito.ATTIVO, LocalDate.now().plusDays(30));
+        
+        assertTrue(p.compareTo(p2) < 0);
+        assertTrue(p2.compareTo(p) > 0);
+    }
+    
+    @Test
+    public void testCompareToFunzionaCorrettamenteISBN() {
+        Prestito p1 = new Prestito(m, new ISBN("023456789X"), StatoPrestito.ATTIVO, LocalDate.now().plusDays(30));
+        
+        assertTrue(p.compareTo(p1) > 0);
+        assertTrue(p1.compareTo(p) < 0);
+        
+        Prestito p2 = new Prestito(m, new ISBN("9133953422"), StatoPrestito.ATTIVO, LocalDate.now().plusDays(30));
+        
+        assertTrue(p.compareTo(p2) < 0);
+        assertTrue(p2.compareTo(p) > 0);
+    }
+
+    
+    @Test
+    public void testCompareToRiconoscePrestitiUguali() {
+        Prestito p2 = new Prestito(m, isbn, StatoPrestito.ATTIVO, LocalDate.now().plusDays(30));
+        assertEquals(0, p.compareTo(p2));
+        
+        assertEquals(p.compareTo(p), 0);
+    }
+
     
     @Test
     public void testCompareToOrdinaPerStato() {
@@ -125,12 +172,7 @@ public class PrestitoTest {
     
     @Test
     public void testEqualsPrestitiUguali() {
-        Prestito p2 = new Prestito(
-                new Matricola("0612709671"),
-                new ISBN("0133943038"),
-                StatoPrestito.ATTIVO,
-                LocalDate.of(2005, Month.MAY, 30)
-        );
+        Prestito p2 = new Prestito(m, isbn, StatoPrestito.ATTIVO, LocalDate.now().plusDays(30));
 
         assertEquals(p, p2);
         assertEquals(p2, p);
@@ -142,7 +184,7 @@ public class PrestitoTest {
                 new Matricola("0612709671"),
                 new ISBN("0133943038"),
                 StatoPrestito.RESTITUITO,
-                LocalDate.of(2005, Month.MAY, 30)
+                LocalDate.now().plusDays(20)
         );
         assertNotEquals(p, p2);
     }
