@@ -6,18 +6,16 @@ left to right direction
 actor Gestore as G
 
 package Sistema {
-    usecase "Visualizzazione della home page" as UC1
     usecase "Visualizzazione dei prestiti attivi" as UC3
     usecase "Visualizzazione dello storico dei prestiti" as UC4
     usecase "Registrazione di un prestito" as UC9
     usecase "Restituzione di un libro" as UC10
 }
 
-UC4 ..> UC1 : <<include>>
 UC9 .> UC3 : <<include>>
 UC10 .> UC3 : <<include>>
 
-UC3 --|> UC4
+UC3 <|-- UC4
 
 G -- UC3
 G -- UC9
