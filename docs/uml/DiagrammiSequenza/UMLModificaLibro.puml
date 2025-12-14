@@ -7,14 +7,20 @@ participant "Libro" as L
 
 '  ---- Flusso principale -----
 activate G
-G -> UI : Interazione con "Libri"
+G -> UI : Seleziona l'interazione\nper visualizzare i libri
 deactivate G
 activate UI
 
 UI -> B : getArchivioLibri()
 activate B
-B --> UI : Restituzione elenco dei libri
+B --> UI : Restituzione archivio dei libri
 deactivate B
+
+UI -> A : getLista()
+activate A
+A --> UI : Restituzione lista dei libri
+deactivate A
+
 UI -> G : Mostra l'elenco dei libri
 activate G
 
@@ -37,6 +43,7 @@ activate L
 alt Campo invalido
     L -> UI : throw IllegalArgumentException
     deactivate L
+    deactivate A
 
     note left
     La modifica al valore viene annullata
@@ -45,6 +52,7 @@ alt Campo invalido
     UI -> G : Mostra messaggio di errore
 else Campo valido
     activate L
+    activate A
     L --> UI : Modifica effettuata con successo
     deactivate L
     deactivate A

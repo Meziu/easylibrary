@@ -9,24 +9,28 @@ participant "IndirizzoEmail" as E
 activate G
 ' ----- Inizio -----
 
-G -> UI : Interazione con "Utenti"
+G -> UI : Seleziona l'interazione per\nvisualizzare gli utenti
 deactivate G
 activate UI
 UI -> B : getArchivioUtenti()
-activate UI
 activate B
-B --> UI : restituzione elenco Utenti
+B --> UI : Restituzione archivio degli utenti
 deactivate B
-deactivate UI
-UI -> G : Mostra lista Utenti
+
+UI -> A : getLista()
+activate A
+A --> UI : Restituzione lista degli utenti
+deactivate A
+
+UI -> G : Mostra l'elenco degli utenti
 activate G
 
-G -> UI : Interazione con "Aggiungi Utente"
+G -> UI : Interagisce con l'opzione di \naggiunta di un utente
 deactivate G
 
 UI -> G : Mostra form di registrazione
 
-loop Inserimento fino ad inserimento corretto
+loop Inserimento dati (finchè non sono corretti)
     activate G
     G -> UI : Inserisce i dati utente
 
@@ -50,7 +54,7 @@ loop Inserimento fino ad inserimento corretto
     end
 end
 
-G -> UI : Conferma registrazione
+G -> UI : Conferma la registrazione
 deactivate G
 
 ' ----- Invio dati a Sistema -----

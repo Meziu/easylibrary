@@ -2,10 +2,10 @@
 actor Gestore as G
 participant "GUI" as UI
 participant "Biblioteca" as B
-participant "ArchivioPrestiti" as AP 
+participant "Archivio<Prestito>" as A
 
 activate G
-G -> UI : Interazione "Prestiti"
+G -> UI : Seleziona l'interazione per visualizzare i prestiti
 deactivate G
 activate UI
 
@@ -17,11 +17,15 @@ UI -> G : Visualizzazione dell'elenco dei prestiti
 activate G
 
 '-- Restituzione prestito --
-G -> UI : Interazione restituzione prestito
+G -> UI : Interazione di restituzione del prestito
 deactivate G
-UI -> AP : rimuovi(Prestito)
-activate AP
-AP --> UI : Rimozione completata con successo 
-deactivate AP 
-UI -> G : Visualizzazione dell'elenco modificato 
+UI -> A : rimuovi(Prestito)
+note left
+Per i prestiti, l'operazione di rimozione è
+equivalente a quella di restituzione.
+endnote
+activate A
+A --> UI : Restituzione completata con successo
+deactivate A
+UI -> G : Visualizzazione dell'elenco modificato
 @enduml
