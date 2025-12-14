@@ -37,8 +37,8 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @param\[in] copieDisponibili Interi che indica il numero di copie disponibili.
      */
     public Libro(String titolo, List<Autore> autori, int annoPubblicazione, ISBN isbn, int copieDisponibili) {
-        if (titolo == null) {
-            throw new IllegalArgumentException("Titolo nullo");
+        if (titolo == null || titolo.trim().isEmpty()) {
+            throw new IllegalArgumentException("Titolo nullo o vuoto");
         }
         if (autori == null || autori.isEmpty()) {
             throw new IllegalArgumentException("Lista autori nulla o vuota");
@@ -118,8 +118,8 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @param\[in] titolo Nuovo titolo del libro.
      */
     public void setTitolo(String titolo) {
-        if (titolo == null) {
-            throw new IllegalArgumentException("Titolo nullo");
+        if (titolo == null || titolo.isEmpty()) {
+            throw new IllegalArgumentException("Titolo nullo o vuoto");
         }
         this.titolo = titolo;
     }
@@ -173,7 +173,7 @@ public class Libro implements Comparable<Libro>, Serializable {
      */
     public void aggiungiAutore(Autore a) {
         if (a == null) {
-            throw new IllegalArgumentException("Lista autori nulla o vuota");
+            throw new IllegalArgumentException("Autore nullo");
         }
         autori.add(a);
     }
