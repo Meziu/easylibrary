@@ -8,9 +8,9 @@ import java.io.Serializable;
  * Gli indirizzi email sono composti (secondo una versione semplificata dello standard
  * internazionale RFC 5322) da un campo di username e un nome di dominio.
  * Ogni utente è associato ad un IndirizzoEmail, che richiede che il nome
- * di dominio deve corrispondere a "studenti.unisa.it".
+ * di dominio deve corrispondere a "@studenti.unisa.it".
  * 
- */
+*/
 public class IndirizzoEmail implements Serializable {
 
     private String indirizzo;
@@ -28,8 +28,12 @@ public class IndirizzoEmail implements Serializable {
      * 
      * \see verifica()
      * 
-     */
+    */
     public IndirizzoEmail(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            throw new IndirizzoEmailInvalidoException("Email nulla o vuota");
+        }
+        
         if (verifica(email)) {
             this.indirizzo = email;
         } else {
@@ -41,7 +45,7 @@ public class IndirizzoEmail implements Serializable {
      * @brief Getter della stringa dell'indirizzo email.
      * 
      * @return La stringa di caratteri che compongono l'indirizzo email.
-     */
+    */
     public String getIndirizzoEmail() {
         return indirizzo;
     }
@@ -49,8 +53,15 @@ public class IndirizzoEmail implements Serializable {
     /**
      * @brief Imposta un nuovo indirizzo email.
      * @param\[in] email Nuovo indirizzo email
-     */
+     * 
+     * @throws IndirizzoEmailInvalidoException Se l'indirizzo inserito
+     * è nullo o vuoto.
+    */
     public void setIndirizzoEmail(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            throw new IndirizzoEmailInvalidoException("Email nulla o vuota");
+        }
+        
         if (verifica(email)) {
             this.indirizzo = email;
         } else {
@@ -58,19 +69,13 @@ public class IndirizzoEmail implements Serializable {
         }
     }
 
-    /*
-     * Verifica che l'email sia valida:
+
+    /**
+     * @brief Verifica che l'email sia valida:
      * - Contiene una sola @
      * - Il dominio è esattamente @studenti.unisa.it
      * - La parte locale (prima della @) contiene solo lettere, numeri, punti,
      *   trattini e underscore, e non può essere vuota.
-     */
-    /**
-     * @brief Verifica dell'indirizzo email.
-     * Verifica se la stringa passata come argomento sia o meno un indirizzo email
-     * valido da usare nella biblioteca a seconda degli standard
-     * definiti dal documento RFC 5322 e se il campo del nome di dominio corrisponde
-     * a "studenti.unisa.it".
      * 
      * @param\[in] indirizzo Stringa di caratteri da verificare.
      * 
