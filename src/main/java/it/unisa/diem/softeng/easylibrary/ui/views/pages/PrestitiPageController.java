@@ -9,6 +9,7 @@ import it.unisa.diem.softeng.easylibrary.dati.prestiti.Prestito;
 import it.unisa.diem.softeng.easylibrary.dati.prestiti.StatoPrestito;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
+import it.unisa.diem.softeng.easylibrary.ui.views.AlertGrande;
 import it.unisa.diem.softeng.easylibrary.ui.views.pages.ricerca.RicercaPrestitoController;
 import it.unisa.diem.softeng.easylibrary.ui.views.VisualizzatorePagine;
 import java.time.LocalDate;
@@ -16,7 +17,6 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 
 
@@ -60,7 +60,7 @@ public class PrestitiPageController extends DataPageController<Prestito, Ricerca
             if (e.getNewValue().isBefore(LocalDate.now())) {
                 // Refresh tabella per evitare sfarfallio
                 table.refresh();
-                new Alert(Alert.AlertType.ERROR, "Data inserita precedente a quella attuale.").showAndWait();
+                AlertGrande.mostraAlertErrore("Data inserita precedente a quella attuale.");
             } else {
                 prestiti.modifica(e.getRowValue(), p -> {
                     p.setDataDiScadenza(e.getNewValue());

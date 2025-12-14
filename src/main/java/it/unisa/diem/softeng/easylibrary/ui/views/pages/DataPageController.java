@@ -2,6 +2,7 @@ package it.unisa.diem.softeng.easylibrary.ui.views.pages;
 
 import it.unisa.diem.softeng.easylibrary.ui.views.dataadd.DataAddController;
 import it.unisa.diem.softeng.easylibrary.archivio.Archiviabile;
+import it.unisa.diem.softeng.easylibrary.ui.views.AlertGrande;
 import it.unisa.diem.softeng.easylibrary.ui.views.VisualizzatorePagine;
 import java.io.IOException;
 import java.net.URL;
@@ -12,7 +13,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
@@ -115,13 +115,7 @@ public abstract class DataPageController<T, RC, AC extends DataAddController<?>>
             this.initializeFiltro();
 
         } catch (Exception e) {
-            String error = "Errore durante la rimozione del valore: " + e.toString();
-            System.err.println(error);
-            Alert a = new Alert(Alert.AlertType.ERROR);
-            
-            a.getDialogPane().setContent(new Label(error));
-                    
-            a.showAndWait();
+           AlertGrande.mostraAlertErrore("Errore durante la rimozione del valore: " + e.toString());
         }
     }
 

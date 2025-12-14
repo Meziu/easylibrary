@@ -1,6 +1,7 @@
 package it.unisa.diem.softeng.easylibrary.ui;
 
 import it.unisa.diem.softeng.easylibrary.Biblioteca;
+import it.unisa.diem.softeng.easylibrary.ui.views.AlertGrande;
 import it.unisa.diem.softeng.easylibrary.ui.views.pages.HomePageController;
 import it.unisa.diem.softeng.easylibrary.ui.views.pages.LibriPageController;
 import it.unisa.diem.softeng.easylibrary.ui.views.pages.PrestitiPageController;
@@ -14,7 +15,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
@@ -65,9 +65,7 @@ public class AppController implements Initializable, VisualizzatorePagine {
 
             salvaConNome(filePath);
         } catch (IOException e) {
-            String error = "Errore nella ricerca del file di salvataggio: " + e.toString();
-            System.err.println(error);
-            new Alert(Alert.AlertType.ERROR, error).showAndWait();
+            AlertGrande.mostraAlertErrore("Errore nella ricerca del file di salvataggio: " + e.toString());
         }
     }
 
@@ -90,9 +88,7 @@ public class AppController implements Initializable, VisualizzatorePagine {
 
             caricaDaFile(filePath);
         } catch (IOException e) {
-            String error = "Errore nella ricerca del file di salvataggio: " + e.toString();
-            System.err.println(error);
-            new Alert(Alert.AlertType.ERROR, error).showAndWait();
+            AlertGrande.mostraAlertErrore("Errore nella ricerca del file di salvataggio: " + e.toString());
             return;
         }
 
@@ -127,8 +123,7 @@ public class AppController implements Initializable, VisualizzatorePagine {
             biblioteca = null;
 
             String error = "Errore nel salvataggio del file \"" + this.fileArchivio + "\" di archivio: " + e.toString();
-            System.err.println(error);
-            new Alert(Alert.AlertType.ERROR, error).showAndWait();
+            AlertGrande.mostraAlertErrore(error);
         }
     }
 
@@ -141,8 +136,7 @@ public class AppController implements Initializable, VisualizzatorePagine {
             biblioteca = null;
 
             String error = "Errore nel caricamento del file \"" + this.fileArchivio + "\" di archivio: " + e.toString();
-            System.err.println(error);
-            new Alert(Alert.AlertType.ERROR, error).showAndWait();
+            AlertGrande.mostraAlertErrore(error);
         }
     }
 

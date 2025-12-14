@@ -8,13 +8,13 @@ import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmail;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmailInvalidoException;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
+import it.unisa.diem.softeng.easylibrary.ui.views.AlertGrande;
 import it.unisa.diem.softeng.easylibrary.ui.views.pages.ricerca.RicercaUtenteController;
 import it.unisa.diem.softeng.easylibrary.ui.views.VisualizzatorePagine;
 import java.util.stream.Collectors;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.TextFieldTableCell;
 
@@ -106,7 +106,7 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
                     utente.setEmail(nuovaEmail);
                 });
             } catch (IndirizzoEmailInvalidoException ex) {
-                new Alert(Alert.AlertType.ERROR, "Nuova Email non valida").showAndWait();
+                AlertGrande.mostraAlertErrore("Nuovo indirizzo email non valido");
             }
             setItems(utenti.getLista());
             table.refresh();

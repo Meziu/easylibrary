@@ -9,10 +9,10 @@ import it.unisa.diem.softeng.easylibrary.archivio.Archiviabile;
 import it.unisa.diem.softeng.easylibrary.archivio.ValoreGiàPresenteException;
 import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
+import it.unisa.diem.softeng.easylibrary.ui.views.AlertGrande;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
-import javafx.scene.control.Alert;
 
 /**
  *
@@ -63,8 +63,7 @@ public class LibroAddController extends DataAddController<LibroAddForm>{
             chiudiFinestra();
         } catch (ValoreGiàPresenteException e) {
             String error = "Libro con ISBN \"" + newLibro.getISBN().getISBN() + "\" già presente nell'archivio";
-            System.err.println(error);
-            new Alert(Alert.AlertType.ERROR, error).showAndWait();
+            AlertGrande.mostraAlertErrore(error);
         }
     }
     

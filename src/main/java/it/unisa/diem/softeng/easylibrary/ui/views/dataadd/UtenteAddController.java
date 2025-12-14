@@ -5,10 +5,10 @@ import it.unisa.diem.softeng.easylibrary.archivio.ValoreGiàPresenteException;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmail;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
+import it.unisa.diem.softeng.easylibrary.ui.views.AlertGrande;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
-import javafx.scene.control.Alert;
 
 public class UtenteAddController extends DataAddController<UtenteAddForm> {
     private Archiviabile<Utente> utenti;
@@ -50,8 +50,7 @@ public class UtenteAddController extends DataAddController<UtenteAddForm> {
             chiudiFinestra();
         } catch (ValoreGiàPresenteException e) {
             String error = "Utente con Matricola \"" + newUtente.getMatricola().getMatricola() + "\" già presente nell'archivio";
-            System.err.println(error);
-            new Alert(Alert.AlertType.ERROR, error).showAndWait();
+            AlertGrande.mostraAlertErrore(error);
         }
     }
 }
