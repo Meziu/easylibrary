@@ -14,7 +14,7 @@ public class PrestitoTest {
     }
     
     @Test
-    public void testCostruzioneAutoreValida() {
+    public void testCostruzionePrestitoValida() {
         Prestito p = new Prestito(new Matricola("0612709671"), new ISBN("0133943038"), StatoPrestito.ATTIVO, LocalDate.of(2005, Month.MAY, 30));
         assertNotNull(p);                                           // l'oggetto è creato
         assertEquals("0612709671", p.getMatricola().getMatricola());
@@ -49,8 +49,15 @@ public class PrestitoTest {
     }
 
     @Test
-    public void testIsScaduto() {
-        assertEquals(p.isScaduto(), true);
+    public void testIsScadutoTrue() {
+        assertTrue(p.isScaduto());
+    }
+    
+    @Test
+    public void testIsScadutoFalse() {
+        Prestito futuro = new Prestito(new Matricola("0612709671"), new ISBN("0133943038"), StatoPrestito.ATTIVO, LocalDate.now().plusDays(2));
+        
+        assertFalse(futuro.isScaduto());
     }
 
     @Test
@@ -101,6 +108,53 @@ public class PrestitoTest {
         
         assertTrue(p.compareTo(p_moreISBN) < 0);
         assertTrue(p_moreISBN.compareTo(p) > 0);
+    }
+    
+    @Test
+    public void testCompareToOrdinaPerStato() {
+        Prestito restituito = new Prestito(
+                p.getMatricola(),
+                p.getISBN(),
+                StatoPrestito.RESTITUITO,
+                p.getDataDiScadenza()
+        );
+
+        assertTrue(p.compareTo(restituito) < 0);   // ATTIVO prima
+        assertTrue(restituito.compareTo(p) > 0);
+    }
+    
+    @Test
+    public void testEqualsPrestitiUguali() {
+        Prestito p2 = new Prestito(
+                new Matricola("0612709671"),
+                new ISBN("0133943038"),
+                StatoPrestito.ATTIVO,
+                LocalDate.of(2005, Month.MAY, 30)
+        );
+
+        assertEquals(p, p2);
+        assertEquals(p2, p);
+    }
+
+    @Test
+    public void testEqualsPrestitiDiversi() {
+        Prestito p2 = new Prestito(
+                new Matricola("0612709671"),
+                new ISBN("0133943038"),
+                StatoPrestito.RESTITUITO,
+                LocalDate.of(2005, Month.MAY, 30)
+        );
+        assertNotEquals(p, p2);
+    }
+    
+    @Test
+    public void testEqualsConNull() {
+        assertNotEquals(p, null);
+    }
+
+    @Test
+    public void testEqualsConTipoDiverso() {
+        assertNotEquals(p, "prestito");
     }
 
 }
