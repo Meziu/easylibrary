@@ -12,13 +12,16 @@ public class LibroTest {
 
     private List<Autore> aut;
     private Libro l;
+    private ISBN isbn;
 
     @Before
     public void setUp() {
         aut = new ArrayList<>();
         aut.add(new Autore("George", "Orwell"));
+        
+        isbn = new ISBN("123456789X");
 
-        l = new Libro("1984", aut, 1949, new ISBN("123456789X"), 2);
+        l = new Libro("1984", aut, 1949, isbn, 2);
     }
 
     
@@ -27,14 +30,58 @@ public class LibroTest {
     *
     */
     @Test
-    public void testCostruzioneLibro() {
-        Libro l1 = new Libro("1984", aut, 1949, new ISBN("123456789X"), 2);
+    public void testCostruzioneLibroValida() {
+        Libro l1 = new Libro("1984", aut, 1949, isbn, 2);
         assertNotNull(l1);
         assertEquals("1984", l1.getTitolo());
         assertEquals(aut, l1.getAutori());
         assertEquals(1949, l1.getAnnoPubblicazione());
-        assertEquals(new ISBN("123456789X"), l.getISBN());
+        assertEquals(new ISBN("123456789X"), l1.getISBN());
+        assertTrue(l1.getCopieDisponibili() >= 0);
         assertEquals(2, l1.getCopieDisponibili());
+    }
+    
+    @Test
+    public void testCostruttoreCopieNegative() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> new Libro("1984", aut, 1949, isbn, -1)
+        );
+}
+    
+    @Test
+    public void testCostruzioneLibroTitoloNull() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> new Libro(null, aut, 1949, isbn, -1)
+        );
+    }
+    
+    @Test
+    public void testCostruzioneLibroTitoloVuoto() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> new Libro("", aut, 1949, isbn, -1)
+        );
+    }
+    
+    @Test
+    public void testCostruzioneLibroAutoriVuoti() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> new Libro("1984", new ArrayList<>(), 1949, isbn, -1)
+        );
+    }
+    
+    @Test
+    public void testCostruzioneLibroAutoriNull() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> new Libro("1984", null, 1949, isbn, -1)
+        );
+    }
+    
+    @Test
+    public void testCostruttoreAnnoFuturo() {
+        int futuro = Year.now().getValue() + 1;
+        assertThrows(IllegalArgumentException.class, ()
+                -> new Libro("1984", aut, futuro, isbn, 2)
+        );
     }
 
  
@@ -78,7 +125,21 @@ public class LibroTest {
         l.setTitolo(titolo);
         assertEquals("Animal Farm", l.getTitolo());
     }
-
+    
+    @Test
+    public void testSetTitoloVuoto() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> l.setTitolo("")
+        );
+    }
+    
+    @Test
+    public void testSetTitoloNull() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> l.setTitolo(null)
+        );
+    }
+    
     @Test
     public void testSetAutori() {
         List<Autore> a = new ArrayList<>();
@@ -87,7 +148,20 @@ public class LibroTest {
         List<Autore> old = l.getAutori();
         l.setAutori(a);
         assertNotEquals(l.getAutori(), old);
-
+    }
+    
+    @Test
+    public void testSetAutoriNull() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> l.setAutori(null)
+        );
+    }
+    
+    @Test
+    public void testSetAutoriVuoti() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> l.setAutori(new ArrayList<>())
+        );
     }
 
     @Test
@@ -96,12 +170,27 @@ public class LibroTest {
         l.setAnnoPubblicazione(1950);
         assertNotEquals(l.getAnnoPubblicazione(), old);
     }
+    
+    @Test
+    public void testAnnoPubblicazioneFuturo() {
+        int futuro = Year.now().getValue() + 1;
+        assertThrows(IllegalArgumentException.class, ()
+                -> l.setAnnoPubblicazione(futuro)
+        );
+    }
 
     @Test
     public void testSetCopieDisponibili() {
         int old = l.getCopieDisponibili();
         l.setCopieDisponibili(3);
         assertNotEquals(l.getCopieDisponibili(), old);
+    }
+    
+    @Test
+    public void testSetCopieNegative() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> l.setCopieDisponibili(-5)
+        );
     }
 
     /* 
@@ -115,6 +204,13 @@ public class LibroTest {
 
         assertTrue(l.getAutori().contains(nuovo));
         assertEquals(2, l.getAutori().size());
+    }
+    
+    @Test
+    public void testAggiungiAutoreNull() {
+        assertThrows(IllegalArgumentException.class, ()
+                -> l.aggiungiAutore(null)
+        );
     }
 
     @Test
