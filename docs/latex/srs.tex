@@ -45,7 +45,7 @@ Inoltre, sia la matricola sia l’indirizzo e-mail devono rispettare il\\ format
 \\sull’utente devono corrispondere alle specifiche del requisito DF-1.1.}{Il nuovo utente viene aggiunto all’elenco degli utenti registrati ed è disponibile per il salvataggio.}{Alta}
 \requisitebox{IF-1.2}{Modifica dei dati di un utente}{Il sistema permette di modificare le generalità fornite dall’utente. Tutte le informazioni possono essere modificate (campi DF-1.1) eccetto i prestiti attivi e la matricola. Se le nuove informazioni non sono valide (come matricola e indirizzo email non conforme) il campo non viene modificato bensì restituisce un messaggio di errore tornando al valore iniziale.}{Nuovi valori dei campi dell'utente.}{Nessuno.}{Il sistema completa l'avvio. L'utente è correttamente registrato nel sistema.}{L'utente selezionato viene aggiornato, e le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
 \requisitebox{IF-1.3}{Rimozione di un utente}{Il sistema permette la cancellazione di un utente \\registrato, purché non abbia prestiti attivi associati al \\proprio profilo. Se invece l’utente possiede uno o più prestiti attivi, il sistema disabiliterà l'interazione della cancellazione.}{Matricola associata all’utente da rimuovere.}{Nessuno.}{Il sistema completa l'avvio. \\Il profilo dell’utente è presente nel sistema.}{L'utente selezionato è rimosso dall'archivio, e le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
-\requisitebox{IF-1.4}{Ricerca di utenti}{Il sistema permette la ricerca di utenti tramite 2 modalità: per cognome o per matricola. Il sistema restituisce tutti gli utenti che soddisfano il criterio di ricerca. Se non esistono nell’archivio del sistema utenti che corrispondono ai criteri di ricerca, sarà restituita una lista vuota di utenti.}{Criteri di ricerca (cognome, matricola).}{Utenti corrispondenti ai criteri di ricerca.}{Il sistema completa l'avvio.\\ Il criterio di ricerca è valido.}{Nessuna.}{Media}
+\requisitebox{IF-1.4}{Ricerca di utenti}{Il sistema permette la ricerca di utenti tramite \\2 modalità: per cognome o per matricola. Il sistema restituisce tutti gli utenti che soddisfano il criterio di ricerca. Se non esistono nell’archivio del sistema utenti che corrispondono ai criteri di ricerca, sarà restituita una lista vuota di utenti.}{Criteri di ricerca (cognome, matricola).}{Utenti corrispondenti ai criteri di ricerca.}{Il sistema completa l'avvio.\\ Il criterio di ricerca è valido.}{Nessuna.}{Media}
 \requisitebox{IF-2.1}{Inserimento di un nuovo libro}{Il sistema consente l’aggiunta di un nuovo libro \\all’archivio tramite l’inserimento dei campi necessari alla sua \\rappresentazione (DF-1.2).
 L’operazione di inserimento è consentita solo se l’ISBN non risulta già presente nel sistema e rispetta il \\formato definito in DF-1.2.
 Inoltre, il numero di copie disponibili del libro inserito non può essere inferiore a zero.}{Titolo, autore (nome e cognome), anno di pubblicazione, codice identificativo (ISBN), numero di copie disponibili.}{Nessuno.}{Il sistema completa l'avvio.}{Il libro è aggiunto all’archivio ed è disponibile  prestito e il salvataggio (DF-2.1).}{Alta}
@@ -59,9 +59,9 @@ Inoltre, il numero di copie disponibili del libro inserito non può essere infer
 		\item{per autore}
 		\item{per ISBN (codice univoco)}
 	\end{itemize}
-	 \vspace{-8pt} il sistema deve restituire tutti i libri che soddisfano il criterio di ricerca. Se non esistono nell’archivio del sistema libri che corrispondono ai criteri di ricerca, sarà restituita una lista vuota di libri.}{Criterio di ricerca (Titolo, autore o ISBN del libro).}{Elenco dei libri corrispondenti ai criteri della ricerca.}{Il criterio di ricerca è valido.}{Nessuna.}{Media}
+	 \vspace{-8pt} il sistema deve restituire tutti i libri che soddisfano il criterio di \\ricerca. Se non esistono nell’archivio del sistema libri che \\corrispondono ai criteri di ricerca, sarà restituita una lista vuota di libri.}{Criterio di ricerca (Titolo, autore o ISBN del libro).}{Elenco dei libri corrispondenti ai criteri della ricerca.}{Il criterio di ricerca è valido.}{Nessuna.}{Media}
 \requisitebox{IF-3.1}{Raccolta dello storico dei prestiti}{Il gestore deve poter ottenere e operare sull'elenco dei prestiti attivi e restituiti.}{Nessuno.}{Elenco completo di tutti i prestiti (attivi e restituiti) presenti nell'archivio del sistema.}{Il sistema completa l'avvio.}{Nessuna.}{Media}
-\requisitebox{IF-3.2}{Modifica di un prestito}{Il sistema deve permettere al gestore di modificare la data di scadenza di un prestito già registrato. La nuova data non può essere precedente alla data corrente.}{Nuova data di scadenza del prestito.}{Nessuno.}{Il prestito deve essere correttamente registrato nel sistema.}{La data di scadenza del prestito deve essere modificata e salvata. Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Bassa}
+\requisitebox{IF-3.2}{Modifica di un prestito}{Il sistema deve permettere al gestore di modificare la data di scadenza di un prestito già registrato. La nuova data non può essere precedente alla data corrente.}{Nuova data di scadenza del prestito.}{Nessuno.}{Il prestito deve essere correttamente registrato nel sistema.}{La data di scadenza del prestito deve essere \\modificata e salvata. Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Bassa}
 
 \hypertarget{BF}{\subsubsection{Business Flow}}
 \requisitebox{BF-1.1}{Registrazione di un nuovo prestito}{Il gestore registra il prestito di un libro da parte di un utente. Un prestito può essere registrato solo se: \vspace{-6pt}
@@ -72,12 +72,12 @@ Inoltre, il numero di copie disponibili del libro inserito non può essere infer
 		\item{l’utente ha meno di tre prestiti attivi.}
 		\item{la data di scadenza è successiva alla data di registrazione.}
 	\end{itemize}
-	\vspace{-6pt} Se una o più delle condizioni sopra indicate non risultano soddisfatte, il gestore sarà notificato di quali condizioni non siano rispettate e non potrà confermare l’operazione. Al termine della registrazione, il sistema deve decrementare il numero di copie disponibili del libro e inserire le informazioni del prestito nell’archivio (DF-1.3). \\È possibile per un utente prendere in prestito più di una singola copia del medesimo libro.}{Dati relativi all’utente e ai libri di cui si vuole effettuare il prestito.}{Nessuno.}{L’utente a carico del prestito è correttamente registrato nel sistema. Il libro da prestare è correttamente registrato nel sistema. La data di scadenza è successiva alla data di registrazione.}{Il numero di copie disponibili del libro è decrementato. Il prestito viene aggiunto alla lista dei prestiti attivi dell’utente. Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
-\requisitebox{BF-1.2}{Restituzione di un libro}{Il gestore registra la restituzione di un libro da parte di un utente. Il gestore ricerca il prestito corrispondente all’interno del sistema e lo segna come restituito. Se tale prestito era già contrassegnato come restituito, il sistema non compierà operazioni aggiuntive. Altrimenti, il sistema segna come disponibile la copia del libro.}{Dati del libro da restituire e dell’utente che effettua la restituzione.}{Nessuno.}{Il prestito deve essere attivo.}{Il prestito viene segnalato come restituito. La copia del libro viene resa disponibile per nuovi prestiti. Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
+	\vspace{-6pt} Se una o più delle condizioni sopra indicate non risultano \\soddisfatte, il gestore sarà notificato di quali condizioni non siano rispettate e non potrà confermare l’operazione. Al termine della \\registrazione, il sistema deve decrementare il numero di copie \\disponibili del libro e inserire le informazioni del prestito nell’archivio (DF-1.3). \\È possibile per un utente prendere in prestito più di una singola copia del medesimo libro.}{Dati relativi all’utente e ai libri di cui si vuole effettuare il prestito.}{Nessuno.}{L’utente a carico del prestito è correttamente \\registrato nel sistema. Il libro da prestare è correttamente registrato nel sistema. La data di scadenza è successiva alla data di registrazione.}{Il numero di copie disponibili del libro è decrementato. Il prestito viene aggiunto alla lista dei prestiti attivi dell’utente. Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
+\requisitebox{BF-1.2}{Restituzione di un libro}{Il gestore registra la restituzione di un libro da parte di un utente. Il gestore ricerca il prestito corrispondente all’interno del sistema e lo segna come restituito. Se tale prestito era già \\contrassegnato come restituito, il sistema non compierà operazioni \\aggiuntive. Altrimenti, il sistema segna come disponibile la copia del libro.}{Dati del libro da restituire e dell’utente che effettua la \\restituzione.}{Nessuno.}{Il prestito deve essere attivo.}{Il prestito viene segnalato come restituito. La copia del libro viene resa disponibile per nuovi prestiti. Le modifiche sono riflesse nell’archivio e rese disponibili per il salvataggio (DF-2.1).}{Alta}
 
 
 \hypertarget{DF}{\subsubsection{Esigenze Dati}}
-\requisiteboxsimple{DF-1.1}{Informazioni sull’utente}{Un utente deve essere rappresentato tramite i seguenti dati: nome, cognome, matricola univoca (stringa di 10 cifre numeriche), e-mail istituzionale univoca (formattata per standard RFC 5322, terminante nel campo di dominio con “studenti.unisa.it”), lista dei titoli dei libri in prestito (DF-1.3) attualemente attivi a carico \\dell’utente, che non possono essere più di 3. \\Tutti i campi dei dati non possono essere vuoti}{Alta}
+\requisiteboxsimple{DF-1.1}{Informazioni sull’utente}{Un utente deve essere rappresentato tramite i \\seguenti dati: nome, cognome, matricola univoca (stringa di 10 cifre numeriche), e-mail istituzionale univoca (formattata per standard RFC 5322, terminante nel campo di dominio con “studenti.unisa.it”), lista dei titoli dei libri in prestito (DF-1.3) attualemente attivi a carico \\dell’utente, che non possono essere più di 3. \\Tutti i campi dei dati non possono essere vuoti}{Alta}
 \requisiteboxsimple{DF-1.2}{Informazioni sul libro}{Un libro deve essere rappresentato tramite i seguenti dati: titolo, lista di autori (con ognuno campo di nome e di cognome non vuoti), data di pubblicazione (precedente o corrispondente alla data attuale, composta dai campi di giorno, mese ed anno), codice identificativo univoco ISBN (per standard ISO 2108) e numero di copie disponibili nell’archivio (non negative). \\Tutti i campi dei dati non possono essere vuoti}{Alta}
 \requisiteboxsimple{DF-1.3}{Informazioni sul prestito}{Un prestito è rappresentato tramite le informazioni di utente a carico (DF-1.1), di libro preso in prestito (DF-1.2), di data prevista di restituzione del prestito, e di un indicatore che ne indica lo stato tra "attivo" o "restituito".}{Alta}
 \requisitebox{DF-2.1}{Salvataggio dei dati dell’archivio su file}{Ogni componente dell’archivio (libri, utenti, prestiti) deve essere salvato su un unico file locale univocamente associato. Il salvataggio deve avvenire:\vspace{-6pt} 
@@ -106,23 +106,24 @@ Inoltre, il numero di copie disponibili del libro inserito non può essere infer
 \requisiteboxsimple{UI-2.1}{Visualizzazione dell’elenco degli utenti}{Elenco grafico degli utenti registrati nell’archivio della biblioteca. La vista mostra le informazioni sugli utenti registrati\\nell’archivio della biblioteca includendo le loro informazioni (DF-1.1), \\ordinati alfabeticamente per cognome e, a parità di cognome, per nome, in una tabella. \\
 Il sistema permette di modificare le informazioni relative all’utente direttamente dall'interfaccia,interagendo con la visualizzazione dei dati (IF-1.2). \\
 Il sistema permette di filtrare la lista degli utenti tramite campi di cognome e matricola su richiesta (IF-1.4). \\
-Il sistema permette di aggiungere utenti alla lista (UI-2.2) e di rimuovere l’utente selezionato (IF-1.3) su richiesta. \\
-Dopo ogni operazione, la vista dell'elenco dovrà rispecchiare le modifiche apportate.}{Alta}
+Il sistema permette di aggiungere utenti alla lista (UI-2.2) e di \\rimuovere l’utente selezionato (IF-1.3) su richiesta. \\
+Dopo ogni operazione, la vista dell'elenco dovrà rispecchiare le \\modifiche apportate.}{Alta}
 \requisiteboxsimple{UI-2.2}{Visualizzazione per la registrazione di un nuovo utente}{Vista per l’inserimento dei dati per la registrazione di un nuovo utente.\\
-Il sistema permette l'inserimento delle informazioni necessarie (DF-1.1, eccetto la lista di libri in prestito), un'interazione per confermare l'operazione di registrazione al termine della compilazione delle informazioni (disponibile solo se le informazioni fornite in input rispettano le precondizioni del requisito IF-1.1) e un'interazione per annullare la registrazione del nuovo utente. La schermata per l'inserimento dell’utente viene chiusa al termine dell’operazione. Se la schermata viene chiusa con conferma della modifica da apportare, i dati relativi al nuovo utente saranno registrati nell’archivio.}{Alta}
-\requisiteboxsimple{UI-3.1}{Visualizzazione dell’elenco dei libri}{Elenco grafico dei libri presenti nell’archivio della biblioteca. La vista mostra le informazioni sui libri presenti nell’archivio della biblioteca includendo le loro informazioni (DF-1.2), ordinati alfabeticamente per titolo, in una tabella.\\
-Il sistema permette di modificare le informazioni relative al libro direttamente dall'interfaccia utente,interagendo con la visualizzazione dei dati (IF-2.2). Il sistema permette di filtrare la lista dei libri tramite campi di titolo, autore e codice ISBN su richiesta (IF-2.4). \\
+Il sistema permette l'inserimento delle informazioni necessarie (DF-1.1, eccetto la lista di libri in prestito), un'interazione per confermare \\l'operazione di registrazione al termine della compilazione delle \\informazioni (disponibile solo se le informazioni fornite in input \\rispettano le precondizioni del requisito IF-1.1) e un'interazione per annullare la registrazione del nuovo utente. La schermata per \\l'inserimento dell’utente viene chiusa al termine dell’operazione. Se la schermata viene chiusa con conferma della modifica da apportare, i dati relativi al nuovo utente saranno registrati nell’archivio.}{Alta}
+\requisiteboxsimple{UI-3.1}{Visualizzazione dell’elenco dei libri}{Elenco grafico dei libri presenti nell’archivio della \\biblioteca. La vista mostra le informazioni sui libri presenti \\nell’archivio della biblioteca includendo le loro informazioni (DF-1.2), ordinati alfabeticamente per titolo, in una tabella.\\
+Il sistema permette di modificare le informazioni relative al libro \\direttamente dall'interfaccia utente,interagendo con la visualizzazione dei dati (IF-2.2). Il sistema permette di filtrare la lista dei libri tramite campi di titolo, autore e codice ISBN su richiesta (IF-2.4). \\
 Il sistema permette di aggiungere libri alla lista (UI-3.2), e di rimuovere il libro selezionato (IF-2.3) su richiesta. Dopo ogni operazione, la vista dell'elenco dovrà rispecchiare le modifiche apportate.}{Alta}
-\requisiteboxsimple{UI-3.2}{Visualizzazione per la registrazione di un nuovo libro}{Vista per l’inserimento dei dati per la registrazione di un nuovo libro. Il sistema permette l'inserimento delle informazioni necessarie (DF-1.2), un interazione per confermare l'operazione di registrazione al termine della compilazione delle informazioni (disponibile solo se le informazioni in input rispettano le precondizioni del requisito IF-2.1) e un interazione per annullare la registrazione del nuovo libro. La schermata per l'inserimento del libro viene chiusa al termine dell’operazione. Se la schermata viene chiusa con conferma della modifica da apportare, i dati relativi al nuovo libro saranno registrati nell’archivio.}{Alta}
+\requisiteboxsimple{UI-3.2}{Visualizzazione per la registrazione di un nuovo libro}{Vista per l’inserimento dei dati per la registrazione di un nuovo libro. Il sistema permette l'inserimento delle informazioni necessarie (DF-1.2), un interazione per confermare l'operazione di \\registrazione al termine della compilazione delle informazioni\\ (disponibile solo se le informazioni in input rispettano le precondizioni del requisito IF-2.1) e un interazione per annullare la registrazione del nuovo libro. La schermata per l'inserimento del libro viene chiusa al termine dell’operazione. Se la schermata viene chiusa con conferma della modifica da apportare, i dati relativi al nuovo libro saranno \\registrati nell’archivio.}{Alta}
 \requisiteboxsimple{UI-4.1}{Visualizzazione dei prestiti attivi}{Elenco grafico dei prestiti attivi registrati nell’archivio della biblioteca. La vista mostra le informazioni sui prestiti registrati nell’archivio della biblioteca, includendo le loro informazioni (DF-1.3), ordinati in ordine crescente per data prevista di restituzione, in una tabella. Il sistema evidenzierà i prestiti attivi la cui data prevista di restituzione è precedente o uguale alla data di visualizzazione. \\
-Il sistema permette di filtrare la lista dei prestiti per visualizzare solo i prestiti attivi o anche quelli restituitiati. Il sistema permette di registrare un nuovo prestito (UI-4.2), e di segnare come restituito il prestito selezionato (BF-1.2) su richiesta. Dopo ogni operazione, la vista dell'elenco dovrà rispecchiare le modifiche apportate.}{Alta}
-\requisiteboxsimple{UI-4.2}{Visualizzazione per la registrazione di un nuovo prestito}{Vista per l’inserimento dei dati per la registrazione di un nuovo prestito. Il sistema permette l'inserimento delle informazioni necessarie al prestito (DF-1.3), inserendo la matricola dell’utente e l'ISBN del libro (IF-1.1, IF-2.1) e la data prevista per la restituzione. \\
-Il sistema permette un interazione per confermare l'operazione di registrazione al termine della compilazione delle informazioni (disponibile solo se le informazioni inserite rispettano le precondizioni del requisito BF-1.1) e un interazione per annullare la registrazione del nuovo prestito. La schermata per la registrazione del prestito viene chiusa al termine dell’operazione. Lo stato del nuovo prestito sarà automaticamente impostato come attivo. Il sistema permette un interazione per mostrare la vista dello storico completo dei prestiti (per requisito 4.3). Se la schermata viene chiusa con conferma della modifica da apportare, i dati relativi al nuovo prestito saranno registrati nell’archivio.}{Alta}
-\requisiteboxsimple{UI-4.3}{Visualizzazione dello storico dei prestiti}{Elenco grafico di tutti i prestiti, attivi e restituiti, registrati nell’archivio della biblioteca (IF-3.1). La visualizzazione si configura come per requisito UI-4.1, con la differenza che mostra nell'elenco grafico, oltre ai prestiti segnati come "attivi", anche i prestiti segnati come "restituiti". Il sistema permette di aggiungere nuovi prestiti e operare sui prestiti esistenti come per requisito UI-4.1.}{Bassa}
+Il sistema permette di filtrare la lista dei prestiti per visualizzare \\solo i prestiti attivi o anche quelli restituitiati. Il sistema permette di registrare un nuovo prestito (UI-4.2), e di segnare come restituito il prestito selezionato (BF-1.2) su richiesta. Dopo ogni operazione, la vista dell'elenco dovrà rispecchiare le modifiche apportate.}{Alta}
+\requisiteboxsimple{UI-4.2}{Visualizzazione per la registrazione di un nuovo prestito}{Vista per l’inserimento dei dati per la registrazione di un nuovo prestito. Il sistema permette l'inserimento delle informazioni necessarie al prestito (DF-1.3), inserendo la matricola dell’utente e \\l'ISBN del libro (IF-1.1, IF-2.1) e la data prevista per la restituzione. \\
+Il sistema permette un interazione per confermare l'operazione di \\registrazione al termine della compilazione delle informazioni \\(disponibile solo se le informazioni inserite rispettano le precondizioni del requisito BF-1.1) e un interazione per annullare la registrazione del nuovo prestito. La schermata per la registrazione del prestito viene chiusa al termine dell’operazione. Lo stato del nuovo prestito sarà \\automaticamente impostato come attivo. \\
+Il sistema permette un interazione per mostrare la vista dello storico completo dei prestiti (per requisito 4.3). Se la schermata viene chiusa con conferma della modifica da apportare, i dati relativi al nuovo \\prestito saranno registrati nell’archivio.}{Alta}
+\requisiteboxsimple{UI-4.3}{Visualizzazione dello storico dei prestiti}{Elenco grafico di tutti i prestiti, attivi e restituiti, \\registrati nell’archivio della biblioteca (IF-3.1). La visualizzazione si configura come per requisito UI-4.1, con la differenza che \\mostra nell'elenco grafico, oltre ai prestiti segnati come "attivi", anche i prestiti segnati come "restituiti". Il sistema permette di aggiungere nuovi prestiti e operare sui prestiti esistenti come per requisito UI-4.1.}{Bassa}
 
 \hypertarget{RNF}{\subsubsection{Requisiti Non-Funzionali}}
 \requisiteboxsimple{RNF-1.1}{Usabilità della piattaforma}{L’interfaccia grafica deve essere navigabile tramite mouse e tastiera, utilizzando pulsanti e elementi dinamici a schermo.}{Media}
-\requisiteboxsimple{RNF-1.2}{Affidabilità della piattaforma}{Il sistema deve garantire che i dati siano sempre coerenti, impedendo duplicazioni o situazioni non valide come: copie disponibili negative, prestiti associati a utenti inesistenti, cancellazione di dati utilizzati da altre parti del sistema.}{Alta}
+\requisiteboxsimple{RNF-1.2}{Affidabilità della piattaforma}{Il sistema deve garantire che i dati siano sempre \\coerenti, impedendo duplicazioni o situazioni non valide come: copie disponibili negative, prestiti associati a utenti inesistenti, cancellazione di dati utilizzati da altre parti del sistema.}{Alta}
 
 \newpage
 \subsection{Tabella dei Requisiti}
@@ -138,7 +139,14 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 \subsection{Descrizione dei Casi d'Uso}
 \vspace{-2em}
 
-% Standardizzatore di formato per il primo caso d'uso (che altrimenti appare sfasato)
+
+\begin{comment}
+	Standardizzatore di formato per il primo caso d'uso (che altrimenti appare sfasato)
+	\vspace{0.5cm}
+	\hrule
+	\vspace{0.5cm}
+\end{comment} \vspace{0.5cm}
+
 \begin{description}[]\item[] \end{description}
 
 \newcounter{ucid}
@@ -160,11 +168,9 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 	\end{enumerate}
 }
 
-\vspace{0.5cm}
-\hrule
-\vspace{0.5cm}
+\newpage
 
-\usecase{UC-\stepcounter{ucid}}{Visualizzazione del catalogo dei libri}{Gestore della biblioteca.}{Il gestore può interagire alla Menu-Bar.}{Il gestore ha consultato il catalogo dei libri.}{
+\usecase{UC-\stepcounter{ucid}}{Visualizzazione del catalogo dei libri}{Gestore della biblioteca.}{Il gestore può interagire con la Menu-Bar.}{Il gestore ha consultato il catalogo dei libri.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Il gestore interagisce con l'opzione per visualizzare il catalogo.
@@ -183,7 +189,7 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 \hrule
 \vspace{0.5cm}
 
-\usecase{UC-\stepcounter{ucid}}{Visualizzazione dei prestiti attivi}{Gestore della biblioteca}{Il gestore può interagire alla Menu-Bar.}{Le informazioni relative ai prestiti attivi vengono mostrate, evidenziando i prestiti in ritardo, in un elenco ordinato per data prevista di restituzione.}{
+\usecase{UC-\stepcounter{ucid}}{Visualizzazione dei prestiti attivi}{Gestore della biblioteca}{Il gestore può interagire con la Menu-Bar.}{Le informazioni relative ai prestiti attivi vengono mostrate, evidenziando i prestiti in ritardo, in un elenco ordinato per data prevista di restituzione.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Il gestore interagisce con l’opzione per visualizzare i prestiti attivi.
@@ -198,7 +204,9 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 	\end{enumerate}
 }
 
-\newpage
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
 
 \usecase{UC-\stepcounter{ucid}}{Visualizzazione dello storico dei prestiti}{Gestore della biblioteca}{Il gestore sta visualizzando la sezione relativa ai prestiti attivi.}{Le informazioni relative a tutti i prestiti vengono mostrate,evidenziando i prestiti in ritardo, in un elenco ordinato per data\\prevista di restituzione.}{
 	\vspace{-0.8\topsep}
@@ -214,12 +222,9 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 		\item Il sistema mostra la visualizzazione della home page come per requisito UC-1.
 	\end{enumerate}
 }
+\newpage
 
-\vspace{0.5cm}
-\hrule
-\vspace{0.5cm}
-
-\usecase{UC-\stepcounter{ucid}}{Visualizzazione dell’elenco degli utenti}{Gestore della biblioteca}{Il gestore può interagire alla Menu-Bar.}{Viene mostrato l’elenco degli utenti ordinato alfabeticamente per\\cognome e, a parità di cognome, per nome.}{
+\usecase{UC-\stepcounter{ucid}}{Visualizzazione dell’elenco degli utenti}{Gestore della biblioteca}{Il gestore può interagire con la Menu-Bar.}{Viene mostrato l’elenco degli utenti ordinato alfabeticamente per\\cognome e, a parità di cognome, per nome.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
 		\item Il gestore seleziona l’opzione per visualizzare l’elenco degli utenti.
@@ -234,9 +239,7 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 	\end{enumerate}
 }
 
-\vspace{0.5cm}
-\hrule
-\vspace{0.5cm}
+\newpage
 
 \usecase{UC-\stepcounter{ucid}}{Registrazione di un nuovo utente}{Gestore della biblioteca}{Il gestore sta visualizzando l’elenco degli utenti.}{Il nuovo utente è registrato nell’archivio.}{
 	\vspace{-0.8\topsep}
@@ -265,14 +268,14 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 	\item Il sistema rileva che la matricola non è valida
 	\item Il gestore interagisce con l’opzione per annullare l’operazione.
 \end{enumerate}
-
+\newpage
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=5A.\arabic*]
 		\item[] \textbf{5A - Email non valida, con correzione}
 		\item Il sistema rileva che la e-mail inserita non è valida.
 		\item Il sistema mostra un messaggio di errore.
-		\item Il gestore corregge l'e-mail .
-		\item L’esecuzione riprende dal passo 3.
+		\item Il gestore corregge l'e-mail.
+		\item L’esecuzione riprende dal passo 6.
 	\end{enumerate}
 	
 	\vspace{-0.8\topsep}
@@ -289,7 +292,7 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 		\item Il sistema rileva che la matricola inserita è già presente \\nell'archivio.
 		\item Il sistema mostra un messaggio di errore.
 		\item Il gestore corregge la matricola.
-		\item L’esecuzione riprende dal passo 3.
+		\item L’esecuzione riprende dal passo 7.
 	\end{enumerate}
 	
 	\vspace{-0.8\topsep}
@@ -301,7 +304,7 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 	\end{enumerate}
 }
 
-
+\newpage
 
 \usecase{UC-\stepcounter{ucid}}{Modifica dei dati di un utente}{Gestore della biblioteca}{Il gestore sta visualizzando l'elenco degli utenti.}{Se valida: l’utente è aggiornato.\\In caso di errore: nessuna modifica applicata.}{
 	\vspace{-0.8\topsep}
@@ -348,14 +351,7 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 		\item Il sistema mostra nell'elenco solo gli utenti che corrispondono ai criteri di ricerca.
 	\end{enumerate}
 }{
-	\vspace{-0.8\topsep}
-	\begin{enumerate}[label=1A.\arabic*]
-		\item[] \textbf{1A - Matricola non valida(con correzione)}
-		\item Il gestore inserisce una matricola non valida.
-		\item Il sistema mostra un messaggio di errore.
-		\item Il gestore corregge la matricola.
-		\item Il flusso riprende dal passo 1.
-	\end{enumerate}
+	Nessun flusso alternativo
 }
 
 \newpage
@@ -437,6 +433,7 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 		\item Il gestore interagisce con l'opzione per confermare la restituzione del libro.
 		\item Il prestito viene segnato come restituito.
 		\item Il sistema aggiorna il numero di copie del libro restituito.
+		\item Il sistema aggiorna la lista dei prestiti attivi dell'utente
 	\end{enumerate}
 }{
 	\vspace{-0.8\topsep}
@@ -513,9 +510,7 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 	\end{enumerate}
 }
 
-\vspace{0.5cm}
-\hrule
-\vspace{0.5cm}
+\newpage
 
 \usecase{UC-\stepcounter{ucid}}{Modifica dei dati di un libro}{Gestore della biblioteca}{Il gestore sta visualizzando l'elenco dei libri.}{I dati sul libro sono correttamente aggiornati.}{
 	\vspace{-0.8\topsep}
@@ -543,6 +538,8 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 		\item Il sistema mostra un messaggio di errore.
 		\item Il sistema rifiuta la modifica e il dato resta invariato.
 	\end{enumerate}
+	
+	\newpage
 
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=4C.\arabic*]
@@ -562,9 +559,8 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 	\end{enumerate}
 }
 
-
-
 \newpage
+
 \usecase{UC-\stepcounter{ucid}}{Rimozione di un libro dal catalogo}{Gestore della biblioteca}{Il gestore sta visualizzando l'elenco dei libri.}{Il libro viene rimosso.}{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}
@@ -609,7 +605,7 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 		\item[] \textbf{4B - Data di scadenza non valida, con correzione}
 		\item Il sistema rileva che la nuova data di restituzione è precedente a quella di registrazione.
 		\item Il sistema mostra un messaggio di errore.
-		\item la modifca non viene accettata e il sistema torna alla data precedente.
+		\item la modifca non viene accettata e il sistema torna alla data\\ precedente.
 	\end{enumerate}
 }
 
@@ -620,14 +616,14 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 	\begin{enumerate}
 		\item Il gestore interagisce con l'opzione per salvare l'archivio su file.
 		\item Il gestore indica al sistema su quali file salvare l'archivio.
-		\item Il sistema controlla che sia possibile accedere e scrivere sui file specificati.
-		\item Il sistema scrive sui file i dati dell'archivio.
+		\item Il sistema controlla che sia possibile accedere e scrivere sul file specificati.
+		\item Il sistema scrive sul file i dati dell'archivio.
 	\end{enumerate}
 }{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=3A.\arabic*]
 		\item[] \textbf{3A - Errore di input/output sul filesystem}
-		\item Il sistema rileva l'impossibilità a salvare i dati sui file specificati.
+		\item Il sistema rileva l'impossibilità a salvare i dati sul file specificati.
 		\item Il sistema mostra un messaggio di errore e annulla l'operazione.
 	\end{enumerate}
 }
@@ -641,20 +637,20 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 		\item Il gestore interagisce con l'opzione per caricare l'archivio dal file.
 		\item Il gestore indica al sistema da quali file caricare l'archivio.
 		\item Il sistema controlla che sia possibile accedere e leggere dal file specificato.
-		\item Il sistema popola l'archivio con i dati letti dai file, sovrascrivendo i dati precedentemente memorizzati.
+		\item Il sistema popola l'archivio con i dati letti dal file, sovrascrivendo i dati precedentemente memorizzati.
 	\end{enumerate}
 }{
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=3A.\arabic*]
 		\item[] \textbf{3A - Errore di input/output sul filesystem}
-		\item Il sistema rileva l'impossibilità a leggere i dati dai file specificati.
+		\item Il sistema rileva l'impossibilità a leggere i dati dal file specificati.
 		\item Il sistema mostra un messaggio di errore e annulla l'operazione.
 	\end{enumerate}
 	
 	\vspace{-0.8\topsep}
 	\begin{enumerate}[label=4A.\arabic*]
 		\item[] \textbf{4A - Errore di interpretazione dei dati}
-		\item Il sistema rileva che i dati presenti nei file specificati non\\corrispondono ad un corretto archivio del sistema da cui poter estrarre informazioni.
+		\item Il sistema rileva che i dati presenti nel file specificato non\\corrispondono ad un corretto archivio del sistema da cui poter estrarre informazioni.
 		\item Il sistema mostra un messaggio di errore e annulla l'operazione.
 	\end{enumerate}
 }
@@ -670,6 +666,7 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 \end{adjustbox}
 \end{figure}
 
+\newpage
 \subsubsection{Casi d'Uso per la gestione di Libri}
 \begin{figure}[ht]
 	\begin{adjustbox}{center, margin=0cm 0cm 0cm 0cm}
@@ -685,6 +682,7 @@ Il sistema permette un interazione per confermare l'operazione di registrazione 
 	\end{adjustbox}
 \end{figure}
 
+\newpage
 \subsubsection{Casi d'Uso per l'archiviazione}
 \begin{figure}[ht]
 	\begin{adjustbox}{center, margin=0cm 0cm 0cm 0cm}
