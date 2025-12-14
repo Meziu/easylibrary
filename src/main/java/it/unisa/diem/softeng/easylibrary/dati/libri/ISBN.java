@@ -5,10 +5,10 @@ import java.io.Serializable;
 /**
  *
  * @brief Classe che rappresenta l'identificativo di un libro.
- * 
- * Ogni \ref Libro è associato univocamente ad un codice ISBN. I codici ISBN sono composti da 10 o
- * 13 cifre numeriche, con un particolare criterio di validità (per standard
- * internazionale).
+ *
+ * Ogni \ref Libro è associato univocamente ad un codice ISBN. I codici ISBN
+ * sono composti da 10 o 13 cifre numeriche, con un particolare criterio di
+ * validità (per standard internazionale).
  *
  * @see Libro
  */
@@ -18,22 +18,24 @@ public final class ISBN implements Comparable<ISBN>, Serializable {
 
     /**
      *
-     * @brief Costruttore. 
-     * Costruisce un nuovo oggetto ISBN a partire dalla
-     * stringa fornita, verificandone la validità.
-     * Rimuove eventuali trattini e verifica che il codice sia valido.
+     * @brief Costruttore. Costruisce un nuovo oggetto ISBN a partire dalla
+     * stringa fornita, verificandone la validità. Rimuove eventuali trattini e
+     * verifica che il codice sia valido.
      *
      * @param\[in] isbn Stringa di caratteri del codice ISBN.
      *
      * @throws ISBNInvalidoException Se il codice inserito non è conforme allo
-     * standard di validità.
+     * standard di validità, è nullo o vuoto.
      *
      * \see verifica()
      *
      */
     public ISBN(String isbn) {
+        if (isbn == null || isbn.trim().isEmpty()) {
+            throw new ISBNInvalidoException("ISBN nullo o vuoto");
+        }
         isbn = isbn.replaceAll("-", ""); // rimuove eventuali trattini
-        
+
         if (verifica(isbn)) {
             this.isbn = isbn;
         } else {
@@ -52,8 +54,7 @@ public final class ISBN implements Comparable<ISBN>, Serializable {
 
     /**
      * @brief Verifica del codice ISBN. Verifica se la stringa passata come
-     * argomento sia o meno un codice ISBN valido a seconda degli standard
-     * definiti dal documento ISO 2108.
+     * argomento sia o meno un codice ISBN valido.
      *
      * @param\[in] isbn Stringa di caratteri da verificare.
      * @return true se la stringa è un codice ISBN valido, false altrimenti.
@@ -72,13 +73,12 @@ public final class ISBN implements Comparable<ISBN>, Serializable {
     /**
      * @brief Verifica se una stringa può essere considerata un ISBN-10.
      *
-     * Questa versione controlla che:
-     * - la lunghezza sia esattamente 10 caratteri
-     * - i primi 9 caratteri siano numeri
-     * - l'ultimo carattere sia un numero oppure 'X'/'x'
+     * Questa versione controlla che: - la lunghezza sia esattamente 10
+     * caratteri - i primi 9 caratteri siano numeri - l'ultimo carattere sia un
+     * numero oppure 'X'/'x'
      *
      * @param\[in] id La stringa da verificare come ISBN-10
-     * 
+     *
      * @return true se la stringa rispetta le regole sopra, false altrimenti
      */
     private static boolean verificaISBN10(String id) {
@@ -103,16 +103,14 @@ public final class ISBN implements Comparable<ISBN>, Serializable {
         return false;
     }
 
-     
     /**
      * @brief Verifica se una stringa può essere considerata un ISBN-13.
      *
-     * Questa versione controlla che:
-     * - la lunghezza sia esattamente 13 caratteri
-     * - i 13 caratteri siano numeri
+     * Questa versione controlla che: - la lunghezza sia esattamente 13
+     * caratteri - i 13 caratteri siano numeri
      *
      * @param\[in] id La stringa da verificare come ISBN-13
-     * 
+     *
      * @return true se la stringa rispetta le regole sopra, false altrimenti
      */
     private static boolean verificaISBN13(String id) {
@@ -162,6 +160,8 @@ public final class ISBN implements Comparable<ISBN>, Serializable {
      * @brief Criterio di uguaglianza. Il criterio aderisce al contratto di
      * Object.equals(), dove un codice ISBN è considerato uguale ad un altro
      * solo se la stringa di caratteri associata è uguale.
+     *
+     * @return true se i due ISBN hanno lo stesso codice, false altrimenti.
      */
     @Override
     public boolean equals(Object obj) {

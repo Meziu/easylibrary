@@ -1,54 +1,62 @@
 @startuml
-actor Gestore
+actor Gestore as G
 participant "GUI" as UI
 participant "Biblioteca" as B
-participant "ArchivioLibri" as A
+participant "Archiviabile<Libro>" as A
 participant "Libro" as L
 
 '  ---- Flusso principale -----
-activate Gestore
-Gestore -> UI : Interazione con "Libri"
-deactivate Gestore
+activate G
+G -> UI : Seleziona l'interazione\nper visualizzare i libri
+deactivate G
 activate UI
 
 UI -> B : getArchivioLibri()
 activate B
-B --> UI : Restituzione elenco dei libri
+B --> UI : Restituzione archivio dei libri
 deactivate B
-UI -> Gestore : Mostra l'elenco dei libri
-activate Gestore
 
-Gestore -> UI : Seleziona campo Titolo da modificare
-Gestore -> UI : Inserisce nuovo valore
-deactivate Gestore
-UI -> A : modifica(Utente da modificare, consumer)
+UI -> A : getLista()
 activate A
+A --> UI : Restituzione lista dei libri
+deactivate A
 
-' ----- Verifica Dati -----
-alt Libro non presente
-    A -> UI : throw ValoreNonPresenteException
-    UI -> Gestore : La modifica al valore viene annullata
-    UI -> Gestore : Mostra messaggio di errore
-    UI -> Gestore : L'elenco dei libri viene aggiornato
+UI -> G : Mostra l'elenco dei libri
+activate G
 
-end
+G -> UI : Seleziona campo da modificare
+
+note right
+I campi di titolo, autori e numero di copie sono
+modificabili in modo simile usando la flessibilità
+di Consumer.
+endnote
+
+G -> UI : Inserisce nuovo valore
+deactivate G
+UI -> A : modifica(libro, consumer)
+activate A
 
 A -> L : consumer.accept(libro)
 activate L
 
-alt Nuovo titolo non valido
-    L -> UI : throw IndirizzoTitoloInvalidoException
+alt Campo invalido
+    L -> UI : throw IllegalArgumentException
     deactivate L
-    UI -> Gestore : La modifica al valore viene annullata
-    UI -> Gestore : Mostra messaggio di errore
+    deactivate A
 
+    note left
+    La modifica al valore viene annullata
+    endnote
+
+    UI -> G : Mostra messaggio di errore
 else Campo valido
     activate L
+    activate A
     L --> UI : Modifica effettuata con successo
     deactivate L
     deactivate A
-    UI -> Gestore : Mostra il nuovo valore del campo
-
+    UI -> G : Mostra il nuovo valore del campo
 end
 deactivate UI
 

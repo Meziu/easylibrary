@@ -2,81 +2,65 @@
 actor Gestore as G
 participant "GUI" as UI
 participant "Biblioteca" as B
-participant "ArchivioUtenti" as A
+participant "Archiviabile<Utente>" as A
 participant "Utente" as U
 participant "Matricola" as M
 participant "IndirizzoEmail" as E
 activate G
 ' ----- Inizio -----
 
-G -> UI : Interazione con "Utenti"
+G -> UI : Seleziona l'interazione per\nvisualizzare gli utenti
 deactivate G
 activate UI
 UI -> B : getArchivioUtenti()
-activate UI
 activate B
-B --> UI : restituzione elenco Utenti
+B --> UI : Restituzione archivio degli utenti
 deactivate B
-deactivate UI
-UI -> G : Mostra lista Utenti
+
+UI -> A : getLista()
+activate A
+A --> UI : Restituzione lista degli utenti
+deactivate A
+
+UI -> G : Mostra l'elenco degli utenti
 activate G
 
-G -> UI : Interazione con "Aggiungi Utente"
+G -> UI : Interagisce con l'opzione di \naggiunta di un utente
 deactivate G
 
 UI -> G : Mostra form di registrazione
 
-activate G
-G -> UI : Inserisce i dati utente
-G -> UI : Conferma registrazione
+loop Inserimento dati (finchè non sono corretti)
+    activate G
+    G -> UI : Inserisce i dati utente
+
+    activate UI
+    UI -> M
+    activate M
+    M -> M : verifica(matricola)
+
+    M --> UI : matricolaVerificata
+    deactivate M
+
+    UI -> E
+    activate E
+    E -> E : verifica(email)
+    E --> UI: emailVerificata
+    deactivate E
+
+    break Dati corretti
+        UI -> G : Sblocco interazione di conferma
+        deactivate UI
+    end
+end
+
+G -> UI : Conferma la registrazione
 deactivate G
 
 ' ----- Invio dati a Sistema -----
 UI -> U : new Utente(nome,cognome,email,matricola)
-
 activate U
-U -> M : new Matricola(matricola)
-activate M
-M -> M : verifica(matricola)
-'deactivate UI
-
-' ----- Controllo Sintassi Matricola -----
-alt Sintassi Matricola Errata
-    M -> UI : throw MatricolaInvalidaException
-    deactivate M
-    deactivate U
-    'activate UI
-    UI -> G : Mostra messaggio di errore
-
-    else Sintassi Matricola Valida
-    activate U
-    activate M
-    M --> U : Restituzione Matricola
-    deactivate M
-end
-
-' ----- Controllo Email -----
-
-U -> E : new IndirizzoEmail(email)
-activate E
-E -> E : verifica(email)
-
-alt IndirizzoEmail non valido
-    E -> UI : throw IndirizzoEmailInvalidoException
-    deactivate E
-    deactivate U
-
-    UI -> G : Mostra messaggio di errore
-
-else IndirizzoEmail valido
-    activate E
-    activate U
-
-    E --> U : Restituzione IndirizzoEmail
-    deactivate E
-end
-
-U -> UI : Restituzione Utente
+U -> UI : nuovo Utente
 deactivate U
 
 ' ----- Controllo Matricola -----
@@ -91,11 +75,11 @@ alt Matricola già registrata
 else Matricola unica
     activate A
 
-end
 
 ' ----- Conclusione -----
 A --> UI : Corretta registrazione
+end
 deactivate A
-UI -> G : chiudi form di registrazione
+UI -> G : Chisura del form di registrazione
 deactivate UI
 @enduml

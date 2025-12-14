@@ -2,49 +2,49 @@
 actor Gestore as G
 participant "GUI" as UI
 participant "Biblioteca" as B
-participant "ArchivioLibri" as AL
-participant "ArchivioPrestiti" as AP
-participant "Prestito" as P
+participant "Archiviabile<Libro>" as AL
+participant "Archiviabile<Prestito>" as AP
 
 ' ----- Inizio -----
 activate G
-G -> UI : Interazione con l'interazione per visualizzare i libri
+G -> UI : Seleziona l'interazione per visualizzare i libri
 deactivate G
 activate UI
 UI -> B : getArchivioLibri()
 activate B
+B --> UI : Restituzione dell'archivio dei libri
+deactivate B
 
-B --> UI : Restituzione dell'elenco dei libri
+UI -> AL : getLista()
+activate AL
+AL --> UI : Restituzione lista dei libri
+deactivate AL
+
 deactivate B
 UI -> G : Mostra l'elenco dei libri
 activate G
-G -> UI : Seleziona l'utente da rimuovere
+G -> UI : Seleziona il libro da rimuovere
+UI -> G : Abilita interazione di rimozione
+G -> UI : Interazione di rimozione del libro
 deactivate G
 
-'-- ottieni prestito --
-UI -> AP : filtra(Libro)
-AP -> P : getStatoPrestito()
-activate P
-P --> UI : Ritorno dello stato del prestito
-deactivate P
-
+'-- ottieni i prestiti corrispondenti --
+UI -> AP : filtra(filtroPerISBN)
+activate AP
+AP --> UI : Restituzione lista filtrata per \nl'ISBN del libro da rimuovere
+deactivate AP
 
 ' ---- Flusso alternativo -----
-alt Presenza di un prestito attivo
-    UI -> G : Disabilita l'interazione di rimozione del libro
+alt Presenza di un prestito correlato al libro
+    UI -> G : Mostra il messaggio di errore
 
-else Nessun prestito attivo
-    activate G
-    G -> UI : Interazione di rimozione del libro
-    deactivate G
+else Nessun prestito correlato
     UI -> AL : rimuovi(libro)
     activate AL
     AL --> UI : Rimozione fatta con successo
-    deactivate AL 
+    deactivate AL
     UI -> G : Nuova visualizzazione dei libri
-
+    deactivate UI
 end
-
-deactivate UI
 
 @enduml

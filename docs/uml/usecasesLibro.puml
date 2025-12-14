@@ -6,7 +6,6 @@ left to right direction
 actor Gestore as G
 
 package Sistema {
-    usecase "Visualizzazione della home page" as UC1
     usecase "Visualizzazione del catalogo libri" as UC2
     usecase "Ricerca di libri" as UC11
     usecase "Registrazione di un libro" as UC12
@@ -14,10 +13,8 @@ package Sistema {
     usecase "Rimozione di un libro dal catalogo" as UC14
 
     usecase "ISBN duplicato" as UCA3
-    usecase "Libro già in prestito" as UCA4
 }
 
-UC2 ..> UC1 : <<include>>
 
 UC11 ..> UC2 : <<include>>
 UC12 ..> UC2 : <<include>>
@@ -26,11 +23,9 @@ UC14 ..> UC2 : <<include>>
 
 UC12 <.. UCA3 : <<extend>>
 UC13 <.. UCA3 : <<extend>>
-UC14 <.. UCA4  : <<extend>>
 
 G -- UC11
 G -- UC12
 G -- UC13
 G -- UC14
-
 @enduml

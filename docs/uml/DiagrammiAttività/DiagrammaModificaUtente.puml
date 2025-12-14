@@ -9,11 +9,13 @@ if (Utente presente nel sistema?) then (si)
     if (Dati validi?) then (si)
         :Aggiorna dati utente;
     else (no)
-        :Mostra messaggio di errore (dati non validi);
+        :Mostra messaggio di errore
+        (dati non validi);
     endif
 
 else (no)
-:Mostra messaggio di errore (utente non presente nel sistema);
+:Mostra messaggio di errore
+(utente non presente nel sistema);
 endif
 
 stop

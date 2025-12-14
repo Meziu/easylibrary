@@ -4,37 +4,62 @@ import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
 import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
 import java.io.Serializable;
 import java.time.LocalDate;
-
+import java.util.Objects;
 
 /**
  * @brief Rappresenta un prestito di un libro da parte di un utente.
  *
- * La classe memorizza l'associazione tra l'utente (tramite la matricola)
- * e il libro (tramite ISBN), insieme allo stato del prestito e alla data di scadenza del prestito.
+ * La classe memorizza l'associazione tra l'utente (tramite la matricola) e il
+ * libro (tramite ISBN), insieme allo stato del prestito e alla data di scadenza
+ * del prestito.
  *
- * La classe è serializzabile e implementa Comparable per consentire l'ordinamento dei prestiti
- * prima per data di scadenza, poi per matricola dell'utente e infine per ISBN del libro.
+ * La classe è serializzabile e implementa Comparable per consentire
+ * l'ordinamento dei prestiti prima per data di scadenza, poi per matricola
+ * dell'utente, per ISBN del libro e infine per stato del prestito.
+ *
+ * @see Matricola
+ * @see ISBN
+ * @see StatoPrestito
  */
 public class Prestito implements Comparable<Prestito>, Serializable {
 
     private final Matricola matricolaUtente;
     private final ISBN isbn;
-    private StatoPrestito statoPrestito;
+    private StatoPrestito stato;
     private LocalDate dataDiScadenza;
 
-    
     /**
      * @brief Costruttore di un nuovo prestito.
      *
-     * @param\[in] matricolaUtente Matricola dell'utente che prende in prestito il libro
+     * @param\[in] matricolaUtente Matricola dell'utente che prende in prestito
+     * il libro
      * @param\[in] isbn ISBN del libro preso in prestito
-     * @param\[in] statoPrestito Stato iniziale del prestito
+     * @param\[in] stato Stato iniziale del prestito
      * @param\[in] scadenzaPrestito Data di scadenza del prestito
+     *
+     * @throws IllegalArgumentException Se almeno uno tra i valori passati è
+     * nullo o se la data di scadenza è precedente alla data attuale.
      */
-    public Prestito(Matricola matricolaUtente, ISBN isbn, StatoPrestito statoPrestito, LocalDate scadenzaPrestito) {
+    public Prestito(Matricola matricolaUtente, ISBN isbn, StatoPrestito stato, LocalDate scadenzaPrestito) {
+        if (matricolaUtente == null) {
+            throw new IllegalArgumentException("Matricola nulla");
+        }
+
+        if (isbn == null) {
+            throw new IllegalArgumentException("ISBN nullo");
+        }
+
+        if (stato == null) {
+            throw new IllegalArgumentException("Stato nullo");
+        }
+
+        if (scadenzaPrestito == null || scadenzaPrestito.isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("Data di scadenza prestito precedente alla data attuale");
+        }
+
         this.matricolaUtente = matricolaUtente;
         this.isbn = isbn;
-        this.statoPrestito = statoPrestito;
+        this.stato = stato;
         this.dataDiScadenza = scadenzaPrestito;
     }
 
@@ -59,7 +84,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
      * @return Lo stato del prestito
      */
     public StatoPrestito getStato() {
-        return statoPrestito;
+        return stato;
     }
 
     /**
@@ -71,42 +96,44 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     }
 
     /**
-     * @brief Verifica se il prestito è scaduto.
-     * @return true se la data di scadenza è antecedente alla data odierna, false altrimenti
-     */
-    public boolean isScaduto() {
-        return dataDiScadenza.isBefore(LocalDate.now());
-    }
-
-    /**
      * @brief Aggiorna lo stato del prestito.
      * @param\[in] nuovoStato Nuovo stato da assegnare al prestito
+     *
+     * @throws IllegalArgumentException Se il nuovo stato passato come parametro
+     * è nullo.
      */
-    public void setStatoPrestito(StatoPrestito nuovoStato) {
-        this.statoPrestito = nuovoStato;
+    public void setStato(StatoPrestito nuovoStato) {
+        if (nuovoStato == null) {
+            throw new IllegalArgumentException("Stato nullo");
+        }
+        this.stato = nuovoStato;
     }
-    
+
     /**
      * @brief Aggiorna la data di scadenza del prestito.
      * @param\[in] nuovaDataDiScadenza Nuova data di scadenza
+     *
+     * @throws IllegalArgumentException Se la data di scadenza passata come
+     * parametro è nulla o precedente alla data attuale.
      */
     public void setDataDiScadenza(LocalDate nuovaDataDiScadenza) {
+        if (nuovaDataDiScadenza == null || nuovaDataDiScadenza.isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("Data di scadenza prestito precedente alla data attuale");
+        }
         this.dataDiScadenza = nuovaDataDiScadenza;
     }
 
-    
     /**
      * @brief Comparazione con un altro prestito.
      *
-     * La comparazione è svolta aderendo al contratto di Comparable,
-     * dove un prestito è ordinato rispetto ad un altro per:
-     * - Data di scadenza (prima i prestiti più prossimi alla scadenza)
-     * - Matricola dell'utente
-     * - ISBN del libro
+     * La comparazione è svolta aderendo al contratto di Comparable, dove un
+     * prestito è ordinato rispetto ad un altro per: - Data di scadenza (prima i
+     * prestiti più prossimi alla scadenza) - Matricola dell'utente - ISBN del
+     * libro - Stato del prestito (prima i prestiti attivi)
      *
      * @param\[in] p Prestito da confrontare
      * @return Negativo, zero o positivo se questo prestito è rispettivamente
-     *         minore, uguale o maggiore rispetto a quello passato
+     * minore, uguale o maggiore rispetto a quello passato
      */
     @Override
     public int compareTo(Prestito p) {
@@ -116,7 +143,13 @@ public class Prestito implements Comparable<Prestito>, Serializable {
             int c2 = this.matricolaUtente.compareTo(p.matricolaUtente);
 
             if (c2 == 0) {
-                return this.isbn.compareTo(p.isbn);
+                int c3 = this.isbn.compareTo(p.isbn);
+
+                if (c3 == 0) {
+                    return this.stato.compareTo(p.stato);
+                }
+
+                return c3;
             }
 
             return c2;
@@ -124,4 +157,46 @@ public class Prestito implements Comparable<Prestito>, Serializable {
 
         return c1;
     }
+
+    /**
+     *
+     * @brief Uguaglianza con un altro Prestito. Due prestiti sono considerati
+     * uguali se hanno tutti gli attributi uguali.
+     *
+     * @param obj oggetto con cui confrontare.
+     * @return true se i due Prestito hanno Matricola, ISBN, data di scadenza e
+     * stato uguali, false altrimenti.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        final Prestito other = (Prestito) obj;
+        if (!Objects.equals(this.matricolaUtente, other.matricolaUtente)) {
+            return false;
+        }
+
+        if (!Objects.equals(this.isbn, other.isbn)) {
+            return false;
+        }
+
+        if (!Objects.equals(this.dataDiScadenza, other.dataDiScadenza)) {
+            return false;
+        }
+
+        if (!Objects.equals(this.stato, other.stato)) {
+            return false;
+        }
+
+        return true;
+    }
+
 }

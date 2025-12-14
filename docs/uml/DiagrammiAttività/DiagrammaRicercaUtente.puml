@@ -6,7 +6,8 @@ start
 if (Utente presente?) then (si)
     :Visualizza dati utente;
 else (no)
-    :Mostra messaggio di errore (utente non presente nel sistema);
+    :Mostra messaggio di errore
+    (utente non presente nel sistema);
 endif
 stop
 @enduml

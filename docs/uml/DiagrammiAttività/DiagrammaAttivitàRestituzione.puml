@@ -1,13 +1,17 @@
 @startuml
 start
 :Cerca prestito;
-if (Prestito trovato nel sistema?) then (si)
+if (Prestito registrato nel sistema?) then (si)
     :Seleziona prestito;
-    :Aggiorna disponibilità libro;
-    :Aggiorna stato prestito;
-    :Aggiorna prestiti attivi utente;
+    :Aggiorna la disponibilità
+    della copia del libro;
+    :Segna lo stato del prestito
+    come restituito;
+    :Rimuovi il prestito dai prestiti
+    attivi dell'utente;
 else (no)
-    :Mostra messaggio di errore (prestito non presente nel sistema);
+    :Mostra messaggio di errore
+    (prestito non presente nel sistema);
 endif
 stop
 @enduml

@@ -1,6 +1,6 @@
 @startuml
-'skinparam classAttributeIconSize 0
 skinparam nodesep 100
+scale 1400*1400
 
 interface Filtro<T> {
     +controlla(): boolean
@@ -41,40 +41,40 @@ together {
     +getArchivioLibri(): Indicizzabile<ISBN, Libro>
     +getArchivioPrestiti(): Archiviabile<Prestito>
 
-    +registraPrestito(): void
-    +registraRestituzione(): void
-
     +salvaFile(): void
     +caricaFile(): Biblioteca {static}
 }
 
-+abstract class Gestore<E> {
-    #lista: List<E>
++abstract class GestoreOrdinato<E> {
+    -lista: List<E>
+
+    +GestoreOrdinato()
 }
 
 together {
-    +class GestoreLibri extends Gestore {
-
+    +class GestoreLibri extends GestoreOrdinato {
         -indiceISBN: Map<ISBN, Libro> {readOnly}
 
         +GestoreLibri()
     }
 
 
-    +class GestoreUtenti extends Gestore {
-        -indiceMatricola: Map<Matricola, Utente> {readOnly}
+    +class GestoreUtenti extends GestoreOrdinato {
+        -indiceMatricole: Map<Matricola, Utente> {readOnly}
 
         +GestoreUtenti()
     }
 
 
-    +class GestorePrestiti extends Gestore {
+    +class GestorePrestiti extends GestoreOrdinato {
+        -archivioUtenti: Indicizzabile<Matricola, Utente>
+        -archivioLibri: Indicizzabile<ISBN, Libro>
 
         +GestorePrestiti()
     }
 }
 
-Gestore -up-|> Archiviabile
+GestoreOrdinato -up-|> Archiviabile
 
 Biblioteca --> Archiviabile
 Biblioteca --> Indicizzabile
@@ -85,7 +85,9 @@ Archiviabile .right.> Filtro
 GestoreLibri .up.|> Indicizzabile
 GestoreUtenti .up.|> Indicizzabile
 
-GestoreUtenti --> "1..*" Utente
-GestoreLibri --> "1..*" Libro
-GestorePrestiti --> "1..*" Prestito
+GestorePrestiti -left-> Indicizzabile
+
+GestoreUtenti --> "0..*" Utente
+GestoreLibri --> "0..*" Libro
+GestorePrestiti --> "0..*" Prestito
 @enduml

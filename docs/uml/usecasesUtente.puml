@@ -6,7 +6,6 @@ left to right direction
 actor Gestore as G
 
 package Sistema {
-    usecase "Visualizzazione della home page" as UC1
     usecase "Visualizzazione dell'elenco degli utenti" as UC5
     usecase "Registrazione di un utente" as UC6
     usecase "Modifica dei dati di un utente" as UC7
@@ -15,9 +14,9 @@ package Sistema {
 
     usecase "Matricola duplicata" as UCA1
     usecase "E-Mail non valida" as UCA2
+    usecase "Utente con prestiti attivi" as UCA3
 }
 
-UC5 ..> UC1 : <<include>>
 
 UC6 ..> UC5 : <<include>>
 UC7 ..> UC5 : <<include>>
@@ -28,6 +27,7 @@ UC6 <.. UCA1 : <<extend>>
 UC7 <.. UCA1 : <<extend>>
 UC6 <.. UCA2 : <<extend>>
 UC7 <.. UCA2 : <<extend>>
+UC8 <.. UCA3 : <<extend>>
 
 G -- UC6
 G -- UC7

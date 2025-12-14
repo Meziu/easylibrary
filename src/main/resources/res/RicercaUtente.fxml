@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label text="Cognome">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Label>
+        <TextField fx:id="ricercaCognomeField" promptText="Cognome">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </TextField>
+        <Label text="Matricola">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Label>
+        <TextField fx:id="ricercaMatricolaField" promptText="Matricola">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </TextField>
+    </children>
+</VBox>

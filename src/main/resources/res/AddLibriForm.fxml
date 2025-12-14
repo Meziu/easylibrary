@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="CENTER" hgap="20.0" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+    </rowConstraints>
+    <children>
+        <Label text="Titolo:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="titoloField" promptText="Inserisci il titolo del libro" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Label text="Autori:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#inserisciAutori" text="Inserisci Autori" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label text="ISBN:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="isbnField" promptText="Inserisci il codice ISBN" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label layoutX="10.0" layoutY="15.0" text="Anno di pubblicazione:" GridPane.rowIndex="3" />
+        <Label text="Numero di copie:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <Spinner fx:id="copieField" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <Spinner fx:id="annoField" editable="true" layoutX="154.0" layoutY="148.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+    </children>
+</GridPane>

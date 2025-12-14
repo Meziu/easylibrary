@@ -6,6 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 find "$SCRIPT_DIR" -type f -name "*.puml" | while read -r file; do
     echo "Processing: $file"
     plantuml -tsvg "$file"
+    plantuml -tpng "$file"
 done
 
 # Generazione PDF in Latex

@@ -3,38 +3,62 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.unisa.diem.softeng.easylibrary.dati.libri;
+package it.unisa.diem.softeng.easylibrary.archivio;
 
-import it.unisa.diem.softeng.easylibrary.archivio.ValoreNonPresenteException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
-import it.unisa.diem.softeng.easylibrary.archivio.Archiviabile;
 
 /**
  *
- * @brief Gestore generico di archivio.
- * 
- * @param <E> Classe degli elementi archiviati.
+ * @brief Gestore di archivio basato su lista ordinata.
+ *
+ * @param <E> Classe degli elementi archiviati. Implementa l'interfaccia
+ * Comparable<E> usata per definire l'ordine naturale degli elementi.
+ *
  */
-public abstract class Gestore<E extends Comparable<? super E>> implements Archiviabile<E> {
-    
-    protected final List<E> lista;
+public abstract class GestoreOrdinato<E extends Comparable<? super E>> implements Archiviabile<E> {
 
-    public Gestore() {
+    /**
+     * @brief Lista di elementi del gestore.
+     *
+     * @invariant La lista di elementi deve rimanere sempre ordinata per il
+     * criterio di ordinamento naturale del tipo elemento <E> (per interfaccia
+     * Comparable).
+     */
+    private final List<E> lista;
+
+    public GestoreOrdinato() {
         lista = new ArrayList<>();
     }
 
+    /**
+     * @brief Restituisce la lista completa degli elementi nell'archivio.
+     *
+     * @invariant La lista restituita è ordinata secondo l'ordine naturale degli
+     * elementi.
+     *
+     * @see Archiviabile.getLista()
+     */
     @Override
     public List<E> getLista() {
         return Collections.unmodifiableList(lista);
     }
 
+    /**
+     *
+     * @param el Elemento da registrare.
+     *
+     * @invariant La lista di appoggio è ordinata secondo l'ordine naturale
+     * degli elementi.
+     *
+     * @see Archiviabile.registra()
+     */
     @Override
     public void registra(E el) {
         int idx = Collections.binarySearch(lista, el);
-        
+
         // BinarySearch ritorna valori positivi se trova il valore, o (- posizione di inserimento - 1)
         // se non lo trova. In ogni caso, noi vogliamo inserire immediatamente dopo un prestito trovato
         // o nel punto di inserimento restituito.
@@ -51,22 +75,30 @@ public abstract class Gestore<E extends Comparable<? super E>> implements Archiv
         lista.remove(idx);
     }
 
+    /**
+     * @brief Modifica degli elementi.
+     *
+     * @invariant La lista di appoggio è ordinata secondo l'ordine naturale
+     * degli elementi.
+     *
+     * @see Archiviabile.modifica()
+     */
     @Override
     public void modifica(E elemento, Consumer<E> c) {
         int idx_remove = Collections.binarySearch(lista, elemento);
         if (idx_remove < 0 || idx_remove >= lista.size()) {
             throw new ValoreNonPresenteException();
         }
-        
+
         E el = lista.get(idx_remove);
-        
+
         lista.remove(idx_remove);
-        
+
         // Applica modifiche dal consumer.
         c.accept(el);
-        
+
         int idx_insert = Collections.binarySearch(lista, el);
         lista.add(Math.abs(idx_insert + 1), el);
     }
-    
+
 }
