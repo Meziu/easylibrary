@@ -22,7 +22,7 @@ public class Libro implements Comparable<Libro>, Serializable {
 
     private String titolo; ///< Titolo del libro
     private List<Autore> autori; ///<  Lista degli autori del libro.
-    private Year annoPubblicazione; ///< Anno di pubblicazione del libro.
+    private int annoPubblicazione; ///< Anno di pubblicazione del libro.
     private final ISBN isbn; ///< Codice ISBN del libro.
     private int copieDisponibili; ///< Numero di copie disponibili del libro.
 
@@ -56,14 +56,13 @@ public class Libro implements Comparable<Libro>, Serializable {
             throw new IllegalArgumentException("Numero di copie negativo");
         }
 
-        Year anno = Year.of(annoPubblicazione);
-        if (anno.isAfter(Year.now())) {
+        if (annoPubblicazione >= Year.now().getValue()) {
             throw new IllegalArgumentException("Anno di pubblicazione nel futuro");
         }
 
         this.titolo = titolo;
         this.autori = new ArrayList<>(autori);
-        this.annoPubblicazione = anno;
+        this.annoPubblicazione = annoPubblicazione;
         this.isbn = isbn;
         this.copieDisponibili = copieDisponibili;
     }
@@ -95,7 +94,7 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @return Anno di pubblicazione.
      */
     public int getAnnoPubblicazione() {
-        return annoPubblicazione.getValue();
+        return annoPubblicazione;
     }
 
     
@@ -160,7 +159,7 @@ public class Libro implements Comparable<Libro>, Serializable {
         if (anno.isAfter(Year.now())) {
             throw new IllegalArgumentException("Anno di pubblicazione nel futuro");
         }
-        this.annoPubblicazione = Year.of(annoPubblicazione);
+        this.annoPubblicazione = annoPubblicazione;
     }
     
     /**
