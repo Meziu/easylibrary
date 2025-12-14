@@ -4,18 +4,14 @@ import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
 import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmail;
-import it.unisa.diem.softeng.easylibrary.dati.utenti.IndirizzoEmailInvalidoException;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
-import java.io.IOException;
 import java.util.stream.Collectors;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
+import javafx.collections.FXCollections;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.Alert;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.stage.Stage;
 
 
 public class UtentiPageController extends DataPageController<Utente, RicercaUtenteController, UtenteAddController> {
@@ -103,5 +99,12 @@ public class UtentiPageController extends DataPageController<Utente, RicercaUten
 
         // Carica gli utenti
         setItems(utenti.getLista());
+    }
+    
+    @Override
+    protected void initializeFiltro() {
+        this.table.itemsProperty().bind(Bindings.createObjectBinding(() -> {
+                return FXCollections.observableList(utenti.filtra(ricercaController.new FiltroUtenti()));
+            }, ricercaController.ricercaCognomeField.textProperty(), ricercaController.ricercaMatricolaField.textProperty()));
     }
 }

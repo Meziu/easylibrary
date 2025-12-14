@@ -62,6 +62,8 @@ public abstract class DataPageController<T, RC, AC extends DataAddController<?>>
             return;
         }
     }
+    
+    protected abstract void initializeFiltro();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -69,6 +71,7 @@ public abstract class DataPageController<T, RC, AC extends DataAddController<?>>
         
         initializeColonne();
         initializeRicerca();
+        initializeFiltro();
     }
 
     /** Per riempire la tabella */

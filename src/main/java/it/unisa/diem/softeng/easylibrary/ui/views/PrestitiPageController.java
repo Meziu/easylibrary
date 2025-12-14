@@ -5,11 +5,14 @@ import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
 import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
 import it.unisa.diem.softeng.easylibrary.dati.prestiti.Prestito;
+import it.unisa.diem.softeng.easylibrary.dati.prestiti.StatoPrestito;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Matricola;
 import it.unisa.diem.softeng.easylibrary.dati.utenti.Utente;
 import java.time.LocalDate;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 
@@ -75,5 +78,18 @@ public class PrestitiPageController extends DataPageController<Prestito, Ricerca
 
         // Carica i libri
         setItems(prestiti.getLista());
+    }
+    
+    @Override
+    protected void initializeFiltro() {
+        this.table.itemsProperty().bind(Bindings.createObjectBinding(() -> {
+            return FXCollections.observableList(prestiti.filtra(p -> {
+                if (ricercaController.mostraPrestitiAttivi.isSelected()) {
+                    return p.getStato() == StatoPrestito.ATTIVO;
+                } else {
+                    return true;
+                }
+            }));
+        }, ricercaController.mostraPrestitiAttivi.selectedProperty()));
     }
 }

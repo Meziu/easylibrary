@@ -4,8 +4,10 @@ import it.unisa.diem.softeng.easylibrary.archivio.Indicizzabile;
 import it.unisa.diem.softeng.easylibrary.dati.libri.ISBN;
 import it.unisa.diem.softeng.easylibrary.dati.libri.Libro;
 import it.unisa.diem.softeng.easylibrary.ui.views.RicercaLibroController.FiltroLibri;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
@@ -17,8 +19,7 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
 
     private Indicizzabile<ISBN, Libro> libri;
 
-
-    public LibriPageController(VisualizzatorePagine vp, Indicizzabile<ISBN, Libro> libri){
+    public LibriPageController(VisualizzatorePagine vp, Indicizzabile<ISBN, Libro> libri) {
         super(libri, vp, new RicercaLibroController(), "Libri", "/res/RicercaLibro.fxml", new LibroAddController(libri));
 
         this.libri = libri;
@@ -34,14 +35,14 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
 
         TableColumn<Libro, Object> autoriCol = new TableColumn<>("Autori");
         autoriCol.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue()));
-        autoriCol.setCellFactory(col -> new TableCell<Libro, Object> () {
+        autoriCol.setCellFactory(col -> new TableCell<Libro, Object>() {
 
             final Button btn = new Button("Visualizza autori");
 
             @Override
             public void updateItem(Object o, boolean empty) {
                 super.updateItem(o, empty);
-                
+
                 if (empty) {
                     setGraphic(null);
                     setText(null);
@@ -83,7 +84,9 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
         titoloCol.setOnEditCommit((TableColumn.CellEditEvent<Libro, String> e) -> {
             Libro l = e.getRowValue();
 
-            libri.modifica(l, (libroTrovatoNellArchivio) -> { libroTrovatoNellArchivio.setTitolo(e.getNewValue()); });
+            libri.modifica(l, (libroTrovatoNellArchivio) -> {
+                libroTrovatoNellArchivio.setTitolo(e.getNewValue());
+            });
         });
 
         // autori
@@ -91,7 +94,9 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
         annoCol.setOnEditCommit((TableColumn.CellEditEvent<Libro, String> e) -> {
             Libro l = e.getRowValue();
 
-            libri.modifica(l, (libro) -> { libro.setAnnoPubblicazione(Integer.parseInt(e.getNewValue())); });
+            libri.modifica(l, (libro) -> {
+                libro.setAnnoPubblicazione(Integer.parseInt(e.getNewValue()));
+            });
         });
 
         copieCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
@@ -105,27 +110,32 @@ public class LibriPageController extends DataPageController<Libro, RicercaLibroC
                     throw new NumberFormatException();
                 }
 
-                libri.modifica(l, (libro) -> { libro.setCopieDisponibili(newValue); });
+                libri.modifica(l, (libro) -> {
+                    libro.setCopieDisponibili(newValue);
+                });
 
             } catch (NumberFormatException ex) {
-                libri.modifica(l, (libro) -> { libro.setCopieDisponibili(e.getOldValue()); });
+                libri.modifica(l, (libro) -> {
+                    libro.setCopieDisponibili(e.getOldValue());
+                });
 
                 new Alert(Alert.AlertType.ERROR, "Il numero di copie deve essere un intero positivo o zero.").show();
             }
         });
-        
+
 
         /*rc.ricercaTitoloField.textProperty().addListener((obs, oldV, newV) -> filtro());
         rc.ricercaAutoreField.textProperty().addListener((obs, oldV, newV) -> filtro());
         rc.ricercaISBNField.textProperty().addListener((obs, oldV, newV) -> filtro());*/
-
         // Carica i libri
-        setItems(libri.getLista());
-
+        setItems(libri.getLista());        
     }
-
-    public void filtro() {
-        FiltroLibri filtro = ricercaController.new FiltroLibri();
-        setItems(libri.filtra(filtro));
+    
+    @Override
+    protected void initializeFiltro() {
+        // Filtro
+        this.table.itemsProperty().bind(Bindings.createObjectBinding(() -> {
+            return FXCollections.observableList(libri.filtra(ricercaController.new FiltroLibri()));
+        }, ricercaController.ricercaTitoloField.textProperty(), ricercaController.ricercaAutoreField.textProperty(), ricercaController.ricercaISBNField.textProperty()));
     }
 }
