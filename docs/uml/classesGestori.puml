@@ -45,28 +45,28 @@ together {
     +caricaFile(): Biblioteca {static}
 }
 
-+abstract class Gestore<E> {
++abstract class GestoreOrdinato<E> {
     -lista: List<E>
 
-    +Gestore()
+    +GestoreOrdinato()
 }
 
 together {
-    +class GestoreLibri extends Gestore {
+    +class GestoreLibri extends GestoreOrdinato {
         -indiceISBN: Map<ISBN, Libro> {readOnly}
 
         +GestoreLibri()
     }
 
 
-    +class GestoreUtenti extends Gestore {
+    +class GestoreUtenti extends GestoreOrdinato {
         -indiceMatricole: Map<Matricola, Utente> {readOnly}
 
         +GestoreUtenti()
     }
 
 
-    +class GestorePrestiti extends Gestore {
+    +class GestorePrestiti extends GestoreOrdinato {
         -archivioUtenti: Indicizzabile<Matricola, Utente>
         -archivioLibri: Indicizzabile<ISBN, Libro>
 
@@ -74,7 +74,7 @@ together {
     }
 }
 
-Gestore -up-|> Archiviabile
+GestoreOrdinato -up-|> Archiviabile
 
 Biblioteca --> Archiviabile
 Biblioteca --> Indicizzabile
