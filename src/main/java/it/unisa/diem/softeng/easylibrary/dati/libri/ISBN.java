@@ -32,6 +32,9 @@ public final class ISBN implements Comparable<ISBN>, Serializable {
      *
      */
     public ISBN(String isbn) {
+        if (isbn == null || isbn.trim().isEmpty()) {
+            throw new IllegalArgumentException("ISBN nullo o vuoto");
+        }
         isbn = isbn.replaceAll("-", ""); // rimuove eventuali trattini
         
         if (verifica(isbn)) {
