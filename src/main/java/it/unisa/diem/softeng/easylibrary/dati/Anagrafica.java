@@ -25,6 +25,12 @@ public class Anagrafica implements Comparable<Anagrafica>, Serializable {
      * @param\[in] cognome Stringa di caratteri del cognome.
      */
     public Anagrafica(String nome, String cognome) {
+        if (nome == null || nome.isEmpty()) {
+            throw new IllegalArgumentException("Nome nullo o vuoto");
+        }
+        if (cognome == null || cognome.isEmpty()) {
+            throw new IllegalArgumentException("Cognome nullo o  vuoto");
+        }
         this.nome = nome;
         this.cognome = cognome;
     }
@@ -53,6 +59,9 @@ public class Anagrafica implements Comparable<Anagrafica>, Serializable {
      * @param\[in] nome La stringa di caratteri con cui sostituire il nome della Anagrafica.
      */
     public void setNome(String nome) {
+        if (nome == null || nome.isEmpty()) {
+            throw new IllegalArgumentException("Nome nullo o vuoto");
+        }
         this.nome = nome;
     }
 
@@ -62,6 +71,9 @@ public class Anagrafica implements Comparable<Anagrafica>, Serializable {
      * @param\[in] cognome La stringa di caratteri con cui sostituire il cognome della Anagrafica.
      */
     public void setCognome(String cognome) {
+        if (cognome == null || cognome.isEmpty()) {
+            throw new IllegalArgumentException("Cognome nullo o vuoto");
+        }
         this.cognome = cognome;
     }
 
