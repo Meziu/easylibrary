@@ -156,4 +156,9 @@ public class BibliotecaTest {
     public void testCaricaFileInesistente() {
         assertThrows(IOException.class, () -> { Biblioteca.caricaFile("file_che_non_esiste.dat"); });
     }
+    
+    @Test
+    public void testCaricaFileNull() {
+        assertThrows(NullPointerException.class, () -> { Biblioteca.caricaFile(null); });
+    }
 }
