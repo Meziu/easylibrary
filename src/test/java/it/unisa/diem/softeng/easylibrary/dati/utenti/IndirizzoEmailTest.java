@@ -24,8 +24,20 @@ public class IndirizzoEmailTest {
         IndirizzoEmail e = new IndirizzoEmail("m.rossi@studenti.unisa.it");
         assertEquals("m.rossi@studenti.unisa.it", e.getIndirizzoEmail());
     }
-
     
+    public void testCostruzioneEmailNull() {
+        assertThrows(IndirizzoEmailInvalidoException.class, ()
+                -> new IndirizzoEmail(null)
+        );
+    }
+    
+    @Test
+    public void testCostruzioneEmailVuota() {
+        assertThrows(IndirizzoEmailInvalidoException.class, ()
+                -> new IndirizzoEmail("")
+        );
+    }
+
     
     /*
     *   VERIFICA
@@ -42,19 +54,16 @@ public class IndirizzoEmailTest {
     }
 
     @Test
-    public void testCostruzioneParteLocaleNonValida() {
-        assertFalse(IndirizzoEmail.verifica("ros&#si@studenti.unisa.it")); 
+    public void testVerificaParteLocaleNonValida() {
+        assertFalse(IndirizzoEmail.verifica("ros@&#si@studenti.unisa.it")); 
     }
     
     @Test
-    public void testCostruzioneParteLocaleVuota() {
+    public void testVerificaParteLocaleVuota() {
         assertFalse(IndirizzoEmail.verifica("@studenti.unisa.it")); 
     }
     
-    @Test
-    public void testCostruzioneEmailVuota() {
-        assertFalse(IndirizzoEmail.verifica("")); 
-    }
+
     
     
     /* 
@@ -74,6 +83,20 @@ public class IndirizzoEmailTest {
     public void testSetIndirizzoEmail() {
         email.setIndirizzoEmail("m.verdi@studenti.unisa.it");
         assertEquals("m.verdi@studenti.unisa.it", email.getIndirizzoEmail());
+    }
+    
+    @Test
+    public void testSetEmailNull() {
+        assertThrows(IndirizzoEmailInvalidoException.class, ()
+                -> email.setIndirizzoEmail(null)
+        );
+    }
+    
+    @Test
+    public void testSetEmailVuota() {
+        assertThrows(IndirizzoEmailInvalidoException.class, ()
+                -> email.setIndirizzoEmail("")
+        );
     }
 
 }
