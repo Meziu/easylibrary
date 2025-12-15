@@ -13,6 +13,12 @@ UI -> B : getArchivioPrestiti()
 activate B
 B --> UI : Restituzione elenco prestiti
 deactivate B
+UI -> A : getLista()
+activate A
+A --> UI : Restituzione lista dei libri
+deactivate A
+
+
 UI -> G : Visualizzazione dell'elenco dei prestiti
 activate G
 

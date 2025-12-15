@@ -27,9 +27,9 @@ activate G
 G -> UI : Seleziona campo da modificare
 
 note right
-I campi di titolo, autori e numero di copie sono
-modificabili in modo simile usando la flessibilità
-di Consumer.
+I campi di titolo, autori, anno di pubblicazione
+e numero di copie sono modificabili in modo
+simile usando la flessibilità di Consumer.
 endnote
 
 G -> UI : Inserisce nuovo valore
