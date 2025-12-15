@@ -110,7 +110,7 @@ necessari per ottenere lo stato degli utenti data la \emph{Matricola} (e dei lib
 }
 
 \subsubsection{Scelte progettuali}
-\paragraph{} Le scelte di progettazione compiute nell'ambito dati sono state pensate al fine di aumentare il livello di coesione e diminuire il livello di accoppiamento tra le diverse strutture dati. Ogni classe raggruppa attributi e metodi strettamente correlati al proprio scopo, aderendo al principio di \emph{separazione delle preoccupazioni}. Inoltre, per le specifiche di \emph{Biblioteca} e \emph{GestoreOrdinato}, tutte le classi esposte in questa sezione implementano le interfaccie standard \emph{java.io.Serializable} e \emph{java.util.Comparable} (eccetto).
+\paragraph{} Le scelte di progettazione compiute nell'ambito dati sono state pensate al fine di aumentare il livello di coesione e diminuire il livello di accoppiamento tra le diverse strutture dati. Ogni classe raggruppa attributi e metodi strettamente correlati al proprio scopo, aderendo al principio di \emph{separazione delle preoccupazioni}. Inoltre, per le specifiche di \emph{Biblioteca} e \emph{GestoreOrdinato}, tutte le classi esposte in questa sezione implementano le interfaccie standard \emph{java.io.Serializable} e \emph{java.util.Comparable}.
 \paragraph{} Al fine di evitare \emph{accoppiamento per timbro}, anzichè mantenere riferimenti
 ad altri oggetti dati in modo diretto, si è preferito (ove possibile) mantenere riferimenti a chiavi univoche,
 come nel caso di \emph{Prestito}, che contiene riferimenti a \emph{Matricola} e ad \emph{ISBN}, anzichè ad \emph{Utente} e a \emph{Libro}. L'unico caso in cui ciò non è stato possibile è l'associazione da
