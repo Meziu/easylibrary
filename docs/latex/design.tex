@@ -46,12 +46,10 @@
 \section{Introduzione}
 \subsection{Scopo del documento}
 Lo scopo di questo di questo documento è di descrivere la progettazione del livello di dettaglio
-del sistema software EasyLibrary. Il documento rappresenta la mappa per
-l'implementazione del software al fine di utilizzata dagli sviluppatori durante il processo di implementazione.
+del sistema software EasyLibrary. Il documento costituisce una guida per l’implementazione del software ed è destinato a supportare gli sviluppatori durante l’intero processo di sviluppo.
 Nel documento sono presenti descrizioni per i principali componenti del sistema EasyLibrary
 e esposizioni delle scelte di progettazione che hanno portato alla loro formalizzazione.
-I diagrammi di sequenza sono utilizzati per dimostrare il funzionamento dinamico del sistema e per
-descriverne con precisione i meccanismi di implementazione agli sviluppatori.
+I diagrammi di sequenza sono utilizzati per dimostrare il funzionamento dinamico del sistema e per descriverne con precisione i meccanismi di implementazione agli sviluppatori.
 
 \subsection{Processo di Progettazione}
 Completata la fase di analisi, è stato innanzitutto disegnato un diagramma UML generale delle classi
@@ -88,18 +86,21 @@ Poiché tali eccezioni non influenzano la progettazione strutturale delle classi
 
 \subsubsection{Scelte progettuali}
 \paragraph{} Come mostrato nel diagramma delle classi, la distribuzione delle responsabilità funzionali dell’applicativo segue una struttura ad albero. Tale organizzazione è stata progettata per ridurre le interdipendenze tra le varie sezioni del sistema, in modo da favorire l'\emph{ortogonalità}, secondo il principio della \emph{separazione delle preoccupazioni}, in modo da migliorare la coesione dei
-singoli componenti software. La radice dell'albero è la classe \emph{Biblioteca}, composta da diversi archivi
-di dati che può orchestrare per compiere azioni complesse o globali.
+singoli componenti software. La radice dell'albero è la classe \emph{Biblioteca}, composta dai
+diversi archivi di dati correlati.
+Al fine di poter salvare le informazioni della \emph{Biblioteca} nel file di appoggio specificato,
+tutto l'albero delle classi deve implementare l'interfaccia standard \emph{java.io.Serializable}.
+Questo requisito non è stato specificato nei diagrammi delle classi per motivi di leggibilità.
 \paragraph{} Dai requisiti analizzati si è potuto riconoscere un insieme di funzionalità
 comuni alle 3 principali collezioni di dati (archivio di utenti, libri e prestiti).
 Le funzionalità comuni sono state estratte in un interfaccia,
 \emph{Archiviabile}, che permette la registrazione, rimozione e modifica di
 dati generici. Per gli archivi con indice univoco (utenti e libri), è inoltre disponibile un ulteriore interfaccia \emph{Indicizzabile}, estensione di \emph{Archiviabile}, che permette l'ottenimento diretto di un valore tramite chiave. Questa impostazione consente di applicare il \emph{principio di inversione delle dipendenze}, rendendo \emph{Biblioteca} dipendente da astrazioni piuttosto che da implementazioni concrete. Le classi che realizzano gli archivi possono così essere sostituite o estese senza impattare sul livello superiore.
-\paragraph{} Le funzionalità comuni ai vari gestori sono state consolidate in una singola classe astratta, \emph{Gestore}, al fine di applicare il principio \emph{DRY} (\emph{Don’t Repeat Yourself}). Le tre specializzazioni ereditano il comportamento comune e definiscono esclusivamente le parti specifiche, contribuendo a ridurre la complessità del codice e a mantenere la progettazione semplice, in accordo con il principio \emph{KISS} (\emph{Keep It Simple}).
+\paragraph{} Le funzionalità comuni ai vari gestori sono state consolidate in una singola classe astratta, \emph{GestoreOrdinato}, al fine di applicare il principio \emph{DRY} (\emph{Don’t Repeat Yourself}). La classe \emph{GestoreOrdinato} implementa le funzionalità di registrazione, rimozione e modifica per elementi ordinati in una lista secondo il loro ordine naturale. Le tre specializzazioni ereditano il comportamento comune e definiscono esclusivamente le parti specifiche, contribuendo a ridurre la complessità del codice e a mantenere la progettazione semplice, in accordo con il principio \emph{KISS} (\emph{Keep It Simple}).
 \paragraph{} L'unica classe di gestione che richiede più informazioni della semplice lista di dati è \emph{GestorePrestiti}. Per compiere i controlli di validità, è necessario che il gestore dei
 prestiti abbia disponibile le informazioni di contesto sugli utenti e sui libri presenti nel sistema.
 Nonostante ciò, anzichè creare dipendenza tra le varie classi, si è deciso di associare a \emph{GestorePrestiti} riferimenti all'interfaccia \emph{Indicizzabile}, che possiede tutti i servizi
-necessari per ottenere lo stato degli utenti data la \emph{Matricola} (e dei libri, dato l'\emph{ISBN}). Ciò permette di mantenere un ottima \emph{ortogonalità} tra i diversi archivi.
+necessari per ottenere lo stato degli utenti data la \emph{Matricola} (e dei libri, dato l'\emph{ISBN}). Ciò permette di mantenere un'ottima \emph{ortogonalità} tra i diversi archivi.
 \paragraph{} Infine, un rigoroso uso dell’incapsulamento ha permesso di minimizzare l’accoppiamento tra le classi e di nascondere i dettagli implementativi, aumentando la robustezza e l’estensibilità del sistema.
 
 \newpage
@@ -109,7 +110,7 @@ necessari per ottenere lo stato degli utenti data la \emph{Matricola} (e dei lib
 }
 
 \subsubsection{Scelte progettuali}
-\paragraph{} Le scelte di progettazione compiute nell'ambito dati sono state pensate al fine di aumentare il livello di coesione e abbassare il livello di accoppiamento tra le diverse strutture dati. Ogni classe raggruppa attributi e metodi strettamente correlati al proprio scopo, aderendo al principio di \emph{separazione delle preoccupazioni}. 
+\paragraph{} Le scelte di progettazione compiute nell'ambito dati sono state pensate al fine di aumentare il livello di coesione e diminuire il livello di accoppiamento tra le diverse strutture dati. Ogni classe raggruppa attributi e metodi strettamente correlati al proprio scopo, aderendo al principio di \emph{separazione delle preoccupazioni}. Inoltre, per le specifiche di \emph{Biblioteca} e \emph{GestoreOrdinato}, tutte le classi esposte in questa sezione implementano le interfaccie standard \emph{java.io.Serializable} e \emph{java.util.Comparable}.
 \paragraph{} Al fine di evitare \emph{accoppiamento per timbro}, anzichè mantenere riferimenti
 ad altri oggetti dati in modo diretto, si è preferito (ove possibile) mantenere riferimenti a chiavi univoche,
 come nel caso di \emph{Prestito}, che contiene riferimenti a \emph{Matricola} e ad \emph{ISBN}, anzichè ad \emph{Utente} e a \emph{Libro}. L'unico caso in cui ciò non è stato possibile è l'associazione da

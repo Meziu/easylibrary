@@ -58,7 +58,7 @@ G -> UI : Conferma la registrazione
 deactivate G
 
 ' ----- Invio dati a Sistema -----
-UI -> U : new Utente(nome,cognome,email,matricola)
+UI -> U : new Utente(nome,cognome,matricola,email)
 activate U
 U -> UI : nuovo Utente
 deactivate U

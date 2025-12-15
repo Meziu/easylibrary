@@ -24,7 +24,7 @@ UI -> G : Mostra l'elenco dei libri
 
 activate G
 '-- Ricerca del libro --
-G -> UI : Inserimento dell'ISBN del\nlibro e/o del titolo\nnei campi di ricerca
+G -> UI : Inserimento dell'ISBN del\nlibro e/o del titolo e/o dell'autore\nnei campi di ricerca
 deactivate G
 UI -> A : filtra(filtroLibri : Filtro<Libro>)
 activate A
