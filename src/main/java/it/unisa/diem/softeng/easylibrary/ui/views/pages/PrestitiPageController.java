@@ -84,6 +84,7 @@ public class PrestitiPageController extends DataPageController<Prestito, Ricerca
                 });
 
                 setItems(prestiti.getLista());
+                initializeFiltro();
             }
         });
 
